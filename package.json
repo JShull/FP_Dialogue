@@ -1,0 +1,29 @@
+{
+    "name": "com.fuzzphyte.dialogue",
+    "version": "0.2.0",
+    "displayName": "FP Dialogue",
+    "description": "FP Dialogue is a base set of two scriptable object classes.",
+    "unity": "2022.3",
+    "unityRelease": "13f1",
+    "documentationUrl": "https://github.com/jshull/FP_Dialogue/README.md",
+    "changelogUrl": "https://github.com/jshull/FP_Dialogue/CHANGELOG.md",
+    "licensesUrl": "https://github.com/jshull/FP_Dialogue/LICENSE.md",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/jshull/FP_Dialogue.git"
+    },
+    "dependencies": {
+      "com.fuzzphyte.utility": "https://github.com/JShull/FP_Utility.git",
+      "com.fuzzphyte.utility.edu":"https://github.com/JShull/FP_Utility_EDU.git"
+    },
+    "keywords": [
+      "ScriptableObject",
+      "FuzzPhyte"
+    ],
+    "author": {
+      "name": "John Shull",
+      "email": "the.john.shull@gmail.com",
+      "url": "https://github.com/jshull"
+    },
+    "type": "tool"
+  }
