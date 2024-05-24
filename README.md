@@ -1,12 +1,12 @@
 # FuzzPhyte Unity Tools
 
-## Utility
+## Dialogue
 
-FP_Utility is designed and built to be a simple set of base classes to be used in almost all future FuzzPhyte packages. There is an element of Scriptable Object and an element of just simple input/output functions as well as some core scripts timed to timers etc.
+Dialogue is setup to do simple chaining of dialogue. Most current Unity based dialogue systems are usually overly complicated or are a little too simple. This currently meets right above simple with the ability to get more complex. Currently uses the UI Toolkit and procedurally instantiates UI elements from scriptable objects containing various dialogue needs. 
 
 ## Setup & Design
 
-FP_Utility is not much by itself and is designed to allow extensions and/or inheritance for other work. An example of this is the FP_Notification.cs file. This is a super simple class that a lot of other projects will be derived from.
+More information coming soon!
 
 ### Software Architecture
 
