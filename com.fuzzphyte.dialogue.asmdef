@@ -2,9 +2,9 @@
     "name": "com.fuzzphyte.dialogue",
     "rootNamespace": "FuzzPhyte.Dialogue",
     "references": [
-        "GUID:b2274f1409ce26f40919f89f9d4f667c",
-        "GUID:d7075075b36ee9241b8aa7f358c8db76",
-        "GUID:c11ed4f333cda2e458506817f9aa71a2"
+        "com.fuzzphyte.ui",
+        "com.fuzzphyte.utility.edu",
+        "com.fuzzphyte.utility"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
