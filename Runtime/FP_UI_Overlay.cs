@@ -170,16 +170,16 @@ namespace FuzzPhyte.Dialogue.UI
             conversationData.Add(tempNotification);
             var vocabRoot = VocabDetails.Word;
             var vocabDesc = VocabDetails.Word;
-            if (VocabDetails.Details.Count > 0)
-            {
-                vocabDesc = string.Concat(new string[] { VocabDetails.Word, ":", " ",VocabDetails.Details[0].Definition });
+            //if (VocabDetails.Details.Count > 0)
+            //{
+                vocabDesc = string.Concat(new string[] { VocabDetails.Word, ":", " ",VocabDetails.Definition });
                 FP_OverlayNotification internalNotification = ScriptableObject.CreateInstance<FP_OverlayNotification>();
                 internalNotification.OverlayStatus = false;
                 internalNotification.OverlayDuration = 4;
                 internalNotification.OverlayObjective= vocabDesc;
                 internalNotification.OverlayTaskType= OverlayType.Vocabulary;
                 conversationData.Add(internalNotification);
-            }
+            //}
             FP_Dialogue tempDialogue = ScriptableObject.CreateInstance<FP_Dialogue>();
             FP_EDU_Character tempChar = ScriptableObject.CreateInstance<FP_EDU_Character>();
             tempDialogue.AutoScrollConversation = true;
@@ -630,6 +630,7 @@ namespace FuzzPhyte.Dialogue.UI
         {
             RemoveStyleToVisualElement(OverlayContainer, HideClass);
         }
+        [Obsolete("Use the UIProgressBar function instead")]
         private void UpdateDialogueProgressBar(int indexValue)
         {
             float ratioConversation = (1 - ((indexValue + 1) / (_currentDialogue.ConversationData.Count * 1f)));
