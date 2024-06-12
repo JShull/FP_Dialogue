@@ -14,7 +14,7 @@ namespace FuzzPhyte.Dialogue
     
     [Serializable]
     [CreateAssetMenu(fileName = "DialogueData", menuName = "FuzzPhyte/Dialogue/Conversation", order = 4)]
-    public class FP_Dialogue : FP_Notification
+    public class FP_Dialogue : FP_Data
     {
         [Tooltip("Our base character reference")]
         public FP_EDU_Character Character;
