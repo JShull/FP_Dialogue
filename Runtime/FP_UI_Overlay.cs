@@ -181,9 +181,9 @@ namespace FuzzPhyte.Dialogue.UI
                 conversationData.Add(internalNotification);
             }
             FP_Dialogue tempDialogue = ScriptableObject.CreateInstance<FP_Dialogue>();
-            FP_Character tempChar = ScriptableObject.CreateInstance<FP_Character>();
+            FP_EDU_Character tempChar = ScriptableObject.CreateInstance<FP_EDU_Character>();
             tempDialogue.AutoScrollConversation = true;
-            tempChar.CharacterGender = CC_Gender.Robot;
+            tempChar.CharacterGender = FP_Gender.Robot;
             tempChar.CharacterTheme = displayDetails;
             tempChar.CharacterName = "Vocab Word";
             tempDialogue.Character = tempChar;
@@ -196,8 +196,8 @@ namespace FuzzPhyte.Dialogue.UI
         /// <summary>
         /// Using the base dialogue block we can take the card data and present it here in a front/back scenario
         /// </summary>
-        /// <param name="CardDetails"></param>
-        public void StartCardDialogueConversion(FP_CoderCards CardDetails)
+        /// <param name="MiscDetails"></param>
+        public void StartCardDialogueConversion(FP_CoderCards MiscDetails)
         {
             //convert to a CC_Dialogue instance via procedural and just following standard 'conversation details'
             
@@ -205,18 +205,18 @@ namespace FuzzPhyte.Dialogue.UI
             FP_OverlayNotification tempNotificationFront = ScriptableObject.CreateInstance<FP_OverlayNotification>();
             tempNotificationFront.OverlayStatus = false;
             tempNotificationFront.OverlayDuration = 3f;
-            tempNotificationFront.OverlayObjective = CardDetails.Description;
-            tempNotificationFront.OverlayTaskType = OverlayType.CardDetails;
-            tempNotificationFront.OverlayVisualData = CardDetails.CardPrefabRef;
+            tempNotificationFront.OverlayObjective = MiscDetails.Description;
+            tempNotificationFront.OverlayTaskType = OverlayType.MiscDetails;
+            tempNotificationFront.OverlayVisualData = MiscDetails.CardPrefabRef;
 
             conversationData.Add(tempNotificationFront);
 
             FP_OverlayNotification tempNotificationBack = ScriptableObject.CreateInstance<FP_OverlayNotification>();
             tempNotificationBack.OverlayStatus = false;
             tempNotificationBack.OverlayDuration = 3f;
-            tempNotificationBack.OverlayObjective = CardDetails.BackCardDescription;
-            tempNotificationBack.OverlayTaskType = OverlayType.CardDetails;
-            tempNotificationBack.OverlayVisualData = CardDetails.CardPrefabRef;
+            tempNotificationBack.OverlayObjective = MiscDetails.BackCardDescription;
+            tempNotificationBack.OverlayTaskType = OverlayType.MiscDetails;
+            tempNotificationBack.OverlayVisualData = MiscDetails.CardPrefabRef;
 
             conversationData.Add(tempNotificationBack);
             
@@ -224,9 +224,9 @@ namespace FuzzPhyte.Dialogue.UI
             FP_Dialogue tempDialogue = ScriptableObject.CreateInstance<FP_Dialogue>();
             FP_Character tempChar = ScriptableObject.CreateInstance<FP_Character>();
             tempDialogue.AutoScrollConversation = false;
-            tempChar.CharacterGender = CC_Gender.Robot;
-            tempChar.CharacterTheme = CardDetails.CardTheme;
-            tempChar.CharacterName = CardDetails.NameOfCard;
+            tempChar.CharacterGender = FP_Gender.Robot;
+            tempChar.CharacterTheme = MiscDetails.CardTheme;
+            tempChar.CharacterName = MiscDetails.NameOfCard;
             tempDialogue.Character = tempChar;
             tempDialogue.TheDialogueType = FP_DialogueType.Linear;
             tempDialogue.ConversationData = conversationData;
@@ -322,7 +322,7 @@ namespace FuzzPhyte.Dialogue.UI
                 DialogueContainer.Add(tempElement);
                 DialoguePlaceholderList.Add(tempElement);
                 //if its a card we want to show the object if we have a reference to it in close
-                if(curData.OverlayTaskType == OverlayType.CardDetails)
+                if(curData.OverlayTaskType == OverlayType.MiscDetails)
                 {
                     if (curData.OverlayVisualData != null)
                     {
@@ -431,7 +431,7 @@ namespace FuzzPhyte.Dialogue.UI
             if (_dialogueIndex+1 < DialoguePlaceholderList.Count)
             {
                 //3D spawned item
-                if (_currentDialogue.ConversationData[_dialogueIndex].OverlayTaskType == OverlayType.CardDetails)
+                if (_currentDialogue.ConversationData[_dialogueIndex].OverlayTaskType == OverlayType.MiscDetails)
                 {
                     spawnedVisuals[_dialogueIndex].SetActive(false);
                     spawnedVisuals[_dialogueIndex+1].SetActive(true);
@@ -515,7 +515,7 @@ namespace FuzzPhyte.Dialogue.UI
             if (_dialogueIndex - 1 >= 0)
             {
                 //3D spawned item
-                if(_currentDialogue.ConversationData[_dialogueIndex].OverlayTaskType == OverlayType.CardDetails)
+                if(_currentDialogue.ConversationData[_dialogueIndex].OverlayTaskType == OverlayType.MiscDetails)
                 {
                     spawnedVisuals[_dialogueIndex].SetActive(false);
                     spawnedVisuals[_dialogueIndex-1].SetActive(true);

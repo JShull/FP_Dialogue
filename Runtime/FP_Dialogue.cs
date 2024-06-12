@@ -17,7 +17,7 @@ namespace FuzzPhyte.Dialogue
     public class FP_Dialogue : FP_Notification
     {
         [Tooltip("Our base character reference")]
-        public FP_Character Character;
+        public FP_EDU_Character Character;
         [Tooltip("This will then utilize the time values within the CC_OverlayNotification")]
         public bool AutoScrollConversation;
         public List<FP_OverlayNotification> ConversationData;
