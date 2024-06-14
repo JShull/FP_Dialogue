@@ -9,6 +9,8 @@ namespace FuzzPhyte.Dialogue
     [CreateAssetMenu(fileName = "Dialogue Block", menuName = "FuzzPhyte/Dialogue/Dialogue Block", order = 6)]
     public class DialogueBlock : FP_Data
     {
+        [Tooltip("Only if we need it - mainly for a header above the dialogue text")]
+        public string DialogueHeader;
         [TextArea(2,4)]
         public string DialogueText;
         [Tooltip("Language of the dialogue - for references later if needed")]

@@ -4,7 +4,8 @@
     "references": [
         "com.fuzzphyte.ui",
         "com.fuzzphyte.utility.edu",
-        "com.fuzzphyte.utility"
+        "com.fuzzphyte.utility",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
