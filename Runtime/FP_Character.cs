@@ -10,6 +10,8 @@ namespace FuzzPhyte.Dialogue
     {
         public string CharacterName;
         public FP_Gender CharacterGender;
+        public FP_Ethnicity CharacterEthnicity;
+        public FP_Multilingual CharacterLanguages;
         public FP_Theme CharacterTheme;
         public int CharacterAge;
     }
