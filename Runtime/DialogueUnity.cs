@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 namespace FuzzPhyte.Dialogue
@@ -9,46 +10,85 @@ namespace FuzzPhyte.Dialogue
     {
         [Tooltip("The core data for this dialogue")]
         public DialogueBase MainDialogueData;
-
+        public bool TestingData;
         public int DialogueIndex = 0;
+        [SerializeField]
         private Canvas canvasRef;
-        
+        [SerializeField]
+        private string clientID;
+        public string ClientID { get { return clientID; } }
         [Tooltip("The prefab to spawn for the UI dialogue block with content references as needed")]
         public GameObject UIDialoguePrefab;
-        public List<GameObject> DialogueBlockList = new List<GameObject>();
-        #region Delegate Events and Requirements
-        public delegate void DialogueDelegate(DialogueEventData dialogueData);
+        private UIDialogueBase uiDialogueRef;
 
-        public event DialogueDelegate DialogueStartEvent;
-        public event DialogueDelegate DialogueNextButtonEvent;
-        public event DialogueDelegate DialoguePreviousButtonEvent;
-        public event DialogueDelegate DialogueUserPromptEvent;
-        public event DialogueDelegate DialogueEndEvent;
-        #endregion
-
-        public void SetupDialogue(Canvas theCanvasToUse)
+        public void Awake()
         {
+            //testing
+            
+            if(TestingData&&MainDialogueData != null)
+            {
+                SetupDialogue(canvasRef, clientID);
+            }
+            
+        }
+        //Assuming we are starting from the beginning of the conversation data block inside the DialogueBase object
+        public void SetupDialogue(Canvas theCanvasToUse,string userID)
+        {
+            DialogueIndex = 0;
+            clientID = userID;
             //setup all spawnable UI items and cache them
             canvasRef = theCanvasToUse;
-            //spawn all the UI items
-            //cache them
-            //set index
+            //spawn my initial UI item and populate it with the first batch of data using the DialogueBase object data and then turn it off as we aren't activated yet  
+            var blockUI = Instantiate(UIDialoguePrefab, canvasRef.transform);
+            //this blockUI should be the full size of the canvas via rectTransform adjustments
+            //adjust rectTransform to fit the canvas
+
+            blockUI.GetComponent<RectTransform>().localPosition = Vector3.zero;
+            blockUI.GetComponent<RectTransform>().localRotation = Quaternion.identity;
+            blockUI.GetComponent<RectTransform>().localScale = Vector3.one;
+            blockUI.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+            blockUI.GetComponent<RectTransform>().anchorMin = Vector2.zero;
+            blockUI.GetComponent<RectTransform>().anchorMax = Vector2.one;
+            blockUI.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
+            
+            
+
+
+            if (!blockUI.GetComponent<UIDialogueBase>())
+            {
+                Debug.LogError($"We are missing a major component for the UIDialoguePrefab: {UIDialoguePrefab.name}");
+                return;
+            }
+            uiDialogueRef = blockUI.GetComponent<UIDialogueBase>();
+            uiDialogueRef.Setup(MainDialogueData.Character, MainDialogueData.ConversationData[DialogueIndex], this);
+
+            //
 
         }
         public void ActivateDialogue()
         {
             //show whatever UI based on the index
         }
-        public void UINextButtonPushed()
+        
+        #region Stubouts for Dialogue Status and Navigation
+        public bool PreviousDialogueAvailable()
         {
-            //check if we are at the end of the dialogue
-            //activate next dialogue if there is one
+            return DialogueIndex > 0;
         }
-        public void UIPreviousButtonPushed()
+        public bool NextDialogueAvailable()
         {
-            //check if we are at the beginning of the dialogue
-            //activate previous dialogue if there is one
+            return DialogueIndex < MainDialogueData.ConversationData.Count - 1;
+        }
+        public bool LastDialogue()
+        {
+            return DialogueIndex == MainDialogueData.ConversationData.Count - 1;
+        }
+        #endregion
 
-        } 
+        //delegate functions here in this region?
+        #region Delegate Functions
+        
+        #endregion
+
     }
 }

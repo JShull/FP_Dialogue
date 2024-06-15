@@ -18,6 +18,7 @@ namespace FuzzPhyte.Dialogue
     public struct DialogueUserResponse
     {
         public string ResponseText;
+        public Sprite ResponseIcon;
         [Tooltip("If we need to check inventory for an item")]
         public FP_Data InventoryUniqueObjectID;
     }
