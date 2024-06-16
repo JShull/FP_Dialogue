@@ -9,16 +9,16 @@ namespace FuzzPhyte.Dialogue
     [CreateAssetMenu(fileName = "Dialogue Block", menuName = "FuzzPhyte/Dialogue/Dialogue Block", order = 6)]
     public class DialogueBlock : FP_Data
     {
-        [Tooltip("Only if we need it - mainly for a header above the dialogue text")]
-        public string DialogueHeader;
-        [TextArea(2,4)]
-        public string DialogueText;
-        [Tooltip("Language of the dialogue - for references later if needed")]
-        public FP_Language DialogueLanguage;
-        public FP_Audio DialogueAudio;
+        [Header("Dialogue Information")]
+        public ConvoTranslation OriginalLanguage;
+        [Space]
+        public ConvoTranslation TranslatedLanguage;
+        [Space]
+        [Header("Animation Related Parameters")]
         public EmotionalState DialogueEmoState;
         public DialogueState OverallDialogueState;
         public MotionState DialogueMotionState;
+        [Space]
         [Tooltip("Assume this is normally empty and usually only at the end of a conversation with a response prompt needed")]
         public List<DialogueUserResponse> PossibleUserResponses;
         [Header("Other Information")]

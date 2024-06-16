@@ -52,10 +52,12 @@ namespace FuzzPhyte.Dialogue
             //header & Dialogue Text
             DialogueTextContainer.UpdateHeaderTextFormat(header1Font);
             DialogueTextContainer.UpdateReferenceTextFormat(paragraphFont);
-            DialogueTextContainer.UpdateReferenceText(conversationBlock.DialogueText);
-            if (conversationBlock.DialogueHeader != string.Empty)
+            //will have to modify based on target language either using the original or translation text
+
+            DialogueTextContainer.UpdateReferenceText(conversationBlock.OriginalLanguage.Text);
+            if (conversationBlock.OriginalLanguage.Header != string.Empty)
             {
-                DialogueTextContainer.UpdateHeaderText(conversationBlock.DialogueHeader);
+                DialogueTextContainer.UpdateHeaderText(conversationBlock.OriginalLanguage.Header);
             }
             
             //character
@@ -99,7 +101,9 @@ namespace FuzzPhyte.Dialogue
             {
                 DialogueAudioSource.Stop();
             }
-            DialogueAudioSource.clip = conversationBlock.DialogueAudio.AudioClip;
+            // audio clip will have to be driven by the above chosen language as we have two areas to pick from - original /translation
+
+            DialogueAudioSource.clip = conversationBlock.OriginalLanguage.AudioText.AudioClip;
         }
         private void ChangeUserResponseFormat()
         {
