@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using System.Linq;
-using FuzzPhyte.Utility;
-using TMPro;
 namespace FuzzPhyte.Dialogue
 {
-    public class UIDialogueBase : MonoBehaviour, IDialogueActions
+    using System.Collections;
+    using System.Collections.Generic;
+    using UnityEngine;
+    using UnityEngine.UI;
+    using System.Linq;
+    using FuzzPhyte.Utility;
+    using FuzzPhyte.UI;
+    using TMPro;
+    using System;
+    public class UIDialogueBase :MonoBehaviour, IDialogueActions
     {
         public UIDialogueButton NextButton;
         public UIDialogueButton PreviousButton;
@@ -39,8 +41,8 @@ namespace FuzzPhyte.Dialogue
         public void SetupDialoguePanel(FP_Character character, DialogueBlock conversationBlock,DialogueUnity fullDialogueData)
         {
             dialogueLocalManager = fullDialogueData;
-            //resize if we need to here
-            //use the character theme to set the colors and fonts
+            // resize if we need to here
+            // use the character theme to set the colors and fonts
             // header 1 = DialogueTextContainer
             // query through the font settings to find the right one that matches the header 1
 
@@ -60,13 +62,22 @@ namespace FuzzPhyte.Dialogue
                 DialogueTextContainer.UpdateHeaderText(conversationBlock.OriginalLanguage.Header);
             }
             
-            //character
+            // main container updates
+            MainContainer.UpdateBackdropColor(character.CharacterTheme.MainColor);
+            //this is the masked area graphics that is usually white - we generally want to match this with our backdrop
+            MainContainer.UpdateRefIconColor(character.CharacterTheme.MainColor);
+            // character
             CharacterContainer.UpdateReferenceTextFormat(header2Font);
             CharacterContainer.UpdateReferenceText(character.CharacterName);
             CharacterContainer.UpdateBackdropColor(character.CharacterTheme.MainColor);
             CharacterContainer.UpdateRefIconSprite(character.CharacterTheme.Icon);
 
-            //default setup - we assume we know nothing and there's a next action
+            // progress bar
+            ProgressBarContainer.UpdateBackdropColor(character.CharacterTheme.TertiaryColor);
+            ProgressBarContainer.UpdateRefIconColor(character.CharacterTheme.SecondaryColor);
+            var progressBarRatio = dialogueLocalManager.ProgressBarWrapper();
+            ProgressBarContainer.UpdateFillAmount(progressBarRatio);
+            // default setup - we assume we know nothing and there's a next action
             ChangeNormalResponseFormat();
             // if we have a previous action - we should turn it on/off based on if it exists
             PreviousActionAvailability(dialogueLocalManager.PreviousDialogueAvailable());
@@ -84,7 +95,7 @@ namespace FuzzPhyte.Dialogue
                     if (userPrompt.GetComponent<UIDialogueButton>())
                     {
                         var setupCode = userPrompt.GetComponent<UIDialogueButton>();
-                        setupCode.SetupUserResponse(response);
+                        setupCode.SetupUserResponse(response,this);
                         setupCode.UpdateReferenceText(response.ResponseText);
                         setupCode.UpdateRefIconSprite(response.ResponseIcon);
                         //need to create the button onClick event and probably notify DialogueUnity here by creating and passing a DialogueEventData object
@@ -111,7 +122,7 @@ namespace FuzzPhyte.Dialogue
                 }
             }
         }
-        #region Generic Convo States/Functions
+        #region Conversation States/Functions
         public void NextButtonAction()
         {
             ClearUserResponses();
@@ -136,7 +147,7 @@ namespace FuzzPhyte.Dialogue
                 dialogueLocalManager.UIFinishDialogueAction();
             }
         }
-        public void UserButtonAction(DialogueUserResponse userResponse)
+        public void UserButtonAction(DialogueResponse userResponse)
         {
             if (dialogueLocalManager != null)
             {

@@ -9,17 +9,9 @@ namespace FuzzPhyte.Dialogue
     public struct DialogueEventData 
     {
         public string UserID;
-        public DialogueUserResponse PotentialUserResponse;
+        public DialogueResponse PotentialUserResponse;
         public DialogueBase DialogueDataRef;
         public DialogueBlock DialogueBlockDataRef;
     }
-    //struct for user response data
-    [Serializable]
-    public struct DialogueUserResponse
-    {
-        public string ResponseText;
-        public Sprite ResponseIcon;
-        [Tooltip("If we need to check inventory for an item")]
-        public FP_Data InventoryUniqueObjectID;
-    }
+    
 }

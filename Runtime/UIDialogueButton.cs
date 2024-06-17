@@ -1,6 +1,7 @@
 namespace FuzzPhyte.Dialogue
 {
     using UnityEngine.UI;
+    using FuzzPhyte.Utility;
 
     //class primarily handles button actions for the dialogue system
     
@@ -11,10 +12,10 @@ namespace FuzzPhyte.Dialogue
         private bool previousButton = false;
         private bool finishButton = false;
         private bool userPromptButton = false;
-        private DialogueUserResponse userDataResponse;
+        private DialogueResponse userDataResponse;
         private UIDialogueBase dialogueDataBase;
         #region Interface Implementation
-        public void SetupUserResponse(DialogueUserResponse userResponse, UIDialogueBase dialogueBase = null)
+        public void SetupUserResponse(DialogueResponse userResponse, UIDialogueBase dialogueBase = null)
         {
             if(dialogueBase != null)
             {

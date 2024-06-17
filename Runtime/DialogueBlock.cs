@@ -1,10 +1,8 @@
 namespace FuzzPhyte.Dialogue
 {
-    using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
     using FuzzPhyte.Utility;
-    using UnityEditor.EditorTools;
 
     [CreateAssetMenu(fileName = "Dialogue Block", menuName = "FuzzPhyte/Dialogue/Dialogue Block", order = 6)]
     public class DialogueBlock : FP_Data
@@ -20,7 +18,7 @@ namespace FuzzPhyte.Dialogue
         public MotionState DialogueMotionState;
         [Space]
         [Tooltip("Assume this is normally empty and usually only at the end of a conversation with a response prompt needed")]
-        public List<DialogueUserResponse> PossibleUserResponses;
+        public List<DialogueResponse> PossibleUserResponses;
         [Header("Other Information")]
         [Space]
         [Tooltip("If we want this to be part of the top left running list of tasks")]

@@ -33,15 +33,9 @@ MonoBehaviour:
   OverallDialogueState: 1
   DialogueMotionState: 1
   PossibleUserResponses:
-  - ResponseText: No
-    ResponseIcon: {fileID: 21300000, guid: 37349936dec73f74a88bad20237e2d27, type: 3}
-    InventoryUniqueObjectID: {fileID: 0}
-  - ResponseText: Yes
-    ResponseIcon: {fileID: 21300000, guid: 37349936dec73f74a88bad20237e2d27, type: 3}
-    InventoryUniqueObjectID: {fileID: 0}
-  - ResponseText: Maybe
-    ResponseIcon: {fileID: 21300000, guid: 37349936dec73f74a88bad20237e2d27, type: 3}
-    InventoryUniqueObjectID: {fileID: 0}
+  - {fileID: 11400000, guid: d2500a449227048afbb2b0d4fe6c42e4, type: 2}
+  - {fileID: 11400000, guid: 403d17fcb397d489392cf435617dbfd4, type: 2}
+  - {fileID: 11400000, guid: 558672480b9d94ea39b6cb4da80f4aff, type: 2}
   OverlayTaskType: 3
   OverlayDuration: 2
   DelayBeforeOverlay: 0

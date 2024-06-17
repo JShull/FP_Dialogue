@@ -1,20 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.PackageManager;
-using UnityEngine;
 
 namespace FuzzPhyte.Dialogue
 {
-    //JOHN
+    using System.Collections;
+    using System.Collections.Generic;
+    using FuzzPhyte.UI;
+    using UnityEditor.PackageManager;
+    using UnityEngine;
+    using FuzzPhyte.Utility;
+    // JOHN Notes 6-17-2024
     // still need to work up how we activate and deactivate
-    // progress bar needs to be updated
-    // parent of user response buttons isn't right
     // this will probably be by event/proximity
-    // so if we leave from a conversation in the middle we can come back to that point
-    // also need a way to activate the actions on the UIDialogueBase class to start playing audio etc.
-    //Mono class to hold all of our data and various connections for runtime needs of passing that data around via the FP_Dialogue_Manager
-    public class DialogueUnity : MonoBehaviour
+    // so if we leave from a conversation in the middle we can come back to that point    
+    // What is this: Mono class to hold all of our data and various connections for runtime needs of passing that data around via the FP_Dialogue_Manager
+    public class DialogueUnity : FP_UI
     {
+        [Space]
+        [Header("DIALOGUE DATA")]
         [Tooltip("The core data for this dialogue")]
         public DialogueBase MainDialogueData;
         public bool TestingData;
@@ -41,10 +42,11 @@ namespace FuzzPhyte.Dialogue
         #endregion
 
         #region Unity Methods - generally for Testing
-        public void Awake()
+        public override void Awake()
         {
-            //testing
             
+            base.Awake();
+            //testing
             if(TestingData&&MainDialogueData != null)
             {
                 SetupDialogue(canvasRef, clientID);
@@ -105,6 +107,11 @@ namespace FuzzPhyte.Dialogue
             }
             
 
+        }
+        //return the 0-1 progress bar value as needed for UI updates
+        public float ProgressBarWrapper()
+        {
+            return UIProgressBar(DialogueIndex, MainDialogueData.ConversationData.Count);
         }
         /// <summary>
         /// called via some external event based maybe on proximity and/or the manager
@@ -177,7 +184,7 @@ namespace FuzzPhyte.Dialogue
             }
             dialogueActive = false;
         }
-        public void UIUserPromptAction(DialogueUserResponse userResponse)
+        public void UIUserPromptAction(DialogueResponse userResponse)
         {
             //this is a user prompt, we need to wait for a user input to continue
             //will have to filter through the data to see where to go next
@@ -188,9 +195,15 @@ namespace FuzzPhyte.Dialogue
                 DialogueBlockDataRef = MainDialogueData.ConversationData[DialogueIndex],
                 PotentialUserResponse = userResponse
             });
+            Debug.LogWarning($"JOHN: we would assume that our inventory is listening for this event and will update accordingly");
+            if(userResponse.FinishDialogue)
+            {
+                UIFinishDialogueAction();
+            }
+            
         }
         
-        #region Stubouts for Dialogue Status and Navigation
+        #region Stubs for Dialogue Status and Navigation
         public bool PreviousDialogueAvailable()
         {
             return DialogueIndex > 0;

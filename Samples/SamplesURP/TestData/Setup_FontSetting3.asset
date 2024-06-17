@@ -15,7 +15,7 @@ MonoBehaviour:
   UniqueID: Test_Paragraph_Juan
   Label: 6
   Font: {fileID: 11400000, guid: 6241df63c5c124139b0ae7f834c1fb72, type: 2}
-  MinSize: 6
-  MaxSize: 24
+  MinSize: 12
+  MaxSize: 48
   UseAutoSizing: 1
   FontColor: {r: 0, g: 0, b: 0, a: 1}
