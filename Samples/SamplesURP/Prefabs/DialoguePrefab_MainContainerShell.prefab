@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 7939528649703795381}
   - component: {fileID: 2735072214955519911}
   - component: {fileID: 2826299327072299539}
+  - component: {fileID: 972554360408410087}
   m_Layer: 5
   m_Name: UI_PreviousButton
   m_TagString: Untagged
@@ -196,6 +197,23 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &972554360408410087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104043293340364949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363530b73f488244eb2c803536cbe87c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Background: {fileID: 0}
+  RefIcon: {fileID: 2735072214955519911}
+  RefHeader: {fileID: 0}
+  RefText: {fileID: 1150003223072530026}
+  TheButton: {fileID: 2826299327072299539}
 --- !u!1 &2122654102821858661
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,6 +226,7 @@ GameObject:
   - component: {fileID: 3091172897770770083}
   - component: {fileID: 8622724403768538303}
   - component: {fileID: 6962936948868762850}
+  - component: {fileID: 8281881259370178865}
   m_Layer: 5
   m_Name: UI_FinishButton
   m_TagString: Untagged
@@ -317,6 +336,23 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8281881259370178865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122654102821858661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363530b73f488244eb2c803536cbe87c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Background: {fileID: 0}
+  RefIcon: {fileID: 8622724403768538303}
+  RefHeader: {fileID: 0}
+  RefText: {fileID: 7859051611227413320}
+  TheButton: {fileID: 6962936948868762850}
 --- !u!1 &2404840014166781720
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,9 +671,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4637a3fd907d20b4aa424c5a2a6b73c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextButton: {fileID: 6465694105221892496}
-  PreviousButton: {fileID: 2826299327072299539}
-  FinishButton: {fileID: 6962936948868762850}
+  NextButton: {fileID: 7291832779586275708}
+  PreviousButton: {fileID: 972554360408410087}
+  FinishButton: {fileID: 8281881259370178865}
   UserPromptButtonPrefab: {fileID: 7995855623031098250, guid: c148a49213f284c419904d6c59b7b2fc, type: 3}
   UserPromptButtonParentContainer: {fileID: 5867781200912379316}
   MainContainer: {fileID: 622009244242653859}
@@ -665,8 +701,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 5
-  MaxDistance: 15
+  MinDistance: 200
+  MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1402,6 +1438,7 @@ GameObject:
   - component: {fileID: 8656367811195098538}
   - component: {fileID: 1535997990067168068}
   - component: {fileID: 6465694105221892496}
+  - component: {fileID: 7291832779586275708}
   m_Layer: 5
   m_Name: UI_NextButton
   m_TagString: Untagged
@@ -1511,6 +1548,23 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7291832779586275708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6151193208932570315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363530b73f488244eb2c803536cbe87c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Background: {fileID: 0}
+  RefIcon: {fileID: 1535997990067168068}
+  RefHeader: {fileID: 0}
+  RefText: {fileID: 5865812695947641469}
+  TheButton: {fileID: 6465694105221892496}
 --- !u!1 &6726262614431164728
 GameObject:
   m_ObjectHideFlags: 0

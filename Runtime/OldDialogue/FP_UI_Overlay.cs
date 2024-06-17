@@ -96,7 +96,7 @@ namespace FuzzPhyte.Dialogue.UI
         private FP_PassedEvent _passedEvent;
         
         //Interface needs
-        //Setup
+        //SetupDialoguePanel
         //Update Vocabulary
         //Start Dialogue Model Type 1
         //Start Dialogue Model Type 2

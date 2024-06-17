@@ -18,4 +18,4 @@ MonoBehaviour:
   MinSize: 10
   MaxSize: 72
   UseAutoSizing: 1
-  FontColor: {r: 0, g: 0, b: 0, a: 1}
+  FontColor: {r: 1, g: 0, b: 0, a: 1}

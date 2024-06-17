@@ -27,7 +27,7 @@ MonoBehaviour:
     Text: Hi! My name is John, and this is a conversation!
     AudioText:
       AudioClip: {fileID: 8300000, guid: ab984936414cef849b231cacd8d28ea0, type: 3}
-      URLAudioType: 0
+      URLAudioType: 13
       URLReference: 
   DialogueEmoState: 1
   OverallDialogueState: 1

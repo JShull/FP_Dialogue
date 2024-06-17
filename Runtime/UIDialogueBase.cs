@@ -7,11 +7,11 @@ using FuzzPhyte.Utility;
 using TMPro;
 namespace FuzzPhyte.Dialogue
 {
-    public class UIDialogueBase : MonoBehaviour
+    public class UIDialogueBase : MonoBehaviour, IDialogueActions
     {
-        public Button NextButton;
-        public Button PreviousButton;
-        public Button FinishButton;
+        public UIDialogueButton NextButton;
+        public UIDialogueButton PreviousButton;
+        public UIDialogueButton FinishButton;
         [Tooltip("Generic GameObject for user prompts")]
         public UIDialogueButton UserPromptButtonPrefab;
         public RectTransform UserPromptButtonParentContainer;
@@ -36,7 +36,7 @@ namespace FuzzPhyte.Dialogue
         #endregion
         private DialogueUnity dialogueLocalManager;
        
-        public void Setup(FP_Character character, DialogueBlock conversationBlock,DialogueUnity fullDialogueData)
+        public void SetupDialoguePanel(FP_Character character, DialogueBlock conversationBlock,DialogueUnity fullDialogueData)
         {
             dialogueLocalManager = fullDialogueData;
             //resize if we need to here
@@ -80,10 +80,11 @@ namespace FuzzPhyte.Dialogue
                 for(int i = 0; i < conversationBlock.PossibleUserResponses.Count; i++)
                 {
                     var response = conversationBlock.PossibleUserResponses[i];
-                    var userPrompt = Instantiate(UserPromptButtonPrefab.gameObject, MainContainer.transform);
+                    var userPrompt = Instantiate(UserPromptButtonPrefab.gameObject, UserPromptButtonParentContainer);
                     if (userPrompt.GetComponent<UIDialogueButton>())
                     {
                         var setupCode = userPrompt.GetComponent<UIDialogueButton>();
+                        setupCode.SetupUserResponse(response);
                         setupCode.UpdateReferenceText(response.ResponseText);
                         setupCode.UpdateRefIconSprite(response.ResponseIcon);
                         //need to create the button onClick event and probably notify DialogueUnity here by creating and passing a DialogueEventData object
@@ -91,11 +92,6 @@ namespace FuzzPhyte.Dialogue
                     }
                 }
             }
-            else
-            {
-                
-            }
-
             //audio clip setup
             if (DialogueAudioSource.isPlaying)
             {
@@ -105,6 +101,54 @@ namespace FuzzPhyte.Dialogue
 
             DialogueAudioSource.clip = conversationBlock.OriginalLanguage.AudioText.AudioClip;
         }
+        private void ClearUserResponses()
+        {
+            if(UserPromptButtonParentContainer.childCount > 0)
+            {
+                foreach(Transform child in UserPromptButtonParentContainer)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+        }
+        #region Generic Convo States/Functions
+        public void NextButtonAction()
+        {
+            ClearUserResponses();
+            if (dialogueLocalManager!=null)
+            {
+                dialogueLocalManager.UINextDialogueAction();
+            }
+        }
+        public void PreviousButtonAction()
+        {
+            ClearUserResponses();
+            if (dialogueLocalManager != null)
+            {
+                dialogueLocalManager.UIPreviousDialogueAction();
+            }
+        }
+        public void FinishButtonAction()
+        {
+            ClearUserResponses();
+            if (dialogueLocalManager != null)
+            {
+                dialogueLocalManager.UIFinishDialogueAction();
+            }
+        }
+        public void UserButtonAction(DialogueUserResponse userResponse)
+        {
+            if (dialogueLocalManager != null)
+            {
+                dialogueLocalManager.UIUserPromptAction(userResponse);
+            }
+        }
+        public void PlayDialogueBlock()
+        {
+            DialogueAudioSource.Play();
+        }
+        
+        #endregion
         private void ChangeUserResponseFormat()
         {
             UserPromptButtonParentContainer.gameObject.SetActive(true);
@@ -119,10 +163,22 @@ namespace FuzzPhyte.Dialogue
         }
         private void PreviousActionAvailability(bool status)
         {
+            if (status)
+            {
+                PreviousButton.SetupPreviousButton(this);
+            }
             PreviousButton.gameObject.SetActive(status);
         }
         private void NextActionAvailability(bool status)
         {
+            if (status)
+            {
+                NextButton.SetupNextButton(this);
+            }
+            else
+            {
+                FinishButton.SetupFinishButton(this);
+            }
             NextButton.gameObject.SetActive(status);
             FinishButton.gameObject.SetActive(!status);
         }
