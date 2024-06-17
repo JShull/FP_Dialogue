@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 814c8a5b041eb814c936bfb98799fab4, type: 3}
   m_Name: Setup_DialogueTheme
   m_EditorClassIdentifier: 
-  UniqueID: U2V0dXB8RGlhbG9ndWVUaGVtZXwwLjk3MTY5ODEsMCwwLDE=
+  UniqueID: Test_Theme_Juan
   ThemeLabel: NPC_TestTheme
   MainColor: {r: 0, g: 0.26666668, b: 0.99607843, a: 1}
   SecondaryColor: {r: 0.99607843, g: 0.7294118, b: 0.007843138, a: 1}

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0555ac47878f4f4589f62ed28188926, type: 3}
+  m_Name: Test_Welcome_Dialogue
+  m_EditorClassIdentifier: 
+  UniqueID: Test_Juan_Welcome_Dialogue_1
+  Character: {fileID: 11400000, guid: 9f10e062e789a4fbe99e8426635ef0e8, type: 2}
+  AutoScrollConversation: 0
+  ConversationData:
+  - {fileID: 11400000, guid: 3d64d65793caa9049816af9e56da4b3d, type: 2}
+  - {fileID: 11400000, guid: 483034fa9c6f7684cab1be4f989861b2, type: 2}
+  - {fileID: 11400000, guid: 05ea5fc056769484492cd438d848b5e4, type: 2}
+  - {fileID: 11400000, guid: 84f656bf70bd0fd49ba8e250cc09cb8d, type: 2}
+  NextPotentialDialogues: []
+  TheDialogueType: 0

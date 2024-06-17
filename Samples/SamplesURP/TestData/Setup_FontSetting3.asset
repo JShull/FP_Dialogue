@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd4e8e9c08db841439dd83d86df46785, type: 3}
   m_Name: Setup_FontSetting3
   m_EditorClassIdentifier: 
-  UniqueID: U2V0dXB8Rm9udFNldHRpbmczfDAuOTcxNjk4MSwwLDAsMQ==
+  UniqueID: Test_Paragraph_Juan
   Label: 6
   Font: {fileID: 11400000, guid: 6241df63c5c124139b0ae7f834c1fb72, type: 2}
   MinSize: 6

@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5765d8ecf5fc746ba294f1f49e9455, type: 3}
   m_Name: Setup_Character_BabyJ
   m_EditorClassIdentifier: 
-  UniqueID: U2V0dXB8Q2hhcmFjdGVyfDAuNDYzOTUzOSwwLjk3MjU0OSwwLDE=
-  CharacterName: Baby J
+  UniqueID: Test_Character_J
+  CharacterName: Juan
   CharacterGender: 1
-  CharacterEthnicity: 8
+  CharacterEthnicity: 3
   CharacterLanguages:
-    Primary: 1
-    Secondary: 2
+    Primary: 2
+    Secondary: 1
     Tertiary: 0
   CharacterTheme: {fileID: 11400000, guid: 645a1706970ad42ddb5a53241725d766, type: 2}
   CharacterAge: 41

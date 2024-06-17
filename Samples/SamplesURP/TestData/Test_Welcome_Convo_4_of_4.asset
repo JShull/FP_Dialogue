@@ -10,30 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96874af4e2f4e4ebb9e3b2986c3e6347, type: 3}
-  m_Name: Test_Welcome_Convo_1_of_4
+  m_Name: Test_Welcome_Convo_4_of_4
   m_EditorClassIdentifier: 
-  UniqueID: Test_Juan_Welcome_C1_4
+  UniqueID: Test_Juan_Welcome_C4_4
   OriginalLanguage:
     Language: 2
     Header: 
-    Text: "\xA1Hola! \xA1Mi nombre es Juan, y esta es una conversaci\xF3n!"
+    Text: "Cuando lo encuentres, \xA1vuelve a verme!"
     AudioText:
-      AudioClip: {fileID: 8300000, guid: 0c9c202dbb1c0ef4181bd5caaf527fc4, type: 3}
-      URLAudioType: 13
+      AudioClip: {fileID: 8300000, guid: a37594302af9ebd4f94297f3b1f22102, type: 3}
+      URLAudioType: 0
       URLReference: 
   TranslatedLanguage:
     Language: 1
     Header: 
-    Text: Hi! My name is John, and this is a conversation!
+    Text: When you find it, just come back and see me!
     AudioText:
-      AudioClip: {fileID: 8300000, guid: ab984936414cef849b231cacd8d28ea0, type: 3}
+      AudioClip: {fileID: 8300000, guid: d6c505491b222594ab1a5e582fd77b5f, type: 3}
       URLAudioType: 0
       URLReference: 
-  DialogueEmoState: 1
+  DialogueEmoState: 4
   OverallDialogueState: 1
   DialogueMotionState: 1
   PossibleUserResponses: []
   OverlayTaskType: 3
-  OverlayDuration: 3
+  OverlayDuration: 2
   DelayBeforeOverlay: 0
   MiscData: {fileID: 0}

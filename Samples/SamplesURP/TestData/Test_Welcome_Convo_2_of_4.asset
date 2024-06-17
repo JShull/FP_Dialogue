@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96874af4e2f4e4ebb9e3b2986c3e6347, type: 3}
-  m_Name: Test_Welcome_Convo_1_of_4
+  m_Name: Test_Welcome_Convo_2_of_4
   m_EditorClassIdentifier: 
-  UniqueID: Test_Juan_Welcome_C1_4
+  UniqueID: Test_Juan_Welcome_C2_4
   OriginalLanguage:
     Language: 2
     Header: 
-    Text: "\xA1Hola! \xA1Mi nombre es Juan, y esta es una conversaci\xF3n!"
+    Text: "Soy un cient\xEDfico de proyectos, \xBFpueden ayudarme a encontrar algo?"
     AudioText:
-      AudioClip: {fileID: 8300000, guid: 0c9c202dbb1c0ef4181bd5caaf527fc4, type: 3}
-      URLAudioType: 13
+      AudioClip: {fileID: 8300000, guid: ef220b53c81e00d489369fcaace1c4d9, type: 3}
+      URLAudioType: 0
       URLReference: 
   TranslatedLanguage:
     Language: 1
     Header: 
-    Text: Hi! My name is John, and this is a conversation!
+    Text: I am a project scientist, can you help me find something?
     AudioText:
-      AudioClip: {fileID: 8300000, guid: ab984936414cef849b231cacd8d28ea0, type: 3}
+      AudioClip: {fileID: 8300000, guid: 4250c5d92e0d71e4393552ecaf715033, type: 3}
       URLAudioType: 0
       URLReference: 
   DialogueEmoState: 1

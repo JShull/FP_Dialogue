@@ -12,6 +12,7 @@ namespace FuzzPhyte.Dialogue
         public DialogueBase MainDialogueData;
         public bool TestingData;
         public int DialogueIndex = 0;
+        public RectTransform DialogueContainer;
         [SerializeField]
         private Canvas canvasRef;
         [SerializeField]
@@ -34,12 +35,16 @@ namespace FuzzPhyte.Dialogue
         //Assuming we are starting from the beginning of the conversation data block inside the DialogueBase object
         public void SetupDialogue(Canvas theCanvasToUse,string userID)
         {
-            DialogueIndex = 0;
-            clientID = userID;
             //setup all spawnable UI items and cache them
-            canvasRef = theCanvasToUse;
+            if (!TestingData)
+            {
+                canvasRef = theCanvasToUse;
+                clientID = userID;
+            }
+            DialogueIndex = 0;
+            if (DialogueContainer == null) { DialogueContainer = canvasRef.GetComponent<RectTransform>();}
             //spawn my initial UI item and populate it with the first batch of data using the DialogueBase object data and then turn it off as we aren't activated yet  
-            var blockUI = Instantiate(UIDialoguePrefab, canvasRef.transform);
+            var blockUI = Instantiate(UIDialoguePrefab, DialogueContainer);
             //this blockUI should be the full size of the canvas via rectTransform adjustments
             //adjust rectTransform to fit the canvas
 
