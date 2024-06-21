@@ -1,16 +1,14 @@
 
 namespace FuzzPhyte.Dialogue
 {
-    using System.Collections;
-    using System.Collections.Generic;
     using FuzzPhyte.UI;
-    using UnityEditor.PackageManager;
     using UnityEngine;
-    using FuzzPhyte.Utility;
-    // JOHN Notes 6-17-2024
+     // JOHN Notes 6-17-2024
     // still need to work up how we activate and deactivate
     // this will probably be by event/proximity
-    // so if we leave from a conversation in the middle we can come back to that point    
+    // so if we leave from a conversation in the middle we can come back to that point
+    // need to keep track of if this is in the middle of conversation or Not
+    // this will make it easier to "lock" during network events when a user is talking to this specific NPC   
     // What is this: Mono class to hold all of our data and various connections for runtime needs of passing that data around via the FP_Dialogue_Manager
     public class DialogueUnity : FP_UI
     {
@@ -29,6 +27,8 @@ namespace FuzzPhyte.Dialogue
         [Tooltip("The prefab to spawn for the UI dialogue block with content references as needed")]
         public GameObject UIDialoguePrefab;
         private UIDialogueBase uiDialogueRef;
+        public bool DialogueActive { get { return dialogueActive; } }
+        // if in conversation "panel is up and displaying something"
         private bool dialogueActive = false;
 
         #region Delegate Setup
@@ -57,12 +57,11 @@ namespace FuzzPhyte.Dialogue
         {
             if (TestingData&&Input.GetKeyUp(KeyCode.Space) && !dialogueActive)
             {
-                dialogueActive = true;
                 ActivateDialogue();
             }
         }
         #endregion
-        //Assuming we are starting from the beginning of the conversation data block inside the DialogueBase object
+        // Assuming we are starting from the beginning of the conversation data block inside the DialogueBase object
         public void SetupDialogue(Canvas theCanvasToUse,string userID)
         {
             //setup all spawnable UI items and cache them
@@ -123,6 +122,7 @@ namespace FuzzPhyte.Dialogue
             {
                 canvasRef.enabled = true;
             }
+            dialogueActive = true;
             DialogueContainer.gameObject.SetActive(true);
             OnDialogueStart?.Invoke(new DialogueEventData()
             {
@@ -199,10 +199,8 @@ namespace FuzzPhyte.Dialogue
             if(userResponse.FinishDialogue)
             {
                 UIFinishDialogueAction();
-            }
-            
-        }
-        
+            }   
+        }        
         #region Stubs for Dialogue Status and Navigation
         public bool PreviousDialogueAvailable()
         {
