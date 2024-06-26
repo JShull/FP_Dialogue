@@ -16,7 +16,7 @@ MonoBehaviour:
   ThemeLabel: NPC_TestTheme
   MainColor: {r: 0, g: 0.26666668, b: 0.99607843, a: 1}
   SecondaryColor: {r: 0.99607843, g: 0.7294118, b: 0.007843138, a: 1}
-  TertiaryColor: {r: 0.99607843, g: 0.003921569, b: 0.7647059, a: 1}
+  TertiaryColor: {r: 0.46395388, g: 0.972549, b: 0, a: 1}
   FontSettings:
   - {fileID: 11400000, guid: 4d4ea8e009eb941e0b8b29cad9479a1b, type: 2}
   - {fileID: 11400000, guid: 2a5231fb87dae41ba9215f43c2b6d367, type: 2}
