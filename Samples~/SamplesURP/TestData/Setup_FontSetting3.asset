@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd4e8e9c08db841439dd83d86df46785, type: 3}
-  m_Name: Setup_FontSetting
+  m_Name: Setup_FontSetting3
   m_EditorClassIdentifier: 
-  UniqueID: Test_Header_One_Juan
-  Label: 0
+  UniqueID: Test_Paragraph_Juan
+  Label: 7
   Font: {fileID: 11400000, guid: 6241df63c5c124139b0ae7f834c1fb72, type: 2}
-  MinSize: 10
-  MaxSize: 72
+  MinSize: 12
+  MaxSize: 48
   UseAutoSizing: 1
-  FontColor: {r: 1, g: 0, b: 0, a: 1}
+  FontStyle: 0
+  FontAlignment: 0
+  FontColor: {r: 0, g: 0, b: 0, a: 1}
