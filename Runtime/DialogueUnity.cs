@@ -44,7 +44,6 @@ namespace FuzzPhyte.Dialogue
         #region Unity Methods - generally for Testing
         public override void Awake()
         {
-            
             base.Awake();
             //testing
             if(TestingData&&MainDialogueData != null)

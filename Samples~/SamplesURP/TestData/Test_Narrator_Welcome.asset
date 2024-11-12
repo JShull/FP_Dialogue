@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0555ac47878f4f4589f62ed28188926, type: 3}
-  m_Name: Test_Welcome_Dialogue
+  m_Name: Test_Narrator_Welcome
   m_EditorClassIdentifier: 
-  UniqueID: Test_Juan_Welcome_Dialogue_1
+  UniqueID: Test_Juan_Welcome_Dialogue_Narrator
   Character: {fileID: 11400000, guid: 9f10e062e789a4fbe99e8426635ef0e8, type: 2}
   AutoScrollConversation: 1
   ConversationData:

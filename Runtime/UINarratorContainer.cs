@@ -2,15 +2,16 @@ namespace FuzzPhyte.Dialogue
 {
     using UnityEngine;
     using UnityEngine.UI;
-    using TMPro;
     using FuzzPhyte.Utility;
+    using TMPro;
 
-    public class UIDialogueContainer : MonoBehaviour
+    public class UINarratorContainer : MonoBehaviour
     {
         public Image Background;
         public Image RefIcon;
-        public TextMeshProUGUI RefHeader;
-        public TextMeshProUGUI RefText;
+        public TMP_Text RefHeader;
+        public TMP_Text RefText;
+
 
         #region Public Modifiers
         public virtual void UpdateHeaderText(string text)
@@ -22,7 +23,7 @@ namespace FuzzPhyte.Dialogue
         }
         public virtual void UpdateReferenceText(string text)
         {
-            if(!ReferenceTextIsNullOrEmpty(RefText))
+            if (!ReferenceTextIsNullOrEmpty(RefText))
             {
                 RefText.text = text;
             }
@@ -34,7 +35,7 @@ namespace FuzzPhyte.Dialogue
                 Background.sprite = sprite;
             }
         }
-        public virtual void UpdateBackdropColor (Color color)
+        public virtual void UpdateBackdropColor(Color color)
         {
             if (!ReferenceImageIsNullOrEmpty(Background))
             {
@@ -66,7 +67,7 @@ namespace FuzzPhyte.Dialogue
         {
             if (!ReferenceTextIsNullOrEmpty(RefText))
             {
-                UpdateFontFormat(RefText, font.Font, font.FontColor,font.MinSize, font.MaxSize, font.UseAutoSizing);
+                UpdateFontFormat(RefText, font.Font, font.FontColor, font.MinSize, font.MaxSize, font.UseAutoSizing);
             }
         }
         public virtual void UpdateFillAmount(float fillAmount)
@@ -77,7 +78,7 @@ namespace FuzzPhyte.Dialogue
             }
         }
         #endregion
-        protected virtual void UpdateFontFormat(TextMeshProUGUI fontRef, TMP_FontAsset font, Color fontColor,float minFont=18f,float maxFont = 72f,bool autoSizing=false )
+        protected virtual void UpdateFontFormat(TMP_Text fontRef, TMP_FontAsset font, Color fontColor, float minFont = 18f, float maxFont = 72f, bool autoSizing = false)
         {
             fontRef.color = fontColor;
             fontRef.font = font;
@@ -85,7 +86,7 @@ namespace FuzzPhyte.Dialogue
             fontRef.fontSizeMin = minFont;
             fontRef.fontSizeMax = maxFont;
         }
-        protected virtual bool ReferenceTextIsNullOrEmpty(TextMeshProUGUI text)
+        protected virtual bool ReferenceTextIsNullOrEmpty(TMP_Text text)
         {
             //single line return if text reference is null
             return text == null;
