@@ -1,19 +1,15 @@
 namespace FuzzPhyte.Dialogue
-{
-    using System.Collections;
-    using System.Collections.Generic;
+{ 
     using UnityEngine;
-    using UnityEngine.UI;
     using System.Linq;
     using FuzzPhyte.Utility;
-    using FuzzPhyte.UI;
-    using TMPro;
-    using System;
+
     public class UIDialogueBase :MonoBehaviour, IDialogueActions
     {
         public UIDialogueButton NextButton;
         public UIDialogueButton PreviousButton;
         public UIDialogueButton FinishButton;
+        public UIDialogueButton HelpButton; //JOHN need to add this and have a way to pass an action to bind it based on 'help' data
         [Tooltip("Generic GameObject for user prompts")]
         public UIDialogueButton UserPromptButtonPrefab;
         public RectTransform UserPromptButtonParentContainer;
@@ -37,7 +33,13 @@ namespace FuzzPhyte.Dialogue
         public AudioSource DialogueAudioSource;
         #endregion
         private DialogueUnity dialogueLocalManager;
-       
+        
+        /// <summary>
+        /// Main entry poing for setting up the panel
+        /// </summary>
+        /// <param name="character">Character data</param>
+        /// <param name="conversationBlock">block of conversation data</param>
+        /// <param name="fullDialogueData">entire dialogue data ref</param>
         public void SetupDialoguePanel(FP_Character character, DialogueBlock conversationBlock,DialogueUnity fullDialogueData)
         {
             dialogueLocalManager = fullDialogueData;

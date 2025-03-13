@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 233389495}
   - component: {fileID: 233389494}
   - component: {fileID: 233389493}
+  - component: {fileID: 233389498}
   m_Layer: 5
   m_Name: Canvas_UI
   m_TagString: Untagged
@@ -155,7 +156,6 @@ MonoBehaviour:
   Document: {fileID: 0}
   DocumentStyleSheet: {fileID: 0}
   MainDialogueData: {fileID: 11400000, guid: b5e23b8f070516a4c9a5f09731c2ecc9, type: 2}
-  TestingData: 1
   DialogueIndex: 0
   DialogueContainer: {fileID: 1028821785}
   canvasRef: {fileID: 233389496}
@@ -245,6 +245,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &233389498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 233389492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d143eb35421f9aa45914dd00f8a93ca7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TestFromData: 1
+  TestKey: 32
+  CanvasTestRef: {fileID: 233389496}
+  ClientTestID: 123456789
 --- !u!224 &329581965 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2831886873592931450, guid: b50430e2a2ccb2f40a2246a165ddd182, type: 3}
@@ -600,7 +616,6 @@ MonoBehaviour:
   Document: {fileID: 0}
   DocumentStyleSheet: {fileID: 0}
   MainDialogueData: {fileID: 11400000, guid: b5e23b8f070516a4c9a5f09731c2ecc9, type: 2}
-  TestingData: 1
   DialogueIndex: 0
   DialogueContainer: {fileID: 0}
   canvasRef: {fileID: 844174386}

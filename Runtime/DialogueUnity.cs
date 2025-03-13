@@ -2,6 +2,7 @@
 namespace FuzzPhyte.Dialogue
 {
     using FuzzPhyte.UI;
+    using System;
     using UnityEngine;
      // JOHN Notes 6-17-2024
     // still need to work up how we activate and deactivate
@@ -16,13 +17,15 @@ namespace FuzzPhyte.Dialogue
         [Header("DIALOGUE DATA")]
         [Tooltip("The core data for this dialogue")]
         public DialogueBase MainDialogueData;
-        public bool TestingData;
         public int DialogueIndex = 0;
         public RectTransform DialogueContainer;
+        
         [SerializeField]
-        private Canvas canvasRef;
+        protected Canvas canvasRef;
+        public Canvas CanvasRef { get { return canvasRef; } }
         [SerializeField]
         private string clientID;
+        
         public string ClientID { get { return clientID; } }
         [Tooltip("The prefab to spawn for the UI dialogue block with content references as needed")]
         public GameObject UIDialoguePrefab;
@@ -45,30 +48,17 @@ namespace FuzzPhyte.Dialogue
         public override void Awake()
         {
             base.Awake();
-            //testing
-            if(TestingData&&MainDialogueData != null)
-            {
-                SetupDialogue(canvasRef, clientID);
-            }
-            
         }
-        public void Update()
-        {
-            if (TestingData&&Input.GetKeyUp(KeyCode.Space) && !dialogueActive)
-            {
-                ActivateDialogue();
-            }
-        }
-        #endregion
+
+#endregion
         // Assuming we are starting from the beginning of the conversation data block inside the DialogueBase object
         public void SetupDialogue(Canvas theCanvasToUse,string userID)
         {
             //setup all spawnable UI items and cache them
-            if (!TestingData)
-            {
-                canvasRef = theCanvasToUse;
-                clientID = userID;
-            }
+            
+            canvasRef = theCanvasToUse;
+            clientID = userID;
+            
             DialogueIndex = 0;
             if (DialogueContainer == null) { DialogueContainer = canvasRef.GetComponent<RectTransform>();}
             //spawn my initial UI item and populate it with the first batch of data using the DialogueBase object data and then turn it off as we aren't activated yet  
@@ -103,8 +93,6 @@ namespace FuzzPhyte.Dialogue
             {
                 canvasRef.enabled = false;
             }
-            
-
         }
         //return the 0-1 progress bar value as needed for UI updates
         public float ProgressBarWrapper()
@@ -177,10 +165,12 @@ namespace FuzzPhyte.Dialogue
                 DialogueBlockDataRef = MainDialogueData.ConversationData[DialogueIndex]
             });
             //reset data parameters to loop back over based on testing
+            /* // JOHN revisit this if we need to "loop" the conversation but do it as a data object not as a testing object
             if (TestingData)
             {
                 DialogueIndex = 0;
             }
+            */
             dialogueActive = false;
         }
         public void UIUserPromptAction(DialogueResponse userResponse)
