@@ -1,7 +1,6 @@
 namespace FuzzPhyte.Dialogue
 {
     using FuzzPhyte.Utility;
-    using UnityEditor.PackageManager;
     using UnityEngine;
 
     /// <summary>
@@ -11,7 +10,10 @@ namespace FuzzPhyte.Dialogue
     /// </summary>
     public class UIDialogueNarrator : MonoBehaviour
     {
-        public bool TestingData = true;
+        public bool DontDestroy = false;
+        public bool SetupOnStart = false;
+        protected bool isSetup = false;
+        public bool IsSetup { get { return isSetup; } }
         public string userID = "123456789";
         public static UIDialogueNarrator Instance { get; private set; }
         [Tooltip("The core data for this narrator to use in populating the narrator system")]
@@ -38,36 +40,32 @@ namespace FuzzPhyte.Dialogue
             if (Instance == null)
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
+                dialogueStatus = SequenceStatus.None;
+                if (DontDestroy)
+                {
+                    DontDestroyOnLoad(gameObject);
+                }
             }
             else
             {
                 Destroy(gameObject);
             }
-            
         }
         public virtual void Start()
         {
-            dialogueStatus = SequenceStatus.None;
-            if(NarratorData != null)
+            if (SetupOnStart)
             {
-                expectedDuration =BuildEstimatedDurationTime(NarratorData,true);
-            }
-            if (TestingData && NarratorData != null)
-            {
-                SetupNarrator(userID);
-            }
-        }
-        public virtual void Update()
-        {
-            if (TestingData)
-            {
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (NarratorData != null)
                 {
-                    StartNarrator();
+                    expectedDuration = BuildEstimatedDurationTime(NarratorData, true);
+                }
+                if (NarratorData != null)
+                {
+                    SetupNarrator(userID);
                 }
             }
         }
+       
         /// <summary>
         /// builds an estimate of time based on overlay duration information
         /// it's better to useAudioDuration if you have it
@@ -113,22 +111,32 @@ namespace FuzzPhyte.Dialogue
             }
             return totalExpectedDuration;
         }
-
-        public virtual void NewNarratorData(DialogueBase newNarratorData)
+        /// <summary>
+        /// This is a stubout for when we want to change the narrator data
+        /// goes through generic setup, can be changed to do more if needed
+        /// </summary>
+        /// <param name="newNarratorData"></param>
+        /// <returns></returns>
+        public virtual bool NewNarratorData(DialogueBase newNarratorData, string updatedUserID = "123456789")
         {
             //we aren't in the middle of playing are we?
             //if we are, throw it to our timer and queue it up
             if (dialogueStatus != SequenceStatus.Active)
             {
-
+                //we aren't in an active state
+                userID = updatedUserID;
+                NarratorData = newNarratorData;
+                expectedDuration = BuildEstimatedDurationTime(NarratorData, true);
+                SetupNarrator(userID);
+                dialogueStatus = SequenceStatus.None;
+                return true;
             }
-            else
-            {
-                //whatever state we are in we need to queue loop this
-                //FP_Timer.CCTimer.StartTimer()
-            }
-            
-            //NarratorData = newNarratorData;
+            return false;
+        }
+        [ContextMenu("Setup testing with USERID")]
+        public virtual void TestSetupNarrator()
+        {
+            SetupNarrator(userID);
         }
         public virtual void SetupNarrator(string userID)
         {
@@ -164,6 +172,7 @@ namespace FuzzPhyte.Dialogue
             {
                 NarratorContainer.gameObject.SetActive(false);
             }
+            isSetup = true;
         }
         /// <summary>
         /// Stubout for interuption to break/stop the current narration
@@ -172,9 +181,11 @@ namespace FuzzPhyte.Dialogue
         {
 
         }
+
         /// <summary>
         /// Stubout for starting the narration - assuming we have data already in
         /// </summary>
+        [ContextMenu("Test Narrator, Start Narrator")]
         public virtual void StartNarrator()
         {
             if(NarratorData == null)
@@ -211,12 +222,13 @@ namespace FuzzPhyte.Dialogue
                 DialogueDataRef = NarratorData,
                 DialogueBlockDataRef = NarratorData.ConversationData[DialogueIndex]
             });
+            dialogueStatus = SequenceStatus.Finished;
             if (NarratorContainer != null)
             {
                 NarratorContainer.gameObject.SetActive(false);
             }
         }
-        public void UINextDialogueAction()
+        public virtual void UINextDialogueAction()
         {
             if (NextDialogueAvailable())
             {
@@ -236,7 +248,7 @@ namespace FuzzPhyte.Dialogue
                 EndNarrator();
             }
         }
-        public bool NextDialogueAvailable()
+        public virtual bool NextDialogueAvailable()
         {
             return DialogueIndex < NarratorData.ConversationData.Count - 1;
         }
