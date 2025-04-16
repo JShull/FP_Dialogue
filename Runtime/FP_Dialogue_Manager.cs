@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using FuzzPhyte.Utility.Notification;
-using UnityEngine;
-
 namespace FuzzPhyte.Dialogue
 {
+
+    using System.Collections.Generic;
+    using UnityEngine;
     public class FP_Dialogue_Manager : MonoBehaviour
     {
         [Tooltip("Index of the current dialogue")]

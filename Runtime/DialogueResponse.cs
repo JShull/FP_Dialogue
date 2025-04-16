@@ -1,9 +1,6 @@
 namespace FuzzPhyte.Dialogue
 {
-    using System.Collections;
-    using System.Collections.Generic;
     using FuzzPhyte.Utility;
-    //using UnityEditor.EditorTools;
     using UnityEngine;
 
     [CreateAssetMenu(fileName = "Dialogue Response", menuName = "FuzzPhyte/Dialogue/Dialogue Response", order = 7)]

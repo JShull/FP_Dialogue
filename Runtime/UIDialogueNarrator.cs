@@ -1,7 +1,6 @@
 namespace FuzzPhyte.Dialogue
 {
     using FuzzPhyte.Utility;
-    using UnityEditor.PackageManager;
     using UnityEngine;
 
     /// <summary>
@@ -177,9 +176,9 @@ namespace FuzzPhyte.Dialogue
         /// </summary>
         public virtual void StartNarrator()
         {
-            if(NarratorData == null)
+            if(NarratorData == null || uiNarratorRef==null)
             {
-                Debug.LogError("No Narrator Data to Narrate");
+                Debug.LogError($"Either No Narrator Data to Narrate or we are missing a reference to uiNarratorRef");
                 return;
             }
             /// <summary>
@@ -200,7 +199,6 @@ namespace FuzzPhyte.Dialogue
                 DialogueBlockDataRef = NarratorData.ConversationData[DialogueIndex]
             });
             uiNarratorRef.PlayDialogueBlock();
-            
         }
 
         public virtual void EndNarrator()
