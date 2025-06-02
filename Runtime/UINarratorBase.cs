@@ -20,13 +20,14 @@ namespace FuzzPhyte.Dialogue
         [Header("Misc.")]
         
         public AudioSource DialogueAudioSource;
+        [Tooltip("If we want to use just the dialogue text without the character image or other elements")]
         [SerializeField] protected bool useJustDialogue = true;
         protected bool autoScrollDialogue = false;
         [SerializeField] protected float delayBetweenAuto = 0.4f;
-        public void SetupTextPanel(FP_Character character, DialogueBlock narratorBlock, UIDialogueNarrator fullDialogueData, bool autoScroll=false)
+        public void SetupTextPanel(FP_Character character, DialogueBlock narratorBlock, UIDialogueNarrator fullDialogueData, bool autoScroll=false,bool useJustDialoguePanel=true)
         {
             dialogueLocalManager = fullDialogueData;
-            
+            useJustDialogue = useJustDialoguePanel;
             var header1Font = character.CharacterTheme.FontSettings.FirstOrDefault(x => x.Label == FontSettingLabel.HeaderOne);
             //var header2Font = character.CharacterTheme.FontSettings.FirstOrDefault(x => x.Label == FontSettingLabel.HeaderTwo);
             //var header3Font = character.CharacterTheme.FontSettings.FirstOrDefault(x => x.Label == FontSettingLabel.HeaderThree);

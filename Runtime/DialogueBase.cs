@@ -14,6 +14,7 @@ namespace FuzzPhyte.Dialogue
         public FP_Character Character;
         [Tooltip("This will then utilize the time values within the CC_OverlayNotification")]
         public bool AutoScrollConversation;
+        public bool UseJustDialoguePanel = true; //if we want to use just the dialogue text without the character image or other elements
         [Tooltip("List of our dialogue blocks, should be at least one")]
         public List<DialogueBlock> ConversationData;
         

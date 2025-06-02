@@ -161,7 +161,7 @@ namespace FuzzPhyte.Dialogue
                 return;
             }
             uiNarratorRef = blockUI.GetComponent<UINarratorBase>();
-            uiNarratorRef.SetupTextPanel(NarratorData.Character, NarratorData.ConversationData[DialogueIndex], this,NarratorData.AutoScrollConversation);
+            uiNarratorRef.SetupTextPanel(NarratorData.Character, NarratorData.ConversationData[DialogueIndex], this,NarratorData.AutoScrollConversation,NarratorData.UseJustDialoguePanel);
             OnNarratorSetup?.Invoke(new NarratorEventData()
             {
                 UserID = userID,
@@ -196,9 +196,10 @@ namespace FuzzPhyte.Dialogue
             /// <summary>
             /// called via some external event based maybe on proximity and/or the manager
             /// </summary>
-            
+            // grab details on if we are showing the panel or not
+            var displayText = NarratorData.ConversationData[DialogueIndex].UseText;
             //show the UI panel and/or unhide it and then "start it"
-            if (NarratorContainer != null)
+            if (NarratorContainer != null && displayText)
             {
                 NarratorContainer.gameObject.SetActive(true);
             }

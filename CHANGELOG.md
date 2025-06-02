@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2025-06-02
+
+### 0.3.0 Changed
+
+- Modified `DialogueBase.cs`, `DialogueBlock.cs`, `UIDialogueNarrator.cs`, and `UINarratorBase.cs` to support three narrator modes:
+  - **Audio-only playback** without displaying text.
+  - **Simultaneous audio playback with text display**.
+  - **Passing the `JustDialoguePanel` flag** from the scriptable object data.
+
+## [0.2.0] - 2025-04-16
+
+### 0.2.0 Added
+
+- Implemented narrator example functionality.
+
+### 0.2.0 Changed
+
+- Updated `UIDialogueNarrator.cs` to enhance narrator capabilities.
+- Removed testing components and prepared the system for the upcoming help system integration.
+
+### 0.2.0 Fixed
+
+- Resolved font asset issues to ensure proper text rendering.
+
 ## [0.1.0] - 2023-11-11
 
 ### 0.1.0 Added

@@ -28,6 +28,8 @@ namespace FuzzPhyte.Dialogue
         public float DelayBeforeOverlay;
         [Tooltip("Useful for having other media content but not required")]
         public GameObject MiscData;
+        [Tooltip("If we want to display the text")]
+        public bool UseText = true;
         
     }
 }
