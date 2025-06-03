@@ -15,6 +15,7 @@ namespace FuzzPhyte.Dialogue
         [Tooltip("This will then utilize the time values within the CC_OverlayNotification")]
         public bool AutoScrollConversation;
         public bool UseJustDialoguePanel = true; //if we want to use just the dialogue text without the character image or other elements
+        public bool UseJustAudio = false; //if we want to still invoke our system but hide all of the UI elements except audio
         [Tooltip("List of our dialogue blocks, should be at least one")]
         public List<DialogueBlock> ConversationData;
         

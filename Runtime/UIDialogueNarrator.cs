@@ -2,7 +2,7 @@ namespace FuzzPhyte.Dialogue
 {
     using FuzzPhyte.Utility;
     using UnityEngine;
-
+    using UnityEngine.Events;
     /// <summary>
     /// Assumption is a linear dialogue system
     /// we use the data to generate a time based approach to the narration
@@ -25,7 +25,12 @@ namespace FuzzPhyte.Dialogue
         public GameObject UINarratorPrefab;
         protected UINarratorBase uiNarratorRef;
         public RectTransform NarratorContainer;// basically a text box with no text in it to get my rect transform that I need
-
+        [Tooltip("Any other visuals we need to manage?")]
+        public GameObject OtherNarratorContainer;
+        [Space]
+        [Header("Unity Events Tied to Text Display Setup or Not")]
+        public UnityEvent OnNarratorSetupWithText;
+        public UnityEvent OnNarratorSetupWithoutText;
         //
         #region Delegate Setup
         public delegate void NarratorEventHandler(NarratorEventData eventData);
@@ -161,16 +166,24 @@ namespace FuzzPhyte.Dialogue
                 return;
             }
             uiNarratorRef = blockUI.GetComponent<UINarratorBase>();
-            uiNarratorRef.SetupTextPanel(NarratorData.Character, NarratorData.ConversationData[DialogueIndex], this,NarratorData.AutoScrollConversation,NarratorData.UseJustDialoguePanel);
+            uiNarratorRef.SetupTextPanel(NarratorData.Character, NarratorData.ConversationData[DialogueIndex], this, NarratorData.AutoScrollConversation, NarratorData.UseJustDialoguePanel);
+
+            InternalNarratorPanelSetup(false);
+            //internal event invoke
             OnNarratorSetup?.Invoke(new NarratorEventData()
             {
                 UserID = userID,
                 DialogueDataRef = NarratorData,
                 DialogueBlockDataRef = NarratorData.ConversationData[DialogueIndex]
             });
-            if (NarratorContainer != null)
+            //unity events based on text display or not
+            if (NarratorData.ConversationData[DialogueIndex].DisplayTextPanels)
             {
-                NarratorContainer.gameObject.SetActive(false);
+                OnNarratorSetupWithText.Invoke();
+            }
+            else
+            {
+                OnNarratorSetupWithoutText.Invoke();
             }
             isSetup = true;
         }
@@ -196,13 +209,8 @@ namespace FuzzPhyte.Dialogue
             /// <summary>
             /// called via some external event based maybe on proximity and/or the manager
             /// </summary>
-            // grab details on if we are showing the panel or not
-            var displayText = NarratorData.ConversationData[DialogueIndex].UseText;
-            //show the UI panel and/or unhide it and then "start it"
-            if (NarratorContainer != null && displayText)
-            {
-                NarratorContainer.gameObject.SetActive(true);
-            }
+
+            InternalNarratorPanelSetup(true);
             dialogueStatus = SequenceStatus.Active;
             
             OnNarratorStart?.Invoke(new NarratorEventData()
@@ -233,7 +241,8 @@ namespace FuzzPhyte.Dialogue
             if (NextDialogueAvailable())
             {
                 DialogueIndex++;
-                uiNarratorRef.SetupTextPanel(NarratorData.Character, NarratorData.ConversationData[DialogueIndex], this,NarratorData.AutoScrollConversation);
+                uiNarratorRef.SetupTextPanel(NarratorData.Character, NarratorData.ConversationData[DialogueIndex], this, NarratorData.AutoScrollConversation, NarratorData.UseJustDialoguePanel);
+                InternalNarratorPanelSetup(true);
                 OnNarratorNext?.Invoke(new NarratorEventData()
                 {
                     UserID = userID,
@@ -251,6 +260,23 @@ namespace FuzzPhyte.Dialogue
         public virtual bool NextDialogueAvailable()
         {
             return DialogueIndex < NarratorData.ConversationData.Count - 1;
+        }
+        /// <summary>
+        /// Core setup functionality that is the same for all situations - assumes data was already setup prior
+        /// </summary>
+        protected virtual void InternalNarratorPanelSetup(bool showMainNarratorContainer)
+        {
+            //show the main UI canvas object
+            if (NarratorContainer != null)
+            {
+                NarratorContainer.gameObject.SetActive(showMainNarratorContainer);
+            }
+            // grab details on if we are showing the panel or not
+            var displayText = NarratorData.ConversationData[DialogueIndex].DisplayTextPanels;
+            if (OtherNarratorContainer != null)
+            {
+                OtherNarratorContainer.gameObject.SetActive(displayText);
+            }
         }
     }
 }

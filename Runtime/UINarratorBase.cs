@@ -65,6 +65,10 @@ namespace FuzzPhyte.Dialogue
                 DialogueTextContainer.GetComponent<RectTransform>().anchorMin = Vector2.zero;
                 DialogueTextContainer.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
             }
+            //handles if we are displaying the text or not at the lower level
+            MainContainer.gameObject.SetActive(narratorBlock.DisplayTextPanels);
+            DialogueTextContainer.gameObject.SetActive(narratorBlock.DisplayTextPanels);
+           
             autoScrollDialogue = autoScroll;
         }
         
