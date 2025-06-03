@@ -138,6 +138,19 @@ namespace FuzzPhyte.Dialogue
             }
             return false;
         }
+        /// <summary>
+        /// coming in from a unity event or some other UI that wants to interrupt
+        /// </summary>
+        /// <param name="newNarratorData"></param>
+        public virtual void NewNarratorDataEventImmediateStart(DialogueBase newNarratorData)
+        {
+            NarratorInterrupt();
+            if (NewNarratorData(newNarratorData, userID))
+            {
+                //it was a success immediately start
+                StartNarrator();
+            }
+        }
         [ContextMenu("Setup testing with USERID")]
         public virtual void TestSetupNarrator()
         {
@@ -192,7 +205,12 @@ namespace FuzzPhyte.Dialogue
         /// </summary>
         public virtual void NarratorInterrupt()
         {
-
+            if (dialogueStatus == SequenceStatus.Active)
+            {
+                //we are actually active
+                Debug.LogWarning($"Forced Narrator Interrupt!");
+                EndNarrator();
+            }
         }
 
         /// <summary>
