@@ -24,6 +24,7 @@ namespace FuzzPhyte.Dialogue
         [SerializeField] protected int DialogueIndex = 0;
         public GameObject UINarratorPrefab;
         protected UINarratorBase uiNarratorRef;
+        public Transform UINarratorRootParent;
         public RectTransform NarratorContainer;// basically a text box with no text in it to get my rect transform that I need
         [Tooltip("Any other visuals we need to manage?")]
         public GameObject OtherNarratorContainer;
@@ -181,7 +182,7 @@ namespace FuzzPhyte.Dialogue
             uiNarratorRef = blockUI.GetComponent<UINarratorBase>();
             uiNarratorRef.SetupTextPanel(NarratorData.Character, NarratorData.ConversationData[DialogueIndex], this, NarratorData.AutoScrollConversation, NarratorData.UseJustDialoguePanel);
 
-            InternalNarratorPanelSetup(false);
+            InternalNarratorPanelSetup(false,false);
             //internal event invoke
             OnNarratorSetup?.Invoke(new NarratorEventData()
             {
@@ -224,11 +225,12 @@ namespace FuzzPhyte.Dialogue
                 Debug.LogError($"Either No Narrator Data to Narrate or we are missing a reference to uiNarratorRef");
                 return;
             }
+            //if our parent narrator is off we need to make sure it's 'on'
+            
             /// <summary>
             /// called via some external event based maybe on proximity and/or the manager
             /// </summary>
-
-            InternalNarratorPanelSetup(true);
+            InternalNarratorPanelSetup(true,true);
             dialogueStatus = SequenceStatus.Active;
             
             OnNarratorStart?.Invoke(new NarratorEventData()
@@ -253,6 +255,10 @@ namespace FuzzPhyte.Dialogue
             {
                 NarratorContainer.gameObject.SetActive(false);
             }
+            if (UINarratorRootParent != null)
+            {
+                UINarratorRootParent.gameObject.SetActive(false);
+            }
         }
         public virtual void UINextDialogueAction()
         {
@@ -260,7 +266,7 @@ namespace FuzzPhyte.Dialogue
             {
                 DialogueIndex++;
                 uiNarratorRef.SetupTextPanel(NarratorData.Character, NarratorData.ConversationData[DialogueIndex], this, NarratorData.AutoScrollConversation, NarratorData.UseJustDialoguePanel);
-                InternalNarratorPanelSetup(true);
+                InternalNarratorPanelSetup(true,true);
                 OnNarratorNext?.Invoke(new NarratorEventData()
                 {
                     UserID = userID,
@@ -282,8 +288,15 @@ namespace FuzzPhyte.Dialogue
         /// <summary>
         /// Core setup functionality that is the same for all situations - assumes data was already setup prior
         /// </summary>
-        protected virtual void InternalNarratorPanelSetup(bool showMainNarratorContainer)
+        protected virtual void InternalNarratorPanelSetup(bool showMainNarratorContainer, bool showParentTransform)
         {
+            if (UINarratorRootParent != null)
+            {
+                if ((showParentTransform && !UINarratorRootParent.gameObject.activeInHierarchy)||(!showParentTransform && UINarratorRootParent.gameObject.activeInHierarchy))
+                {
+                    UINarratorRootParent.gameObject.SetActive(showParentTransform);
+                }
+            }
             //show the main UI canvas object
             if (NarratorContainer != null)
             {
