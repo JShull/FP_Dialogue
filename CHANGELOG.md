@@ -7,11 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2025-07-01
+
+### 0.4.0 Added
+
+- [@JShull](https://github.com/jshull)
+  - FP_Installer Support
+
 ## [0.3.0] - 2025-06-02
 
 ### 0.3.0 Changed
 
-- Modified `DialogueBase.cs`, `DialogueBlock.cs`, `UIDialogueNarrator.cs`, and `UINarratorBase.cs` to support three narrator modes:
+- [@JShull](https://github.com/jshull) Modified `DialogueBase.cs`, `DialogueBlock.cs`, `UIDialogueNarrator.cs`, and `UINarratorBase.cs` to support three narrator modes:
   - **Audio-only playback** without displaying text.
   - **Simultaneous audio playback with text display**.
   - **Passing the `JustDialoguePanel` flag** from the scriptable object data.

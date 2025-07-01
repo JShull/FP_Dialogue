@@ -1,8 +1,8 @@
 {
     "name": "com.fuzzphyte.dialogue",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "displayName": "FP Dialogue",
-    "description": "FP Dialogue is a base set of two scriptable object classes.",
+    "description": "FP Dialogue is a base set of two scriptable object classes. Requires FP_UI, FP_Utility, and FP_Utility_EDU. Bring in FP_Installer to help support",
     "unity": "6000.1",
     "unityRelease": "0f1",
     "documentationUrl": "https://github.com/jshull/FP_Dialogue/README.md",
@@ -13,9 +13,6 @@
       "url": "https://github.com/jshull/FP_Dialogue.git"
     },
     "dependencies": {
-      "com.fuzzphyte.utility": "https://github.com/JShull/FP_Utility.git",
-      "com.fuzzphyte.utility.edu":"https://github.com/JShull/FP_Utility_EDU.git",
-      "com.fuzzphyte.ui":"https://github.com/JShull/FP_UI.git",
       "com.unity.textmeshpro": "3.0.9"
     },
     "samples":[
