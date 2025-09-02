@@ -20,5 +20,9 @@ namespace FuzzPhyte.Dialogue
         public bool GiveAnItem;
         [Tooltip("Given ID/Item")]
         public FP_Data GivenObjectID;
+        [Space]
+        [Header("Possible Next Block?")]
+        [Tooltip("Possible Next Block?")]
+        public FP_Data NextBlock;
     }
 }

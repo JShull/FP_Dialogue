@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.5] - 2025-09-02
+
+### 0.4.5 Added
+
+- [@JShull](https://github.com/jshull)
+  - Unity Graph Toolkit Tests
+
 ## [0.4.0] - 2025-07-01
 
 ### 0.4.0 Added

@@ -32,8 +32,10 @@ MonoBehaviour:
   DialogueEmoState: 1
   OverallDialogueState: 1
   DialogueMotionState: 1
-  PossibleUserResponses: []
+  PossibleUserResponses:
+  - {fileID: 11400000, guid: d2500a449227048afbb2b0d4fe6c42e4, type: 2}
   OverlayTaskType: 3
   OverlayDuration: 3
   DelayBeforeOverlay: 0
   MiscData: {fileID: 0}
+  DisplayTextPanels: 1
