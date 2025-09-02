@@ -13,7 +13,8 @@
       "url": "https://github.com/jshull/FP_Dialogue.git"
     },
     "dependencies": {
-      "com.unity.textmeshpro": "3.0.9"
+      "com.unity.textmeshpro": "3.0.9",
+      "com.unity.graphtoolkit":"0.3.0-exp.1"
     },
     "samples":[
       {
