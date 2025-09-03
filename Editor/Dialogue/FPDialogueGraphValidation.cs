@@ -10,6 +10,9 @@
         //graph based
         public const string MAIN_PORT_DEFAULT_NAME = "ExecutionPort";
         public const string MAIN_PORT_TIMELINE = "TimelinePort";
+        public const string PORT_COMBINE_OPONE = "Option1";
+        public const string PORT_COMBINE_OPTWO = "Option2";
+
         //
         public const string ACTOR_NAME = "Name";
         public const string ACTOR_GENDER = "Gender";
@@ -33,6 +36,8 @@
         public const string ANIM_EMOTION_STATE = "AnimationEmotion";
         public const string ANIM_DIALOGUE_STATE = "AnimationDialogue";
         public const string ANIM_MOTION_STATE = "AnimationMotion";
+        public const string ANIM_BLEND_FACE = "AnimationFace";
+        public const string ANIM_SKIN_MESHR = "AnimationSkinnedMeshRenderer";
         //User Choices
         public const string USER_PROMPT_PORT = "UPGeneric";
         public const string USER_PROMPT_ONE = "UPOne";

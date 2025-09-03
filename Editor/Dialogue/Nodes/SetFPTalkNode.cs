@@ -28,6 +28,9 @@ namespace FuzzPhyte.Dialogue.Editor
             context.AddInputPort<AudioClip>(FPDialogueGraphValidation.DIALOGUE_AUDIO_NAME)
                 .WithDisplayName("Audio:")
                 .Build();
+            context.AddInputPort<AnimationClip>(FPDialogueGraphValidation.ANIM_BLEND_FACE)
+                .WithDisplayName("Face Animation:")
+                .Build();
             context.AddOutputPort<SetFPTalkNode>(FPDialogueGraphValidation.MAIN_TEXT)
                 .WithDisplayName("Dialogue->")
                 .Build();

@@ -5,9 +5,13 @@ namespace FuzzPhyte.Dialogue.Editor
     using Unity.GraphToolkit.Editor;
     using UnityEngine;
 
+    /// <summary>
+    /// Accepts two incoming ports and no doesn't care, just goes to one
+    /// for tracing purposes
+    /// </summary>
     [UseWithGraph(typeof(FPDialogueGraph))]
     [Serializable]
-    public class FPCombineNodes:Node
+    public class FPCombineNodes:FPVisualNode
     {
         [SerializeField] protected int inputs = 2;
         [SerializeField] protected int portsDirtyTick;
@@ -24,9 +28,13 @@ namespace FuzzPhyte.Dialogue.Editor
             var _ = portsDirtyTick;
             // Use applied value for stability (so drawing matches the last applied state)
             
-            ports.AddInputPort<FPVisualNode>($"Option 1").Build();
-            ports.AddInputPort<FPVisualNode>($"Option 2").Build();
-            ports.AddOutputPort<FPVisualNode>("Out").Build();
+            ports.AddInputPort<FPVisualNode>(FPDialogueGraphValidation.PORT_COMBINE_OPONE)
+                .WithDisplayName("Option 1")
+                .Build();
+            ports.AddInputPort<FPVisualNode>(FPDialogueGraphValidation.PORT_COMBINE_OPTWO)
+                .WithDisplayName("Option 2")
+                .Build();
+            AddOutputExecutionPorts(ports);
         }
         
 

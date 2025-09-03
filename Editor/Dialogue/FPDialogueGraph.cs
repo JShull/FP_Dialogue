@@ -32,42 +32,4 @@ namespace FuzzPhyte.Dialogue.Editor
             FPDialogueGraphValidation.Run(this, logger);
         }
     }
-
-    [UseWithGraph(typeof(FPDialogueGraph))]
-    [Serializable]
-    public class EntryNode : FPVisualNode
-    {
-        
-        protected override void OnDefinePorts(IPortDefinitionContext ports)
-        {
-            ports.AddOutputPort(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME)
-               .WithDataType(typeof(FPVisualNode))
-               .WithDisplayName(string.Empty)
-               .WithConnectorUI(PortConnectorUI.Arrowhead)
-               .Build();
-            ports.AddInputPort(FPDialogueGraphValidation.MAIN_PORT_TIMELINE)
-                .WithDataType(typeof(TimelineAsset))
-                .WithDisplayName("From Timeline:")
-                .WithConnectorUI(PortConnectorUI.Circle)
-                .Build();
-        }
-    }
-    [UseWithGraph(typeof(FPDialogueGraph))]
-    [Serializable]
-    public class ExitNode : FPVisualNode
-    {
-        protected override void OnDefinePorts(IPortDefinitionContext context)
-        {
-            context.AddInputPort(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME)
-                .WithDataType(typeof(FPVisualNode))
-                .WithDisplayName(string.Empty)
-                .WithConnectorUI (PortConnectorUI.Arrowhead)
-                .Build();
-            context.AddInputPort(FPDialogueGraphValidation.MAIN_PORT_TIMELINE)
-                .WithDataType(typeof(TimelineAsset))
-                .WithDisplayName("To Timeline:")
-                .WithConnectorUI(PortConnectorUI.Circle)
-                .Build();
-        }
-    }
 }

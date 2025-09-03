@@ -36,6 +36,9 @@ namespace FuzzPhyte.Dialogue.Editor
             context.AddInputPort<int>(FPDialogueGraphValidation.ACTOR_AGE)
                 .WithDisplayName("Age:")
                 .Build();
+            context.AddInputPort<SkinnedMeshRenderer>(FPDialogueGraphValidation.ANIM_SKIN_MESHR)
+                .WithDisplayName("Character SkinnedMR:")
+                .Build();
             context.AddInputPort<FP_Theme>(FPDialogueGraphValidation.ACTOR_THEME)
                 .WithDisplayName("Theme:")
                 .Build();
