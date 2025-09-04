@@ -9,6 +9,11 @@ namespace FuzzPhyte.Dialogue.Editor
     [Serializable]
     public class SetFPResponseNode: FPVisualNode
     {
+        public override void SetupIndex(string passedName)
+        {
+           this.name = passedName;
+        }
+
         /// <summary>
         /// Defines the output for the node.
         /// </summary>

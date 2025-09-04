@@ -7,6 +7,11 @@ namespace FuzzPhyte.Dialogue.Editor
     [Serializable]
     public class ExitNode : FPVisualNode
     {
+        public override void SetupIndex(string passedName)
+        {
+            this.name = passedName;
+        }
+
         protected override void OnDefinePorts(IPortDefinitionContext context)
         {
             context.AddInputPort(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME)

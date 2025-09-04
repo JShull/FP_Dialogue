@@ -7,13 +7,20 @@
 
     public static class FPDialogueGraphValidation
     {
-        //graph based
+        // graph based
         public const string MAIN_PORT_DEFAULT_NAME = "ExecutionPort";
         public const string MAIN_PORT_TIMELINE = "TimelinePort";
         public const string PORT_COMBINE_OPONE = "Option1";
         public const string PORT_COMBINE_OPTWO = "Option2";
 
-        //
+        //options based
+        public const string GETDATAFILE = "GetDataFile";
+
+        // scriptable object based
+        public const string PORT_CHARACTER_DATA = "FPCharacter";
+        public const string ACTOR_THEME = "Theme";
+
+        // character based
         public const string ACTOR_NAME = "Name";
         public const string ACTOR_GENDER = "Gender";
         public const string ACTOR_ETH = "Ethnicity";
@@ -21,16 +28,22 @@
         public const string ACTOR_LANGUAGES_SECONDARY = "Secondary";
         public const string ACTOR_LANGUAGES_TIERTIARY = "Tertiary";
         public const string ACTOR_AGE = "Age";
-        public const string ACTOR_THEME = "Theme";
         public const string GO_WORLD_LOCATION = "GameObjectLocation";
+
+        //port character based
+        public const string PORT_ACTOR = "CharacterPort";
+        public const string TALK_PORT_NODE = "TalkPort";
+        
         //Language Based
         public const string LANG_NAME = "Language";
         public const string DIALOGUE = "Dialogue";
         public const string DIALOGUE_AUDIO_NAME = "DialogueAudio";
 
         //Text Blocks
+        public const string DIALOGUE_HEADER = "HeaderText";
         public const string MAIN_TEXT = "MainText";
         public const string TRANSLATION_TEXT = "TranslationText";
+        public const string PORT_ICON = "PortIcon";
 
         //Animation Based
         public const string ANIM_EMOTION_STATE = "AnimationEmotion";
@@ -56,10 +69,10 @@
             // 2) Every DialogueBlockNode must have input connected
             foreach (var n in graph.GetNodes().OfType<SetFPDialogueNode>())
             {
-                var inPort = n.GetInputPort(0);
+                var inPort = n.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
                 if (inPort == null || !inPort.isConnected)
                 {
-                    logger.LogWarning($"'{n.name}' has no incoming connection.", n);
+                    logger.LogWarning($"'{n.Name}' has no incoming connection.", n);
                 }
             }
             foreach(var n in graph.GetNodes().OfType<SetFPCharacterNode>())
@@ -70,7 +83,7 @@
                
                 if(portLanguage== FP_Language.NA)
                 {
-                    logger.LogWarning($"'{n.name}' character is missing a first language");
+                    logger.LogWarning($"'{n.Name}' character is missing a first language");
                 }
             }
             

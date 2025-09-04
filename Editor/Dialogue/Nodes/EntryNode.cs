@@ -7,14 +7,17 @@ namespace FuzzPhyte.Dialogue.Editor
     [Serializable]
     public class EntryNode : FPVisualNode
     {
-
+        public override void SetupIndex(string passedName)
+        {
+            this.name = passedName;
+        }
+        protected override void OnDefineOptions(IOptionDefinitionContext context)
+        {
+           base.OnDefineOptions(context);
+        }
         protected override void OnDefinePorts(IPortDefinitionContext ports)
         {
-            ports.AddOutputPort(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME)
-               .WithDataType(typeof(FPVisualNode))
-               .WithDisplayName(string.Empty)
-               .WithConnectorUI(PortConnectorUI.Arrowhead)
-               .Build();
+            AddOutputExecutionPorts(ports);
             ports.AddInputPort(FPDialogueGraphValidation.MAIN_PORT_TIMELINE)
                 .WithDataType(typeof(TimelineAsset))
                 .WithDisplayName("From Timeline:")

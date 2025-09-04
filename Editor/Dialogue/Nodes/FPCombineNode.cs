@@ -11,21 +11,24 @@ namespace FuzzPhyte.Dialogue.Editor
     /// </summary>
     [UseWithGraph(typeof(FPDialogueGraph))]
     [Serializable]
-    public class FPCombineNodes:FPVisualNode
+    public class FPCombineNode:FPVisualNode
     {
+        public override void SetupIndex(string passedName)
+        {
+            this.name = passedName;
+        }
         [SerializeField] protected int inputs = 2;
         [SerializeField] protected int portsDirtyTick;
         // What the ports were actually built with last time
         
         protected override void OnDefineOptions(IOptionDefinitionContext options)
         {
-            options.AddOption<int>(nameof(inputs)).WithDisplayName("Inputs");
+            options.AddOption<int>(nameof(inputs)).WithDisplayName("Number of Inputs");
             options.AddOption<int>(nameof(portsDirtyTick)).ShowInInspectorOnly();
         }
 
         protected override void OnDefinePorts(IPortDefinitionContext ports)
         {
-            var _ = portsDirtyTick;
             // Use applied value for stability (so drawing matches the last applied state)
             
             ports.AddInputPort<FPVisualNode>(FPDialogueGraphValidation.PORT_COMBINE_OPONE)
@@ -36,8 +39,5 @@ namespace FuzzPhyte.Dialogue.Editor
                 .Build();
             AddOutputExecutionPorts(ports);
         }
-        
-
-        public void TouchPorts() => portsDirtyTick++;
     }
 }

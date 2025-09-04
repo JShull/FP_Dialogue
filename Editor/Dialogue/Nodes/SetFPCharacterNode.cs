@@ -8,6 +8,17 @@ namespace FuzzPhyte.Dialogue.Editor
     [Serializable]
     public class SetFPCharacterNode:FPVisualNode
     {
+        public override void SetupIndex(string passedName)
+        {
+            this.name = passedName;
+        }
+        protected override void OnDefineOptions(IOptionDefinitionContext options)
+        {
+            options.AddOption<bool>(FPDialogueGraphValidation.GETDATAFILE).WithDisplayName("Use Character File?")
+                .WithTooltip("If you want to override the local data with the file")
+                .WithDefaultValue(true)
+                .Build();
+        }
         /// <summary>
         /// Defines the output for the node.
         /// </summary>
@@ -15,6 +26,9 @@ namespace FuzzPhyte.Dialogue.Editor
         protected override void OnDefinePorts(IPortDefinitionContext context)
         {
             AddOutputActorPort(context);
+            context.AddInputPort<FP_Character>(FPDialogueGraphValidation.PORT_CHARACTER_DATA)
+                .WithDisplayName("Character:")
+                .Build();
             context.AddInputPort<string>(FPDialogueGraphValidation.ACTOR_NAME)
                 .WithDisplayName("Name:")
                 .Build();

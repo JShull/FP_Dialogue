@@ -20,15 +20,26 @@ namespace FuzzPhyte.Dialogue.Editor
 
         public override void OnGraphChanged(GraphLogger logger)
         {
-            base.OnGraphChanged(logger);
-            // 1) Run node actions triggered via options
-            //FPDialogueGraphCommands.ProcessNodeActions(this);
 
-            // 2) Validation messages
-            foreach(var c in GetNodes().OfType<FPCombineNodes>())
+            base.OnGraphChanged(logger);
+            //get all FPVisual Nodes - might not need to do this here maybe only on importer
+            var nodeList = GetNodes().OfType<FPVisualNode>().ToList() ;
+            
+            //setup our node names
+            for (int i = 0; i< nodeList.Count; i++)
             {
-                c.DefineNode();
+                var cNode = nodeList[i] ;
+                cNode.SetupIndex(i + "_node");
+                Debug.Log($"Node: {cNode.Name} is alive");
             }
+           
+            //process output based on node type and "flow nodes" - this might be on the importer class instead
+            /// Entry
+            /// SetFPDialogueNode
+            /// SetFPResponseNode
+            /// FPCombineNode
+            /// FPOnewayNode
+            /// Exit
             FPDialogueGraphValidation.Run(this, logger);
         }
     }

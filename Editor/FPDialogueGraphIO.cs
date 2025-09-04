@@ -46,7 +46,7 @@ namespace FuzzPhyte.Dialogue.Editor
 
             foreach (var node in graph.GetNodes().OfType<FPVisualNode>())
             {
-                if (!blockMap.TryGetValue(node.name, out var block))
+                if (!blockMap.TryGetValue(node.Name, out var block))
                     continue;
 
                 EditorUtility.SetDirty(block);

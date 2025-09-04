@@ -8,7 +8,10 @@ namespace FuzzPhyte.Dialogue.Editor
     [Serializable]
     public class SetFPDialogueNode : FPVisualNode
     {
-
+        public override void SetupIndex(string passedName)
+        {
+            this.name = passedName;
+        }
         /// <summary>
         /// Defines the output for the node.
         /// </summary>
@@ -32,10 +35,7 @@ namespace FuzzPhyte.Dialogue.Editor
         protected override void OnDefineOptions(IOptionDefinitionContext context)
         {
             //base.OnDefineOptions(context);
-            context.AddOption(
-                FPDialogueGraphValidation.ANIM_EMOTION_STATE,
-                typeof(EmotionalState))
-
+            context.AddOption<EmotionalState>(nameof(FPDialogueGraphValidation.ANIM_EMOTION_STATE))
                 .WithDefaultValue(EmotionalState.Neutral)
                 .WithDisplayName("Emotion:")
                 .WithTooltip("The Emotion?")
