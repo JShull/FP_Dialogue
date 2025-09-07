@@ -11,6 +11,7 @@ namespace FuzzPhyte.Dialogue.Editor
 
     public static class DialogueAssetUtil
     {
+        /*
         #region Graph Based
         public static void ClearGraph(Graph graph)
         {
@@ -86,7 +87,7 @@ namespace FuzzPhyte.Dialogue.Editor
                     var created = mi.Invoke(graph, new object[] { name ?? typeof(T).Name }) as T;
                     return created;
                 }
-                catch { /* fall through */ }
+                catch {  }
             }
 
             // Try Graph.CreateNode<T>()
@@ -107,7 +108,7 @@ namespace FuzzPhyte.Dialogue.Editor
                     }
                     return created;
                 }
-                catch { /* fall through */ }
+                catch {}
             }
 
             // Try Graph.AddNode<T>()
@@ -128,7 +129,7 @@ namespace FuzzPhyte.Dialogue.Editor
                     }
                     return created;
                 }
-                catch { /* fall through */ }
+                catch { }
             }
 
             // Last resort: new T(), then try Graph.AddNode(object)
@@ -151,7 +152,7 @@ namespace FuzzPhyte.Dialogue.Editor
                     }
                 }
             }
-            catch { /* fall through */ }
+            catch { }
 
             Debug.LogWarning($"[FPGraphCompat] Could not find a supported node-creation API for {typeof(T).Name}. Create it via the graph UI instead.");
             return null;
@@ -170,7 +171,7 @@ namespace FuzzPhyte.Dialogue.Editor
                                              string.Equals(p.Name, "displayName", StringComparison.OrdinalIgnoreCase));
             if (prop != null)
             {
-                try { prop.SetValue(node, title); return; } catch { /* ignore */ }
+                try { prop.SetValue(node, title); return; } catch {  }
             }
 
             // fields named "title"/"Title"/"displayName"
@@ -181,7 +182,7 @@ namespace FuzzPhyte.Dialogue.Editor
                                                string.Equals(f.Name, "nodeTitle", StringComparison.OrdinalIgnoreCase)));
             if (field != null)
             {
-                try { field.SetValue(node, title); return; } catch { /* ignore */ }
+                try { field.SetValue(node, title); return; } catch { }
             }
 
             // If none exist, no problem — the node just won’t display a header text from here.
@@ -204,7 +205,7 @@ namespace FuzzPhyte.Dialogue.Editor
                     connect.Invoke(graph, new object[] { from, to });
                     return true;
                 }
-                catch { /* fall through */ }
+                catch {  }
             }
 
             // Try IPort.ConnectTo(IPort)
@@ -216,7 +217,7 @@ namespace FuzzPhyte.Dialogue.Editor
                     m.Invoke(from, new object[] { to });
                     return true;
                 }
-                catch { /* fall through */ }
+                catch { }
             }
 
             Debug.LogWarning("[FPGraphCompat] No supported connect API found.");
@@ -239,36 +240,8 @@ namespace FuzzPhyte.Dialogue.Editor
             return AssetDatabase.LoadAssetAtPath<DialogueBase>(path);
         }
 
-        public static void PingByGuid(string guid)
-        {
-            if (string.IsNullOrEmpty(guid)) return;
-            var path = AssetDatabase.GUIDToAssetPath(guid);
-            var obj = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(path);
-            if (obj) EditorGUIUtility.PingObject(obj);
-        }
 
-        public static string NewTempGuid() => System.Guid.NewGuid().ToString("N");
-
-        public static void ResizeResponses(DialogueBlock block, int count)
-        {
-            if (block.PossibleUserResponses == null)
-                block.PossibleUserResponses = new List<DialogueResponse>();
-
-            while (block.PossibleUserResponses.Count < count)
-            {
-                var resp = ScriptableObject.CreateInstance<DialogueResponse>();
-                resp.name = $"{block.name}_Resp_{block.PossibleUserResponses.Count + 1}";
-                AssetDatabase.AddObjectToAsset(resp, block); // sub-asset to keep things tidy
-                block.PossibleUserResponses.Add(resp);
-            }
-
-            while (block.PossibleUserResponses.Count > count)
-            {
-                var last = block.PossibleUserResponses[^1];
-                block.PossibleUserResponses.RemoveAt(block.PossibleUserResponses.Count - 1);
-                UnityEngine.Object.DestroyImmediate(last, allowDestroyingAssets: true);
-            }
-        }
         #endregion
+        */
     }
 }

@@ -23,34 +23,60 @@ namespace FuzzPhyte.Dialogue
     [Serializable]
     public class RTEntryNode : RTFPNode
     {
-        protected TimelineAsset incomingTimelineAsset;
-        protected string outIndex;
-        public TimelineAsset GetIncomingTimeline { get { return incomingTimelineAsset; } }
-
-        public RTEntryNode(string index,string outIndexNode,TimelineAsset inTimelineAsset=null):base(index)
+        protected RTTimelineDetails incomingTimelineAsset;
+        protected TimelineAsset timelineAsset;
+        public RTTimelineDetails GetTimelineAssetFile { get { return incomingTimelineAsset; } }
+        protected string[] outIndex;
+        public string[] NextNodes { get { return outIndex; } }
+        public TimelineAsset GetIncomingTimeline
         {
-            this.outIndex = outIndexNode;
+            get
+            {
+                return timelineAsset;
+            }
+        }
+
+        public RTEntryNode(string index,List<string> outIndexNode, RTTimelineDetails inTimelineAsset =null):base(index)
+        {
+            this.outIndex = outIndexNode.ToArray();
             if(incomingTimelineAsset == null && inTimelineAsset != null)
             {
                 incomingTimelineAsset = inTimelineAsset;
+                timelineAsset = incomingTimelineAsset.Timeline;
             }
         }
+        public RTEntryNode(string index, List<string> outIndexNode, TimelineAsset inTimelineAsset = null) : base(index) 
+        {
+            this.outIndex = outIndexNode.ToArray();
+            timelineAsset = inTimelineAsset;
+        }
+
     }
     //Editor: ExitNode class
     [Serializable]
     public class RTExitNode : RTFPNode
     {
-        protected TimelineAsset outgoingTimelineAsset;
-        protected string inNode;
-        public TimelineAsset GetOutgoingTimeline { get { return outgoingTimelineAsset; } }
-
-        public RTExitNode(string index, string incomnigNodeExit,TimelineAsset outTimelineAsset = null):base(index)
+        protected RTTimelineDetails outgoingTimelineDetails;
+        protected TimelineAsset timelineAsset;
+        protected string[] inNode;
+        public string[] InNodes { get { return inNode; } }
+        public TimelineAsset GetOutgoingTimeline { get { return timelineAsset; } }
+        public RTTimelineDetails GetTimelineAssetFile { get { return outgoingTimelineDetails; } }
+       
+        public RTExitNode(string index, List<string> incomingNodeExit,RTTimelineDetails outTimelineAsset = null):base(index)
         {
-            inNode = incomnigNodeExit;
-            if (outgoingTimelineAsset == null && outTimelineAsset != null)
+            inNode = incomingNodeExit.ToArray();
+            if (timelineAsset == null && outTimelineAsset != null)
             {
-                outgoingTimelineAsset = outTimelineAsset;
+                outgoingTimelineDetails = outTimelineAsset;
+                timelineAsset = outTimelineAsset.Timeline;
             }
+        }
+        public RTExitNode(string index, List<string> incomingNodeExit, TimelineAsset outTimelineAsset = null) : base(index)
+        {
+            inNode = incomingNodeExit.ToArray();
+            timelineAsset = outTimelineAsset;
+            
         }
     }
 
@@ -71,13 +97,13 @@ namespace FuzzPhyte.Dialogue
     {
         protected string inNodeOneIndex;
         protected string inNodeTwoIndex;
-        protected string outNodeOneIndex;
+        protected string[] outNodeOneIndex;
 
-        public RTCombineNode(string index, string nodeOne, string nodeTwo, string outcomeNode):base(index)
+        public RTCombineNode(string index, string nodeOne, string nodeTwo, List<string> outcomeNode):base(index)
         {
             this.inNodeOneIndex = nodeOne;
             this.inNodeTwoIndex = nodeTwo;
-            this.outNodeOneIndex = outcomeNode;
+            this.outNodeOneIndex = outcomeNode.ToArray();
         }
     }
     //Editor: SetFPCharacterNode class
@@ -87,16 +113,19 @@ namespace FuzzPhyte.Dialogue
         protected string characterName;
         protected string outNodeIndex;
         protected FP_Character characterData;
+        public FP_Character ReturnCharacterData { get { return characterData; } }
         protected FP_Gender gender;
         protected FP_Ethnicity ethnicity;
         protected FP_Language firstLang;
         protected FP_Language secondLang;
         protected FP_Language thirdLang;
         protected int age;
-        protected SkinnedMeshRenderer characterSkinMeshRenderer;
+        protected GameObject characterSkinMeshRenderer;
+        public GameObject GetCharacterHeadObject { get { return characterSkinMeshRenderer; } }
         protected FP_Theme characterTheme;
+        public FP_Theme GetCharacterTheme { get { return characterTheme; } }
         
-        public RTCharacterNode(string index, string outNode,FP_Character dataFile, SkinnedMeshRenderer characterSkin, FP_Theme charTheme, bool replaceLocalData = true):base(index)
+        public RTCharacterNode(string index, string outNode,FP_Character dataFile, GameObject characterSkin, FP_Theme charTheme, bool replaceLocalData = true):base(index)
         {
             
             if (replaceLocalData)
@@ -114,7 +143,7 @@ namespace FuzzPhyte.Dialogue
             this.characterTheme = charTheme;
             this.characterData = dataFile;
         }
-        public RTCharacterNode(string index, string outNode,string name, FP_Gender gender, FP_Ethnicity ethnicity, FP_Language firstLang, FP_Language secondLang, FP_Language thirdLang, int age, SkinnedMeshRenderer characterSkinMeshRenderer, FP_Theme characterTheme):base(index)
+        public RTCharacterNode(string index, string outNode,string name, FP_Gender gender, FP_Ethnicity ethnicity, FP_Language firstLang, FP_Language secondLang, FP_Language thirdLang, int age, GameObject characterSkinMeshRenderer, FP_Theme characterTheme):base(index)
         {
             this.outNodeIndex= outNode;
             this.characterName = name;
@@ -134,8 +163,16 @@ namespace FuzzPhyte.Dialogue
     {
         //this is a node of other nodes
         protected List<RTSinglePromptNode> userIncomingPrompts = new List<RTSinglePromptNode>();
+        public List<RTSinglePromptNode> UserPrompts
+        {
+            get { return userIncomingPrompts; }
+        }
         protected List<string> userOutcomesConnectors = new List<string>();
         protected RTCharacterNode character;
+        public RTCharacterNode ResponseCharacter
+        {
+            get { return character; }
+        }
 
         public RTResponseNode(string index, List<RTSinglePromptNode> incomingPromptNodes,List<string> outputNodes,RTCharacterNode theCharacter):base(index)
         {
@@ -159,9 +196,21 @@ namespace FuzzPhyte.Dialogue
     public class RTSinglePromptNode : RTFPNode
     {
         protected RTTalkNode mainDialogue;
+        public RTTalkNode GetMainDialogue
+        {
+            get { return mainDialogue; }
+        }
         protected RTTalkNode translatedDialogue;
+        public RTTalkNode GetTranslatedDialogue
+        {
+            get { return translatedDialogue; }
+        }
         protected Sprite promptIcon;
         protected GameObject spawnLocation;
+        public GameObject SpawnLocation
+        {
+            get { return spawnLocation; }
+        }
         protected string outIndex;
 
         public RTSinglePromptNode(string index,string outcomingNodeIndex,RTTalkNode dialogue, RTTalkNode translation, Sprite promptIcon, GameObject spawnLocation):base(index)
@@ -184,6 +233,8 @@ namespace FuzzPhyte.Dialogue
         protected RTTalkNode translatedDialogue;
         protected RTCharacterNode incomingCharacter;
         protected RTCharacterNode outgoingCharacter;
+        public RTTalkNode GetMainDialogue { get { return mainDialogue; } }
+        public RTTalkNode GetTranslationDialogue { get { return translatedDialogue; } }
         public RTDialogueNode(string index,string incominIndex, string outIndex, RTTalkNode dialogue,RTCharacterNode incomingCharacterNode,RTCharacterNode outgoingCharacaterNode = null,RTTalkNode transDialogue=null) : base(index)
         {
             this.incomingIndex = incominIndex;
@@ -193,16 +244,22 @@ namespace FuzzPhyte.Dialogue
             this.incomingCharacter = incomingCharacterNode;
             this.outgoingCharacter = outgoingCharacaterNode;
         }
+        
     }
     //Editor: SetFPTalkNode class
     [Serializable]
     public class RTTalkNode : RTFPNode
     {
         protected FP_Language language;
+        public FP_Language Language { get {  return language; } }
         protected string headerText;
+        public string HeaderText { get{ return headerText; } }
         protected string dialogueText;
+        public string DialogueText { get{ return dialogueText; } }
         protected AudioClip textAudio;
+        public AudioClip AudioClip { get { return textAudio; } }
         protected AnimationClip faceAnimation;
+        public AnimationClip FaceAnimation { get { return faceAnimation; } }
         protected bool hasAudio;
         protected bool hasAnimation;
         protected string outIndex;

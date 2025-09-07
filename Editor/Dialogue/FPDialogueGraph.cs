@@ -8,14 +8,12 @@ namespace FuzzPhyte.Dialogue.Editor
     using System.Linq;
     using UnityEngine.Timeline;
 
-    // Control-flow phantom type for port compatibility
-
-    [Graph(AssetExtension, GraphOptions.SupportsSubgraphs)]
+    [Serializable]
+    [Graph(AssetExtension)]
     public class FPDialogueGraph:Graph
     {
-        const string k_graphName = "Dialogue Graph";
+        //const string k_graphName = "Dialogue Graph";
         public const string AssetExtension = "fpdialogue";
-        // Link back to the DialogueBase asset this graph represents
         [SerializeField] public string dialogueBaseGuid;
 
         public override void OnGraphChanged(GraphLogger logger)

@@ -7,7 +7,7 @@ namespace FuzzPhyte.Dialogue.Editor
 
     [UseWithGraph(typeof(FPDialogueGraph))]
     [Serializable]
-    public class SetFPSinglePromptNode: FPVisualNode
+    internal class SetFPSinglePromptNode: FPVisualNode
     {
         public override void SetupIndex(string passedName)
         {

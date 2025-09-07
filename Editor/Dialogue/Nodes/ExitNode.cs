@@ -5,23 +5,27 @@ namespace FuzzPhyte.Dialogue.Editor
     using UnityEngine.Timeline;
     [UseWithGraph(typeof(FPDialogueGraph))]
     [Serializable]
-    public class ExitNode : FPVisualNode
+    internal class ExitNode : FPVisualNode
     {
         public override void SetupIndex(string passedName)
         {
             this.name = passedName;
         }
 
-        protected override void OnDefinePorts(IPortDefinitionContext context)
+        protected override void OnDefinePorts(IPortDefinitionContext ports)
         {
-            context.AddInputPort(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME)
+            ports.AddInputPort(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME)
                 .WithDataType(typeof(FPVisualNode))
                 .WithDisplayName(string.Empty)
                 .WithConnectorUI(PortConnectorUI.Arrowhead)
                 .Build();
-            context.AddInputPort(FPDialogueGraphValidation.MAIN_PORT_TIMELINE)
+            ports.AddInputPort(FPDialogueGraphValidation.MAIN_PORT_TIMELINE)
                 .WithDataType(typeof(TimelineAsset))
                 .WithDisplayName("To Timeline:")
+                .WithConnectorUI(PortConnectorUI.Circle)
+                .Build();
+            ports.AddInputPort<RTTimelineDetails>(FPDialogueGraphValidation.MAIN_PORT_TIMELINEDETAILS)
+                .WithDisplayName("Timeline Details:")
                 .WithConnectorUI(PortConnectorUI.Circle)
                 .Build();
         }

@@ -16,5 +16,28 @@ namespace FuzzPhyte.Dialogue
         {
             return false;
         }
+        public bool EvaluateEntryNode(RTEntryNode node)
+        {
+            var tAsset = node.GetIncomingTimeline;
+            if (tAsset!=null)
+            {
+                Debug.Log($"Entry Node has a timeline asset");
+                return true;
+            }
+            else
+            {
+                Debug.Log($"Entry node does not have a timeline asset");
+            }
+            return false;
+        }
+        public bool EvaluateDialogueNode(RTDialogueNode node)
+        {
+            var mainDialogueData = node.GetMainDialogue;
+            if (mainDialogueData != null) 
+            {
+                Debug.Log($"Main Text: {mainDialogueData.DialogueText} in the language of {mainDialogueData.Language.ToString()}");
+            }
+                return true;
+        }
     }
 }

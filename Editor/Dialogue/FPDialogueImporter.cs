@@ -1,7 +1,6 @@
 namespace FuzzPhyte.Dialogue.Editor
 {
     using UnityEngine;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using FuzzPhyte.Dialogue;
@@ -9,8 +8,6 @@ namespace FuzzPhyte.Dialogue.Editor
     using UnityEditor.AssetImporters;
     using UnityEngine.Timeline;
     using FuzzPhyte.Utility;
-    using PlasticGui.WorkspaceWindow.Items;
-
     [ScriptedImporter(1, FPDialogueGraph.AssetExtension)]
     internal class FPDialogueImporter:ScriptedImporter
     {
@@ -23,30 +20,30 @@ namespace FuzzPhyte.Dialogue.Editor
                 Debug.LogError($"Failed to load the FPDialogue Graph asset: {ctx.assetPath}");
                 return;
             }
-            //get start/entry node
-            
+            // get start/entry node
             var entryNodeModel = graph.GetNodes().OfType<EntryNode>().FirstOrDefault();
             if (entryNodeModel==null)
             {
                 Debug.LogError($"No start/entry point for our dialogue model! No runtime!");
                 return;
             }
-            //lets confirm nodes have a name
-            ConfirmNodeNames(graph);
-            //we need to get the Runtime graph (Create it as a scriptable object)
+            // we need to get the Runtime graph (Create it as a scriptable object)
             var runtimeAsset = ScriptableObject.CreateInstance<RTFPDialogueGraph>();
-            //we need to build our node map
-            var nodeMap = new Dictionary<INode, int>();
-
             ctx.AddObjectToAsset("RuntimeAssetGraphTest", runtimeAsset);
             ctx.SetMainObject(runtimeAsset);
-
-            //first loop: create all nodes
-
+            // we need to build our node map
+            var nodeMap = new Dictionary<INode, int>();
+            // first loop
+            ConfirmNodeNames(graph);
+            // second loop: create all nodes
             CreateRuntimeNodes(entryNodeModel, runtimeAsset,nodeMap);
             //second loop: establish connections
             SetupConnections(entryNodeModel, runtimeAsset, nodeMap);
         }
+        /// <summary>
+        /// Confirms all nodes have their correct name
+        /// </summary>
+        /// <param name="graph"></param>
         void ConfirmNodeNames(FPDialogueGraph graph)
         {
             var nodeList = graph.GetNodes().OfType<FPVisualNode>().ToList();
@@ -59,7 +56,12 @@ namespace FuzzPhyte.Dialogue.Editor
                 Debug.Log($"Node: {cNode.Name} Confirmed");
             }
         }
-
+        /// <summary>
+        /// Will generate all runtime nodes and traverse the graph from an outport perspective
+        /// </summary>
+        /// <param name="startNode"></param>
+        /// <param name="runtimeGraph"></param>
+        /// <param name="nodeMap"></param>
         void CreateRuntimeNodes(INode startNode, RTFPDialogueGraph runtimeGraph, Dictionary<INode, int> nodeMap)
         {
             //confirm node names are valid
@@ -71,56 +73,112 @@ namespace FuzzPhyte.Dialogue.Editor
             while (nodesToProcess.Count > 0)
             {
                 var currentNode = nodesToProcess.Dequeue();
-                if (nodeMap.ContainsKey(currentNode)) continue;
-                var runtimeNodes = EditorModelToRuntimeNodes(currentNode);
+                string debugNotes = string.Empty;
+                if (nodeMap.ContainsKey(currentNode))
+                {
+                    Debug.Log($"NODE is Not in the nodemap");
+                    continue;
+                }
+
+                debugNotes += "[Current node is in map]";
+                if (currentNode == null) 
+                {
+                    Debug.Log($"{debugNotes} In Ports|{currentNode.inputPortCount}|| Out Ports|{currentNode.outputPortCount}");
+                    continue;
+                }
+                debugNotes += "[Current node is not null]";
+                var runtimeNodes = ConvertEditorNodeToRealTimeNode(currentNode);
+                if (runtimeNodes == null)
+                {
+                    Debug.Log($"{debugNotes} In Ports|{currentNode.inputPortCount}|| Out Ports|{currentNode.outputPortCount}");
+                    continue;
+                }
+                debugNotes += "[Current node has runtime nodes]";
                 foreach(var runtimeNode in runtimeNodes)
                 {
+                    if (runtimeNode != null)
+                    {
+                        nodeMap[currentNode] = runtimeGraph.Nodes.Count;
+                        if (runtimeNode is RTEntryNode entryNode)
+                        {
+                            Debug.Log($"Logging Entry Node...");
+                            runtimeGraph.AddEntryNode(entryNode);
+                        }else if(runtimeNode is RTExitNode exitNode)
+                        {
+                            Debug.Log($"Logging Exit Node...");
+                            runtimeGraph.AddExitNode(exitNode);
+                        }else if(runtimeNode is RTDialogueNode dialogueNode)
+                        {
+                            Debug.Log($"Logging Dialoge Node...");
+                            runtimeGraph.AddDialogueNode(dialogueNode);
+                        }else if(runtimeNode is RTResponseNode responseNode)
+                        {
+                            Debug.Log($"Logging Response Node...");
+                            runtimeGraph.AddResponseNode(responseNode);
+                        }else if (runtimeNode is RTCharacterNode characterNode)
+                        {
+                            Debug.Log($"Logging Character Node...");
+                            runtimeGraph.AddCharacterNode(characterNode);
+                        }
 
+                            runtimeGraph.AddRTNodeToList(runtimeNode);
+                    }
+                }
+                Debug.Log($"{debugNotes}: Current Node: In Ports| {currentNode.inputPortCount}|| Out Ports|{currentNode.outputPortCount}");
+                //queue up all connected nodes
+                for (int i = 0; i < currentNode.outputPortCount; i++)
+                {
+                    Debug.Log($"....output port index: {i}");
+                    var outPort = currentNode.GetOutputPort(i);
+                    if (outPort.isConnected)
+                    {
+                        Debug.Log($"   .... {outPort.firstConnectedPort.dataType.ToString()}");
+                        nodesToProcess.Enqueue(outPort.firstConnectedPort.GetNode());
+                    }
                 }
             }
         }
+        /// <summary>
+        /// Back over our generated nodeMap to map runtime connections
+        /// </summary>
+        /// <param name="startNode"></param>
+        /// <param name="runtimeGraph"></param>
+        /// <param name="nodeMap"></param>
         void SetupConnections(INode startNode, RTFPDialogueGraph runtimeGraph, Dictionary<INode, int> nodeMap)
         {
+            foreach (var kvp in nodeMap)
+            {
+                var editorNode = kvp.Key;
+                var runtimeIndex = kvp.Value;
+                var runtimeNode = runtimeGraph.Nodes[runtimeIndex];
 
+                for (int i = 0; i < editorNode.outputPortCount; i++)
+                {
+                    var outPort = editorNode.GetOutputPort(i);
+                    if(outPort.isConnected &&nodeMap.TryGetValue(outPort.firstConnectedPort.GetNode(),out int nextIndex))
+                    {
+                        runtimeNode.NextNodeIndices.Add(nextIndex);
+                    }
+                }
+            }
         }
+        
         /// <summary>
-        /// Translate/convert all editor node data to RT nodes
+        /// Returns a Real-Time Node
         /// </summary>
         /// <param name="editorNode"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        static List<RTFPNode>EditorModelToRuntimeNodes(INode editorNode)
+        static List<RTFPNode> ConvertEditorNodeToRealTimeNode(INode editorNode)
         {
-            /// We have flow nodes and data nodes
-            /// flow
-            ///   Entry
-            ///   SetFPDialogueNode
-            ///   SetFPResponseNode
-            ///   FPCombineNode
-            ///   FPOnewayNode
-            ///   Exit
-            ///   
-            /// data
-            ///   SetFPCharacterNode
-            ///   SetFPTalkNode
-            var returnedNodes = new List<RTFPNode>();
-            var realTimeNode = ConvertEditorNodeToRealTimeNode(editorNode);
-            if (realTimeNode != null)
-            {
-                returnedNodes.Add(realTimeNode);
-            }
-            return returnedNodes;
-        }
-        
-        static RTFPNode ConvertEditorNodeToRealTimeNode(INode editorNode)
-        {
+            List<RTFPNode>createdNodes = new List<RTFPNode>();
             switch (editorNode)
             {
                 case EntryNode entryNode:
                     //have to evalute information on RTEnetryNode (Input Timeline asset)
                     TimelineAsset tAsset = null;
-                    //FPVisualNode outNode = null;
+                    RTTimelineDetails tAssetDetails = null;
                     var testOutPort = entryNode.GetOutputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
+                    
                     if (testOutPort == null)
                     {
                         Debug.LogError($"Missing out port?");
@@ -128,12 +186,40 @@ namespace FuzzPhyte.Dialogue.Editor
                     }
                     else
                     {
-                        var otherNode = FirstConnectedNodeByPort(testOutPort);
-                        if (otherNode != null)
+                        var otherNodes = GetConnectedNodeNamesByPort(testOutPort);
+                        if (otherNodes != null)
                         {
-                            Debug.Log($"Entry Node Connected to: {otherNode.Name}");
-                            entryNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_TIMELINE)?.TryGetValue(out tAsset);
-                            return new RTEntryNode(entryNode.Name, otherNode.Name, tAsset);
+                            //Debug.Log($"Entry Node Connected to: {otherNodes.Name}");
+                            //only one timeline file
+                            var timelinePort = entryNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_TIMELINE);
+                            var timelinePortDetails = entryNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_TIMELINEDETAILS);
+                            if (timelinePort != null)
+                            {
+                                tAsset = GetPortValue<TimelineAsset>(timelinePort);
+                            }
+                            if(timelinePortDetails != null)
+                            {
+                                tAssetDetails = GetPortValue<RTTimelineDetails>(timelinePortDetails);
+                            }
+
+                            if(timelinePort !=null && timelinePortDetails != null)
+                            {
+                                //use details
+                                var RTentryNode = new RTEntryNode(entryNode.Name, otherNodes, tAssetDetails);
+                                createdNodes.Add(RTentryNode);
+                            }
+                            else if(timelinePort!=null && timelinePortDetails ==null)
+                            {
+                                //use timeline directly
+                                var RTentryNode = new RTEntryNode(entryNode.Name, otherNodes, tAsset);
+                                createdNodes.Add(RTentryNode);
+                            }else if(timelinePort==null && timelinePortDetails == null)
+                            {
+                                Debug.LogWarning($"No Timeline files found - tAsset is null");
+                                var RTentryNode = new RTEntryNode(entryNode.Name, otherNodes, tAsset);
+                                createdNodes.Add(RTentryNode);
+                            }
+                            return createdNodes;
                         }
                         else
                         {
@@ -143,55 +229,97 @@ namespace FuzzPhyte.Dialogue.Editor
                     }
                 case ExitNode exitNode:
                     TimelineAsset tAssetOut = null;
-                    string nodeInIndex = string.Empty;
+                    RTTimelineDetails tAssetDetailsOut = null;
+                    List<string> nodeInIndexs = new();
                     var incomingPort = exitNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
-                    if (incomingPort!=null)
+                    if (incomingPort==null)
                     {
-                        nodeInIndex = GetConnectedNodeNameByPort(incomingPort);
+                        Debug.LogError($"Missing in port!?");
+                        return null;
+                        
                     }
-                    exitNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_TIMELINE)?.TryGetValue(out tAssetOut);
-                    return new RTExitNode(exitNode.Name, nodeInIndex, tAssetOut);
+                    else
+                    {
+                        nodeInIndexs = GetConnectedNodeNamesByPort(incomingPort);
+                       
+                        var timelinePort = exitNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_TIMELINE);
+                        var timelinePortDetails = exitNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_TIMELINEDETAILS);
+                        if (timelinePort != null)
+                        {
+                            tAssetOut = GetPortValue<TimelineAsset>(timelinePort);
+                        }
+                        if (timelinePortDetails != null)
+                        {
+                            tAssetDetailsOut = GetPortValue<RTTimelineDetails>(timelinePortDetails);
+                        }
+
+                        if (timelinePort != null && timelinePortDetails != null)
+                        {
+                            //use details
+                            var RTentryNode = new RTExitNode(exitNode.Name, nodeInIndexs, tAssetDetailsOut);
+                            createdNodes.Add(RTentryNode);
+                        }
+                        else if (timelinePort != null && timelinePortDetails == null)
+                        {
+                            //use timeline directly
+                            var RTentryNode = new RTEntryNode(exitNode.Name, nodeInIndexs, tAssetOut);
+                            createdNodes.Add(RTentryNode);
+                        }
+                        else if (timelinePort == null && timelinePortDetails == null)
+                        {
+                            Debug.LogWarning($"No Timeline files found - tAsset is null");
+                            var RTentryNode = new RTEntryNode(exitNode.Name, nodeInIndexs, tAssetOut);
+                            createdNodes.Add(RTentryNode);
+                        }
+                        return createdNodes;
+                    }
                 case FPCombineNode combineNode:
                     var portOne = combineNode.GetInputPortByName(FPDialogueGraphValidation.PORT_COMBINE_OPONE);
-                    var portTwo = combineNode.GetOutputPortByName(FPDialogueGraphValidation.PORT_COMBINE_OPTWO);
+                    var portTwo = combineNode.GetInputPortByName(FPDialogueGraphValidation.PORT_COMBINE_OPTWO);
                     var outPort = combineNode.GetOutputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
-                    string nodeOne = string.Empty;
-                    string nodeTwo = string.Empty;
-                    string nodeOut = string.Empty;
+                    string nodeOne= string.Empty;
+                    string nodeTwo= string.Empty;
+                    List<string> nodeOut = new();
                     
                     if (portOne != null)
                     {
-                        nodeOne = GetConnectedNodeNameByPort(portOne);
+                        nodeOne = GetFirstNodeNameByPort(portOne);
                     }
                     if (portTwo != null)
                     {
-                        nodeTwo = GetConnectedNodeNameByPort(portTwo);
+                        nodeTwo = GetFirstNodeNameByPort(portTwo);
                     }
                     if (outPort != null)
                     {
-                        nodeOut = GetConnectedNodeNameByPort(outPort);
+                        nodeOut = GetConnectedNodeNamesByPort(outPort);
                     }
-                    if (nodeOne == string.Empty || nodeTwo == string.Empty || nodeOut == string.Empty)
+                    if (nodeOne == string.Empty || nodeTwo == string.Empty || nodeOut.Count ==0 )
                     {
-                        Debug.LogError($"Combine node missing names: {nodeOne}, {nodeTwo}, going to {nodeOut}");
+                        Debug.LogError($"Combine node something");
                         return null;
                     }
                     else
                     {
-                        return new RTCombineNode(combineNode.Name, nodeOne, nodeTwo, nodeOut);
+                        var RTcombinedNode =  new RTCombineNode(combineNode.Name, nodeOne, nodeTwo, nodeOut);
+                        createdNodes.Add(RTcombinedNode);
+                        return createdNodes;
                     }
                 case FPOnewayNode onewayNode:
                     var inDirectionPort = onewayNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
                     var outDirectionPort = onewayNode.GetOutputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
                     if (inDirectionPort != null && outDirectionPort != null)
                     {
-                        string inNodeName = GetConnectedNodeNameByPort(inDirectionPort);
-                        string OutNodeName = GetConnectedNodeNameByPort(outDirectionPort);
-                        return new RTOnewayNode(onewayNode.Name, inNodeName, OutNodeName);
+                        string inNodeName = GetFirstNodeNameByPort(inDirectionPort);
+                        string OutNodeName = GetFirstNodeNameByPort(outDirectionPort);
+                        var RToneWayNode= new RTOnewayNode(onewayNode.Name, inNodeName, OutNodeName);
+                        createdNodes.Add(RToneWayNode);
+                        return createdNodes;
                     }
                     return null;
                 case SetFPCharacterNode characNode:
-                    return ReturnNewCharacterNode(characNode);
+                    var RTCharNode= ReturnNewCharacterNode(characNode);
+                    createdNodes.Add(RTCharNode);
+                    return createdNodes;
                 case SetFPResponseNode responseNode:
                     //go through four user prompts
                     //go through four user outputs
@@ -199,101 +327,206 @@ namespace FuzzPhyte.Dialogue.Editor
                     SetFPSinglePromptNode secondPrompt = null;
                     SetFPSinglePromptNode thirdPrompt = null;
                     SetFPSinglePromptNode fourthPrompt = null;
-                    SetFPCharacterNode characterNode = null;
+
                     FPVisualNode firstOut = null;
                     FPVisualNode secondOut = null;
                     FPVisualNode thirdOut = null;
                     FPVisualNode fourthOut = null;
-                    responseNode.GetInputPortByName(FPDialogueGraphValidation.USER_PROMPT_ONE)?.TryGetValue(out firstPrompt);
-                    responseNode.GetInputPortByName(FPDialogueGraphValidation.USER_PROMPT_TWO)?.TryGetValue(out secondPrompt);
-                    responseNode.GetInputPortByName(FPDialogueGraphValidation.USER_PROMPT_THREE)?.TryGetValue(out thirdPrompt);
-                    responseNode.GetInputPortByName(FPDialogueGraphValidation.USER_PROMPT_FOUR)?.TryGetValue(out fourthPrompt);
-                    responseNode.GetInputPortByName(FPDialogueGraphValidation.PORT_ACTOR)?.TryGetValue(out characterNode);
-                    responseNode.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPT_ONE)?.TryGetValue(out firstOut);
-                    responseNode.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPT_TWO)?.TryGetValue(out secondOut);
-                    responseNode.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPT_THREE)?.TryGetValue(out thirdOut);
-                    responseNode.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPT_FOUR)?.TryGetValue(out fourthOut);
-                   
+
                     List<RTSinglePromptNode> incomingItems = new List<RTSinglePromptNode>();
                     List<string> outcomingIndex = new List<string>();
-                    if (firstPrompt != null && firstOut != null)
+                    var promptOnePort = responseNode.GetInputPortByName(FPDialogueGraphValidation.USER_PROMPT_ONE);
+                    var directedPromptOne = responseNode.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPT_ONE);
+                    if (promptOnePort != null && directedPromptOne != null)
                     {
+                        firstPrompt = GetPortValue<SetFPSinglePromptNode>(promptOnePort);
+                        firstOut = GetPortValue<FPVisualNode>(directedPromptOne);
+                        if(firstPrompt!=null || firstOut != null)
+                        {
+                            incomingItems.Add(ReturnNewPromptNode(firstPrompt));
+                            outcomingIndex.Add(firstOut.Name);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError($"We should be using the first prompt!");
+                        return null;
+                    }
+                    var promptTwoPort = responseNode.GetInputPortByName(FPDialogueGraphValidation.USER_PROMPT_TWO);
+                    var directedPromptTwo = responseNode.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPT_TWO);
+                    if (promptTwoPort != null && directedPromptTwo != null)
+                    {
+                        secondPrompt = GetPortValue<SetFPSinglePromptNode>(promptTwoPort);
+                        secondOut = GetPortValue<FPVisualNode>(directedPromptTwo);
+                        if (secondPrompt != null || secondOut != null)
+                        {
+                            incomingItems.Add(ReturnNewPromptNode(secondPrompt));
+                            outcomingIndex.Add(secondOut.Name);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Second Prompt == null or second out == null");
+                    }
+                    /// third prompt
+                    var promptThreePort = responseNode.GetInputPortByName(FPDialogueGraphValidation.USER_PROMPT_THREE);
+                    var directedPromptThree = responseNode.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPT_THREE);
+                    if (promptThreePort != null && directedPromptThree != null)
+                    {
+                        thirdPrompt = GetPortValue<SetFPSinglePromptNode>(promptThreePort);
+                        thirdOut = GetPortValue<FPVisualNode>(directedPromptThree);
+                        if (thirdPrompt != null || thirdOut != null)
+                        {
+                            incomingItems.Add(ReturnNewPromptNode(thirdPrompt));
+                            outcomingIndex.Add(thirdOut.Name);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Third Prompt == null or Third out == null");
+                    }
+                    /// fourth prompt
+                    var promptFourPort = responseNode.GetInputPortByName(FPDialogueGraphValidation.USER_PROMPT_FOUR);
+                    var directedPromptFour = responseNode.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPT_FOUR);
+                    if (promptFourPort != null && directedPromptFour != null)
+                    {
+                        fourthPrompt = GetPortValue<SetFPSinglePromptNode>(promptFourPort) ;
+                        fourthOut = GetPortValue<FPVisualNode>(directedPromptFour);
+                        if (fourthPrompt != null || fourthOut != null)
+                        {
+                            incomingItems.Add(ReturnNewPromptNode(fourthPrompt));
+                            outcomingIndex.Add(fourthOut.Name);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Fourth Prompt == null or Fourth out == null");
+                    }
+                    /// Character and finalize Response Node
+                    createdNodes.AddRange(incomingItems);
+                    SetFPCharacterNode characterNode = null;
+                    var characterPortResponse = responseNode.GetInputPortByName(FPDialogueGraphValidation.PORT_ACTOR);
+                    if (characterPortResponse != null)
+                    {
+                        characterNode = ReturnFirstNodeByPort(characterPortResponse) as SetFPCharacterNode;
 
-                        incomingItems.Add(ReturnNewPromptNode(firstPrompt));
-                        outcomingIndex.Add(firstOut.Name);
-                    }
-                    if (secondPrompt != null && secondOut != null)
-                    {
-                        incomingItems.Add(ReturnNewPromptNode(secondPrompt));
-                        outcomingIndex.Add(secondOut.Name);
-                    }
-                    if (thirdPrompt != null && thirdOut != null)
-                    {
-                        incomingItems.Add(ReturnNewPromptNode(thirdPrompt));
-                        outcomingIndex.Add(thirdOut.Name);
-                    }
-                    if (fourthPrompt != null && fourthOut != null)
-                    {
-                        incomingItems.Add(ReturnNewPromptNode(fourthPrompt));
-                        outcomingIndex.Add(fourthOut.Name);
-                    }
-                    if (characterNode != null)
-                    {
-
-                    }
-                    var aCharacter = ReturnNewCharacterNode(characterNode);
-                    if (aCharacter != null)
-                    {
-                        return new RTResponseNode(responseNode.Name, incomingItems, outcomingIndex, aCharacter);
+                        if (characterNode != null)
+                        {
+                            var aCharacter = ReturnNewCharacterNode(characterNode);
+                            if (aCharacter != null)
+                            {
+                                createdNodes.Add(aCharacter);
+                                var RTresponseNode = new RTResponseNode(responseNode.Name, incomingItems, outcomingIndex, aCharacter);
+                                createdNodes.Add(RTresponseNode);
+                                return createdNodes;
+                            }
+                            else
+                            {
+                                Debug.LogError($"Real Time Character failed!");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError($"Unable to create RT Character, failed");
+                        }
                     }
                     return null;
                 case SetFPTalkNode talkieNode:
-                    return ReturnNewTalkNode(talkieNode);
+                    var RTtalkNode = ReturnNewTalkNode(talkieNode);
+                    createdNodes.Add(RTtalkNode);
+                    return createdNodes;
                 case SetFPDialogueNode dialogueNode:
                     EmotionalState animState = EmotionalState.Neutral;
                     DialogueState dialogueState = DialogueState.Normal;
                     MotionState motionState = MotionState.NA;
-                    SetFPTalkNode mainTalk = null;
-                    SetFPTalkNode transTalk = null;
-                    SetFPCharacterNode charNode = null;
-                    SetFPCharacterNode charNodeOut = null;
+
                     RTTalkNode talkRTNode = null;
                     RTTalkNode talkRTTransNode = null;
                     RTCharacterNode rTCharacterNodeIn = null;
                     RTCharacterNode rtCharacterNodeOut = null;
+                    
                     FPVisualNode inputDNode = null;
                     FPVisualNode outputDNode = null;
-                    dialogueNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME)?.TryGetValue(out inputDNode);
-                    dialogueNode.GetOutputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME)?.TryGetValue(out outputDNode);
-                    if (inputDNode == null && outputDNode == null)
+                    var inputPort = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
+                    var outputPort = dialogueNode.GetOutputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
+                    if(inputPort != null)
                     {
-                        Debug.LogError($"Missing an input or output connection on a dialogue!");
+                        inputDNode = ReturnFirstNodeByPort(inputPort);
+                    }
+                    else
+                    {
+                        Debug.LogError($"Missing an input connection on a dialogue!");
                         return null;
+                    }
+                    if (outputPort != null)
+                    {
+                        outputDNode = ReturnFirstNodeByPort(outputPort);
+                    }
+                    else
+                    {
+                        Debug.LogError($"Missing an output connection on a dialogue");
+                        return null;
+                    }
+                    /// Main Text
+                    var dialogueInPort = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_TEXT);
+                    FPVisualNode mainTalk = null;
+                    if (dialogueInPort != null)
+                    {
+                        mainTalk = ReturnFirstNodeByPort(dialogueInPort);
+                        if (mainTalk != null)
+                        {
+                            talkRTNode = ReturnNewTalkNode(mainTalk as SetFPTalkNode);
+                            createdNodes.Add(talkRTNode);
+                        }
+                        else
+                        {
+                            Debug.LogError($"Missing a FPTalk Node Incoming connected data");
+                            return null;
+                        }
                     }
                     dialogueNode.GetNodeOptionByName(FPDialogueGraphValidation.ANIM_EMOTION_STATE)?.TryGetValue(out animState);
                     dialogueNode.GetNodeOptionByName(FPDialogueGraphValidation.ANIM_DIALOGUE_STATE)?.TryGetValue(out dialogueState);
                     dialogueNode.GetNodeOptionByName(FPDialogueGraphValidation.ANIM_MOTION_STATE)?.TryGetValue(out motionState);
-                    dialogueNode.GetInputPortByName(FPDialogueGraphValidation.PORT_ACTOR)?.TryGetValue(out charNode);
-                    dialogueNode.GetOutputPortByName(FPDialogueGraphValidation.PORT_ACTOR)?.TryGetValue(out charNodeOut);
-                    dialogueNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_TEXT)?.TryGetValue(out mainTalk);
-                    dialogueNode.GetInputPortByName(FPDialogueGraphValidation.TRANSLATION_TEXT)?.TryGetValue(out transTalk);
-                    if (mainTalk != null)
+
+                    /// Translation
+                    var dialogueINTranslationPort = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.TRANSLATION_TEXT);
+                    FPVisualNode transTalk = null;
+                    if (dialogueINTranslationPort != null)
                     {
-                        talkRTNode=ReturnNewTalkNode(mainTalk);
+                        transTalk = ReturnFirstNodeByPort(dialogueINTranslationPort);
+                        if (transTalk != null)
+                        {
+                            talkRTTransNode = ReturnNewTalkNode(transTalk as SetFPTalkNode);
+                            createdNodes.Add(talkRTTransNode);
+                        }
                     }
-                    if (transTalk != null)
+                    /// Character In
+                    FPVisualNode charNode = null;
+                    var characterPortIn = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.PORT_ACTOR);
+                    if (characterPortIn != null)
                     {
-                        talkRTTransNode = ReturnNewTalkNode(transTalk);
+                        charNode = ReturnFirstNodeByPort(characterPortIn);
+                        if (charNode != null)
+                        {
+                            rTCharacterNodeIn = ReturnNewCharacterNode(charNode as SetFPCharacterNode);
+                            createdNodes.Add(rTCharacterNodeIn);
+                        }
                     }
-                    if (charNode != null)
+                    /// Character Out
+                    FPVisualNode charNodeOut = null;
+                    var characterPortOut = dialogueNode.GetOutputPortByName(FPDialogueGraphValidation.PORT_ACTOR);
+                    if (characterPortOut != null)
                     {
-                        rTCharacterNodeIn = ReturnNewCharacterNode(charNode);
+                        charNodeOut = ReturnFirstNodeByPort( characterPortOut);
+                        if(charNodeOut != null)
+                        {
+                            rtCharacterNodeOut = ReturnNewCharacterNode(charNodeOut as SetFPCharacterNode);
+                            createdNodes.Add(rtCharacterNodeOut);
+                        }
                     }
-                    if(charNodeOut != null)
-                    {
-                        rtCharacterNodeOut = ReturnNewCharacterNode(charNodeOut);
-                    }
-                    return new RTDialogueNode(dialogueNode.Name, inputDNode.Name, outputDNode.Name, talkRTNode,rTCharacterNodeIn,rtCharacterNodeOut, talkRTTransNode);
+                    var RTdialogueNode =new RTDialogueNode(dialogueNode.Name, inputDNode.Name, outputDNode.Name, talkRTNode,rTCharacterNodeIn,rtCharacterNodeOut, talkRTTransNode);
+                    createdNodes.Add(RTdialogueNode);
+                    return createdNodes;
                 
                 default:
                     return null;
@@ -310,7 +543,7 @@ namespace FuzzPhyte.Dialogue.Editor
             bool useCharData = false;
             FP_Character charData = null;
             int age = -10;
-            SkinnedMeshRenderer characterMeshR = null;
+            GameObject characterMeshR = null;
             FP_Theme characterTheme = null;
             string nodeIndex = nodeData.Name;
            
@@ -318,7 +551,7 @@ namespace FuzzPhyte.Dialogue.Editor
             var actorPortOut = nodeData.GetOutputPortByName(FPDialogueGraphValidation.PORT_ACTOR);
             if (actorPortOut != null)
             {
-                connectingOutNode = GetConnectedNodeNameByPort(actorPortOut);
+                connectingOutNode = GetFirstNodeNameByPort(actorPortOut);
             }
             nodeData.GetNodeOptionByName(FPDialogueGraphValidation.GETDATAFILE)?.TryGetValue(out useCharData);
             nodeData.GetInputPortByName(FPDialogueGraphValidation.ACTOR_NAME)?.TryGetValue(out characterName);
@@ -328,9 +561,52 @@ namespace FuzzPhyte.Dialogue.Editor
             nodeData.GetInputPortByName(FPDialogueGraphValidation.ACTOR_LANGUAGES_SECONDARY)?.TryGetValue(out secondL);
             nodeData.GetInputPortByName(FPDialogueGraphValidation.ACTOR_LANGUAGES_TIERTIARY)?.TryGetValue(out thirdL);
             nodeData.GetInputPortByName(FPDialogueGraphValidation.ACTOR_AGE)?.TryGetValue(out age);
-            nodeData.GetInputPortByName(FPDialogueGraphValidation.ANIM_SKIN_MESHR)?.TryGetValue(out characterMeshR);
-            nodeData.GetInputPortByName(FPDialogueGraphValidation.ACTOR_THEME)?.TryGetValue(out characterTheme);
-            nodeData.GetInputPortByName(FPDialogueGraphValidation.PORT_CHARACTER_DATA)?.TryGetValue(out charData);
+
+            Debug.Log($"Node Data Option Size? {nodeData.nodeOptionCount}");
+            for (int i = 0; i < nodeData.nodeOptionCount; i++)
+            {
+                var nodeOptionIndex = nodeData.GetNodeOption(i);
+                Debug.Log($"Node Option Index: [{i}] has a name of: {nodeOptionIndex.name}");
+            }
+            if (characterMeshR == null)
+            {
+                var skinMeshNode = nodeData.GetNodeOptionByName(FPDialogueGraphValidation.ANIM_SKIN_MESHR);
+
+                if (skinMeshNode != null)
+                {
+                    skinMeshNode.TryGetValue(out characterMeshR);
+
+
+                    if (characterMeshR == null)
+                    {
+                        Debug.LogError($"No Skinned Mesh Renderer on a Character Node?!");
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"What did this work!?");
+            }
+
+
+            var characterThemePort = nodeData.GetInputPortByName(FPDialogueGraphValidation.ACTOR_THEME);//?.TryGetValue(out characterTheme);
+            if (characterThemePort != null)
+            {
+                characterTheme = GetPortValue<FP_Theme>(characterThemePort);
+                if (characterTheme == null)
+                {
+                    Debug.LogError($"Missing FP_Theme on a Character Node!");
+                }
+            }
+            var charPort = nodeData.GetInputPortByName(FPDialogueGraphValidation.PORT_CHARACTER_DATA);//?.TryGetValue(out charData);
+            if (charPort != null)
+            {
+                charData = GetPortValue<FP_Character>(charPort);
+                if (charData == null)
+                {
+                    Debug.LogError($"Character, FP_Character wasn't on a Character Node?!");
+                }
+            }
             if (connectingOutNode == string.Empty)
             {
                 Debug.LogError("Character data isn't connected to anything - floating in space");
@@ -354,11 +630,27 @@ namespace FuzzPhyte.Dialogue.Editor
             SetFPSinglePromptNode outNode = null;
             Sprite icon = null;
             GameObject location = null;
-            nodeData.GetInputPortByName(FPDialogueGraphValidation.MAIN_TEXT)?.TryGetValue(out talkNodeMain);
-            nodeData.GetInputPortByName(FPDialogueGraphValidation.TRANSLATION_TEXT)?.TryGetValue(out talkNodeTranslation);
+            var talkNodePort = nodeData.GetInputPortByName(FPDialogueGraphValidation.MAIN_TEXT);
+            if (talkNodePort != null)
+            {
+                talkNodeMain = GetPortValue<SetFPTalkNode>(talkNodePort);
+            }
+            var talkNodeTranslationPort = nodeData.GetInputPortByName(FPDialogueGraphValidation.TRANSLATION_TEXT);
+            if (talkNodeTranslationPort != null)
+            {
+                talkNodeTranslation = GetPortValue<SetFPTalkNode>(talkNodeTranslationPort);
+            }
+            var gameObjectSpawnLocation = nodeData.GetInputPortByName(FPDialogueGraphValidation.GO_WORLD_LOCATION);
+            if (gameObjectSpawnLocation != null)
+            {
+                location = GetPortValue<GameObject>(gameObjectSpawnLocation);
+            }
             nodeData.GetInputPortByName(FPDialogueGraphValidation.PORT_ICON)?.TryGetValue(out icon);
-            nodeData.GetInputPortByName(FPDialogueGraphValidation.GO_WORLD_LOCATION)?.TryGetValue(out location);
-            nodeData.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPT_PORT)?.TryGetValue(out outNode);
+            var outNodePort = nodeData.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPT_PORT);
+            if (outNodePort!=null)
+            {
+                outNode=GetPortValue<SetFPSinglePromptNode>(outNodePort);
+            }
             if (outNode!=null&&talkNodeMain != null&&talkNodeTranslation!=null)
             {
                 //go get real talk
@@ -382,11 +674,16 @@ namespace FuzzPhyte.Dialogue.Editor
             nodeData.GetInputPortByName(FPDialogueGraphValidation.DIALOGUE)?.TryGetValue(out text);
             nodeData.GetInputPortByName(FPDialogueGraphValidation.DIALOGUE_AUDIO_NAME)?.TryGetValue(out textClip);
             nodeData.GetInputPortByName(FPDialogueGraphValidation.ANIM_BLEND_FACE)?.TryGetValue(out animClip);
-            nodeData.GetOutputPortByName(FPDialogueGraphValidation.MAIN_TEXT)?.TryGetValue(out outputNode);
-            if (outputNode != null)
+            var talkOutputPort = nodeData.GetOutputPortByName(FPDialogueGraphValidation.MAIN_TEXT);
+            if (talkOutputPort != null)
             {
-                outputNodeIndex = outputNode.Name;
+                outputNode = ReturnFirstNodeByPort(talkOutputPort) as SetFPTalkNode;
+                if (outputNode != null)
+                {
+                    outputNodeIndex = outputNode.Name;
+                }
             }
+            
             return new RTTalkNode(nodeData.Name, outputNodeIndex, nodeLanguage, header, text, textClip, animClip);
         }
         /// <summary>
@@ -419,19 +716,49 @@ namespace FuzzPhyte.Dialogue.Editor
             }
             return value;
         }
-        static bool IsSameOrSubclass(Type potentialBase, Type potentialDescendant)
+        static T GetPortValue<T>(IPort port)
         {
-            return potentialDescendant.IsSubclassOf(potentialBase)
-                   || potentialDescendant == potentialBase;
-        }
-        static string GetConnectedNodeNameByPort(IPort port)
-        {
-            var visualNode = FirstConnectedNodeByPort(port);
-            if (visualNode!=null)
+            if (port == null) return default;
+            if (port.isConnected)
             {
-                return visualNode.Name;
+                if(port.firstConnectedPort.GetNode() is IVariableNode variableNode)
+                {
+                    variableNode.variable.TryGetDefaultValue(out T value);
+                    return value;
+                }else if(port.firstConnectedPort.GetNode() is IConstantNode constantNode)
+                {
+                    constantNode.TryGetValue<T>(out T value);
+                    return value;
+                }
             }
-            return string.Empty;
+            
+            port.TryGetValue(out T fallbackValue);
+            return fallbackValue;
+        }
+        static List<string> GetConnectedNodeNamesByPort(IPort port)
+        {
+            List<string> nodeNames = new();
+            var visualNodes = ConnectedNodesByPort(port);
+            for(int i = 0; i < visualNodes.Count; i++)
+            {
+                var node = visualNodes[i];
+                if (node != null)
+                {
+                    nodeNames.Add(node.Name);
+                }
+            }
+            
+            return nodeNames;
+        }
+        static string GetFirstNodeNameByPort(IPort port)
+        {
+            string nodeName = string.Empty;
+            var aNode = ReturnFirstNodeByPort(port);
+            if (aNode != null)
+            {
+                nodeName = aNode.Name;
+            }
+            return nodeName;
         }
         /// <summary>
         /// will return the first INode on the other end of a connected iPort
@@ -439,24 +766,35 @@ namespace FuzzPhyte.Dialogue.Editor
         /// </summary>
         /// <param name="port"></param>
         /// <returns></returns>
-        static FPVisualNode FirstConnectedNodeByPort(IPort port)
+        static List<FPVisualNode> ConnectedNodesByPort(IPort port)
         {
             List<IPort> possiblePorts = new List<IPort>();
             port.GetConnectedPorts(possiblePorts);
-            FPVisualNode outNode = null;
-            if (possiblePorts.Count > 1)
+
+            //FPVisualNode outNode = null;
+            List<FPVisualNode> allOutNodes = new();
+            for(int i = 0; i < possiblePorts.Count; i++)
             {
-                Debug.LogError($"Entry Node should only connect to one node");
-                outNode = possiblePorts[0].GetNode() as FPVisualNode;
-            }
-            else
-            {
-                if (possiblePorts.Count == 1)
+                var possiblePort = possiblePorts[i];
+                var outNode = possiblePort.GetNode() as FPVisualNode;
+                if (outNode != null)
                 {
-                    outNode = possiblePorts[0].GetNode() as FPVisualNode;
+                    allOutNodes.Add(outNode);
                 }
             }
-            return outNode;
+           
+            return allOutNodes;
         }
+        static FPVisualNode ReturnFirstNodeByPort(IPort port)
+        {
+            List<IPort> possiblePorts = new List<IPort>();
+            port.GetConnectedPorts(possiblePorts);
+            if (possiblePorts.Count > 0)
+            {
+                return possiblePorts[0].GetNode() as FPVisualNode;
+            }
+            return null;
+        }
+        
     }
 }

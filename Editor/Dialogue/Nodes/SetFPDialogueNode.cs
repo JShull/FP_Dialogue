@@ -6,7 +6,7 @@ namespace FuzzPhyte.Dialogue.Editor
 
     [UseWithGraph(typeof(FPDialogueGraph))]
     [Serializable]
-    public class SetFPDialogueNode : FPVisualNode
+    internal class SetFPDialogueNode : FPVisualNode
     {
         public override void SetupIndex(string passedName)
         {
@@ -18,12 +18,22 @@ namespace FuzzPhyte.Dialogue.Editor
         /// <param name="context">The scope to define the node.</param>
         protected override void OnDefinePorts(IPortDefinitionContext context)
         {
-            AddInputExecutionPorts(context);
-            AddOutputExecutionPorts(context);
-            
-            AddInputActorPort(context);
-            AddOutputActorPort(context);
-
+            context.AddInputPort<FPVisualNode>(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME)
+                .WithDisplayName("Flow In")
+                .WithConnectorUI(PortConnectorUI.Arrowhead)
+                .Build();
+            context.AddOutputPort<FPVisualNode>(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME)
+               .WithDisplayName("Flow Out")
+               .WithConnectorUI(PortConnectorUI.Arrowhead)
+               .Build();
+            context.AddInputPort<SetFPCharacterNode>(FPDialogueGraphValidation.PORT_ACTOR)
+                .WithDisplayName("Character In:")
+                .WithConnectorUI(PortConnectorUI.Circle)
+                .Build();
+            context.AddOutputPort<SetFPCharacterNode>(FPDialogueGraphValidation.PORT_ACTOR)
+                .WithDisplayName("Character Out:")
+                .WithConnectorUI(PortConnectorUI.Circle)
+                .Build();
             context.AddInputPort<SetFPTalkNode>(FPDialogueGraphValidation.MAIN_TEXT)
                 .WithDisplayName("Text to Speak")
                 .Build();

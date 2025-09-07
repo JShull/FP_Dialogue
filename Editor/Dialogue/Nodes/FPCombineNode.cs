@@ -11,7 +11,7 @@ namespace FuzzPhyte.Dialogue.Editor
     /// </summary>
     [UseWithGraph(typeof(FPDialogueGraph))]
     [Serializable]
-    public class FPCombineNode:FPVisualNode
+    internal class FPCombineNode:FPVisualNode
     {
         public override void SetupIndex(string passedName)
         {
@@ -30,14 +30,17 @@ namespace FuzzPhyte.Dialogue.Editor
         protected override void OnDefinePorts(IPortDefinitionContext ports)
         {
             // Use applied value for stability (so drawing matches the last applied state)
-            
+            ports.AddOutputPort<FPVisualNode>(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME)
+               .WithDisplayName("Flow Out")
+               .WithConnectorUI(PortConnectorUI.Arrowhead)
+               .Build();
             ports.AddInputPort<FPVisualNode>(FPDialogueGraphValidation.PORT_COMBINE_OPONE)
                 .WithDisplayName("Option 1")
                 .Build();
             ports.AddInputPort<FPVisualNode>(FPDialogueGraphValidation.PORT_COMBINE_OPTWO)
                 .WithDisplayName("Option 2")
                 .Build();
-            AddOutputExecutionPorts(ports);
+            
         }
     }
 }

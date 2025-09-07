@@ -7,7 +7,7 @@ namespace FuzzPhyte.Dialogue.Editor
 
     [UseWithGraph(typeof(FPDialogueGraph))]
     [Serializable]
-    public class SetFPResponseNode: FPVisualNode
+    internal class SetFPResponseNode: FPVisualNode
     {
         public override void SetupIndex(string passedName)
         {
@@ -20,10 +20,15 @@ namespace FuzzPhyte.Dialogue.Editor
         /// <param name="context">The scope to define the node.</param>
         protected override void OnDefinePorts(IPortDefinitionContext context)
         {
-            AddInputExecutionPorts(context);
+            context.AddInputPort<FPVisualNode>(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME)
+                .WithDisplayName("Flow In")
+                .WithConnectorUI(PortConnectorUI.Arrowhead)
+                .Build();
 
-            AddInputActorPort(context);
-            
+            context.AddInputPort<SetFPCharacterNode>(FPDialogueGraphValidation.PORT_ACTOR)
+                .WithDisplayName("Character In:")
+                .WithConnectorUI(PortConnectorUI.Circle)
+                .Build();
             context.AddInputPort<SetFPSinglePromptNode>(FPDialogueGraphValidation.USER_PROMPT_ONE)
                 .WithDisplayName("Prompt A")
                 .Build();

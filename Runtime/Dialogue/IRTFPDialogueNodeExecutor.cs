@@ -14,11 +14,11 @@ namespace FuzzPhyte.Dialogue
             var mediator = context.GetComponent<RTDialogueMediator>();
             if(mediator == null)
             {
-                Debug.LogError($"No Mediator found on our director!");
+                Debug.LogError($"EntryExecutor:No Mediator found on our director!");
                 return false;
             }
             Debug.Log("Starting Dialogue");
-            bool condition = mediator.EvaluateCondition(node);
+            bool condition = mediator.EvaluateEntryNode(node);
             Debug.Log($"Evaluating entry node ID: {node.Index} with returned {condition}");
             return condition;
         }
@@ -30,10 +30,24 @@ namespace FuzzPhyte.Dialogue
             var mediator = context.GetComponent<RTDialogueMediator>();
             if (mediator == null)
             {
-                Debug.LogError($"No Mediator found on our director!");
+                Debug.LogError($"ExitExecutor:No Mediator found on our director!");
                 return false;
             }
-            Debug.Log($"Exitting Dialogue");
+            Debug.Log($"Exiting Dialogue");
+            return true;
+        }
+    }
+    public class OnewayExecutor : IRTFPDialogueNodeExecutor<RTOnewayNode>
+    {
+        public bool Execute(RTOnewayNode node, RTDialogueDirector context) 
+        {
+            var mediator = context.GetComponent<RTDialogueMediator>();
+            if (mediator == null)
+            {
+                Debug.LogError($"OneWayExecutor:No Mediator found on our director!");
+                return false;
+            }
+            Debug.Log($"Oneway Dialogue!");
             return true;
         }
     }
@@ -79,6 +93,20 @@ namespace FuzzPhyte.Dialogue
             return true;
         }
     }
+    public class SinglePromptNodeExecutor: IRTFPDialogueNodeExecutor<RTSinglePromptNode>
+    {
+        public bool Execute(RTSinglePromptNode node, RTDialogueDirector context)
+        {
+            var mediator = context.GetComponent<RTDialogueMediator>();
+            if (mediator == null)
+            {
+                Debug.LogError($"SinglePromptExecutor: No Mediator found on our director!");
+                return false;
+            }
+            Debug.Log($"Single Prompt Node Execution!");
+            return true;
+        }
+    }
     public class DialogueNodeExecutor : IRTFPDialogueNodeExecutor<RTDialogueNode>
     {
         public bool Execute(RTDialogueNode node, RTDialogueDirector context)
@@ -90,6 +118,7 @@ namespace FuzzPhyte.Dialogue
                 return false;
             }
             Debug.Log($"Dialogue Node Execution!");
+            bool condition = mediator.EvaluateDialogueNode(node);
             return true;
         }
     }

@@ -7,14 +7,12 @@ namespace FuzzPhyte.Dialogue.Editor
 
     [UseWithGraph(typeof(FPDialogueGraph))]
     [Serializable]
-    public class SetFPTalkNode: FPVisualNode
+    internal class SetFPTalkNode: FPVisualNode
     {
         public override void SetupIndex(string passedName)
         {
             this.name = passedName;
-        }
-        //public const string DIALOGUE_HEADER = "DialogueTitle";
-       
+        }    
         protected override void OnDefinePorts(IPortDefinitionContext context)
         {
             context.AddInputPort<FP_Language>(FPDialogueGraphValidation.LANG_NAME)

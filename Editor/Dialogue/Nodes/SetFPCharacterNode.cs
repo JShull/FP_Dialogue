@@ -6,18 +6,21 @@ namespace FuzzPhyte.Dialogue.Editor
     using Unity.GraphToolkit.Editor;
     [UseWithGraph(typeof(FPDialogueGraph))]
     [Serializable]
-    public class SetFPCharacterNode:FPVisualNode
+    internal class SetFPCharacterNode:FPVisualNode
     {
+        GameObject headNode;
         public override void SetupIndex(string passedName)
         {
             this.name = passedName;
         }
-        protected override void OnDefineOptions(IOptionDefinitionContext options)
+        protected override void OnDefineOptions(IOptionDefinitionContext context)
         {
-            options.AddOption<bool>(FPDialogueGraphValidation.GETDATAFILE).WithDisplayName("Use Character File?")
+            context.AddOption<bool>(FPDialogueGraphValidation.GETDATAFILE)
+                .WithDisplayName("Use Character File?")
                 .WithTooltip("If you want to override the local data with the file")
-                .WithDefaultValue(true)
-                .Build();
+                .WithDefaultValue(true);
+            context.AddOption(FPDialogueGraphValidation.ANIM_SKIN_MESHR, typeof(GameObject))
+                .WithDisplayName(FPDialogueGraphValidation.ANIM_SKIN_DISPLAY);
         }
         /// <summary>
         /// Defines the output for the node.
@@ -25,7 +28,10 @@ namespace FuzzPhyte.Dialogue.Editor
         /// <param name="context">The scope to define the node.</param>
         protected override void OnDefinePorts(IPortDefinitionContext context)
         {
-            AddOutputActorPort(context);
+            context.AddOutputPort<SetFPCharacterNode>(FPDialogueGraphValidation.PORT_ACTOR)
+                .WithDisplayName("Character Out:")
+                .WithConnectorUI(PortConnectorUI.Circle)
+                .Build();
             context.AddInputPort<FP_Character>(FPDialogueGraphValidation.PORT_CHARACTER_DATA)
                 .WithDisplayName("Character:")
                 .Build();
@@ -39,24 +45,22 @@ namespace FuzzPhyte.Dialogue.Editor
                 .WithDisplayName("Ethnicity:")
                 .Build();
             context.AddInputPort<FP_Language>(FPDialogueGraphValidation.ACTOR_LANGUAGES_PRIMARY)
-               .WithDisplayName("First Language:")
-               .Build();
+                .WithDisplayName("First Language:")
+                .Build();
             context.AddInputPort<FP_Language>(FPDialogueGraphValidation.ACTOR_LANGUAGES_SECONDARY)
-               .WithDisplayName("Second Language:")
-               .Build();
+                .WithDisplayName("Second Language:")
+                .Build();
             context.AddInputPort<FP_Language>(FPDialogueGraphValidation.ACTOR_LANGUAGES_TIERTIARY)
-               .WithDisplayName("Tertiary Language:")
-               .Build();
+                .WithDisplayName("Tertiary Language:")
+                .Build();
             context.AddInputPort<int>(FPDialogueGraphValidation.ACTOR_AGE)
                 .WithDisplayName("Age:")
                 .Build();
-            context.AddInputPort<SkinnedMeshRenderer>(FPDialogueGraphValidation.ANIM_SKIN_MESHR)
-                .WithDisplayName("Character SkinnedMR:")
-                .Build();
             context.AddInputPort<FP_Theme>(FPDialogueGraphValidation.ACTOR_THEME)
+                .WithDefaultValue((FP_Theme) null) 
                 .WithDisplayName("Theme:")
                 .Build();
         }
-
+        
     }
 }
