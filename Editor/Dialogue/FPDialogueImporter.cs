@@ -323,15 +323,15 @@ namespace FuzzPhyte.Dialogue.Editor
                 case SetFPResponseNode responseNode:
                     //go through four user prompts
                     //go through four user outputs
-                    SetFPSinglePromptNode firstPrompt = null;
-                    SetFPSinglePromptNode secondPrompt = null;
-                    SetFPSinglePromptNode thirdPrompt = null;
-                    SetFPSinglePromptNode fourthPrompt = null;
+                    SetFPSinglePromptNode nodeData = null;
+                    SetFPSinglePromptNode nodeTwoData = null;
+                    SetFPSinglePromptNode nodeThreeData = null;
+                    SetFPSinglePromptNode nodeFourthData = null;
 
-                    FPVisualNode firstOut = null;
-                    FPVisualNode secondOut = null;
-                    FPVisualNode thirdOut = null;
-                    FPVisualNode fourthOut = null;
+                    FPVisualNode nodeDataMap = null;
+                    FPVisualNode nodeTwoOut = null;
+                    FPVisualNode nodeThreeOut = null;
+                    FPVisualNode nodeFourthOut = null;
 
                     List<RTSinglePromptNode> incomingItems = new List<RTSinglePromptNode>();
                     List<string> outcomingIndex = new List<string>();
@@ -339,12 +339,15 @@ namespace FuzzPhyte.Dialogue.Editor
                     var directedPromptOne = responseNode.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPT_ONE);
                     if (promptOnePort != null && directedPromptOne != null)
                     {
-                        firstPrompt = GetPortValue<SetFPSinglePromptNode>(promptOnePort);
-                        firstOut = GetPortValue<FPVisualNode>(directedPromptOne);
-                        if(firstPrompt!=null || firstOut != null)
+                        nodeData = ReturnFirstNodeByPort(promptOnePort) as SetFPSinglePromptNode;
+                        nodeDataMap = ReturnFirstNodeByPort(directedPromptOne);
+                        //firstPrompt = GetPortValue<SetFPSinglePromptNode>(promptOnePort);
+                        //firstOut = GetPortValue<FPVisualNode>(directedPromptOne);
+                        if(nodeData != null || nodeDataMap != null)
                         {
-                            incomingItems.Add(ReturnNewPromptNode(firstPrompt));
-                            outcomingIndex.Add(firstOut.Name);
+                            incomingItems.Add(ReturnNewPromptNode(nodeData));
+                            outcomingIndex.Add(nodeDataMap.Name);
+                            Debug.LogWarning($"Adding Prompts!! Prompt 1");
                         }
                     }
                     else
@@ -356,12 +359,12 @@ namespace FuzzPhyte.Dialogue.Editor
                     var directedPromptTwo = responseNode.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPT_TWO);
                     if (promptTwoPort != null && directedPromptTwo != null)
                     {
-                        secondPrompt = GetPortValue<SetFPSinglePromptNode>(promptTwoPort);
-                        secondOut = GetPortValue<FPVisualNode>(directedPromptTwo);
-                        if (secondPrompt != null || secondOut != null)
+                        nodeTwoData = ReturnFirstNodeByPort(promptTwoPort) as SetFPSinglePromptNode;
+                        nodeTwoOut = ReturnFirstNodeByPort(directedPromptTwo);
+                        if (nodeTwoData != null || nodeTwoOut != null)
                         {
-                            incomingItems.Add(ReturnNewPromptNode(secondPrompt));
-                            outcomingIndex.Add(secondOut.Name);
+                            incomingItems.Add(ReturnNewPromptNode(nodeTwoData));
+                            outcomingIndex.Add(nodeTwoOut.Name);
                         }
                     }
                     else
@@ -373,12 +376,12 @@ namespace FuzzPhyte.Dialogue.Editor
                     var directedPromptThree = responseNode.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPT_THREE);
                     if (promptThreePort != null && directedPromptThree != null)
                     {
-                        thirdPrompt = GetPortValue<SetFPSinglePromptNode>(promptThreePort);
-                        thirdOut = GetPortValue<FPVisualNode>(directedPromptThree);
-                        if (thirdPrompt != null || thirdOut != null)
+                        nodeThreeData = ReturnFirstNodeByPort(promptThreePort) as SetFPSinglePromptNode;
+                        nodeThreeOut = ReturnFirstNodeByPort(directedPromptThree);
+                        if (nodeThreeData != null || nodeThreeOut != null)
                         {
-                            incomingItems.Add(ReturnNewPromptNode(thirdPrompt));
-                            outcomingIndex.Add(thirdOut.Name);
+                            incomingItems.Add(ReturnNewPromptNode(nodeThreeData));
+                            outcomingIndex.Add(nodeThreeOut.Name);
                         }
                     }
                     else
@@ -390,12 +393,12 @@ namespace FuzzPhyte.Dialogue.Editor
                     var directedPromptFour = responseNode.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPT_FOUR);
                     if (promptFourPort != null && directedPromptFour != null)
                     {
-                        fourthPrompt = GetPortValue<SetFPSinglePromptNode>(promptFourPort) ;
-                        fourthOut = GetPortValue<FPVisualNode>(directedPromptFour);
-                        if (fourthPrompt != null || fourthOut != null)
+                        nodeFourthData = ReturnFirstNodeByPort(promptFourPort) as SetFPSinglePromptNode;
+                        nodeFourthOut = ReturnFirstNodeByPort(directedPromptFour);
+                        if (nodeFourthData != null || nodeFourthOut != null)
                         {
-                            incomingItems.Add(ReturnNewPromptNode(fourthPrompt));
-                            outcomingIndex.Add(fourthOut.Name);
+                            incomingItems.Add(ReturnNewPromptNode(nodeFourthData));
+                            outcomingIndex.Add(nodeFourthOut.Name);
                         }
                     }
                     else
@@ -544,6 +547,7 @@ namespace FuzzPhyte.Dialogue.Editor
             FP_Character charData = null;
             int age = -10;
             GameObject characterMeshR = null;
+            string characterMeshIndex = string.Empty;
             FP_Theme characterTheme = null;
             string nodeIndex = nodeData.Name;
            
@@ -568,26 +572,24 @@ namespace FuzzPhyte.Dialogue.Editor
                 var nodeOptionIndex = nodeData.GetNodeOption(i);
                 Debug.Log($"Node Option Index: [{i}] has a name of: {nodeOptionIndex.name}");
             }
-            if (characterMeshR == null)
+            var nodeOption = nodeData.GetNodeOptionByName(FPDialogueGraphValidation.ANIM_SKIN_ID);
+            //NODE OPTION with binder
+            var resolver = FindAnyObjectByType<RTExposedBinder>();
+            if (nodeOption != null)
             {
-                var skinMeshNode = nodeData.GetNodeOptionByName(FPDialogueGraphValidation.ANIM_SKIN_MESHR);
-
-                if (skinMeshNode != null)
+        
+                (characterMeshR, characterMeshIndex) = ResolveObject(nodeOption, resolver);
+                //this still ends up null
+                if (characterMeshR != null)
                 {
-                    skinMeshNode.TryGetValue(out characterMeshR);
-
-
-                    if (characterMeshR == null)
-                    {
-                        Debug.LogError($"No Skinned Mesh Renderer on a Character Node?!");
-                    }
+                    Debug.LogWarning($"IT WORKED!!! {characterMeshR.name}");
+                }
+                else
+                {
+                    Debug.LogError($"Still no fucking gameobject!!!");
                 }
             }
-            else
-            {
-                Debug.LogWarning($"What did this work!?");
-            }
-
+            
 
             var characterThemePort = nodeData.GetInputPortByName(FPDialogueGraphValidation.ACTOR_THEME);//?.TryGetValue(out characterTheme);
             if (characterThemePort != null)
@@ -616,9 +618,9 @@ namespace FuzzPhyte.Dialogue.Editor
             {
                 if (useCharData && charData != null)
                 {
-                    return new RTCharacterNode(nodeIndex, connectingOutNode, charData, characterMeshR, characterTheme, useCharData);
+                    return new RTCharacterNode(nodeIndex, connectingOutNode, charData, characterMeshIndex, characterTheme, useCharData);
                 }
-                return new RTCharacterNode(nodeIndex, connectingOutNode, characterName, gender, eth, firstL, secondL, thirdL, age, characterMeshR, characterTheme);
+                return new RTCharacterNode(nodeIndex, connectingOutNode, characterName, gender, eth, firstL, secondL, thirdL, age, characterMeshIndex, characterTheme);
             }
            
         }
@@ -627,19 +629,30 @@ namespace FuzzPhyte.Dialogue.Editor
             RTSinglePromptNode aNewReturnNode = null;
             SetFPTalkNode talkNodeMain = null;
             SetFPTalkNode talkNodeTranslation = null;
-            SetFPSinglePromptNode outNode = null;
+            SetFPResponseNode outNode = null;
             Sprite icon = null;
             GameObject location = null;
             var talkNodePort = nodeData.GetInputPortByName(FPDialogueGraphValidation.MAIN_TEXT);
             if (talkNodePort != null)
             {
-                talkNodeMain = GetPortValue<SetFPTalkNode>(talkNodePort);
+                talkNodeMain = ReturnFirstNodeByPort(talkNodePort) as SetFPTalkNode;
+                if (talkNodeMain == null)
+                {
+                    Debug.LogError($"Missing Main Text!");
+                }
+                //talkNodeMain = GetPortValue<SetFPTalkNode>(talkNodePort);
             }
             var talkNodeTranslationPort = nodeData.GetInputPortByName(FPDialogueGraphValidation.TRANSLATION_TEXT);
             if (talkNodeTranslationPort != null)
             {
-                talkNodeTranslation = GetPortValue<SetFPTalkNode>(talkNodeTranslationPort);
+                talkNodeTranslation = ReturnFirstNodeByPort(talkNodeTranslationPort) as SetFPTalkNode;
+                if (talkNodeTranslation == null)
+                {
+                    Debug.LogError($"Missing Node Translation!");
+                }
+                //talkNodeTranslation = GetPortValue<SetFPTalkNode>(talkNodeTranslationPort);
             }
+            //this won't work due to scene-reference vs editor asset reference
             var gameObjectSpawnLocation = nodeData.GetInputPortByName(FPDialogueGraphValidation.GO_WORLD_LOCATION);
             if (gameObjectSpawnLocation != null)
             {
@@ -649,16 +662,26 @@ namespace FuzzPhyte.Dialogue.Editor
             var outNodePort = nodeData.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPT_PORT);
             if (outNodePort!=null)
             {
-                outNode=GetPortValue<SetFPSinglePromptNode>(outNodePort);
+                outNode = ReturnFirstNodeByPort(outNodePort) as SetFPResponseNode;
+                if (outNode == null)
+                {
+                    Debug.LogError($"Missing Out node?!");
+                }
+                //outNode=GetPortValue<SetFPSinglePromptNode>(outNodePort);
             }
             if (outNode!=null&&talkNodeMain != null&&talkNodeTranslation!=null)
             {
                 //go get real talk
+                
                 var talkNodeRT = ReturnNewTalkNode(talkNodeMain);
                 var translationNodeRT = ReturnNewTalkNode(talkNodeTranslation);
                 aNewReturnNode = new RTSinglePromptNode(nodeData.Name,outNode.Name, talkNodeRT, translationNodeRT, icon, location);
             }
-            return aNewReturnNode;
+            else
+            {
+                Debug.LogError($"Failed New Prompt Node");
+            }
+                return aNewReturnNode;
         }
         static RTTalkNode ReturnNewTalkNode(SetFPTalkNode nodeData)
         {
@@ -667,7 +690,7 @@ namespace FuzzPhyte.Dialogue.Editor
             string text = string.Empty;
             AudioClip textClip = null;
             AnimationClip animClip = null;
-            SetFPTalkNode outputNode = null;
+            FPVisualNode outputNode = null;
             string outputNodeIndex = string.Empty;
             nodeData.GetInputPortByName(FPDialogueGraphValidation.LANG_NAME)?.TryGetValue(out nodeLanguage);
             nodeData.GetInputPortByName(FPDialogueGraphValidation.DIALOGUE_HEADER)?.TryGetValue(out header);
@@ -677,7 +700,7 @@ namespace FuzzPhyte.Dialogue.Editor
             var talkOutputPort = nodeData.GetOutputPortByName(FPDialogueGraphValidation.MAIN_TEXT);
             if (talkOutputPort != null)
             {
-                outputNode = ReturnFirstNodeByPort(talkOutputPort) as SetFPTalkNode;
+                outputNode = ReturnFirstNodeByPort(talkOutputPort) as FPVisualNode;
                 if (outputNode != null)
                 {
                     outputNodeIndex = outputNode.Name;
@@ -795,6 +818,29 @@ namespace FuzzPhyte.Dialogue.Editor
             }
             return null;
         }
-        
+        static (GameObject,string) ResolveObject(INodeOption nodeOption, RTExposedBinder resolver)
+        {
+            if (nodeOption == null || resolver == null)
+            {
+                Debug.LogError($"Both were null");
+                return (null,string.Empty);
+            }
+
+            if (!nodeOption.TryGetValue<string>(out var id) || string.IsNullOrEmpty(id))
+            {
+                Debug.LogError($"Failed on first pass");
+                return (null,string.Empty);
+            }
+            Debug.LogWarning($"ID value = {id}");
+            var er = new ExposedReference<GameObject>
+            {
+                exposedName = new PropertyName(id),
+                defaultValue = null   // optional; only used if no binding in resolver
+            };
+
+            return (er.Resolve(resolver),id); // returns the bound scene object (or null)
+        }
+
+
     }
 }

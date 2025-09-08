@@ -53,6 +53,7 @@
         public const string ANIM_BLEND_FACE = "AnimationFace";
         public const string ANIM_SKIN_MESHR = "GameObjectWithRenderer";
         public const string ANIM_SKIN_DISPLAY = "GameObject W Renderer";
+        public const string ANIM_SKIN_ID = "ANIM_ID";
         //User Choices
         public const string USER_PROMPT_PORT = "UPGeneric";
         public const string USER_PROMPT_ONE = "UPOne";
@@ -134,6 +135,22 @@
                 if (n.outputPortCount > 1)
                 {
                     logger.LogWarning($"'{n.Name}'has too input connections, should only be 1");
+                }
+            }
+            foreach(var n in graph.GetNodes().OfType<SetFPSinglePromptNode>())
+            {
+                var mainTextIn = n.GetInputPortByName(FPDialogueGraphValidation.MAIN_TEXT);
+                var mainTranslationIn = n.GetInputPortByName(FPDialogueGraphValidation.TRANSLATION_TEXT);
+                if (mainTextIn == null || mainTranslationIn == null){
+                    logger.LogWarning($" {n.Name} has no text coming in!");
+                }
+                if(mainTextIn!=null && mainTranslationIn == null)
+                {
+                    logger.LogWarning($" {n.Name} missing translation text!");
+                }
+                if(mainTextIn==null && mainTranslationIn != null)
+                {
+                    logger.LogWarning($" {n.Name} the main text!");
                 }
             }
             

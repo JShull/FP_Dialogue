@@ -18,7 +18,7 @@ namespace FuzzPhyte.Dialogue
         }
         public bool EvaluateEntryNode(RTEntryNode node)
         {
-            var tAsset = node.GetIncomingTimeline;
+            var tAsset = node.incomingTimelineAsset;
             if (tAsset!=null)
             {
                 Debug.Log($"Entry Node has a timeline asset");
@@ -32,10 +32,10 @@ namespace FuzzPhyte.Dialogue
         }
         public bool EvaluateDialogueNode(RTDialogueNode node)
         {
-            var mainDialogueData = node.GetMainDialogue;
+            var mainDialogueData = node.mainDialogue;
             if (mainDialogueData != null) 
             {
-                Debug.Log($"Main Text: {mainDialogueData.DialogueText} in the language of {mainDialogueData.Language.ToString()}");
+                Debug.Log($"Main Text: {mainDialogueData.dialogueText} in the language of {mainDialogueData.language.ToString()}");
             }
                 return true;
         }
