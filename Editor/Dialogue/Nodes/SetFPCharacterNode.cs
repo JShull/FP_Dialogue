@@ -19,11 +19,11 @@ namespace FuzzPhyte.Dialogue.Editor
                 .WithDisplayName("Use Character File?")
                 .WithTooltip("If you want to override the local data with the file")
                 .WithDefaultValue(true);
-            context.AddOption<string>(FPDialogueGraphValidation.ANIM_SKIN_ID)
+            context.AddOption<string>(FPDialogueGraphValidation.GAMEOBJECT_ID)
                 .WithDisplayName("GameObject Binding Id")
                 .WithDefaultValue(string.Empty);
         }
-        public bool TryGetHeadBindingId(out string id) => TryGetOptionValue<string>(FPDialogueGraphValidation.ANIM_SKIN_ID, out id);
+        public bool TryGetHeadBindingId(out string id) => TryGetOptionValue<string>(FPDialogueGraphValidation.GAMEOBJECT_ID, out id);
         /// <summary>
         /// Defines the output for the node.
         /// </summary>
@@ -33,9 +33,6 @@ namespace FuzzPhyte.Dialogue.Editor
             context.AddOutputPort<SetFPCharacterNode>(FPDialogueGraphValidation.PORT_ACTOR)
                 .WithDisplayName("Character Out:")
                 .WithConnectorUI(PortConnectorUI.Circle)
-                .Build();
-            context.AddInputPort<ExposedReference<GameObject>>(FPDialogueGraphValidation.ANIM_SKIN_MESHR)
-                .WithDisplayName(FPDialogueGraphValidation.ANIM_SKIN_DISPLAY)
                 .Build();
             context.AddInputPort<FP_Character>(FPDialogueGraphValidation.PORT_CHARACTER_DATA)
                 .WithDisplayName("Character:")

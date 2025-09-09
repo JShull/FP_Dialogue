@@ -51,9 +51,8 @@
         public const string ANIM_DIALOGUE_STATE = "AnimationDialogue";
         public const string ANIM_MOTION_STATE = "AnimationMotion";
         public const string ANIM_BLEND_FACE = "AnimationFace";
-        public const string ANIM_SKIN_MESHR = "GameObjectWithRenderer";
-        public const string ANIM_SKIN_DISPLAY = "GameObject W Renderer";
-        public const string ANIM_SKIN_ID = "ANIM_ID";
+        //public const string ANIM_SKIN_MESHR = "GameObjectWithRenderer";
+        public const string GAMEOBJECT_ID = "GameObjectID";
         //User Choices
         public const string USER_PROMPT_PORT = "UPGeneric";
         public const string USER_PROMPT_ONE = "UPOne";

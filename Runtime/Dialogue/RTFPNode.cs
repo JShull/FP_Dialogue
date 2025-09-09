@@ -191,19 +191,20 @@ namespace FuzzPhyte.Dialogue
         public string outIndex;
         [Space]
         public Sprite promptIcon;
+        public string spawnLocationID;
         public GameObject spawnLocation;
         public RTTalkNode mainDialogue;
         public RTTalkNode translatedDialogue;
 
-        public RTSinglePromptNode(string index,string outcomingNodeIndex,RTTalkNode dialogue, RTTalkNode translation, Sprite promptIcon, GameObject spawnLocation):base(index)
+        public RTSinglePromptNode(string index,string outcomingNodeIndex,RTTalkNode dialogue, RTTalkNode translation, Sprite promptIcon, string spawnID,GameObject spawnLocation=null):base(index)
         {
             NodeType = "RTSinglePromptNode";
+            this.spawnLocationID = spawnID;
             this.outIndex = outcomingNodeIndex;
             this.promptIcon = promptIcon;
             this.spawnLocation = spawnLocation;
             this.mainDialogue = dialogue;
             this.translatedDialogue = translation;
-            
         }
     }
     //Editor: SetFPDialogueNode class

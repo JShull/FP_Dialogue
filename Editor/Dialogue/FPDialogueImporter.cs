@@ -572,7 +572,7 @@ namespace FuzzPhyte.Dialogue.Editor
                 var nodeOptionIndex = nodeData.GetNodeOption(i);
                 Debug.Log($"Node Option Index: [{i}] has a name of: {nodeOptionIndex.name}");
             }
-            var nodeOption = nodeData.GetNodeOptionByName(FPDialogueGraphValidation.ANIM_SKIN_ID);
+            var nodeOption = nodeData.GetNodeOptionByName(FPDialogueGraphValidation.GAMEOBJECT_ID);
             //NODE OPTION with binder
             var resolver = FindAnyObjectByType<RTExposedBinder>();
             if (nodeOption != null)
@@ -622,7 +622,6 @@ namespace FuzzPhyte.Dialogue.Editor
                 }
                 return new RTCharacterNode(nodeIndex, connectingOutNode, characterName, gender, eth, firstL, secondL, thirdL, age, characterMeshIndex, characterTheme);
             }
-           
         }
         static RTSinglePromptNode ReturnNewPromptNode(SetFPSinglePromptNode nodeData)
         {
@@ -631,7 +630,8 @@ namespace FuzzPhyte.Dialogue.Editor
             SetFPTalkNode talkNodeTranslation = null;
             SetFPResponseNode outNode = null;
             Sprite icon = null;
-            GameObject location = null;
+            GameObject locationObject = null;
+            string locationObjectIndex = string.Empty;
             var talkNodePort = nodeData.GetInputPortByName(FPDialogueGraphValidation.MAIN_TEXT);
             if (talkNodePort != null)
             {
@@ -640,7 +640,7 @@ namespace FuzzPhyte.Dialogue.Editor
                 {
                     Debug.LogError($"Missing Main Text!");
                 }
-                //talkNodeMain = GetPortValue<SetFPTalkNode>(talkNodePort);
+                
             }
             var talkNodeTranslationPort = nodeData.GetInputPortByName(FPDialogueGraphValidation.TRANSLATION_TEXT);
             if (talkNodeTranslationPort != null)
@@ -653,11 +653,27 @@ namespace FuzzPhyte.Dialogue.Editor
                 //talkNodeTranslation = GetPortValue<SetFPTalkNode>(talkNodeTranslationPort);
             }
             //this won't work due to scene-reference vs editor asset reference
-            var gameObjectSpawnLocation = nodeData.GetInputPortByName(FPDialogueGraphValidation.GO_WORLD_LOCATION);
-            if (gameObjectSpawnLocation != null)
+            
+            //
+            var nodeOption = nodeData.GetNodeOptionByName(FPDialogueGraphValidation.GAMEOBJECT_ID);
+            //NODE OPTION with binder
+            var resolver = FindAnyObjectByType<RTExposedBinder>();
+            if (nodeOption != null)
             {
-                location = GetPortValue<GameObject>(gameObjectSpawnLocation);
+
+                (locationObject, locationObjectIndex) = ResolveObject(nodeOption, resolver);
+                //this still ends up null
+                if (locationObject != null)
+                {
+                    Debug.LogWarning($"IT WORKED!!! {locationObject.name}");
+                }
+                else
+                {
+                    Debug.LogError($"Still no fucking gameobject!!!");
+                }
             }
+
+            
             nodeData.GetInputPortByName(FPDialogueGraphValidation.PORT_ICON)?.TryGetValue(out icon);
             var outNodePort = nodeData.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPT_PORT);
             if (outNodePort!=null)
@@ -667,7 +683,6 @@ namespace FuzzPhyte.Dialogue.Editor
                 {
                     Debug.LogError($"Missing Out node?!");
                 }
-                //outNode=GetPortValue<SetFPSinglePromptNode>(outNodePort);
             }
             if (outNode!=null&&talkNodeMain != null&&talkNodeTranslation!=null)
             {
@@ -675,7 +690,7 @@ namespace FuzzPhyte.Dialogue.Editor
                 
                 var talkNodeRT = ReturnNewTalkNode(talkNodeMain);
                 var translationNodeRT = ReturnNewTalkNode(talkNodeTranslation);
-                aNewReturnNode = new RTSinglePromptNode(nodeData.Name,outNode.Name, talkNodeRT, translationNodeRT, icon, location);
+                aNewReturnNode = new RTSinglePromptNode(nodeData.Name,outNode.Name, talkNodeRT, translationNodeRT, icon, locationObjectIndex,locationObject);
             }
             else
             {

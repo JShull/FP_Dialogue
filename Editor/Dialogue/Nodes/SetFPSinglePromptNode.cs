@@ -13,7 +13,12 @@ namespace FuzzPhyte.Dialogue.Editor
         {
             this.name = passedName;
         }
-        //public const string PROMPT_ICON = "PromptIcon";
+        protected override void OnDefineOptions(IOptionDefinitionContext context)
+        {
+            context.AddOption<string>(FPDialogueGraphValidation.GAMEOBJECT_ID)
+               .WithDisplayName("GameObject Binding Id")
+               .WithDefaultValue(string.Empty);
+        }
         protected override void OnDefinePorts(IPortDefinitionContext context)
         {
             context.AddInputPort<SetFPTalkNode>(FPDialogueGraphValidation.MAIN_TEXT)
@@ -25,9 +30,9 @@ namespace FuzzPhyte.Dialogue.Editor
             context.AddInputPort<Sprite>(FPDialogueGraphValidation.PORT_ICON)
                 .WithDisplayName("Icon")
                 .Build();
-            context.AddInputPort<GameObject>(FPDialogueGraphValidation.GO_WORLD_LOCATION)
-                .WithDisplayName("Spawn Location")
-                .Build();
+            //context.AddInputPort<GameObject>(FPDialogueGraphValidation.GO_WORLD_LOCATION)
+            //    .WithDisplayName("Spawn Location")
+            //    .Build();
             context.AddOutputPort<SetFPSinglePromptNode>(FPDialogueGraphValidation.USER_PROMPT_PORT)
                 .WithDisplayName("Response Node?")
                 .Build();

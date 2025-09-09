@@ -697,26 +697,6 @@ MonoBehaviour:
       data:
         m_Value:
           name: 
-    - rid: 567765986418360412
-      type: {class: 'Constant`1[[UnityEngine.ExposedReference`1[[UnityEngine.GameObject, UnityEngine.CoreModule]], UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          exposedName: 
-          defaultValue: {fileID: 0}
-    - rid: 567765986418360413
-      type: {class: 'Constant`1[[UnityEngine.ExposedReference`1[[UnityEngine.GameObject, UnityEngine.CoreModule]], UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          exposedName: 
-          defaultValue: {fileID: 0}
-    - rid: 567765987533783132
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value: JohnTest
-    - rid: 567765987533783133
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value: JohnTest
     - rid: 8866445333055668612
       type: {class: GraphModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
       data:
@@ -1655,7 +1635,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 865f44c8061e1a42ab9dbfe17b073688
         m_Version: 2
-        m_Position: {x: -664.0992, y: -411.36682}
+        m_Position: {x: -664.0991, y: -411.36682}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -1673,8 +1653,7 @@ MonoBehaviour:
           - Theme
           - FPCharacter
           - GetDataFile
-          - GameObjectWithRenderer
-          - ANIM_ID
+          - GameObjectID
           m_ValueList:
           - rid: 8866445333055668625
           - rid: 8866445333055668626
@@ -1686,8 +1665,7 @@ MonoBehaviour:
           - rid: 8866445333055668648
           - rid: 8866445378024374369
           - rid: 8866445378024374392
-          - rid: 567765986418360412
-          - rid: 567765987533783132
+          - rid: 8866445491199279363
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -2252,13 +2230,13 @@ MonoBehaviour:
           m_KeyList:
           - MainText
           - TranslationText
-          - GameObjectLocation
           - PortIcon
+          - GameObjectID
           m_ValueList:
           - rid: 8866445335692574835
           - rid: 8866445335692574836
-          - rid: 8866445335692574838
           - rid: 8866445378024374394
+          - rid: 8866445491199279364
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -2284,10 +2262,6 @@ MonoBehaviour:
       data:
         m_Value:
           name: 
-    - rid: 8866445335692574838
-      type: {class: 'Constant`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value: {fileID: 0}
     - rid: 8866445335692574839
       type: {class: SetFPSinglePromptNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
       data:
@@ -2366,7 +2340,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 091c80b19cc0f89acd62d874f357c8f4
         m_Version: 2
-        m_Position: {x: -663.9068, y: -2.157795}
+        m_Position: {x: -663.90674, y: -3.1578598}
         m_Title: SetFPCharacterNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -2384,8 +2358,7 @@ MonoBehaviour:
           - Theme
           - FPCharacter
           - GetDataFile
-          - GameObjectWithRenderer
-          - ANIM_ID
+          - GameObjectID
           m_ValueList:
           - rid: 8866445335692574854
           - rid: 8866445335692574855
@@ -2397,8 +2370,7 @@ MonoBehaviour:
           - rid: 8866445335692574861
           - rid: 8866445378024374370
           - rid: 8866445378024374393
-          - rid: 567765986418360413
-          - rid: 567765987533783133
+          - rid: 8866445491199279365
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -2869,13 +2841,13 @@ MonoBehaviour:
           m_KeyList:
           - MainText
           - TranslationText
-          - GameObjectLocation
           - PortIcon
+          - GameObjectID
           m_ValueList:
           - rid: 8866445335692574932
           - rid: 8866445335692574933
-          - rid: 8866445335692574935
           - rid: 8866445378024374395
+          - rid: 8866445491199279366
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -3011,10 +2983,6 @@ MonoBehaviour:
       data:
         m_Value:
           name: 
-    - rid: 8866445335692574935
-      type: {class: 'Constant`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value: {fileID: 0}
     - rid: 8866445335692574936
       type: {class: SetFPSinglePromptNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
       data:
@@ -3061,7 +3029,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: f0339eddfad941eb1e1f690de0dc316f
         m_Version: 2
-        m_Position: {x: 445.8683, y: 1420.6296}
+        m_Position: {x: 447.16827, y: 1462.1296}
         m_Title: SetFPTalkNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -3105,7 +3073,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 21520bd62fa812060c0b46f3e9e4d5b3
         m_Version: 2
-        m_Position: {x: 445.7867, y: 1532.7837}
+        m_Position: {x: 446.7867, y: 1568.2837}
         m_Title: SetFPTalkNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -3159,13 +3127,13 @@ MonoBehaviour:
           m_KeyList:
           - MainText
           - TranslationText
-          - GameObjectLocation
           - PortIcon
+          - GameObjectID
           m_ValueList:
           - rid: 8866445335692574970
           - rid: 8866445335692574971
-          - rid: 8866445335692574973
           - rid: 8866445378024374396
+          - rid: 8866445491199279367
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -3174,7 +3142,7 @@ MonoBehaviour:
           expandedPortsById:
             m_KeyList: []
             m_ValueList: 
-        m_Collapsed: 0
+        m_Collapsed: 1
         m_CurrentModeIndex: 0
         m_ElementColor:
           m_Color: {r: 0, g: 0, b: 0, a: 0}
@@ -3199,7 +3167,7 @@ MonoBehaviour:
     - rid: 8866445335692574963
       type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 0}
+        m_Value: {fileID: 8300000, guid: 5c14b508a461ac948b6d2b337643d31f, type: 3}
     - rid: 8866445335692574964
       type: {class: SetFPTalkNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
       data:
@@ -3222,7 +3190,7 @@ MonoBehaviour:
     - rid: 8866445335692574968
       type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 0}
+        m_Value: {fileID: 8300000, guid: 4eed1af90f745114a87a71681e045fa9, type: 3}
     - rid: 8866445335692574969
       type: {class: SetFPTalkNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
       data:
@@ -3237,10 +3205,6 @@ MonoBehaviour:
       data:
         m_Value:
           name: 
-    - rid: 8866445335692574973
-      type: {class: 'Constant`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value: {fileID: 0}
     - rid: 8866445335692574974
       type: {class: SetFPSinglePromptNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
       data:
@@ -3449,13 +3413,13 @@ MonoBehaviour:
           m_KeyList:
           - MainText
           - TranslationText
-          - GameObjectLocation
           - PortIcon
+          - GameObjectID
           m_ValueList:
           - rid: 8866445335692575080
           - rid: 8866445335692575081
-          - rid: 8866445335692575083
           - rid: 8866445378024374397
+          - rid: 8866445491199279368
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -3553,7 +3517,7 @@ MonoBehaviour:
     - rid: 8866445335692575073
       type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 0}
+        m_Value: {fileID: 8300000, guid: 09f41ae002e5c1f4f8505a0445db5579, type: 3}
     - rid: 8866445335692575074
       type: {class: SetFPTalkNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
       data:
@@ -3576,7 +3540,7 @@ MonoBehaviour:
     - rid: 8866445335692575078
       type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 0}
+        m_Value: {fileID: 8300000, guid: 66e27c589de141843bbdca4cd058348c, type: 3}
     - rid: 8866445335692575079
       type: {class: SetFPTalkNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
       data:
@@ -3591,10 +3555,6 @@ MonoBehaviour:
       data:
         m_Value:
           name: 
-    - rid: 8866445335692575083
-      type: {class: 'Constant`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value: {fileID: 0}
     - rid: 8866445335692575084
       type: {class: SetFPSinglePromptNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
       data:
@@ -3915,7 +3875,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 9c212e1dcd5bba2bb834ce8b2d526dcb
         m_Version: 2
-        m_Position: {x: 2384.9695, y: 373.5087}
+        m_Position: {x: 2266.9902, y: 317.50864}
         m_Title: SetFPTalkNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -3967,7 +3927,7 @@ MonoBehaviour:
     - rid: 8866445335692575225
       type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 0}
+        m_Value: {fileID: 8300000, guid: 8aaad24ccb16a4440b7bb2801dd007e0, type: 3}
     - rid: 8866445335692575226
       type: {class: SetFPTalkNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
       data:
@@ -4014,7 +3974,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: ce0c60eb9cef6381b626faa39678bc01
         m_Version: 2
-        m_Position: {x: 2385.3044, y: 461.00006}
+        m_Position: {x: 2266.59, y: 421.6806}
         m_Title: SetFPTalkNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -4066,7 +4026,7 @@ MonoBehaviour:
     - rid: 8866445335692575237
       type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 0}
+        m_Value: {fileID: 8300000, guid: a37b8b7ee072c3448aaac6300f615383, type: 3}
     - rid: 8866445335692575238
       type: {class: SetFPTalkNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
       data:
@@ -4165,7 +4125,7 @@ MonoBehaviour:
     - rid: 8866445335692575249
       type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 0}
+        m_Value: {fileID: 8300000, guid: 711569fa3d1192741a573603fc3b41bf, type: 3}
     - rid: 8866445335692575250
       type: {class: SetFPTalkNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
       data:
@@ -4212,7 +4172,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: db9a216bfbdd8f656052fed82b2710aa
         m_Version: 2
-        m_Position: {x: 2361, y: 1420}
+        m_Position: {x: 2361, y: 1417.0001}
         m_Title: SetFPTalkNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -4264,7 +4224,7 @@ MonoBehaviour:
     - rid: 8866445335692575261
       type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 0}
+        m_Value: {fileID: 8300000, guid: a54fd4cd43c66494a8cff63ac49fc905, type: 3}
     - rid: 8866445335692575262
       type: {class: SetFPTalkNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
       data:
@@ -5515,19 +5475,19 @@ MonoBehaviour:
     - rid: 8866445378024374394
       type: {class: 'Constant`1[[UnityEngine.Sprite, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 0}
+        m_Value: {fileID: 21300000, guid: bf577a2726a63314aa569a655357ae95, type: 3}
     - rid: 8866445378024374395
       type: {class: 'Constant`1[[UnityEngine.Sprite, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 0}
+        m_Value: {fileID: 21300000, guid: bf577a2726a63314aa569a655357ae95, type: 3}
     - rid: 8866445378024374396
       type: {class: 'Constant`1[[UnityEngine.Sprite, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 0}
+        m_Value: {fileID: 21300000, guid: 09a2f03da65b1964b9ee4e286df211fd, type: 3}
     - rid: 8866445378024374397
       type: {class: 'Constant`1[[UnityEngine.Sprite, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 0}
+        m_Value: {fileID: 21300000, guid: 09a2f03da65b1964b9ee4e286df211fd, type: 3}
     - rid: 8866445378024374398
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -5637,3 +5597,27 @@ MonoBehaviour:
         m_EnumType:
           m_Identification: FuzzPhyte.Utility.EmotionalState, com.fuzzphyte.utility,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - rid: 8866445491199279363
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: JohnTest
+    - rid: 8866445491199279364
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: MainPromptLocation
+    - rid: 8866445491199279365
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: JohnTest
+    - rid: 8866445491199279366
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: SecondaryPromptLocation
+    - rid: 8866445491199279367
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: ThirdPromptLocation
+    - rid: 8866445491199279368
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: FourthPromptLocation
