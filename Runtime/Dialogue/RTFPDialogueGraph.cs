@@ -28,7 +28,6 @@ namespace FuzzPhyte.Dialogue
                 }
             }
         }
-
         public void AddEntryNode(RTEntryNode entryNode)
         {
             if (!AllEntryNodes.ContainsKey(entryNode.Index))
@@ -58,7 +57,6 @@ namespace FuzzPhyte.Dialogue
         {
 
         }
-
         public void AddCharacterNode(RTCharacterNode characterNode)
         {
             if (!AllCharacterNodes.ContainsKey(characterNode.Index)) 
@@ -67,7 +65,6 @@ namespace FuzzPhyte.Dialogue
                 ReturnCharacterNode(characterNode.Index);
             }
         }
-
         public void AddResponseNode(RTResponseNode responseNode)
         {
             if (!AllResponseNodes.ContainsKey(responseNode.Index))
@@ -76,25 +73,25 @@ namespace FuzzPhyte.Dialogue
                 ReturnResponeNode(responseNode.Index);
             }
         }
-
         public void AddTalkNode(RTTalkNode talkNode)
         {
 
         }
-        
+
+        #region Test Functions
         public void ReturnEntryNode(string value)
         {
             if (AllEntryNodes.ContainsKey(value))
             {
                 var entryNode = AllEntryNodes[value];
-                Debug.Log($"Details of Entry Node: {entryNode.Index}");
+                //Debug.Log($"Details of Entry Node: {entryNode.Index}");
                 if (entryNode.incomingTimelineAsset != null)
                 {
-                    Debug.Log($"Timeline duration: {entryNode.incomingTimelineAsset.Timeline.duration}");
+                    //Debug.Log($"Timeline duration: {entryNode.incomingTimelineAsset.Timeline.duration}");
                 }
-                for (int i = 0; i < entryNode.NextNodes.Length; i++) 
+                for (int i = 0; i < entryNode.NextNodeIndices.Count; i++) 
                 {
-                    Debug.Log($"Entry Node connected to --> {entryNode.NextNodes[i]}");
+                    //Debug.Log($"Entry Node connected to --> {entryNode.NextNodeIndices[i]}");
                 }
             }
         }
@@ -104,14 +101,14 @@ namespace FuzzPhyte.Dialogue
             if (AllExitNodes.ContainsKey(value))
             {
                 var exitNode = AllExitNodes[value];
-                Debug.Log($"Details of Exit Node: {exitNode.Index}");
+                //Debug.Log($"Details of Exit Node: {exitNode.Index}");
                 if (exitNode.outgoingTimelineDetails != null)
                 {
-                    Debug.Log($"Timeline duration: {exitNode.outgoingTimelineDetails.Timeline.duration}");
+                    //Debug.Log($"Timeline duration: {exitNode.outgoingTimelineDetails.Timeline.duration}");
                 }
-                for (int i = 0; i < exitNode.inNode.Length; i++)
+                for (int i = 0; i < exitNode.inNodeIndices.Length; i++)
                 {
-                    Debug.Log($"Exit Node incoming connection <-- {exitNode.inNode[i]}");
+                    //Debug.Log($"Exit Node incoming connection <-- {exitNode.inNodeIndices[i]}");
                 }
             }
         }
@@ -120,21 +117,21 @@ namespace FuzzPhyte.Dialogue
             if (AllDialogueNodes.ContainsKey(value))
             {
                 var dialogeNode = AllDialogueNodes[value];
-                Debug.Log($"Details of dialoge node: {dialogeNode.Index}");
+                //Debug.Log($"Details of dialoge node: {dialogeNode.Index}");
                 if (dialogeNode.mainDialogue != null)
                 {
-                    Debug.Log($"Main Text for Dialogue: {dialogeNode.mainDialogue.language}: {dialogeNode.mainDialogue.dialogueText}");
+                    //Debug.Log($"Main Text for Dialogue: {dialogeNode.mainDialogue.language}: {dialogeNode.mainDialogue.dialogueText}");
                     if (dialogeNode.mainDialogue.textAudio != null)
                     {
-                        Debug.Log($"Audio clip length = {dialogeNode.mainDialogue.textAudio.length}");
+                        //Debug.Log($"Audio clip length = {dialogeNode.mainDialogue.textAudio.length}");
                     }
                 }
                 if (dialogeNode.translatedDialogue != null)
                 {
-                    Debug.Log($"Translation for {dialogeNode.translatedDialogue.language} is {dialogeNode.translatedDialogue.dialogueText}");
+                    //Debug.Log($"Translation for {dialogeNode.translatedDialogue.language} is {dialogeNode.translatedDialogue.dialogueText}");
                     if (dialogeNode.translatedDialogue.textAudio != null)
                     {
-                        Debug.Log($"Translation audio clip length = {dialogeNode.translatedDialogue.textAudio.length}");
+                        //Debug.Log($"Translation audio clip length = {dialogeNode.translatedDialogue.textAudio.length}");
                     }
                 }
                 
@@ -146,7 +143,7 @@ namespace FuzzPhyte.Dialogue
             if (AllResponseNodes.ContainsKey(value))
             {
                 var responseNode = AllResponseNodes[value];
-                Debug.Log($"Details of response node: {responseNode.Index}");
+                //Debug.Log($"Details of response node: {responseNode.Index}");
                 if (responseNode.userIncomingPrompts.Count > 0)
                 {
                     for (int i = 0; i < responseNode.userIncomingPrompts.Count; i++)
@@ -156,10 +153,10 @@ namespace FuzzPhyte.Dialogue
                         {
                             if (aResponse.mainDialogue != null)
                             {
-                                Debug.Log($"Main Text for Response: {aResponse.mainDialogue.language}: {aResponse.mainDialogue.dialogueText}");
+                                //Debug.Log($"Main Text for Response: {aResponse.mainDialogue.language}: {aResponse.mainDialogue.dialogueText}");
                                 if (aResponse.mainDialogue.textAudio != null)
                                 {
-                                    Debug.Log($"Audio clip length = {aResponse.mainDialogue.textAudio.length}");
+                                    //Debug.Log($"Audio clip length = {aResponse.mainDialogue.textAudio.length}");
                                 }
                             }
                         }
@@ -173,10 +170,10 @@ namespace FuzzPhyte.Dialogue
             if (AllCharacterNodes.ContainsKey(value))
             {
                 var characterNode = AllCharacterNodes[value];
-                Debug.Log($"Details of character node: {characterNode.Index}");
+                //Debug.Log($"Details of character node: {characterNode.Index}");
                 
             }
         }
-
+        #endregion
     }
 }

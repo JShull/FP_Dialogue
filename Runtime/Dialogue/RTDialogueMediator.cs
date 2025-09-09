@@ -61,8 +61,8 @@ namespace FuzzPhyte.Dialogue
         }
         public bool EvaluateCombination(RTCombineNode node)
         {
-            var incomingNodes = node.incomeNodes;
-            var outgoingNodes = node.outgoingNodes;
+            var incomingNodes = node.inNodeIndices;
+            var outgoingNodes = node.outNodeIndices;
             if (incomingNodes.Length > 0 && outgoingNodes.Length>0)
             {
                 string combinedNodes = string.Empty;

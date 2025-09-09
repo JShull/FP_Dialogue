@@ -28,7 +28,7 @@ namespace FuzzPhyte.Dialogue.Editor
             {
                 var cNode = nodeList[i] ;
                 cNode.SetupIndex(i + "_node");
-                Debug.Log($"Node: {cNode.Name} is alive");
+                //Debug.Log($"Node: {cNode.Name} is alive");
             }
            
             //process output based on node type and "flow nodes" - this might be on the importer class instead

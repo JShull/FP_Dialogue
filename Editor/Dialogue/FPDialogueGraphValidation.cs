@@ -53,14 +53,13 @@
         public const string ANIM_DIALOGUE_STATE = "AnimationDialogue";
         public const string ANIM_MOTION_STATE = "AnimationMotion";
         public const string ANIM_BLEND_FACE = "AnimationFace";
-        //public const string ANIM_SKIN_MESHR = "GameObjectWithRenderer";
         public const string GAMEOBJECT_ID = "GameObjectID";
-        //User Choices
-        public const string USER_PROMPT_PORT = "UPGeneric";
-        public const string USER_PROMPT_ONE = "UPOne";
-        public const string USER_PROMPT_TWO = "UPTwo";
-        public const string USER_PROMPT_THREE = "UPThree";
-        public const string USER_PROMPT_FOUR = "UPFour";
+        
+        //User Choices - Response based (prompts as well)
+        public const string USER_PROMPT_PORT = "PromptExecutionOut";
+        public const string USER_NUMBER_OPTIONS = "PromptNumOptions";
+        public const string USER_PROMPTX_OP = "PromptOption_";
+        
         public static void Run(FPDialogueGraph graph, GraphLogger logger)
         {
             // 1) Exactly one EntryNode
@@ -70,7 +69,6 @@
             else if (entries.Count > 1)
                 logger.LogWarning("Multiple EntryNodes found. Only one is recommended.", graph);
 
-            // 2) Every DialogueBlockNode must have input connected
             foreach (var n in graph.GetNodes().OfType<SetFPDialogueNode>())
             {
                 var inPort = n.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
@@ -85,7 +83,7 @@
                     inPort.GetConnectedPorts(possibleIncomingPorts);
                     if (possibleIncomingPorts.Count > 1)
                     {
-                        logger.LogWarning($"'{n.Name}' has too many incoming main connections, should only be one dialogue flow in");
+                        logger.LogWarning($"'{n.Name}' has too many incoming main connections, should only be one dialogue flow in",n);
                     }
                 }
                 if(outPort == null)
@@ -100,7 +98,7 @@
 
                     if (possibleOutgoingPorts.Count > 1)
                     {
-                        logger.LogWarning($"'{n.Name}' has too many outgoing main connections, should only be one dialogue flow out");
+                        logger.LogWarning($"'{n.Name}' has too many outgoing main connections, should only be one dialogue flow out",n);
                     }
                 }
                     
@@ -113,7 +111,7 @@
                
                 if(portLanguage== FP_Language.NA)
                 {
-                    logger.LogWarning($"'{n.Name}' character is missing a first language");
+                    logger.LogWarning($"'{n.Name}' character is missing a first language", n);
                 }
             }
             foreach(var n in graph.GetNodes().OfType<FPOnewayNode>())
@@ -122,20 +120,20 @@
                 var outPort = n.GetOutputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
                 if(inPort==null || !inPort.isConnected)
                 {
-                    logger.LogWarning($"'{n.Name}' has no incoming connection");
+                    logger.LogWarning($"'{n.Name}' has no incoming connection",n);
                 }
                 
                 if(outPort==null || !outPort.isConnected)
                 {
-                    logger.LogWarning($"'{n.Name}' has no output connection");
+                    logger.LogWarning($"'{n.Name}' has no output connection",n);
                 }
                 if (n.outputPortCount>1)
                 {
-                    logger.LogWarning($"'{n.Name}'has too many output connections, should only be 1");
+                    logger.LogWarning($"'{n.Name}'has too many output connections, should only be 1",n);
                 }
-                if (n.outputPortCount > 1)
+                if (n.inputPortCount > 1)
                 {
-                    logger.LogWarning($"'{n.Name}'has too input connections, should only be 1");
+                    logger.LogWarning($"'{n.Name}'has too input connections, should only be 1",n);
                 }
             }
             foreach(var n in graph.GetNodes().OfType<SetFPSinglePromptNode>())
@@ -143,18 +141,43 @@
                 var mainTextIn = n.GetInputPortByName(FPDialogueGraphValidation.MAIN_TEXT);
                 var mainTranslationIn = n.GetInputPortByName(FPDialogueGraphValidation.TRANSLATION_TEXT);
                 if (mainTextIn == null || mainTranslationIn == null){
-                    logger.LogWarning($" {n.Name} has no text coming in!");
+                    logger.LogWarning($" {n.Name} has no text coming in!",n);
                 }
                 if(mainTextIn!=null && mainTranslationIn == null)
                 {
-                    logger.LogWarning($" {n.Name} missing translation text!");
+                    logger.LogWarning($" {n.Name} missing translation text!",n);
                 }
                 if(mainTextIn==null && mainTranslationIn != null)
                 {
-                    logger.LogWarning($" {n.Name} the main text!");
+                    logger.LogWarning($" {n.Name} missing main text!",n);
                 }
             }
-            
+            foreach(var n in graph.GetNodes().OfType<SetFPTalkNode>())
+            {
+                var mainTextOut = n.GetOutputPortByName(FPDialogueGraphValidation.MAIN_TEXT);
+                if (mainTextOut != null)
+                {
+                    if (mainTextOut.firstConnectedPort == null)
+                    {
+                        logger.LogWarning($" {n.Name} missing an outward connection!",n);
+                    }
+                }
+            }
+            foreach (var n in graph.GetNodes().OfType<SetFPResponseNode>())
+            {
+                var numPromptCount = n.GetNodeOptionByName(FPDialogueGraphValidation.USER_NUMBER_OPTIONS);
+                numPromptCount.TryGetValue<int>(out var numPrompts);
+                for (int i = 0; i < numPrompts; i++)
+                {
+                    //check input and output are both connected
+                    var inputPrompt = n.GetInputPortByName(FPDialogueGraphValidation.USER_PROMPTX_OP + i.ToString()).isConnected;
+                    var outPutResponse = n.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPTX_OP + i.ToString()).isConnected;
+                    if (inputPrompt != outPutResponse)
+                    {
+                        logger.LogWarning($"{n.Name} input/output doesn't match for {i + 1} port! ", n);
+                    }
+                }
+            }
         }
     }
 }

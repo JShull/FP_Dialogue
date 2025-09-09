@@ -17,8 +17,7 @@ namespace FuzzPhyte.Dialogue.Editor
         {
             this.name = passedName;
         }
-        //[SerializeField] protected int inputs = 2;
-        
+      
         protected override void OnDefineOptions(IOptionDefinitionContext options)
         {
             options.AddOption<int>(FPDialogueGraphValidation.PORT_NUMBER_OPTIONS)

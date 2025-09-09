@@ -14,12 +14,22 @@ namespace FuzzPhyte.Dialogue.Editor
            this.name = passedName;
         }
 
+        protected override void OnDefineOptions(IOptionDefinitionContext context)
+        {
+            context.AddOption<int>(FPDialogueGraphValidation.USER_NUMBER_OPTIONS)
+                .WithDisplayName("Number of Prompts?")
+                .WithDefaultValue(4)
+                .Delayed();
+        }
         /// <summary>
         /// Defines the output for the node.
         /// </summary>
         /// <param name="context">The scope to define the node.</param>
         protected override void OnDefinePorts(IPortDefinitionContext context)
         {
+            var numPromptCount = GetNodeOptionByName(FPDialogueGraphValidation.USER_NUMBER_OPTIONS);
+            numPromptCount.TryGetValue<int>(out var numPrompts);
+            
             context.AddInputPort<FPVisualNode>(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME)
                 .WithDisplayName("Flow In")
                 .WithConnectorUI(PortConnectorUI.Arrowhead)
@@ -29,34 +39,17 @@ namespace FuzzPhyte.Dialogue.Editor
                 .WithDisplayName("Character In:")
                 .WithConnectorUI(PortConnectorUI.Circle)
                 .Build();
-            context.AddInputPort<SetFPSinglePromptNode>(FPDialogueGraphValidation.USER_PROMPT_ONE)
-                .WithDisplayName("Prompt A")
-                .Build();
-            context.AddInputPort<SetFPSinglePromptNode>(FPDialogueGraphValidation.USER_PROMPT_TWO)
-                .WithDisplayName("Prompt B")
-                .Build();
-            context.AddInputPort<SetFPSinglePromptNode>(FPDialogueGraphValidation.USER_PROMPT_THREE)
-                .WithDisplayName("Prompt C")
-                .Build();
-            context.AddInputPort<SetFPSinglePromptNode>(FPDialogueGraphValidation.USER_PROMPT_FOUR)
-                .WithDisplayName("Prompt D")
-                .Build();
-            context.AddOutputPort<FPVisualNode>(FPDialogueGraphValidation.USER_PROMPT_ONE)
-                .WithConnectorUI(PortConnectorUI.Arrowhead)
-                .WithDisplayName("If Prompt A:")
-                .Build();
-            context.AddOutputPort<FPVisualNode>(FPDialogueGraphValidation.USER_PROMPT_TWO)
-                .WithConnectorUI(PortConnectorUI.Arrowhead)
-                .WithDisplayName("If Prompt B:")
-                .Build();
-            context.AddOutputPort<FPVisualNode>(FPDialogueGraphValidation.USER_PROMPT_THREE)
-                .WithConnectorUI(PortConnectorUI.Arrowhead)
-                .WithDisplayName("If Prompt C:")
-                .Build();
-            context.AddOutputPort<FPVisualNode>(FPDialogueGraphValidation.USER_PROMPT_FOUR)
-                .WithConnectorUI(PortConnectorUI.Arrowhead)
-                .WithDisplayName("If Prompt D:")
-                .Build();
+            for (var i = 0; i < numPrompts; i++)
+            {
+                context.AddInputPort<SetFPSinglePromptNode>(FPDialogueGraphValidation.USER_PROMPTX_OP + i.ToString())
+                    .WithDisplayName($"Prompt {i + 1}:")
+                    .WithConnectorUI(PortConnectorUI.Circle)
+                    .Build();
+                context.AddOutputPort<FPVisualNode>(FPDialogueGraphValidation.USER_PROMPTX_OP +i.ToString())
+                    .WithDisplayName($"If Prompt {i+1}:")
+                    .WithConnectorUI(PortConnectorUI.Arrowhead)
+                    .Build();
+            }
         }
     }
 }

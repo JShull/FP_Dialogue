@@ -20,7 +20,6 @@ namespace FuzzPhyte.Dialogue.Editor
 
         protected override void OnDefinePorts(IPortDefinitionContext ports)
         {
-            // Use applied value for stability (so drawing matches the last applied state)
             ports.AddInputPort<FPVisualNode>(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME)
                 .WithDisplayName("Flow In")
                 .WithConnectorUI(PortConnectorUI.Arrowhead)

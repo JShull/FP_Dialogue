@@ -35,6 +35,7 @@ namespace FuzzPhyte.Dialogue.Editor
             //    .Build();
             context.AddOutputPort<SetFPSinglePromptNode>(FPDialogueGraphValidation.USER_PROMPT_PORT)
                 .WithDisplayName("Response Node?")
+                .WithConnectorUI(PortConnectorUI.Arrowhead)
                 .Build();
         }
     }

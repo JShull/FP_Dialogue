@@ -89,22 +89,21 @@ namespace FuzzPhyte.Dialogue
                     currentNode = dialogueNode.NextNodeIndices.Count > 0
                         ? RuntimeGraph.Nodes[dialogueNode.NextNodeIndices[0]]
                         : null;
-                }
-                else if(currentNode is RTResponseNode responseNode)
+                }else if(currentNode is RTResponseNode responseNode)
                 {
                     var responseExecutor = (IRTFPDialogueNodeExecutor<RTResponseNode>)executor;
                     responseExecutor.Execute(responseNode, this);
                     currentNode = responseNode.NextNodeIndices.Count > 0
                         ? RuntimeGraph.Nodes[responseNode.NextNodeIndices[0]]
                         : null;
-                } else if(currentNode is RTCombineNode combineNode)
+                }else if(currentNode is RTCombineNode combineNode)
                 {
                     var combineExecutor = (IRTFPDialogueNodeExecutor<RTCombineNode>)executor;
                     combineExecutor.Execute(combineNode, this);
                     currentNode = combineNode.NextNodeIndices.Count > 0
                         ? RuntimeGraph.Nodes[combineNode.NextNodeIndices[0]]
                         : null;
-                } else
+                }else
                 {
                     currentNode = null;
                 }
