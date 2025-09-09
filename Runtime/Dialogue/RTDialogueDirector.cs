@@ -54,6 +54,9 @@ namespace FuzzPhyte.Dialogue
             
             RuntimeGraph = newGraph;
         }
+        /// <summary>
+        /// Prototype: testing walking the graph and only looking at the first output
+        /// </summary>
         protected void SetupGraph()
         {
             var currentNode = RuntimeGraph.Nodes[0];
@@ -87,7 +90,21 @@ namespace FuzzPhyte.Dialogue
                         ? RuntimeGraph.Nodes[dialogueNode.NextNodeIndices[0]]
                         : null;
                 }
-                else
+                else if(currentNode is RTResponseNode responseNode)
+                {
+                    var responseExecutor = (IRTFPDialogueNodeExecutor<RTResponseNode>)executor;
+                    responseExecutor.Execute(responseNode, this);
+                    currentNode = responseNode.NextNodeIndices.Count > 0
+                        ? RuntimeGraph.Nodes[responseNode.NextNodeIndices[0]]
+                        : null;
+                } else if(currentNode is RTCombineNode combineNode)
+                {
+                    var combineExecutor = (IRTFPDialogueNodeExecutor<RTCombineNode>)executor;
+                    combineExecutor.Execute(combineNode, this);
+                    currentNode = combineNode.NextNodeIndices.Count > 0
+                        ? RuntimeGraph.Nodes[combineNode.NextNodeIndices[0]]
+                        : null;
+                } else
                 {
                     currentNode = null;
                 }

@@ -37,7 +37,63 @@ namespace FuzzPhyte.Dialogue
             {
                 Debug.Log($"Main Text: {mainDialogueData.dialogueText} in the language of {mainDialogueData.language.ToString()}");
             }
+            else
+            {
+                return false;
+            }
+            return true;
+        }
+        public bool EvaluateResponseNode(RTResponseNode node)
+        {
+            var mainResponseData = node.userIncomingPrompts;
+            if(mainResponseData != null)
+            {
+                for(int i=0;i< mainResponseData.Count; i++)
+                {
+                    Debug.Log($"Response Index{i}: {mainResponseData[i].mainDialogue.dialogueText} in the language of {mainResponseData[i].mainDialogue.language.ToString()}");
+                }
+            }
+            else
+            {
+                return false;
+            }
+            return true;
+        }
+        public bool EvaluateCombination(RTCombineNode node)
+        {
+            var incomingNodes = node.incomeNodes;
+            var outgoingNodes = node.outgoingNodes;
+            if (incomingNodes.Length > 0 && outgoingNodes.Length>0)
+            {
+                string combinedNodes = string.Empty;
+                for (int i = 0; i < incomingNodes.Length; i++)
+                {
+                    if (i == incomingNodes.Length - 1)
+                    {
+                        combinedNodes += incomingNodes[i];
+                    }
+                    else
+                    {
+                        combinedNodes += incomingNodes[i] + ", ";
+                    }
+                }
+                string combineNodesOut = string.Empty;
+                for (int i = 0; i < outgoingNodes.Length; i++)
+                {
+                    if (i == outgoingNodes.Length - 1)
+                    {
+                        combineNodesOut += outgoingNodes[i];
+                    }
+                    else
+                    {
+                        combineNodesOut += outgoingNodes[i] + ", ";
+                    }
+
+                }
+                Debug.Log($"Combine Nodes in: {combinedNodes} and combine nodes out: {combineNodesOut}");
                 return true;
+            }
+            return false;
         }
     }
 }

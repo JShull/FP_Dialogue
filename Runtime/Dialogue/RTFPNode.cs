@@ -19,6 +19,15 @@ namespace FuzzPhyte.Dialogue
             Index = index;
         }
     }
+    //JOHN
+    [Serializable]
+    public struct RTFPNodePort
+    {
+        //used to hold the name of a node
+        //used to hold the name of a port
+        public string NodeIndex;
+        public string PortIndex;
+    }
     #region Runtime Nodes Associated with Dialogue System
     //Editor: EntryNode class
     [Serializable]
@@ -92,16 +101,24 @@ namespace FuzzPhyte.Dialogue
     [Serializable]
     public class RTCombineNode : RTFPNode
     {
-        protected string inNodeOneIndex;
-        protected string inNodeTwoIndex;
-        protected string[] outNodeOneIndex;
+        //public string inNodeOneIndex;
+        //public string inNodeTwoIndex;
+        [SerializeField]public string[] incomeNodes;
+        [SerializeField]public string[] outgoingNodes;
 
         public RTCombineNode(string index, string nodeOne, string nodeTwo, List<string> outcomeNode):base(index)
         {
             NodeType = "RTCombineNode";
-            this.inNodeOneIndex = nodeOne;
-            this.inNodeTwoIndex = nodeTwo;
-            this.outNodeOneIndex = outcomeNode.ToArray();
+            this.incomeNodes = new string[2];
+            incomeNodes[0] = nodeOne;
+            incomeNodes[1] = nodeTwo;
+            this.outgoingNodes = outcomeNode.ToArray();
+        }
+        public RTCombineNode(string index, List<string>incomingNodes, List<string>outcomeNode):base(index)
+        {
+            NodeType = "RTCombineNode";
+            this.incomeNodes = incomingNodes.ToArray();
+            this.outgoingNodes = outcomeNode.ToArray();
         }
     }
     //Editor: SetFPCharacterNode class

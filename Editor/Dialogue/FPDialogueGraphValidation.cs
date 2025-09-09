@@ -13,6 +13,8 @@
         public const string MAIN_PORT_TIMELINEDETAILS = "TimelineDetails";
         public const string PORT_COMBINE_OPONE = "Option1";
         public const string PORT_COMBINE_OPTWO = "Option2";
+        public const string PORT_NUMBER_OPTIONS = "NumOptions";
+        public const string PORT_INDEX_OP = "Option_";//builder string
 
         //options based
         public const string GETDATAFILE = "GetDataFile";

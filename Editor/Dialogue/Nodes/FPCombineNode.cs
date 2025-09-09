@@ -17,29 +17,40 @@ namespace FuzzPhyte.Dialogue.Editor
         {
             this.name = passedName;
         }
-        [SerializeField] protected int inputs = 2;
-        [SerializeField] protected int portsDirtyTick;
-        // What the ports were actually built with last time
+        //[SerializeField] protected int inputs = 2;
         
         protected override void OnDefineOptions(IOptionDefinitionContext options)
         {
-            options.AddOption<int>(nameof(inputs)).WithDisplayName("Number of Inputs");
-            options.AddOption<int>(nameof(portsDirtyTick)).ShowInInspectorOnly();
+            options.AddOption<int>(FPDialogueGraphValidation.PORT_NUMBER_OPTIONS)
+                .WithDisplayName("Number of Inputs")
+                .WithDefaultValue(2)
+                .Delayed();
         }
 
         protected override void OnDefinePorts(IPortDefinitionContext ports)
         {
             // Use applied value for stability (so drawing matches the last applied state)
+           
+            var portCountOption = GetNodeOptionByName(FPDialogueGraphValidation.PORT_NUMBER_OPTIONS);
+            portCountOption.TryGetValue<int>(out var portCount);
+            for(var i = 0; i < portCount; i++)
+            {
+                ports.AddInputPort<FPVisualNode>(FPDialogueGraphValidation.PORT_INDEX_OP+i.ToString())
+                .WithDisplayName($"Option {i+1}")
+                .Build();
+            }
             ports.AddOutputPort<FPVisualNode>(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME)
-               .WithDisplayName("Flow Out")
-               .WithConnectorUI(PortConnectorUI.Arrowhead)
-               .Build();
-            ports.AddInputPort<FPVisualNode>(FPDialogueGraphValidation.PORT_COMBINE_OPONE)
-                .WithDisplayName("Option 1")
+                .WithDisplayName("Flow Out")
+                .WithConnectorUI(PortConnectorUI.Arrowhead)
                 .Build();
-            ports.AddInputPort<FPVisualNode>(FPDialogueGraphValidation.PORT_COMBINE_OPTWO)
-                .WithDisplayName("Option 2")
-                .Build();
+
+            //OLD STUFF
+            //ports.AddInputPort<FPVisualNode>(FPDialogueGraphValidation.PORT_COMBINE_OPONE)
+            //    .WithDisplayName("Option 1")
+            //    .Build();
+            //ports.AddInputPort<FPVisualNode>(FPDialogueGraphValidation.PORT_COMBINE_OPTWO)
+            //    .WithDisplayName("Option 2")
+            //    .Build();
             
         }
     }

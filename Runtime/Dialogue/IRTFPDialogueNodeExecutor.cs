@@ -62,7 +62,8 @@ namespace FuzzPhyte.Dialogue
                 return false;
             }
             Debug.Log($"Piping towards a single output!");
-            return true;
+            bool condition = mediator.EvaluateCombination(node);
+            return condition;
         }
     }
     public class CharacterNodeExecutor : IRTFPDialogueNodeExecutor<RTCharacterNode>
@@ -90,7 +91,8 @@ namespace FuzzPhyte.Dialogue
                 return false;
             }
             Debug.Log($"Response Node Execution!");
-            return true;
+            bool condition = mediator.EvaluateResponseNode(node);
+            return condition;
         }
     }
     public class SinglePromptNodeExecutor: IRTFPDialogueNodeExecutor<RTSinglePromptNode>
@@ -119,7 +121,7 @@ namespace FuzzPhyte.Dialogue
             }
             Debug.Log($"Dialogue Node Execution!");
             bool condition = mediator.EvaluateDialogueNode(node);
-            return true;
+            return condition;
         }
     }
     public class TalkNodeExecutor: IRTFPDialogueNodeExecutor<RTTalkNode>

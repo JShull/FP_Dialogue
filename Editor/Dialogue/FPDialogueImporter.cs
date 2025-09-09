@@ -274,36 +274,117 @@ namespace FuzzPhyte.Dialogue.Editor
                         return createdNodes;
                     }
                 case FPCombineNode combineNode:
-                    var portOne = combineNode.GetInputPortByName(FPDialogueGraphValidation.PORT_COMBINE_OPONE);
-                    var portTwo = combineNode.GetInputPortByName(FPDialogueGraphValidation.PORT_COMBINE_OPTWO);
+                    //loop over possible input ports
+                    var portOptionCount = combineNode.GetNodeOptionByName(FPDialogueGraphValidation.PORT_NUMBER_OPTIONS);
+                    portOptionCount.TryGetValue<int>(out var portCount);
+                    List<IPort>possibleIncomingPorts = new List<IPort>();
+                    for(var i = 0; i < portCount; i++)
+                    {
+                        //FPDialogueGraphValidation.PORT_INDEX_OP+i.ToString()
+                        var aPort = combineNode.GetInputPortByName(FPDialogueGraphValidation.PORT_INDEX_OP+i.ToString());
+                        if (aPort != null)
+                        {
+                            possibleIncomingPorts.Add(aPort);
+                        }
+                    }
+                    //var portOne = combineNode.GetInputPortByName(FPDialogueGraphValidation.PORT_COMBINE_OPONE);
+                    //var portTwo = combineNode.GetInputPortByName(FPDialogueGraphValidation.PORT_COMBINE_OPTWO);
                     var outPort = combineNode.GetOutputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
                     string nodeOne= string.Empty;
                     string nodeTwo= string.Empty;
                     List<string> nodeOut = new();
-                    
-                    if (portOne != null)
-                    {
-                        nodeOne = GetFirstNodeNameByPort(portOne);
-                    }
-                    if (portTwo != null)
-                    {
-                        nodeTwo = GetFirstNodeNameByPort(portTwo);
-                    }
                     if (outPort != null)
                     {
                         nodeOut = GetConnectedNodeNamesByPort(outPort);
                     }
-                    if (nodeOne == string.Empty || nodeTwo == string.Empty || nodeOut.Count ==0 )
+                    if (possibleIncomingPorts.Count == 2)
                     {
-                        Debug.LogError($"Combine node something");
-                        return null;
+                        var portOne = possibleIncomingPorts[0];
+                        var portTwo = possibleIncomingPorts[1];
+                        if (portOne != null)
+                        {
+                            //
+                            nodeOne = GetFirstNodeNameByPort(portOne);
+                            List<IPort> allIncomePortsOnPortOne = new List<IPort>();
+                            portOne.GetConnectedPorts(allIncomePortsOnPortOne);
+                            string portNames = string.Empty;
+                            foreach(var port in allIncomePortsOnPortOne)
+                            {
+                                portNames += port.name + ",";
+                            }
+                            if (portNames != string.Empty)
+                            {
+                                portNames.Remove(portNames.Length - 1);
+                            }
+                            nodeOne = nodeOne + ", " + portNames; 
+                        }
+                        if (portTwo != null)
+                        {
+                            nodeTwo = GetFirstNodeNameByPort(portTwo);
+                            List<IPort> allIncomePortsOnPortTwo = new List<IPort>();
+                            portTwo.GetConnectedPorts(allIncomePortsOnPortTwo);
+                            string portNames = string.Empty;
+                            foreach (var port in allIncomePortsOnPortTwo)
+                            {
+                                portNames += port.name + ",";
+                            }
+                            if (portNames != string.Empty)
+                            {
+                                portNames.Remove(portNames.Length - 1);
+                            }
+                            nodeTwo = nodeTwo + ", " + portNames;
+                        }
+                        
+                        if (nodeOne == string.Empty || nodeTwo == string.Empty || nodeOut.Count == 0)
+                        {
+                            Debug.LogError($"Combine node something");
+                            return null;
+                        }
+                        else
+                        {
+                            var RTcombinedNode = new RTCombineNode(combineNode.Name, nodeOne, nodeTwo, nodeOut);
+                            createdNodes.Add(RTcombinedNode);
+                            return createdNodes;
+                        }
                     }
                     else
                     {
-                        var RTcombinedNode =  new RTCombineNode(combineNode.Name, nodeOne, nodeTwo, nodeOut);
-                        createdNodes.Add(RTcombinedNode);
-                        return createdNodes;
+                        //we have more than two coming in
+                        List<string> nodeIn = new();
+                        foreach (var aPort in possibleIncomingPorts)
+                        {
+                            var nodeIndexIn = GetFirstNodeNameByPort(aPort);
+                            if(nodeIndexIn != string.Empty)
+                            {
+                                //now get all of the ports connected to my port
+                                List<IPort> allIncomePortsOnPortX = new List<IPort>();
+                                aPort.GetConnectedPorts(allIncomePortsOnPortX);
+                                string portNames = string.Empty;
+                                foreach (var port in allIncomePortsOnPortX)
+                                {
+                                    portNames += port.name + ",";
+                                }
+                                if (portNames != string.Empty)
+                                {
+                                    portNames.Remove(portNames.Length - 1);
+                                }
+                                nodeIndexIn = nodeIndexIn + ", " + portNames;
+                                nodeIn.Add(nodeIndexIn);
+                            }
+                        }
+                        if (nodeIn.Count == 0 || nodeOut.Count==0)
+                        {
+                            Debug.LogError($"Combine node something error on list?");
+                            return null;
+                        }
+                        else
+                        {
+                            var RTCombineNode = new RTCombineNode(combineNode.Name, nodeIn, nodeOut);
+                            createdNodes.Add(RTCombineNode);
+                            return createdNodes;
+                        }
                     }
+                    
                 case FPOnewayNode onewayNode:
                     var inDirectionPort = onewayNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
                     var outDirectionPort = onewayNode.GetOutputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
@@ -798,6 +879,7 @@ namespace FuzzPhyte.Dialogue.Editor
             }
             return nodeName;
         }
+        
         /// <summary>
         /// will return the first INode on the other end of a connected iPort
         /// E.g. Node 0 is connected to Node 1, you pass the outgoing port on Node 0 and it returns Node 1
