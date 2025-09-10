@@ -231,6 +231,23 @@ namespace FuzzPhyte.Dialogue
             }
             character = theCharacter;
         }
+        public bool ValidPromptResponse(RTSinglePromptNode prompt)
+        {
+            return userIncomingPrompts.Contains(prompt) ? true : false;
+        }
+        public RTFPNodePort? UserPromptResponseNodeDetails(RTSinglePromptNode prompt)
+        {
+            if (userIncomingPrompts.Contains(prompt))
+            {
+                //index of prompt in list?
+                var validIndex = userIncomingPrompts.FindIndex(a => a == prompt);
+                if (outNodeIndices.Length >= validIndex)
+                {
+                    return outNodeIndices[validIndex];
+                }
+            }
+            return null;
+        }
     }
     //Editor: SetFPSinglePromptNode
     [Serializable]
