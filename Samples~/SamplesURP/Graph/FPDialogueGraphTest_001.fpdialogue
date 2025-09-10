@@ -615,7 +615,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: c45d8771ce146cc11b3f36d4e502e137
         m_Version: 2
-        m_Position: {x: 892.32697, y: 798}
+        m_Position: {x: 903.6313, y: 870.99994}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -2023,7 +2023,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: e6228951c7d2076851f06a93434b986e
         m_Version: 2
-        m_Position: {x: 683.2352, y: 222.27989}
+        m_Position: {x: 661.2352, y: 203.27989}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -2031,21 +2031,27 @@ MonoBehaviour:
         m_State: 0
         m_InputConstantsById:
           m_KeyList:
-          - MainText
-          - TranslationText
-          - ExecutionPort
+          - WaitForUserResponse
+          - ANIM_EMOTION_STATE
           - ANIM_DIALOGUE_STATE
           - ANIM_MOTION_STATE
+          - UseWorldObjects
+          - UsePrefabs
+          - ExecutionPort
           - CharacterPort
-          - ANIM_EMOTION_STATE
+          - MainText
+          - TranslationText
           m_ValueList:
-          - rid: 8866445333055668678
-          - rid: 8866445335692574799
-          - rid: 8866445335692575092
-          - rid: 8866445335692575271
-          - rid: 8866445335692575274
-          - rid: 8866445378024374412
-          - rid: 8866445378024374416
+          - rid: 8866445514534289493
+          - rid: 8866445514534289501
+          - rid: 8866445514534289502
+          - rid: 8866445514534289503
+          - rid: 8866445514534289504
+          - rid: 8866445514534289505
+          - rid: 8866445514534289506
+          - rid: 8866445514534289507
+          - rid: 8866445514534289508
+          - rid: 8866445514534289509
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -2202,16 +2208,6 @@ MonoBehaviour:
           m_PortDirection: 1
           m_PortOrientation: 0
           m_Title: 'Theme:'
-    - rid: 8866445333055668678
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          name: 
-    - rid: 8866445335692574799
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          name: 
     - rid: 8866445335692574808
       type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
       data:
@@ -2420,7 +2416,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 2524db2e12a93bf6ff8f8a190c324d96
         m_Version: 2
-        m_Position: {x: 1328.4585, y: 759.59454}
+        m_Position: {x: 1337.1542, y: 759.5946}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -2454,8 +2450,8 @@ MonoBehaviour:
         m_Collapsed: 0
         m_CurrentModeIndex: 0
         m_ElementColor:
-          m_Color: {r: 0, g: 0, b: 0, a: 0}
-          m_HasUserColor: 0
+          m_Color: {r: 1, g: 0.5490196, b: 0, a: 1}
+          m_HasUserColor: 1
         m_Node:
           rid: 8866445335692574832
     - rid: 8866445335692574832
@@ -3747,9 +3743,6 @@ MonoBehaviour:
       type: {class: SetFPSinglePromptNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
       data:
         name: 17_node
-    - rid: 8866445335692575092
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data: 
     - rid: 8866445335692575093
       type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data: 
@@ -3794,21 +3787,27 @@ MonoBehaviour:
         m_State: 0
         m_InputConstantsById:
           m_KeyList:
-          - MainText
-          - TranslationText
-          - ExecutionPort
+          - WaitForUserResponse
+          - ANIM_EMOTION_STATE
           - ANIM_DIALOGUE_STATE
           - ANIM_MOTION_STATE
+          - UseWorldObjects
+          - UsePrefabs
+          - ExecutionPort
           - CharacterPort
-          - ANIM_EMOTION_STATE
+          - MainText
+          - TranslationText
           m_ValueList:
-          - rid: 8866445335692575140
-          - rid: 8866445335692575141
-          - rid: 8866445335692575142
-          - rid: 8866445335692575272
-          - rid: 8866445335692575275
-          - rid: 8866445378024374414
-          - rid: 8866445378024374417
+          - rid: 8866445514534289494
+          - rid: 8866445514534289510
+          - rid: 8866445514534289511
+          - rid: 8866445514534289512
+          - rid: 8866445514534289513
+          - rid: 8866445514534289514
+          - rid: 8866445514534289515
+          - rid: 8866445514534289516
+          - rid: 8866445514534289517
+          - rid: 8866445514534289518
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -3824,19 +3823,6 @@ MonoBehaviour:
           m_HasUserColor: 0
         m_Node:
           rid: 8866445335692575143
-    - rid: 8866445335692575140
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          name: 
-    - rid: 8866445335692575141
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          name: 
-    - rid: 8866445335692575142
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data: 
     - rid: 8866445335692575143
       type: {class: SetFPDialogueNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
       data:
@@ -3905,21 +3891,27 @@ MonoBehaviour:
         m_State: 0
         m_InputConstantsById:
           m_KeyList:
-          - MainText
-          - TranslationText
-          - ExecutionPort
+          - WaitForUserResponse
+          - ANIM_EMOTION_STATE
           - ANIM_DIALOGUE_STATE
           - ANIM_MOTION_STATE
+          - UseWorldObjects
+          - UsePrefabs
+          - ExecutionPort
           - CharacterPort
-          - ANIM_EMOTION_STATE
+          - MainText
+          - TranslationText
           m_ValueList:
-          - rid: 8866445335692575199
-          - rid: 8866445335692575200
-          - rid: 8866445335692575201
-          - rid: 8866445335692575273
-          - rid: 8866445335692575276
-          - rid: 8866445378024374415
-          - rid: 8866445378024374418
+          - rid: 8866445514534289495
+          - rid: 8866445514534289519
+          - rid: 8866445514534289520
+          - rid: 8866445514534289521
+          - rid: 8866445514534289522
+          - rid: 8866445514534289523
+          - rid: 8866445514534289524
+          - rid: 8866445514534289525
+          - rid: 8866445514534289526
+          - rid: 8866445514534289527
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -3935,19 +3927,6 @@ MonoBehaviour:
           m_HasUserColor: 0
         m_Node:
           rid: 8866445335692575202
-    - rid: 8866445335692575199
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          name: 
-    - rid: 8866445335692575200
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          name: 
-    - rid: 8866445335692575201
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data: 
     - rid: 8866445335692575202
       type: {class: SetFPDialogueNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
       data:
@@ -4371,72 +4350,6 @@ MonoBehaviour:
           m_PortDirection: 1
           m_PortOrientation: 0
           m_Title: Translation
-    - rid: 8866445335692575271
-      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          m_EnumType:
-            m_Identification: FuzzPhyte.Utility.DialogueState, com.fuzzphyte.utility,
-              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-          m_Value: 1
-        m_EnumType:
-          m_Identification: FuzzPhyte.Utility.DialogueState, com.fuzzphyte.utility,
-            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - rid: 8866445335692575272
-      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          m_EnumType:
-            m_Identification: FuzzPhyte.Utility.DialogueState, com.fuzzphyte.utility,
-              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-          m_Value: 1
-        m_EnumType:
-          m_Identification: FuzzPhyte.Utility.DialogueState, com.fuzzphyte.utility,
-            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - rid: 8866445335692575273
-      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          m_EnumType:
-            m_Identification: FuzzPhyte.Utility.DialogueState, com.fuzzphyte.utility,
-              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-          m_Value: 1
-        m_EnumType:
-          m_Identification: FuzzPhyte.Utility.DialogueState, com.fuzzphyte.utility,
-            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - rid: 8866445335692575274
-      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          m_EnumType:
-            m_Identification: FuzzPhyte.Utility.MotionState, com.fuzzphyte.utility,
-              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-          m_Value: 1
-        m_EnumType:
-          m_Identification: FuzzPhyte.Utility.MotionState, com.fuzzphyte.utility,
-            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - rid: 8866445335692575275
-      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          m_EnumType:
-            m_Identification: FuzzPhyte.Utility.MotionState, com.fuzzphyte.utility,
-              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-          m_Value: 1
-        m_EnumType:
-          m_Identification: FuzzPhyte.Utility.MotionState, com.fuzzphyte.utility,
-            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - rid: 8866445335692575276
-      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          m_EnumType:
-            m_Identification: FuzzPhyte.Utility.MotionState, com.fuzzphyte.utility,
-              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-          m_Value: 1
-        m_EnumType:
-          m_Identification: FuzzPhyte.Utility.MotionState, com.fuzzphyte.utility,
-            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445335692575292
       type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
       data:
@@ -5490,59 +5403,11 @@ MonoBehaviour:
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 
-    - rid: 8866445378024374412
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPCharacterNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          name: 
     - rid: 8866445378024374413
       type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPCharacterNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
-    - rid: 8866445378024374414
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPCharacterNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          name: 
-    - rid: 8866445378024374415
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPCharacterNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          name: 
-    - rid: 8866445378024374416
-      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          m_EnumType:
-            m_Identification: FuzzPhyte.Utility.EmotionalState, com.fuzzphyte.utility,
-              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-          m_Value: 0
-        m_EnumType:
-          m_Identification: FuzzPhyte.Utility.EmotionalState, com.fuzzphyte.utility,
-            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - rid: 8866445378024374417
-      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          m_EnumType:
-            m_Identification: FuzzPhyte.Utility.EmotionalState, com.fuzzphyte.utility,
-              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-          m_Value: 0
-        m_EnumType:
-          m_Identification: FuzzPhyte.Utility.EmotionalState, com.fuzzphyte.utility,
-            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - rid: 8866445378024374418
-      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          m_EnumType:
-            m_Identification: FuzzPhyte.Utility.EmotionalState, com.fuzzphyte.utility,
-              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-          m_Value: 0
-        m_EnumType:
-          m_Identification: FuzzPhyte.Utility.EmotionalState, com.fuzzphyte.utility,
-            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445491199279363
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -5587,3 +5452,192 @@ MonoBehaviour:
     - rid: 8866445492524417109
       type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data: 
+    - rid: 8866445514534289493
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
+    - rid: 8866445514534289494
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 8866445514534289495
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 8866445514534289501
+      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value:
+          m_EnumType:
+            m_Identification: FuzzPhyte.Utility.EmotionalState, com.fuzzphyte.utility,
+              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          m_Value: 0
+        m_EnumType:
+          m_Identification: FuzzPhyte.Utility.EmotionalState, com.fuzzphyte.utility,
+            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - rid: 8866445514534289502
+      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value:
+          m_EnumType:
+            m_Identification: FuzzPhyte.Utility.DialogueState, com.fuzzphyte.utility,
+              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          m_Value: 1
+        m_EnumType:
+          m_Identification: FuzzPhyte.Utility.DialogueState, com.fuzzphyte.utility,
+            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - rid: 8866445514534289503
+      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value:
+          m_EnumType:
+            m_Identification: FuzzPhyte.Utility.MotionState, com.fuzzphyte.utility,
+              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          m_Value: 1
+        m_EnumType:
+          m_Identification: FuzzPhyte.Utility.MotionState, com.fuzzphyte.utility,
+            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - rid: 8866445514534289504
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 8866445514534289505
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 8866445514534289506
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data: 
+    - rid: 8866445514534289507
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPCharacterNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value:
+          name: 
+    - rid: 8866445514534289508
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value:
+          name: 
+    - rid: 8866445514534289509
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value:
+          name: 
+    - rid: 8866445514534289510
+      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value:
+          m_EnumType:
+            m_Identification: FuzzPhyte.Utility.EmotionalState, com.fuzzphyte.utility,
+              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          m_Value: 0
+        m_EnumType:
+          m_Identification: FuzzPhyte.Utility.EmotionalState, com.fuzzphyte.utility,
+            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - rid: 8866445514534289511
+      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value:
+          m_EnumType:
+            m_Identification: FuzzPhyte.Utility.DialogueState, com.fuzzphyte.utility,
+              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          m_Value: 1
+        m_EnumType:
+          m_Identification: FuzzPhyte.Utility.DialogueState, com.fuzzphyte.utility,
+            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - rid: 8866445514534289512
+      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value:
+          m_EnumType:
+            m_Identification: FuzzPhyte.Utility.MotionState, com.fuzzphyte.utility,
+              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          m_Value: 1
+        m_EnumType:
+          m_Identification: FuzzPhyte.Utility.MotionState, com.fuzzphyte.utility,
+            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - rid: 8866445514534289513
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 8866445514534289514
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 8866445514534289515
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data: 
+    - rid: 8866445514534289516
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPCharacterNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value:
+          name: 
+    - rid: 8866445514534289517
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value:
+          name: 
+    - rid: 8866445514534289518
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value:
+          name: 
+    - rid: 8866445514534289519
+      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value:
+          m_EnumType:
+            m_Identification: FuzzPhyte.Utility.EmotionalState, com.fuzzphyte.utility,
+              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          m_Value: 0
+        m_EnumType:
+          m_Identification: FuzzPhyte.Utility.EmotionalState, com.fuzzphyte.utility,
+            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - rid: 8866445514534289520
+      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value:
+          m_EnumType:
+            m_Identification: FuzzPhyte.Utility.DialogueState, com.fuzzphyte.utility,
+              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          m_Value: 1
+        m_EnumType:
+          m_Identification: FuzzPhyte.Utility.DialogueState, com.fuzzphyte.utility,
+            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - rid: 8866445514534289521
+      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value:
+          m_EnumType:
+            m_Identification: FuzzPhyte.Utility.MotionState, com.fuzzphyte.utility,
+              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          m_Value: 1
+        m_EnumType:
+          m_Identification: FuzzPhyte.Utility.MotionState, com.fuzzphyte.utility,
+            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - rid: 8866445514534289522
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 8866445514534289523
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 8866445514534289524
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data: 
+    - rid: 8866445514534289525
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPCharacterNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value:
+          name: 
+    - rid: 8866445514534289526
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value:
+          name: 
+    - rid: 8866445514534289527
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value:
+          name: 

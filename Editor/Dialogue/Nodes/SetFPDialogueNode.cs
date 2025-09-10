@@ -3,6 +3,7 @@ namespace FuzzPhyte.Dialogue.Editor
     using FuzzPhyte.Utility;
     using System;
     using Unity.GraphToolkit.Editor;
+    using UnityEngine;
 
     [UseWithGraph(typeof(FPDialogueGraph))]
     [Serializable]
@@ -11,6 +12,41 @@ namespace FuzzPhyte.Dialogue.Editor
         public override void SetupIndex(string passedName)
         {
             this.name = passedName;
+        }
+        protected override void OnDefineOptions(IOptionDefinitionContext context)
+        {
+            context.AddOption<bool>(FPDialogueGraphValidation.USER_WAIT_FOR_USER)
+                .WithDefaultValue(false)
+                .WithDisplayName("Wait for User?: ")
+                .WithTooltip("Leave off to go to the next node upon finishing this node")
+                .Build();
+            context.AddOption<EmotionalState>(nameof(FPDialogueGraphValidation.ANIM_EMOTION_STATE))
+                .WithDefaultValue(EmotionalState.Neutral)
+                .WithDisplayName("Emotion:")
+                .WithTooltip("The Emotion?")
+                .Build();
+            context.AddOption<DialogueState>(nameof(FPDialogueGraphValidation.ANIM_DIALOGUE_STATE))
+                .WithDefaultValue(DialogueState.Normal)
+                .WithDisplayName("Dialogue:")
+                .Build();
+            context.AddOption<MotionState>(nameof(FPDialogueGraphValidation.ANIM_MOTION_STATE))
+                .WithDefaultValue(MotionState.Idle)
+                .WithDisplayName("Motion:")
+                .Build();
+            context.AddOption<bool>(FPDialogueGraphValidation.USE_THREED_OBJECTS)
+                 .WithDefaultValue(false)
+                 .WithDisplayName("Use World Objects?: ")
+                 .Delayed();
+            context.AddOption<bool>(FPDialogueGraphValidation.USE_PREFABS)
+                .WithDefaultValue(false)
+                .WithDisplayName("Prefabs?")
+                .Delayed();
+            /*
+           *  [Header("Animation Related Parameters")]
+      public EmotionalState DialogueEmoState;
+      public DialogueState OverallDialogueState;
+      public MotionState DialogueMotionState;
+           * */
         }
         /// <summary>
         /// Defines the output for the node.
@@ -40,31 +76,32 @@ namespace FuzzPhyte.Dialogue.Editor
             context.AddInputPort<SetFPTalkNode>(FPDialogueGraphValidation.TRANSLATION_TEXT)
                 .WithDisplayName("Translation")
                 .Build();
-          
+            var useThreeDOption = GetNodeOptionByName(FPDialogueGraphValidation.USE_THREED_OBJECTS);
+            bool useThreeD = false;
+            useThreeDOption.TryGetValue<bool>(out useThreeD);
+            var usePrefabOption = GetNodeOptionByName(FPDialogueGraphValidation.USE_PREFABS);
+            bool usePrefabs = false;
+            usePrefabOption.TryGetValue<bool>(out usePrefabs);
+            if(useThreeDOption!=null && useThreeD && usePrefabOption!=null && usePrefabs)
+            {
+                //need yes no context ports for the gameobject prefab asset
+                context.AddInputPort<ExposedReference<GameObject>>(FPDialogueGraphValidation.RESPONSE_PREFAB_YES)
+                    .WithDisplayName("Yes Prefab:")
+                    .Build();
+                context.AddInputPort<ExposedReference<GameObject>>(FPDialogueGraphValidation.RESPONSE_PREFAB_NO)
+                    .WithDisplayName("No Prefab:")
+                    .Build();
+            }else if(useThreeDOption != null && useThreeD)
+            {
+                //need string name for world placement of yes and no
+                context.AddInputPort<string>(FPDialogueGraphValidation.RESPONSE_WORLD_YES_LOCATION)
+                    .WithDisplayName("Yes Prefab:")
+                    .Build();
+                context.AddInputPort<string>(FPDialogueGraphValidation.RESPONSE_WORLD_NO_LOCATION)
+                    .WithDisplayName("No Prefab:")
+                    .Build();
+            }
         }
-        protected override void OnDefineOptions(IOptionDefinitionContext context)
-        {
-            //base.OnDefineOptions(context);
-            context.AddOption<EmotionalState>(nameof(FPDialogueGraphValidation.ANIM_EMOTION_STATE))
-                .WithDefaultValue(EmotionalState.Neutral)
-                .WithDisplayName("Emotion:")
-                .WithTooltip("The Emotion?")
-
-                .Build();
-            context.AddOption<DialogueState>(nameof(FPDialogueGraphValidation.ANIM_DIALOGUE_STATE))
-                .WithDefaultValue(DialogueState.Normal)
-                .WithDisplayName("Dialogue:")
-                .Build();
-            context.AddOption<MotionState>(nameof(FPDialogueGraphValidation.ANIM_MOTION_STATE))
-                .WithDefaultValue(MotionState.Idle)
-                .WithDisplayName("Motion:")
-                .Build();
-            /*
-           *  [Header("Animation Related Parameters")]
-      public EmotionalState DialogueEmoState;
-      public DialogueState OverallDialogueState;
-      public MotionState DialogueMotionState;
-           * */
-        }
+        
     }
 }

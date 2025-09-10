@@ -1,10 +1,9 @@
-
 namespace FuzzPhyte.Dialogue
 {
     using FuzzPhyte.UI;
     using System;
     using UnityEngine;
-     // JOHN Notes 6-17-2024
+    // JOHN Notes 6-17-2024
     // still need to work up how we activate and deactivate
     // this will probably be by event/proximity
     // so if we leave from a conversation in the middle we can come back to that point
@@ -17,6 +16,11 @@ namespace FuzzPhyte.Dialogue
         [Header("DIALOGUE DATA")]
         [Tooltip("The core data for this dialogue")]
         public DialogueBase MainDialogueData;
+        [Tooltip("The other data object this system can manage")]
+        public RTFPDialogueGraph DialogueGraphData;
+        [Space]
+        public bool UseGraph = false;
+        [Space]
         public int DialogueIndex = 0;
         public RectTransform DialogueContainer;
         
@@ -80,19 +84,31 @@ namespace FuzzPhyte.Dialogue
                 return;
             }
             uiDialogueRef = blockUI.GetComponent<UIDialogueBase>();
-            uiDialogueRef.SetupDialoguePanel(MainDialogueData.Character, MainDialogueData.ConversationData[DialogueIndex], this);
-            OnDialogueSetup?.Invoke(new DialogueEventData()
+            if (UseGraph)
             {
-                UserID = clientID,
-                DialogueDataRef = MainDialogueData,
-                DialogueBlockDataRef = MainDialogueData.ConversationData[DialogueIndex]
-            });
-            //turn off the UI pieces for now
-            DialogueContainer.gameObject.SetActive(false);
-            if (canvasRef != null)
-            {
-                canvasRef.enabled = false;
+                //Visual Setup Graph
             }
+            else
+            {
+                //Visual Setup Standard
+                uiDialogueRef.SetupDialoguePanel(MainDialogueData.Character, MainDialogueData.ConversationData[DialogueIndex], this);
+                OnDialogueSetup?.Invoke(new DialogueEventData()
+                {
+                    UserID = clientID,
+                    DialogueDataRef = MainDialogueData,
+                    DialogueBlockDataRef = MainDialogueData.ConversationData[DialogueIndex]
+                });
+                //turn off the UI pieces for now
+                DialogueContainer.gameObject.SetActive(false);
+                if (canvasRef != null)
+                {
+                    canvasRef.enabled = false;
+                }
+            }
+                
+            
+
+           
         }
         //return the 0-1 progress bar value as needed for UI updates
         public float ProgressBarWrapper()

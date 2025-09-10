@@ -8,6 +8,8 @@ namespace FuzzPhyte.Dialogue.Editor
     using UnityEditor.AssetImporters;
     using UnityEngine.Timeline;
     using FuzzPhyte.Utility;
+    using System;
+
     [ScriptedImporter(1, FPDialogueGraph.AssetExtension)]
     internal class FPDialogueImporter:ScriptedImporter
     {
@@ -53,7 +55,6 @@ namespace FuzzPhyte.Dialogue.Editor
             {
                 var cNode = nodeList[i];
                 cNode.SetupIndex(i + "_node");
-                //Debug.Log($"Node: {cNode.Name} Confirmed");
             }
         }
         /// <summary>
@@ -103,6 +104,8 @@ namespace FuzzPhyte.Dialogue.Editor
                         {
                             //Debug.Log($"Logging Entry Node...");
                             runtimeGraph.AddEntryNode(entryNode);
+                            //setup entry node
+                            runtimeGraph.SetupGraphEntryPoint(entryNode);
                         }else if(runtimeNode is RTExitNode exitNode)
                         {
                             //Debug.Log($"Logging Exit Node...");
@@ -466,7 +469,7 @@ namespace FuzzPhyte.Dialogue.Editor
                     EmotionalState animState = EmotionalState.Neutral;
                     DialogueState dialogueState = DialogueState.Normal;
                     MotionState motionState = MotionState.NA;
-
+                    bool autoScroll = false;
                     RTTalkNode talkRTNode = null;
                     RTTalkNode talkRTTransNode = null;
                     RTCharacterNode rTCharacterNodeIn = null;
@@ -493,6 +496,11 @@ namespace FuzzPhyte.Dialogue.Editor
                     {
                         Debug.LogError($"Missing an output connection on a dialogue");
                         return null;
+                    }
+                    var autoScrollPort = dialogueNode.GetNodeOptionByName(FPDialogueGraphValidation.USER_WAIT_FOR_USER);
+                    if (autoScrollPort != null)
+                    {
+                        autoScrollPort.TryGetValue<bool>(out autoScroll);
                     }
                     /// Main Text
                     var dialogueInPort = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_TEXT);
@@ -551,8 +559,54 @@ namespace FuzzPhyte.Dialogue.Editor
                             createdNodes.Add(rtCharacterNodeOut);
                         }
                     }
-                    var RTdialogueNode =new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode,rTCharacterNodeIn,rtCharacterNodeOut, talkRTTransNode);
-                    createdNodes.Add(RTdialogueNode);
+                    /// auto scroll added
+                    /// world prefab options for response
+                    var worldObjectUseCase = dialogueNode.GetNodeOptionByName(FPDialogueGraphValidation.USE_THREED_OBJECTS);
+                    var worldObjectUseCasePrefabs = dialogueNode.GetNodeOptionByName(FPDialogueGraphValidation.USE_PREFABS);
+                    bool useThreeD = false;
+                    bool usePrefabs = false;
+                    worldObjectUseCase.TryGetValue<bool>(out useThreeD);
+                    worldObjectUseCasePrefabs.TryGetValue<bool>(out usePrefabs);
+                    if(worldObjectUseCase!=null && useThreeD && worldObjectUseCasePrefabs!=null && usePrefabs)
+                    {
+                        var yesGameObjectRefPort = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.RESPONSE_PREFAB_YES);
+                        var noGameObjectRefPort = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.RESPONSE_PREFAB_NO);
+                        ExposedReference<GameObject> yesRef;
+                        ExposedReference<GameObject> noRef;
+                        if(yesGameObjectRefPort!=null && noGameObjectRefPort != null)
+                        {
+                            yesGameObjectRefPort.TryGetValue(out yesRef);
+                            noGameObjectRefPort.TryGetValue(out noRef);
+                            var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode,rTCharacterNodeIn, yesRef, noRef, autoScroll, rtCharacterNodeOut, talkRTTransNode);
+                            createdNodes.Add(RTdialogueNode);
+                        }
+                        else
+                        {
+                            Debug.LogError($"Something's wrong with the YES/NO Prefab references");
+                        }
+                    }else if(worldObjectUseCase!=null && useThreeD)
+                    {
+                        var yesGameObjectNamePort = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.RESPONSE_WORLD_YES_LOCATION);
+                        var noGameObjectNamePort = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.RESPONSE_WORLD_NO_LOCATION);
+                        if(yesGameObjectNamePort!=null && noGameObjectNamePort != null)
+                        {
+                            yesGameObjectNamePort.TryGetValue<string>(out string yesGOName);
+                            noGameObjectNamePort.TryGetValue<string>(out string noGOName);
+                            var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, yesGOName, noGOName, autoScroll, rtCharacterNodeOut, talkRTTransNode);
+                            createdNodes.Add(RTdialogueNode);
+                        }
+                        else
+                        {
+                            Debug.LogError($"Somethings wrong with the Yes/no string ports");
+                        }
+
+                    }
+                    else 
+                    {
+                        var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, autoScroll, rtCharacterNodeOut, talkRTTransNode);
+                        createdNodes.Add(RTdialogueNode);
+                    }
+                        
                     return createdNodes;       
                 default:
                     return null;
@@ -600,8 +654,9 @@ namespace FuzzPhyte.Dialogue.Editor
             var resolver = FindAnyObjectByType<RTExposedBinder>();
             if (nodeOption != null)
             {
-        
-                (characterMeshR, characterMeshIndex) = ResolveObject(nodeOption, resolver);
+                nodeOption.TryGetValue<string>(out characterMeshIndex);
+                /*
+                    (characterMeshR, characterMeshIndex) = ResolveObject(nodeOption, resolver);
                 //this still ends up null
                 if (characterMeshR != null)
                 {
@@ -611,6 +666,7 @@ namespace FuzzPhyte.Dialogue.Editor
                 {
                     Debug.LogError($"Missing gameobject {nodeData.Name}!!!");
                 }
+                */
             }
             
 
@@ -683,7 +739,8 @@ namespace FuzzPhyte.Dialogue.Editor
             var resolver = FindAnyObjectByType<RTExposedBinder>();
             if (nodeOption != null)
             {
-
+                nodeOption.TryGetValue<string>(out locationObjectIndex);
+                /*
                 (locationObject, locationObjectIndex) = ResolveObject(nodeOption, resolver);
                 //this still ends up null
                 if (locationObject != null)
@@ -694,6 +751,7 @@ namespace FuzzPhyte.Dialogue.Editor
                 {
                     Debug.LogError($"Missing GameObject: {nodeData.Name}!!!");
                 }
+                */
             }
 
             
@@ -900,6 +958,7 @@ namespace FuzzPhyte.Dialogue.Editor
             }
             return null;
         }
+        [Obsolete("This should be moved to runtime operation - not editor")]
         static (GameObject,string) ResolveObject(INodeOption nodeOption, RTExposedBinder resolver)
         {
             if (nodeOption == null || resolver == null)

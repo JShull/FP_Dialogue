@@ -268,10 +268,19 @@ namespace FuzzPhyte.Dialogue
         public RTTalkNode translatedDialogue;
         public RTCharacterNode incomingCharacter;
         public RTCharacterNode outgoingCharacter;
-
-        public RTDialogueNode(string index, RTFPNodePort incominIndex, RTFPNodePort outIndex, RTTalkNode dialogue,RTCharacterNode incomingCharacterNode,RTCharacterNode outgoingCharacaterNode = null,RTTalkNode transDialogue=null) : base(index)
+        public ExposedReference<GameObject> YesPrefab;
+        public ExposedReference<GameObject> NoPrefab;
+        public bool waitforUser;//drives a UI prompt box for next/previous/repeat
+        public string YesGameObjectSceneName;
+        public string NoGameObjectSceneName;
+        public bool usePrefabs;
+        public bool useNames;
+        public RTDialogueNode(string index, RTFPNodePort incominIndex, RTFPNodePort outIndex, RTTalkNode dialogue,RTCharacterNode incomingCharacterNode,bool waitForUser = false,RTCharacterNode outgoingCharacterNode = null,RTTalkNode transDialogue=null) : base(index)
         {
+            usePrefabs = false;
+            useNames = false;
             NodeType = "RTDialogueNode";
+            waitforUser = waitForUser;
             this.inNodeIndices = new RTFPNodePort[1];
             this.inNodeIndices[0] = incominIndex;
             this.outNodeIndices = new RTFPNodePort[1];
@@ -280,9 +289,44 @@ namespace FuzzPhyte.Dialogue
             this.mainDialogue = dialogue;
             this.translatedDialogue = transDialogue;
             this.incomingCharacter = incomingCharacterNode;
-            this.outgoingCharacter = outgoingCharacaterNode;
+            this.outgoingCharacter = outgoingCharacterNode;
         }
-        
+        public RTDialogueNode(string index, RTFPNodePort incominIndex,RTFPNodePort outIndex, RTTalkNode dialogue,RTCharacterNode incomingCharacterNode, ExposedReference<GameObject> yesPrefab, ExposedReference<GameObject> noPrefab,bool waitForUser = false, RTCharacterNode outgoingCharacterNode = null,RTTalkNode transDialogue = null) : base(index)
+        {
+            usePrefabs = true;
+            useNames = false;
+            NodeType = "RTDialogueNode";
+            waitforUser = waitForUser;
+            this.inNodeIndices = new RTFPNodePort[1];
+            this.inNodeIndices[0] = incominIndex;
+            this.outNodeIndices = new RTFPNodePort[1];
+            this.outNodeIndices[0] = outIndex;
+
+            this.mainDialogue = dialogue;
+            this.translatedDialogue = transDialogue;
+            this.incomingCharacter = incomingCharacterNode;
+            this.outgoingCharacter = outgoingCharacterNode;
+            this.YesPrefab = yesPrefab;
+            this.NoPrefab = noPrefab;
+        }
+        public RTDialogueNode(string index, RTFPNodePort incominIndex, RTFPNodePort outIndex, RTTalkNode dialogue, RTCharacterNode incomingCharacterNode, string yesGameObjectName, string noGameObjectName, bool waitForUser = false, RTCharacterNode outgoingCharacterNode = null, RTTalkNode transDialogue = null) : base(index)
+        {
+            usePrefabs = false;
+            useNames = true;
+            NodeType = "RTDialogueNode";
+            waitforUser = waitForUser;
+            this.inNodeIndices = new RTFPNodePort[1];
+            this.inNodeIndices[0] = incominIndex;
+            this.outNodeIndices = new RTFPNodePort[1];
+            this.outNodeIndices[0] = outIndex;
+
+            this.mainDialogue = dialogue;
+            this.translatedDialogue = transDialogue;
+            this.incomingCharacter = incomingCharacterNode;
+            this.outgoingCharacter = outgoingCharacterNode;
+            this.YesGameObjectSceneName = yesGameObjectName;
+            this.NoGameObjectSceneName = noGameObjectName;
+        }
     }
     //Editor: SetFPTalkNode class
     [Serializable]

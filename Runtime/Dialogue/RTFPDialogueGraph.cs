@@ -8,6 +8,7 @@ namespace FuzzPhyte.Dialogue
     [CreateAssetMenu(fileName = "RunTimeDialogueGraph", menuName = "FuzzPhyte/Dialogue/Graph/Create Runtime SOGraph")]
     public class RTFPDialogueGraph : FP_Data
     {
+        [SerializeReference] public RTEntryNode MainEntryNode;
         [SerializeReference]
         public List<RTFPNode> Nodes = new ();
         [SerializeReference]public Dictionary<string, RTFPNode> AllNodesByIndex = new Dictionary<string,RTFPNode> ();
@@ -16,7 +17,22 @@ namespace FuzzPhyte.Dialogue
         [SerializeReference] public Dictionary<string, RTDialogueNode>AllDialogueNodes = new Dictionary<string,RTDialogueNode>();
         [SerializeReference] public Dictionary<string, RTResponseNode>AllResponseNodes = new Dictionary<string,RTResponseNode> ();
         [SerializeReference] public Dictionary<string, RTCharacterNode>AllCharacterNodes = new Dictionary<string,RTCharacterNode> ();
-       
+        
+        /// <summary>
+        /// Initial entry point for main "in" node, but also can be used for other things
+        /// </summary>
+        /// <param name="inNode"></param>
+        public void SetupGraphEntryPoint(RTEntryNode inNode)
+        {
+            if (MainEntryNode == null)
+            {
+                MainEntryNode = inNode;
+            }
+            else
+            {
+                Debug.LogWarning($"Trying to replace the Main Entry Node, one is already assigned?!");
+            }
+        }
         public void AddRTNodeToList(RTFPNode Node)
         {
             if (!Nodes.Contains(Node))

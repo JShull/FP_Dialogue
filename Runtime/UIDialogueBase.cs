@@ -4,6 +4,9 @@ namespace FuzzPhyte.Dialogue
     using System.Linq;
     using FuzzPhyte.Utility;
 
+    /// <summary>
+    /// Mainly a class to connect runtime objects/data and generation of content based on that information
+    /// </summary>
     public class UIDialogueBase :MonoBehaviour, IDialogueActions
     {
         public UIDialogueButton NextButton;
@@ -66,7 +69,7 @@ namespace FuzzPhyte.Dialogue
             
             // main container updates
             MainContainer.UpdateBackdropColor(character.CharacterTheme.MainColor);
-            //this is the masked area graphics that is usually white - we generally want to match this with our backdrop
+            // this is the masked area graphics that is usually white - we generally want to match this with our backdrop
             MainContainer.UpdateRefIconColor(character.CharacterTheme.MainColor);
             // character
             CharacterContainer.UpdateReferenceTextFormat(header2Font);

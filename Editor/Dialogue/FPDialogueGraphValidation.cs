@@ -15,7 +15,7 @@
         public const string PORT_COMBINE_OPTWO = "Option2";
         public const string PORT_NUMBER_OPTIONS = "NumOptions";
         public const string PORT_INDEX_OP = "Option_";//builder string
-
+      
         //options based
         public const string GETDATAFILE = "GetDataFile";
 
@@ -59,7 +59,17 @@
         public const string USER_PROMPT_PORT = "PromptExecutionOut";
         public const string USER_NUMBER_OPTIONS = "PromptNumOptions";
         public const string USER_PROMPTX_OP = "PromptOption_";
+        public const string USER_WAIT_FOR_USER = "WaitForUserResponse"; //wait for user response or just go to the next dialogue automatically
         
+        //Graph/User parameters that drive our realtime outcomes
+        public const string USE_THREED_OBJECTS = "UseWorldObjects"; //false is traditional 2D
+        public const string USE_PREFABS = "UsePrefabs"; //false we point to game object locations in scene
+
+        public const string RESPONSE_PREFAB_YES = "YesGameObjectPrefab";
+        public const string RESPONSE_PREFAB_NO = "NoGameObjectPrefab";
+        public const string RESPONSE_WORLD_YES_LOCATION = "YesWorldLocationName";
+        public const string RESPONSE_WORLD_NO_LOCATION = "NoWorldLocationName";
+
         public static void Run(FPDialogueGraph graph, GraphLogger logger)
         {
             // 1) Exactly one EntryNode

@@ -10,6 +10,10 @@ namespace FuzzPhyte.Dialogue
     {
         [Header("Graph")]
         public RTFPDialogueGraph RuntimeGraph;
+        /// <summary>
+        /// Active Node our Director is "on"
+        /// </summary>
+        [SerializeField]protected RTFPNode currentNode;
 
         protected Dictionary<System.Type, object> executors;
 
@@ -59,7 +63,25 @@ namespace FuzzPhyte.Dialogue
         /// </summary>
         protected void SetupGraph()
         {
-            var currentNode = RuntimeGraph.Nodes[0];
+            if (RuntimeGraph.MainEntryNode != null)
+            {
+                currentNode = RuntimeGraph.MainEntryNode;
+            }
+            else
+            {
+                currentNode = RuntimeGraph.Nodes[0];
+                //find entry node instead of first in runtime graph index?
+                for (int i = 0; i < RuntimeGraph.Nodes.Count; i++)
+                {
+                    var node = RuntimeGraph.Nodes[i];
+                    if (node is RTEntryNode)
+                    {
+                        currentNode = (RTEntryNode)node;
+                        break;
+                    }
+                }
+            }
+                
             while (currentNode != null)
             {
                 if(!executors.TryGetValue(currentNode.GetType(),out var executor))
@@ -109,6 +131,10 @@ namespace FuzzPhyte.Dialogue
                 }
             }
             //need to get to our first dialogue and/or prompt node type to "start" dialogue
+        }
+        protected void ProcessNode()
+        {
+
         }
     }
 }
