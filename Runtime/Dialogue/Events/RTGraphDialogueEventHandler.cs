@@ -10,8 +10,9 @@ namespace FuzzPhyte.Dialogue
     /// Central runtime event hub. 
     /// Static C# event for global code subscriptions.
     /// Instance UnityEvent for scene-level hooks.
+    /// Transports information between the graph dialogue system controls "who cares to listen?"
     /// </summary>
-    public sealed class GraphDialogueEventHandler : MonoBehaviour, IFPDontDestroy
+    public sealed class RTGraphDialogueEventHandler : MonoBehaviour, IFPDontDestroy
     {
         /// Dont destroy setup 
         public bool DontDestroy { get { return dontDestroy; } set { dontDestroy = value; } }
@@ -20,7 +21,7 @@ namespace FuzzPhyte.Dialogue
         /// <summary>
         /// Static event: subscribe/unsubscribe from code.
         /// </summary>
-        public static event Action<GraphEventData> OnGraphDialogueEvent;
+        public event Action<GraphEventData> OnGraphDialogueEvent;
 
         [Header("Designer Hooks")]
         [Tooltip("Optional: route all raised events through this UnityEvent for inspector-based bindings.")]
@@ -31,18 +32,18 @@ namespace FuzzPhyte.Dialogue
         public string DefaultConversationId;
 
         // Instance registry so you can safely call Instance.Raise(...) if you want
-        private static GraphDialogueEventHandler _instance;
-        public static GraphDialogueEventHandler Instance
+        private static RTGraphDialogueEventHandler _instance;
+        public static RTGraphDialogueEventHandler Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    _instance = FindFirstObjectByType<GraphDialogueEventHandler>();
+                    _instance = FindFirstObjectByType<RTGraphDialogueEventHandler>();
                     if (_instance == null)
                     {
-                        var go = new GameObject(nameof(GraphDialogueEventHandler));
-                        _instance = go.AddComponent<GraphDialogueEventHandler>();
+                        var go = new GameObject(nameof(RTGraphDialogueEventHandler));
+                        _instance = go.AddComponent<RTGraphDialogueEventHandler>();
                     }
                 }
                 return _instance;

@@ -18,7 +18,9 @@ namespace FuzzPhyte.Dialogue
     [Serializable]
     public abstract class RTFPNode
     {
+        [SerializeField]
         public string NodeType;
+        [SerializeField]
         public string Index;
         [Space]
         [Header("Graph Indices")]

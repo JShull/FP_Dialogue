@@ -15,6 +15,7 @@ namespace FuzzPhyte.Dialogue
         DialogueNext,
         DialoguePrevious,
         DialogueUserResponse,
+        DialogueUserRepeat,
         DialogueEnd
     }
     /// <summary>

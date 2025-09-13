@@ -4,10 +4,9 @@ namespace FuzzPhyte.Dialogue
 
     /// <summary>
     /// Runtime Unity Mediator
-    /// In charge of managing the Unity runtime environment being built by the graph editor data
+    /// In charge of managing the Unity real time nodes and processing
     /// reading the graph
     /// which node we are actively on
-    /// traversial of the graph / runtime
     /// 
     /// </summary>
     public class RTDialogueMediator : MonoBehaviour
@@ -43,6 +42,7 @@ namespace FuzzPhyte.Dialogue
             }
             return true;
         }
+       
         public bool EvaluateResponseNode(RTResponseNode node)
         {
             var mainResponseData = node.userIncomingPrompts;

@@ -1,10 +1,11 @@
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace FuzzPhyte.Dialogue
 {
+    using System.Collections.Generic;
+    using UnityEngine;
+
     /// <summary>
     /// Placeholder for managing data across our editor graph input and our runtime needs in Unity
+    /// Director: traverse the graph, emit and trigger events = "What node is next?"
     /// </summary>
     public class RTDialogueDirector : MonoBehaviour
     {
@@ -21,7 +22,7 @@ namespace FuzzPhyte.Dialogue
         /// event setup
         /// </summary>
         [Header("Events")]
-        [SerializeField] private GraphDialogueEventHandler eventHandler;
+        [SerializeField] private RTGraphDialogueEventHandler eventHandler;
         [SerializeField] private string graphID; //optional right now
         [SerializeField] private string conversationID; //optinal right now
         protected void Awake()
@@ -41,7 +42,7 @@ namespace FuzzPhyte.Dialogue
         }
         protected void Start()
         {
-            if (!eventHandler) eventHandler = GraphDialogueEventHandler.Instance;
+            if (!eventHandler) eventHandler = RTGraphDialogueEventHandler.Instance;
             /// graph setup
             if (RuntimeGraph == null)
             {
@@ -59,16 +60,7 @@ namespace FuzzPhyte.Dialogue
             SetupGraph();
 
         }
-        /// <summary>
-        /// add a new dialogue to the system
-        /// </summary>
-        /// <param name="newGraph"></param>
-        public void NewDialogueAdded(RTFPDialogueGraph newGraph)
-        {
-            /// check for other requirements and/or if we need to do anything (don't interrupt our current flow!)
-            
-            RuntimeGraph = newGraph;
-        }
+        
         /// <summary>
         /// Prototype: testing walking the graph and only looking at the first output
         /// </summary>
@@ -102,68 +94,7 @@ namespace FuzzPhyte.Dialogue
                 Debug.LogError($"Current Node == null");
             }
 
-                AdvanceUntilInteractive();
-           
-            /// actually walk the graph based on setup requirements, pull in data and continue until
-            /// we are at a dialogue or a prompt
-            /*
-            if (currentNode is RTEntryNode anEntryNode) 
-            {
-                if (!executors.TryGetValue(currentNode.GetType(), out var executor))
-                {
-                    Debug.LogError($"No Executor found for node type: {currentNode.GetType().Name}");
-                }
-                //check next node?
-                var entryExecutor = (IRTFPDialogueNodeExecutor<RTEntryNode>)executor;
-                entryExecutor.Execute(anEntryNode, this);
-                currentNode = anEntryNode.NextNodeIndices.Count > 0
-                    ? RuntimeGraph.Nodes[currentNode.NextNodeIndices[0]]
-                    : null;
-            }
-            while (currentNode != null)
-            {
-                if(!executors.TryGetValue(currentNode.GetType(),out var executor))
-                {
-                    Debug.LogError($"No Executor found for node type: {currentNode.GetType().Name}");
-                    break;
-                }
-                
-                if(currentNode is RTEntryNode entryNode)
-                {
-                    var entryExecutor = (IRTFPDialogueNodeExecutor<RTEntryNode>)executor;
-                    entryExecutor.Execute(entryNode, this);
-                    currentNode = entryNode.NextNodeIndices.Count > 0
-                        ? RuntimeGraph.Nodes[entryNode.NextNodeIndices[0]]
-                        : null;
-                    
-                }else if(currentNode is RTDialogueNode dialogueNode)
-                {
-                    var dialogueExecutor = (IRTFPDialogueNodeExecutor<RTDialogueNode>)executor;
-                    dialogueExecutor.Execute(dialogueNode, this);
-                    currentNode = dialogueNode.NextNodeIndices.Count > 0
-                        ? RuntimeGraph.Nodes[dialogueNode.NextNodeIndices[0]]
-                        : null;
-                }else if(currentNode is RTResponseNode responseNode)
-                {
-                    var responseExecutor = (IRTFPDialogueNodeExecutor<RTResponseNode>)executor;
-                    responseExecutor.Execute(responseNode, this);
-                    currentNode = responseNode.NextNodeIndices.Count > 0
-                        ? RuntimeGraph.Nodes[responseNode.NextNodeIndices[0]]
-                        : null;
-                }else if(currentNode is RTCombineNode combineNode)
-                {
-                    var combineExecutor = (IRTFPDialogueNodeExecutor<RTCombineNode>)executor;
-                    combineExecutor.Execute(combineNode, this);
-                    currentNode = combineNode.NextNodeIndices.Count > 0
-                        ? RuntimeGraph.Nodes[combineNode.NextNodeIndices[0]]
-                        : null;
-                }else
-                {
-                    currentNode = null;
-                }
-            }
-            */
-            //need to get to our first dialogue and/or prompt node type to "start" dialogue
+            AdvanceUntilInteractive();
         }
         
         protected void AdvanceUntilInteractive()
@@ -178,10 +109,21 @@ namespace FuzzPhyte.Dialogue
                 // If we hit an interactive node, STOP (do not Execute here).
                 if (currentNode is RTDialogueNode || currentNode is RTResponseNode)
                 {
-                    // Let UI/mediator handle it now.
+                    // Let UI/mediator handle it now if we need to manage dialogue vs response
+                    if(currentNode is RTDialogueNode)
+                    {
+                        //var talkExec = (IRTFPDialogueNodeExecutor<RTDialogueNode>)executor;
+                        //talkExec.Execute(currentNode as RTDialogueNode, this);
+                    }
+                    else
+                    {
+                        //var talkResponseExec = (IRTFPDialogueNodeExecutor<RTResponseNode>)executor;
+                        //talkResponseExec.Execute(currentNode as RTResponseNode, this);
+                    }
+                    var previousNode = FirstPrevious(currentNode);
+                    eventHandler.RaiseDialogueNext(previousNode, currentNode);
                     return;
                 }
-
                 // Exit ends traversal immediately after executing.
                 if (currentNode is RTExitNode exitNode)
                 {
@@ -238,7 +180,7 @@ namespace FuzzPhyte.Dialogue
         /// <summary>
         /// Prefer NextNodeIndices. If empty, fall back to first connected out port target by Index string.
         /// </summary>
-        private RTFPNode FirstNext(RTFPNode node)
+        protected RTFPNode FirstNext(RTFPNode node)
         {
             // Primary: integer indices
             if (node.NextNodeIndices != null && node.NextNodeIndices.Count > 0)
@@ -263,7 +205,26 @@ namespace FuzzPhyte.Dialogue
             }
             return null;
         }
-        private RTFPNode FindByIndexString(string indexString)
+        protected RTFPNode FirstPrevious(RTFPNode node)
+        {
+            // Fallback: port wiring by string NodeIndex
+            if (node.inNodeIndices != null)
+            {
+                for (int p = 0; p < node.inNodeIndices.Length; p++)
+                {
+                    var cn = node.inNodeIndices[p].ConnectedNodes;
+                    if (cn == null) continue;
+                    for (int c = 0; c < cn.Length; c++)
+                    {
+                        var targetIndexString = cn[c].NodeIndex;
+                        var found = FindByIndexString(targetIndexString);
+                        if (found != null) return found;
+                    }
+                }
+            }
+            return null;
+        }
+        protected RTFPNode FindByIndexString(string indexString)
         {
             if (string.IsNullOrEmpty(indexString)) return null;
             // Linear scan; if you keep a Dictionary<string, RTFPNode> map, swap it in here.
@@ -277,5 +238,19 @@ namespace FuzzPhyte.Dialogue
         {
 
         }
+        #region Public Methods
+        /// <summary>
+        /// add a new dialogue to the system
+        /// </summary>
+        /// <param name="newGraph"></param>
+        public void NewDialogueAdded(RTFPDialogueGraph newGraph)
+        {
+            /// check for other requirements and/or if we need to do anything (don't interrupt our current flow!)
+
+            RuntimeGraph = newGraph;
+            //clean up?
+            SetupGraph();
+        }
+        #endregion
     }
 }

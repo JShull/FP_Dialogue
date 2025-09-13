@@ -289,6 +289,7 @@ GameObject:
   - component: {fileID: 158921070}
   - component: {fileID: 158921069}
   - component: {fileID: 158921072}
+  - component: {fileID: 158921073}
   m_Layer: 0
   m_Name: DIALOGUEManager
   m_TagString: Untagged
@@ -321,6 +322,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: com.fuzzphyte.dialogue::FuzzPhyte.Dialogue.RTDialogueDirector
   RuntimeGraph: {fileID: -3647142238507018538, guid: 052641bdec138b64685736f90b94fb5b, type: 3}
+  eventHandler: {fileID: 158921073}
+  graphID: 
+  conversationID: 
 --- !u!4 &158921071
 Transform:
   m_ObjectHideFlags: 0
@@ -359,6 +363,24 @@ MonoBehaviour:
     obj: {fileID: 21445054}
   - id: FourthPromptLocation:672038652
     obj: {fileID: 1215537145}
+--- !u!114 &158921073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158921068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca01ff06e4632824ab645f6d287f7662, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.fuzzphyte.dialogue::FuzzPhyte.Dialogue.GraphDialogueEventHandler
+  dontDestroy: 0
+  OnGraphEventUnity:
+    m_PersistentCalls:
+      m_Calls: []
+  DefaultGraphId: 
+  DefaultConversationId: 
 --- !u!1 &182210458
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,6 +452,37 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 182210458}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &200221042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 200221043}
+  m_Layer: 0
+  m_Name: DIALOGUE
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &200221043
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200221042}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -4369,5 +4422,6 @@ SceneRoots:
   - {fileID: 1215537147}
   - {fileID: 1813322133}
   - {fileID: 1159852586943527819}
-  - {fileID: 158921071}
   - {fileID: 182210461}
+  - {fileID: 200221043}
+  - {fileID: 158921071}
