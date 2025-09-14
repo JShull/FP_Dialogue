@@ -12,11 +12,12 @@ namespace FuzzPhyte.Dialogue
     {
         DialogueSetup,
         DialogueStart,
-        DialogueNext,
-        DialoguePrevious,
-        DialogueUserRepeat,
-        DialogueUserResponse,
-        DialogueUserResponseDisplay,
+        DialogueUserNext,
+        DialogueUserPrevious,
+        DialogueUserResponseCollected,
+        DialogueUserResponseNext,
+        DialogueUserResponsePrevious,
+        DialogueUserTranslate,
         DialogueEnd
     }
     /// <summary>

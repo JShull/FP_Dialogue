@@ -113,28 +113,82 @@ namespace FuzzPhyte.Dialogue
         /// <param name="payload"></param>
         /// <param name="graphId"></param>
         /// <param name="conversationId"></param>
-        public void RaiseDialogueNext(RTFPNode prev, RTFPNode next, string selectedNext = null,
+        public void RaiseDialogueNext(RTFPNode prev, RTDialogueNode next, string selectedNext = null,
             IReadOnlyList<string> candidates = null, object payload = null,
             string graphId = null, string conversationId = null)
-            => Raise(Build(GraphDialogueEventType.DialogueNext, next, payload, graphId, conversationId,
-                            selectedNext, candidates, previous: prev));
+            => Raise(Build(GraphDialogueEventType.DialogueUserNext, 
+                next, 
+                payload, 
+                graphId, 
+                conversationId,
+                selectedNext, 
+                candidates,
+                dialogueNode:next,
+                previous: prev));
+        public void RaiseResponseNext(RTFPNode prev, RTResponseNode next, string selectedNext = null,
+            IReadOnlyList<string> candidates = null, object payload = null,
+            string graphId = null, string conversationId = null)
+            => Raise(Build(GraphDialogueEventType.DialogueUserResponseNext, 
+                next, 
+                payload, 
+                graphId, 
+                conversationId,
+                selectedNext, 
+                candidates,
+                responseNode:next,
+                previous: prev));
 
-        public void RaiseDialoguePrevious(RTFPNode prev, RTFPNode current, object payload = null,
+        public void RaiseDialoguePrevious(RTFPNode prev, RTDialogueNode current, object payload = null,
             string graphId = null, string conversationId = null)
-            => Raise(Build(GraphDialogueEventType.DialoguePrevious, current, payload, graphId, conversationId,
-                            previous: prev));
-        public void RaiseDialogueUserResponseDisplay(RTResponseNode responseNodeDetails,RTFPNode previousNode,string selectedNext =null,IReadOnlyList<string> candidates = null, object payload = null,
+            => Raise(Build(GraphDialogueEventType.DialogueUserPrevious, 
+                current, 
+                payload, 
+                graphId, 
+                conversationId,
+                dialogueNode:current,
+                previous: prev));
+        public void RaiseResponsePrevious(RTFPNode prev, RTResponseNode current, object payload = null,
             string graphId = null, string conversationId = null)
-            => Raise(Build(GraphDialogueEventType.DialogueUserResponseDisplay, responseNodeDetails, payload, graphId, conversationId,
-                            selectedNext, candidates, previous: previousNode));
-        public void RaiseDialogueUserResponse(RTResponseNode responseNode, int responseIndex,
+            => Raise(Build(GraphDialogueEventType.DialogueUserResponsePrevious, 
+                current, 
+                payload, 
+                graphId, 
+                conversationId,
+                responseNode: current,
+                previous: prev));
+        public void RaiseDialogueUserResponseCollected(RTResponseNode responseNode, int responseIndex,
             string responseId = null, string responseText = null, string selectedNext = null,
             IReadOnlyList<string> candidates = null, object payload = null,
             string graphId = null, string conversationId = null)
-            => Raise(Build(GraphDialogueEventType.DialogueUserResponse, responseNode, payload, graphId, conversationId,
-                            selectedNext, candidates, responseNode: responseNode,
-                            userResponseIndex: responseIndex, userResponseId: responseId, userResponseText: responseText));
-
+            => Raise(Build(GraphDialogueEventType.DialogueUserResponseCollected, 
+                responseNode, 
+                payload, 
+                graphId, 
+                conversationId,
+                selectedNext, 
+                candidates,
+                responseNode: responseNode,
+                userResponseIndex: responseIndex, 
+                userResponseId: responseId, 
+                userResponseText: responseText));
+        public void RaiseDialogueUserTranslate(RTFPNode prev, RTDialogueNode current, object payload = null,
+            string graphId = null, string conversationId = null)
+            => Raise(Build(GraphDialogueEventType.DialogueUserTranslate, 
+                current, 
+                payload, 
+                graphId, 
+                conversationId,
+                dialogueNode:current,
+                previous: prev));
+        public void RaiseResponseUserTranslate(RTFPNode prev, RTResponseNode current, object payload = null,
+            string graphId = null, string conversationId = null)
+            => Raise(Build(GraphDialogueEventType.DialogueUserTranslate, 
+        current, 
+        payload, 
+        graphId, 
+        conversationId,
+        responseNode:current,
+        previous: prev));
         public void RaiseDialogueEnd(RTExitNode exitNode, object payload = null,
             string graphId = null, string conversationId = null)
             => Raise(Build(GraphDialogueEventType.DialogueEnd, exitNode, payload, graphId, conversationId, exitNode: exitNode));

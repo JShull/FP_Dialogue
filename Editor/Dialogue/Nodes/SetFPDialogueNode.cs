@@ -86,19 +86,19 @@ namespace FuzzPhyte.Dialogue.Editor
             {
                 //need yes no context ports for the gameobject prefab asset
                 context.AddInputPort<ExposedReference<GameObject>>(FPDialogueGraphValidation.RESPONSE_PREFAB_YES)
-                    .WithDisplayName("Yes Prefab:")
+                    .WithDisplayName("Prefab Option 1:")
                     .Build();
                 context.AddInputPort<ExposedReference<GameObject>>(FPDialogueGraphValidation.RESPONSE_PREFAB_NO)
-                    .WithDisplayName("No Prefab:")
+                    .WithDisplayName("Prefab Option 2:")
                     .Build();
             }else if(useThreeDOption != null && useThreeD)
             {
                 //need string name for world placement of yes and no
                 context.AddInputPort<string>(FPDialogueGraphValidation.RESPONSE_WORLD_YES_LOCATION)
-                    .WithDisplayName("Yes Prefab:")
+                    .WithDisplayName("Prefab Option 1:")
                     .Build();
                 context.AddInputPort<string>(FPDialogueGraphValidation.RESPONSE_WORLD_NO_LOCATION)
-                    .WithDisplayName("No Prefab:")
+                    .WithDisplayName("Prefab Option 2:")
                     .Build();
             }
         }

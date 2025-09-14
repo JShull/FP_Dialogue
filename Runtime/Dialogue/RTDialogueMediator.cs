@@ -26,8 +26,24 @@ namespace FuzzPhyte.Dialogue
             else
             {
                 Debug.Log($"Entry node does not have a timeline asset");
+                return true;
             }
-            return false;
+            //return false;
+        }
+        public bool EvaluateExitNode(RTExitNode node)
+        {
+            var tAsset = node.timelineAsset;
+            if (tAsset != null) 
+            {
+                Debug.Log($"Exit Node has a timeline asset");
+                return true;
+            }
+            else
+            {
+                Debug.Log($"Exit node does not have a timeline asset!");
+                return true;
+            }
+
         }
         public bool EvaluateDialogueNode(RTDialogueNode node)
         {
