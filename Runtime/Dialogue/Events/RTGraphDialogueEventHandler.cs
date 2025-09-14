@@ -103,6 +103,16 @@ namespace FuzzPhyte.Dialogue
             => Raise(Build(GraphDialogueEventType.DialogueStart, entry, payload, graphId, conversationId,
                             selectedNext, candidates, entryNode: entry));
 
+        /// <summary>
+        /// Raise a dialogue event, could be next or current
+        /// </summary>
+        /// <param name="prev"></param>
+        /// <param name="next"></param>
+        /// <param name="selectedNext"></param>
+        /// <param name="candidates"></param>
+        /// <param name="payload"></param>
+        /// <param name="graphId"></param>
+        /// <param name="conversationId"></param>
         public void RaiseDialogueNext(RTFPNode prev, RTFPNode next, string selectedNext = null,
             IReadOnlyList<string> candidates = null, object payload = null,
             string graphId = null, string conversationId = null)
@@ -113,7 +123,10 @@ namespace FuzzPhyte.Dialogue
             string graphId = null, string conversationId = null)
             => Raise(Build(GraphDialogueEventType.DialoguePrevious, current, payload, graphId, conversationId,
                             previous: prev));
-
+        public void RaiseDialogueUserResponseDisplay(RTResponseNode responseNodeDetails,RTFPNode previousNode,string selectedNext =null,IReadOnlyList<string> candidates = null, object payload = null,
+            string graphId = null, string conversationId = null)
+            => Raise(Build(GraphDialogueEventType.DialogueUserResponseDisplay, responseNodeDetails, payload, graphId, conversationId,
+                            selectedNext, candidates, previous: previousNode));
         public void RaiseDialogueUserResponse(RTResponseNode responseNode, int responseIndex,
             string responseId = null, string responseText = null, string selectedNext = null,
             IReadOnlyList<string> candidates = null, object payload = null,

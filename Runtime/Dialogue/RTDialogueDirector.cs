@@ -1,5 +1,6 @@
 namespace FuzzPhyte.Dialogue
 {
+    using System;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -11,10 +12,11 @@ namespace FuzzPhyte.Dialogue
     {
         [Header("Graph")]
         public RTFPDialogueGraph RuntimeGraph;
+        public Stack<string> ProgressionPath = new();
         /// <summary>
         /// Active Node our Director is "on"
         /// </summary>
-        [SerializeField]protected RTFPNode currentNode;
+        [SerializeField] protected RTFPNode currentNode;
 
         protected Dictionary<System.Type, object> executors;
 
@@ -84,6 +86,7 @@ namespace FuzzPhyte.Dialogue
                     }
                 }
             }
+            ProgressionPath.Clear();
             eventHandler.RaiseDialogueSetup();
             if (currentNode != null)
             {
@@ -107,21 +110,23 @@ namespace FuzzPhyte.Dialogue
                     return;
                 }
                 // If we hit an interactive node, STOP (do not Execute here).
+                //push current node on the stack
+                ProgressionPath.Push(currentNode.Index);
                 if (currentNode is RTDialogueNode || currentNode is RTResponseNode)
                 {
-                    // Let UI/mediator handle it now if we need to manage dialogue vs response
-                    if(currentNode is RTDialogueNode)
+                    var previousNode = FirstPrevious(currentNode);
+                    if (currentNode is RTDialogueNode)
                     {
                         //var talkExec = (IRTFPDialogueNodeExecutor<RTDialogueNode>)executor;
                         //talkExec.Execute(currentNode as RTDialogueNode, this);
+                        eventHandler.RaiseDialogueNext(previousNode, currentNode);
                     }
                     else
                     {
                         //var talkResponseExec = (IRTFPDialogueNodeExecutor<RTResponseNode>)executor;
                         //talkResponseExec.Execute(currentNode as RTResponseNode, this);
+                        eventHandler.RaiseDialogueUserResponseDisplay(currentNode as RTResponseNode, previousNode);
                     }
-                    var previousNode = FirstPrevious(currentNode);
-                    eventHandler.RaiseDialogueNext(previousNode, currentNode);
                     return;
                 }
                 // Exit ends traversal immediately after executing.
@@ -174,6 +179,62 @@ namespace FuzzPhyte.Dialogue
                 {
                     Debug.LogWarning($"Unrecognized node type {currentNode.GetType().Name}; stopping.");
                     return;
+                }
+            }
+        }
+        /// <summary>
+        /// Need To Test This Sunday JOHN
+        /// </summary>
+        protected void PreviousUntilInteractive()
+        {
+            if (currentNode == null)
+            {
+                Debug.LogWarning($"Current node is null; cannot go to previous.");
+                return;
+            }
+
+            var previousNode = FirstPrevious(currentNode);
+            string currentIndex = string.Empty;
+            if (previousNode != null && ProgressionPath.Count > 0)
+            {
+                currentIndex = ProgressionPath.Pop(); //removes current node
+            }
+
+            while (previousNode != null)
+            {
+                if (!executors.TryGetValue(previousNode.GetType(), out var executor))
+                {
+                    Debug.LogError($"No Executor found for node type: {previousNode.GetType().Name}");
+                    return;
+                }
+                if (previousNode is RTDialogueNode || previousNode is RTResponseNode)
+                {
+                    ProgressionPath.Pop(); //removes it
+                    currentNode = previousNode;
+                    previousNode = FirstPrevious(currentNode);
+                    eventHandler.RaiseDialoguePrevious(currentNode, previousNode);
+                    return;
+                }
+                if (previousNode is RTEntryNode)
+                {
+                    Debug.LogWarning($"Reached Entry node; cannot go previous.");
+                    ProgressionPath.Push(currentIndex); //put current back on the stack
+                    return;
+                }
+                if (previousNode is RTOnewayNode oneWay)
+                {
+                    Debug.LogWarning($"Cannot go previous past Oneway # {oneWay.Index} node.");
+                    ProgressionPath.Push(currentIndex); //put current back on the stack
+                    return;
+                }
+                if (previousNode is RTCombineNode combineNode)
+                {
+                    // we pop this and then continue to pop until we find a dialogue or response node
+                    ProgressionPath.Pop(); //removes combined node
+                    if (ProgressionPath.Count > 0)
+                    {
+                        previousNode = FindByIndexString(ProgressionPath.Pop());
+                    }
                 }
             }
         }
@@ -239,6 +300,60 @@ namespace FuzzPhyte.Dialogue
 
         }
         #region Public Methods
+
+        public void UserPromptResponse(int promptIndex)
+        {
+            if (currentNode is RTResponseNode responseNode)
+            {
+                // this is informing the system of the user response (raise the event and then update the graph)
+                eventHandler.RaiseDialogueUserResponse(responseNode, promptIndex);
+
+                //progress the graph forward
+                currentNode = FirstNext(currentNode);
+                //we need to go to the next dialogue node if we can
+                AdvanceUntilInteractive();
+            }
+            else
+            {
+                Debug.LogWarning($"Current node is not a ResponseNode; cannot accept user prompt response.");
+            }
+        }
+        [ContextMenu("Dialogue User Input Previous")]
+        public void UserPromptPrevious()
+        {
+            //we need to go back to the previous dialogue node if we can
+            PreviousUntilInteractive();
+        }
+        /// <summary>
+        /// Public UI/Method to repeat
+        /// </summary>
+        [ContextMenu("Dialogue User Input Repeat")]
+        public void UserPromptRepeat()
+        {
+            var previousNode = FirstPrevious(currentNode);
+            if (currentNode is RTDialogueNode dialogueNode)
+            {
+                eventHandler.RaiseDialogueNext(previousNode, currentNode);
+            }
+            else if (currentNode is RTResponseNode responseNode)
+            {
+                eventHandler.RaiseDialogueUserResponseDisplay(responseNode, previousNode);
+            }
+            else
+            {
+                Debug.LogWarning($"Current node is not a DialogueNode or ResponseNode; cannot repeat.");
+            }
+        }
+        /// <summary>
+        /// Public UI/Method to go to the next dialogue node
+        /// </summary>
+        [ContextMenu("Dialogue User Input Next")]
+        public void UserPromptNext()
+        {
+            //we need to go to the next dialogue node if we can
+            currentNode = FirstNext(currentNode);
+            AdvanceUntilInteractive();
+        }
         /// <summary>
         /// add a new dialogue to the system
         /// </summary>
@@ -246,7 +361,6 @@ namespace FuzzPhyte.Dialogue
         public void NewDialogueAdded(RTFPDialogueGraph newGraph)
         {
             /// check for other requirements and/or if we need to do anything (don't interrupt our current flow!)
-
             RuntimeGraph = newGraph;
             //clean up?
             SetupGraph();
