@@ -63,6 +63,7 @@ namespace FuzzPhyte.Dialogue
         public RTOnewayNode OnewayNode;
         public RTTalkNode TalkNode;
 
+        public float UserDelayPaddedTime;
         // Flow hints (optional)
         public IReadOnlyList<string> CandidateNextNodeIndices; // for UI / logic preview
         public string SelectedNextNodeIndex;                   // which path we chose (if applicable)

@@ -28,11 +28,12 @@ namespace FuzzPhyte.Dialogue
                 TheButton.onClick.AddListener(UserResponseAction);
             }
         }
-        public void SetupUserResponse(int index, RTDialogueDirector directorRef=null,AudioClip clipToPlay=null,AudioSource clipSource=null)
+        public void SetupUserResponse(int index, RTDialogueDirector directorRef=null,string textDisplay="",AudioClip clipToPlay=null,AudioSource clipSource=null)
         {
             userPromptButton = true;
             userDataResponse = null;
             TheButton.onClick.RemoveAllListeners();
+            RefText.text = textDisplay;
             if (directorRef != null)
             {
                 TheButton.onClick.AddListener(() => directorRef.UserPromptResponse(index));

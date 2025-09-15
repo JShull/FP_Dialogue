@@ -113,7 +113,7 @@ namespace FuzzPhyte.Dialogue
         /// <param name="payload"></param>
         /// <param name="graphId"></param>
         /// <param name="conversationId"></param>
-        public void RaiseDialogueNext(RTFPNode prev, RTDialogueNode next, RTFPNode outNextNode, string selectedNext = null,
+        public void RaiseDialogueNext(RTFPNode prev, RTDialogueNode next, RTFPNode outNextNode, float addedDelay =0,string selectedNext = null,
             IReadOnlyList<string> candidates = null, object payload = null,
             string graphId = null, string conversationId = null)
             => Raise(Build(GraphDialogueEventType.DialogueUserNext, 
@@ -123,10 +123,11 @@ namespace FuzzPhyte.Dialogue
                 conversationId,
                 selectedNext, 
                 candidates,
+                userDelayTime:addedDelay,
                 next: outNextNode,
                 dialogueNode:next,
                 previous: prev));
-        public void RaiseResponseNext(RTFPNode prev, RTResponseNode next, RTFPNode outNextNode,string selectedNext = null,
+        public void RaiseResponseNext(RTFPNode prev, RTResponseNode next, RTFPNode outNextNode,float addedDelay = 0,string selectedNext = null,
             IReadOnlyList<string> candidates = null, object payload = null,
             string graphId = null, string conversationId = null)
             => Raise(Build(GraphDialogueEventType.DialogueUserResponseNext, 
@@ -136,27 +137,30 @@ namespace FuzzPhyte.Dialogue
                 conversationId,
                 selectedNext, 
                 candidates,
+                userDelayTime:addedDelay,
                 next: outNextNode,
                 responseNode:next,
                 previous: prev));
 
-        public void RaiseDialoguePrevious(RTFPNode prev, RTDialogueNode current, RTFPNode outNextNode,object payload = null,
+        public void RaiseDialoguePrevious(RTFPNode prev, RTDialogueNode current, RTFPNode outNextNode,float addedDelay=0,object payload = null,
             string graphId = null, string conversationId = null)
             => Raise(Build(GraphDialogueEventType.DialogueUserPrevious, 
                 current, 
                 payload, 
                 graphId, 
                 conversationId,
+                userDelayTime:addedDelay,
                 next: outNextNode,
                 dialogueNode:current,
                 previous: prev));
-        public void RaiseResponsePrevious(RTFPNode prev, RTResponseNode current, RTFPNode outNextNode,object payload = null,
+        public void RaiseResponsePrevious(RTFPNode prev, RTResponseNode current, RTFPNode outNextNode,float addedDelay=0,object payload = null,
             string graphId = null, string conversationId = null)
             => Raise(Build(GraphDialogueEventType.DialogueUserResponsePrevious, 
                 current, 
                 payload, 
                 graphId, 
                 conversationId,
+                userDelayTime:addedDelay,
                 next: outNextNode,
                 responseNode: current,
                 previous: prev));
@@ -218,6 +222,7 @@ namespace FuzzPhyte.Dialogue
             RTCombineNode combineNode = null,
             RTOnewayNode onewayNode = null,
             RTTalkNode talkNode = null,
+            float userDelayTime=0,
             int userResponseIndex = -1,
             string userResponseId = null,
             string userResponseText = null
@@ -261,7 +266,7 @@ namespace FuzzPhyte.Dialogue
                 GraphId = graphId,
                 ConversationId = conversationId,
                 Timestamp = Time.realtimeSinceStartup,
-
+                UserDelayPaddedTime = userDelayTime,
                 CurrentNode = current,
                 PreviousNode = previous,
                 NextNode = next,

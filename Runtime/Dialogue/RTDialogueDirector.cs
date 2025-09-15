@@ -122,7 +122,7 @@ namespace FuzzPhyte.Dialogue
                 {
                     var previousNode = FirstPrevious(currentNode);
                     var nextNode = FirstNext(currentNode);
-                    eventHandler.RaiseDialogueNext(previousNode, dialogueNode,nextNode);
+                    eventHandler.RaiseDialogueNext(previousNode, dialogueNode,nextNode,PaddingTimeBetweenNodes);
                     if (!dialogueNode.waitforUser)
                     {
                         //time delay based on audioclip length with padding
@@ -130,14 +130,14 @@ namespace FuzzPhyte.Dialogue
                         {
                             Debug.Log($"Auto Loop: wait for{dialogueNode.mainDialogue.textAudio.length + PaddingTimeBetweenNodes} seconds");
                             Debug.Log($"Game Time: {Time.time}");
-                            StartCoroutine(AutoNextNode(dialogueNode.mainDialogue.textAudio.length + PaddingTimeBetweenNodes));
+                            StartCoroutine(AutoNextNode(dialogueNode.mainDialogue.textAudio.length + PaddingTimeBetweenNodes*2));
                         }
                         else
                         {
                             var charDelay = dialogueNode.mainDialogue.dialogueText.ToCharArray().Length* CharPaddingTime;
                             Debug.Log($"Auto Loop: wait for{charDelay + PaddingTimeBetweenNodes} seconds");
                             Debug.Log($"Game Time: {Time.time}");
-                            StartCoroutine(AutoNextNode(charDelay + PaddingTimeBetweenNodes));
+                            StartCoroutine(AutoNextNode(charDelay + PaddingTimeBetweenNodes*2));
                         }
                         
                     }
@@ -150,7 +150,7 @@ namespace FuzzPhyte.Dialogue
                 {
                     var previousNode = FirstPrevious(currentNode);
                     var nextNode = FirstNext(currentNode);
-                    eventHandler.RaiseResponseNext(previousNode, responseNode,nextNode);
+                    eventHandler.RaiseResponseNext(previousNode, responseNode,nextNode,PaddingTimeBetweenNodes);
                     return;
                 }
                 // Exit ends traversal immediately after executing.
@@ -240,7 +240,7 @@ namespace FuzzPhyte.Dialogue
                     //update actual real previous node
                     previousNode = FirstPrevious(currentNode);
                     var nextNode = FirstNext(currentNode);
-                    eventHandler.RaiseDialoguePrevious(previousNode, dialoguePrevious,nextNode);
+                    eventHandler.RaiseDialoguePrevious(previousNode, dialoguePrevious,nextNode,PaddingTimeBetweenNodes);
                     return;
                 }
                 if(previousNode is RTResponseNode responsePrevious)
@@ -252,7 +252,7 @@ namespace FuzzPhyte.Dialogue
                     //update actual real previous node
                     previousNode = FirstPrevious(currentNode);
                     var nextNode = FirstNext(currentNode);
-                    eventHandler.RaiseResponsePrevious(previousNode, responsePrevious,nextNode);
+                    eventHandler.RaiseResponsePrevious(previousNode, responsePrevious,nextNode,PaddingTimeBetweenNodes);
                     return;
                 }
                 if (previousNode is RTEntryNode)

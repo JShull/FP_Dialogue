@@ -112,8 +112,16 @@ namespace FuzzPhyte.Dialogue
                         {
                             //valid
                             Debug.Log($"Dialogue: {data.DialogueNode.mainDialogue.dialogueText}");
-                            ClearActiveVisual();
-                            DrawDialogueVisual(data.DialogueNode,data.PreviousNode,data.NextNode);
+                            if (data.UserDelayPaddedTime > 0)
+                            {
+                                StartCoroutine(DelayDialogueVisuals(data));
+                            }
+                            else
+                            {
+                                ClearActiveVisual();
+                                DrawDialogueVisual(data.DialogueNode, data.PreviousNode, data.NextNode,1.5f);
+                            }
+                                
                         }
                     }
                     //binder needed on dialogue next? (maybe) as this action is between node types (could be user prompt next, could be dialogue, could be coming out of a one way?)
@@ -125,8 +133,15 @@ namespace FuzzPhyte.Dialogue
                         {
                             //valid
                             Debug.Log($"Number Response options: {data.ResponseNode.userIncomingPrompts.Count}");
-                            ClearActiveVisual();
-                            DrawResponseVisual(data.ResponseNode,data.PreviousNode,data.NextNode);
+                            if(data.UserDelayPaddedTime > 0)
+                            {
+                                StartCoroutine(DelayResponseVisuals(data));
+                            }
+                            else
+                            {
+                                ClearActiveVisual();
+                                DrawResponseVisual(data.ResponseNode, data.PreviousNode, data.NextNode);
+                            }
                         }
                     }
                     break;
@@ -151,7 +166,7 @@ namespace FuzzPhyte.Dialogue
                             //valid
                             Debug.Log($"Dialogue User Previous: {data.DialogueNode.mainDialogue.dialogueText}");
                             ClearActiveVisual();
-                            DrawDialogueVisual(data.DialogueNode,data.PreviousNode,data.NextNode);
+                            DrawDialogueVisual(data.DialogueNode, data.PreviousNode, data.NextNode);
                         }
                     }
                     break;
@@ -199,9 +214,21 @@ namespace FuzzPhyte.Dialogue
            
             return false;
         }
+        IEnumerator DelayDialogueVisuals(GraphEventData someData)
+        {
+            yield return new WaitForSecondsRealtime(someData.UserDelayPaddedTime);
+            ClearActiveVisual();
+            DrawDialogueVisual(someData.DialogueNode, someData.PreviousNode, someData.NextNode,someData.UserDelayPaddedTime);
+        }
+        IEnumerator DelayResponseVisuals(GraphEventData someData)
+        {
+            yield return new WaitForSecondsRealtime(someData.UserDelayPaddedTime);
+            ClearActiveVisual();
+            DrawResponseVisual(someData.ResponseNode, someData.PreviousNode, someData.NextNode);
+        }
 
         #region Unity Visuals
-        protected void DrawDialogueVisual(RTDialogueNode nodeData, RTFPNode previousNode = null, RTFPNode nextNode = null)
+        protected void DrawDialogueVisual(RTDialogueNode nodeData, RTFPNode previousNode = null, RTFPNode nextNode = null, float delayTime=1.5f)
         {
             Transform spawnLoc = this.DefaultDialoguePosition;
             if (nodeData.useWorldLoc)
@@ -235,7 +262,7 @@ namespace FuzzPhyte.Dialogue
                 {
                     Debug.Log($"We have a UIDialogueBase");
                     activeNodeVisual.GetComponent<UIDialogueBase>().SetupDialoguePanel( dialogueUnity,nodeData,previousNode,nextNode);
-                    StartCoroutine(WaitBeforeDialogueResponse(1.5f));
+                    StartCoroutine(WaitBeforeDialogueResponse(delayTime));
                     //activeNodeVisual.GetComponent<UIDialogueBase>().PlayDialogueBlock();
                 }
                 //setup data based on interface?
@@ -293,7 +320,7 @@ namespace FuzzPhyte.Dialogue
                             aPromptButton.transform.localRotation = Quaternion.identity;
                             if (aPromptButton.GetComponent<UIDialogueButton>())
                             {
-                                aPromptButton.GetComponent<UIDialogueButton>().SetupUserResponse(i, this.director, nodeData.userIncomingPrompts[i].mainDialogue.textAudio, UserPromptAudioSource);
+                                aPromptButton.GetComponent<UIDialogueButton>().SetupUserResponse(i, this.director, nodeData.userIncomingPrompts[i].mainDialogue.dialogueText,nodeData.userIncomingPrompts[i].mainDialogue.textAudio, UserPromptAudioSource);
                                 aPromptButton.GetComponent<UIDialogueButton>().UpdateRefIconSprite(nodeData.userIncomingPrompts[i].promptIcon);
                                 activeResponseVisuals.Add(aPromptButton);
                             }
