@@ -49,7 +49,8 @@ namespace FuzzPhyte.Dialogue
 
         // Node context
         public RTFPNode CurrentNode;      
-        public RTFPNode PreviousNode; 
+        public RTFPNode PreviousNode;
+        public RTFPNode NextNode;
 
         // Common fast-access (null if not applicable)
         public RTDialogueNode DialogueNode;

@@ -41,6 +41,10 @@ namespace FuzzPhyte.Dialogue.Editor
                 .WithDefaultValue(false)
                 .WithDisplayName("Prefabs?")
                 .Delayed();
+            context.AddOption<bool>(FPDialogueGraphValidation.GO_WORLD_LOCATION)
+                .WithDefaultValue(false)
+                .WithDisplayName("Dialogue World Location?")
+                .Delayed();
             /*
            *  [Header("Animation Related Parameters")]
       public EmotionalState DialogueEmoState;
@@ -82,7 +86,19 @@ namespace FuzzPhyte.Dialogue.Editor
             var usePrefabOption = GetNodeOptionByName(FPDialogueGraphValidation.USE_PREFABS);
             bool usePrefabs = false;
             usePrefabOption.TryGetValue<bool>(out usePrefabs);
-            if(useThreeDOption!=null && useThreeD && usePrefabOption!=null && usePrefabs)
+            var useWorldLocation = GetNodeOptionByName(FPDialogueGraphValidation.GO_WORLD_LOCATION);
+            bool useWorldLoc = false;
+            if (useWorldLocation != null)
+            {
+                useWorldLocation.TryGetValue<bool>(out useWorldLoc);
+                if (useWorldLoc)
+                {
+                    context.AddInputPort<string>(FPDialogueGraphValidation.USE_WORLD_LOCATION)
+                        .WithDisplayName("World Location Name:")
+                        .Build();
+                }
+            }
+            if (useThreeDOption != null && useThreeD && usePrefabOption != null && usePrefabs)
             {
                 //need yes no context ports for the gameobject prefab asset
                 context.AddInputPort<ExposedReference<GameObject>>(FPDialogueGraphValidation.RESPONSE_PREFAB_YES)
@@ -91,7 +107,8 @@ namespace FuzzPhyte.Dialogue.Editor
                 context.AddInputPort<ExposedReference<GameObject>>(FPDialogueGraphValidation.RESPONSE_PREFAB_NO)
                     .WithDisplayName("Prefab Option 2:")
                     .Build();
-            }else if(useThreeDOption != null && useThreeD)
+            }
+            else if (useThreeDOption != null && useThreeD)
             {
                 //need string name for world placement of yes and no
                 context.AddInputPort<string>(FPDialogueGraphValidation.RESPONSE_WORLD_YES_LOCATION)

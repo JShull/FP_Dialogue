@@ -66,10 +66,8 @@ namespace FuzzPhyte.Dialogue
             /// in a full graph you would do this in a while loop (we can't for dialogue)
             /// we need to now manage how we are going to move through the system based on current node and then it's type
             /// we only need to move through the primary type of nodes
-
-            SetupGraph();
-
         }
+        
         
         /// <summary>
         /// Prototype: testing walking the graph and only looking at the first output
@@ -123,7 +121,8 @@ namespace FuzzPhyte.Dialogue
                 if (currentNode is RTDialogueNode dialogueNode )
                 {
                     var previousNode = FirstPrevious(currentNode);
-                    eventHandler.RaiseDialogueNext(previousNode, dialogueNode);
+                    var nextNode = FirstNext(currentNode);
+                    eventHandler.RaiseDialogueNext(previousNode, dialogueNode,nextNode);
                     if (!dialogueNode.waitforUser)
                     {
                         //time delay based on audioclip length with padding
@@ -150,7 +149,8 @@ namespace FuzzPhyte.Dialogue
                 }else if(currentNode is RTResponseNode responseNode)
                 {
                     var previousNode = FirstPrevious(currentNode);
-                    eventHandler.RaiseResponseNext(previousNode, responseNode);
+                    var nextNode = FirstNext(currentNode);
+                    eventHandler.RaiseResponseNext(previousNode, responseNode,nextNode);
                     return;
                 }
                 // Exit ends traversal immediately after executing.
@@ -239,7 +239,8 @@ namespace FuzzPhyte.Dialogue
                     currentNode = previousNode;
                     //update actual real previous node
                     previousNode = FirstPrevious(currentNode);
-                    eventHandler.RaiseDialoguePrevious(previousNode, dialoguePrevious);
+                    var nextNode = FirstNext(currentNode);
+                    eventHandler.RaiseDialoguePrevious(previousNode, dialoguePrevious,nextNode);
                     return;
                 }
                 if(previousNode is RTResponseNode responsePrevious)
@@ -250,7 +251,8 @@ namespace FuzzPhyte.Dialogue
                     currentNode = previousNode;
                     //update actual real previous node
                     previousNode = FirstPrevious(currentNode);
-                    eventHandler.RaiseResponsePrevious(previousNode, responsePrevious);
+                    var nextNode = FirstNext(currentNode);
+                    eventHandler.RaiseResponsePrevious(previousNode, responsePrevious,nextNode);
                     return;
                 }
                 if (previousNode is RTEntryNode)
@@ -344,6 +346,14 @@ namespace FuzzPhyte.Dialogue
             UserPromptNext();
         }
         #region Public Methods
+        /// <summary>
+        /// Start the Dialogue Conversation
+        /// </summary>
+        [ContextMenu("Start The Dialogue")]
+        public void StartConversation()
+        {
+            SetupGraph();
+        }
         [ContextMenu("User Prompt: Option One")]
         public void TestUserPromptPositionOne()
         {
@@ -407,8 +417,18 @@ namespace FuzzPhyte.Dialogue
         [ContextMenu("Dialogue User Input Previous")]
         public void UserPromptPrevious()
         {
+
             //we need to go back to the previous dialogue node if we can
-            PreviousUntilInteractive();
+            if (currentNode is RTResponseNode responseNode || currentNode is RTDialogueNode dialogueNode)
+            {
+                Debug.Log($"User pushed previous button");
+                PreviousUntilInteractive();
+            }
+            else
+            {
+                Debug.Log($"User pushed previous button, FAILED");
+            }
+           
         }
         /// <summary>
         /// Public UI/Method to repeat
@@ -417,13 +437,14 @@ namespace FuzzPhyte.Dialogue
         public void UserPromptRepeat()
         {
             var previousNode = FirstPrevious(currentNode);
+            var nextNode = FirstNext(currentNode);
             if (currentNode is RTDialogueNode dialogueNode)
             {
-                eventHandler.RaiseDialogueNext(previousNode, dialogueNode);
+                eventHandler.RaiseDialogueNext(previousNode, dialogueNode,nextNode);
             }
             else if (currentNode is RTResponseNode responseNode)
             {
-                eventHandler.RaiseResponseNext(previousNode,responseNode);
+                eventHandler.RaiseResponseNext(previousNode, responseNode,nextNode);
             }
             else
             {
@@ -437,8 +458,10 @@ namespace FuzzPhyte.Dialogue
         public void UserPromptNext()
         {
             //we need to go to the next dialogue node if we can
-            if (currentNode is RTDialogueNode dialogueNode) 
+            Debug.Log($"User pushed next button");
+            if (currentNode is RTDialogueNode dialogueNode)
             {
+
                 currentNode = FirstNext(currentNode);
                 AdvanceUntilInteractive();
             }
@@ -452,12 +475,14 @@ namespace FuzzPhyte.Dialogue
         public void UserPromptTranslate()
         {
             var previousNode = FirstPrevious(currentNode);
+            var nextNode = FirstNext(currentNode);
             if (currentNode is RTDialogueNode dialogueNode)
             {
-                eventHandler.RaiseDialogueUserTranslate(previousNode, dialogueNode);
-            }else if(currentNode is RTResponseNode responseNode)
+                eventHandler.RaiseDialogueUserTranslate(previousNode, dialogueNode,nextNode);
+            }
+            else if (currentNode is RTResponseNode responseNode)
             {
-                eventHandler.RaiseResponseUserTranslate(previousNode, responseNode);
+                eventHandler.RaiseResponseUserTranslate(previousNode, responseNode,nextNode);
             }
             else
             {

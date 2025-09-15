@@ -20,7 +20,8 @@ MonoBehaviour:
     - rid: -2
       type: {class: , ns: , asm: }
     - rid: 567765965576077527
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 381641780758602225
@@ -117,11 +118,13 @@ MonoBehaviour:
         m_Modifiers: 1
         m_VariableFlags: 0
     - rid: 567765965576077537
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.RTTimelineDetails, com.fuzzphyte.dialogue]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.RTTimelineDetails, com.fuzzphyte.dialogue]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 11400000, guid: 09416e16553bc434c8b5a765215d914e, type: 2}
     - rid: 567765965576077543
-      type: {class: VariableNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: VariableNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 5325836427666925644
@@ -158,11 +161,13 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 00bd751630eff3a6cd5cb56b7894adf8
     - rid: 567765965576077555
-      type: {class: 'Constant`1[[UnityEngine.Timeline.TimelineAsset, Unity.Timeline]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.Timeline.TimelineAsset, Unity.Timeline]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 567765965576077559
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.RTTimelineDetails, com.fuzzphyte.dialogue]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.RTTimelineDetails, com.fuzzphyte.dialogue]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 567765965576077569
@@ -198,11 +203,13 @@ MonoBehaviour:
           m_PortOrientation: 0
           m_Title: 'Timeline Details:'
     - rid: 567765965576077574
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.RTTimelineDetails, com.fuzzphyte.dialogue]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.RTTimelineDetails, com.fuzzphyte.dialogue]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 567765965576077575
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.RTTimelineDetails, com.fuzzphyte.dialogue]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.RTTimelineDetails, com.fuzzphyte.dialogue]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 567765965576077637
@@ -523,7 +530,8 @@ MonoBehaviour:
         m_Version: 2
         m_Name: 'SetFPCharacterNode - Character Out:'
     - rid: 567765965576077648
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPCharacterNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPCharacterNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
@@ -693,27 +701,32 @@ MonoBehaviour:
         m_Version: 2
         m_Name: 'SetFPCharacterNode - Character Out:'
     - rid: 567765965576077752
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPCharacterNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPCharacterNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
     - rid: 567766036717240418
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPSinglePromptNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPSinglePromptNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
     - rid: 567766036717240419
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPSinglePromptNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPSinglePromptNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
     - rid: 567766036717240422
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPSinglePromptNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPSinglePromptNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
     - rid: 567766036717240423
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPSinglePromptNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPSinglePromptNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
@@ -814,7 +827,8 @@ MonoBehaviour:
           m_PortOrientation: 0
           m_Title: Option 2
     - rid: 567766036717240438
-      type: {class: 'Constant`1[[System.Int32, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.Int32, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 4
     - rid: 567766036717240439
@@ -1000,6 +1014,31 @@ MonoBehaviour:
         m_ElementColor:
           m_Color: {r: 0.20784314, g: 0.22745098, b: 0.2784314, a: 1}
           m_HasUserColor: 0
+    - rid: 1430541929817309281
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 1430541929817309282
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 1430541929817309286
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
+    - rid: 1430541929817309290
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: DialoguePromptDisplay
+    - rid: 1430541929817309291
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
     - rid: 8866445333055668612
       type: {class: GraphModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
       data:
@@ -1125,7 +1164,7 @@ MonoBehaviour:
           serializedVersion: 2
           x: -1184
           y: -587
-          width: 4795
+          width: 4794.5
           height: 2683
         m_GraphElementMetaData:
         - m_Guid:
@@ -1928,7 +1967,8 @@ MonoBehaviour:
       data:
         dialogueBaseGuid: 
     - rid: 8866445333055668624
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 4763152570376281990
@@ -1984,7 +2024,8 @@ MonoBehaviour:
         m_Node:
           rid: 8866445333055668631
     - rid: 8866445333055668625
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: John
     - rid: 8866445333055668626
@@ -2014,7 +2055,8 @@ MonoBehaviour:
       data:
         name: 0_node
     - rid: 8866445333055668632
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 7496191858289746662
@@ -2041,6 +2083,8 @@ MonoBehaviour:
           - CharacterPort
           - MainText
           - TranslationText
+          - GameObjectLocation
+          - UseDialogueWorldLocation
           m_ValueList:
           - rid: 8866445514534289493
           - rid: 8866445514534289501
@@ -2052,6 +2096,8 @@ MonoBehaviour:
           - rid: 8866445514534289507
           - rid: 8866445514534289508
           - rid: 8866445514534289509
+          - rid: 1430541929817309286
+          - rid: 1430541929817309290
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -2060,7 +2106,7 @@ MonoBehaviour:
           expandedPortsById:
             m_KeyList: []
             m_ValueList: 
-        m_Collapsed: 0
+        m_Collapsed: 1
         m_CurrentModeIndex: 0
         m_ElementColor:
           m_Color: {r: 0, g: 0, b: 0, a: 0}
@@ -2105,11 +2151,13 @@ MonoBehaviour:
           m_Identification: FuzzPhyte.Utility.FP_Language, com.fuzzphyte.utility,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445333055668647
-      type: {class: 'Constant`1[[System.Int32, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.Int32, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 32
     - rid: 8866445333055668648
-      type: {class: 'Constant`1[[FuzzPhyte.Utility.FP_Theme, com.fuzzphyte.utility]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Utility.FP_Theme, com.fuzzphyte.utility]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 8866445333055668649
@@ -2136,11 +2184,13 @@ MonoBehaviour:
         m_Modifiers: 1
         m_VariableFlags: 0
     - rid: 8866445333055668650
-      type: {class: 'Constant`1[[FuzzPhyte.Utility.FP_Theme, com.fuzzphyte.utility]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Utility.FP_Theme, com.fuzzphyte.utility]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 11400000, guid: b7fabf0fddff1c24ab5617373d47de39, type: 2}
     - rid: 8866445333055668651
-      type: {class: VariableNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: VariableNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 11363847223014623149
@@ -2209,7 +2259,8 @@ MonoBehaviour:
           m_PortOrientation: 0
           m_Title: 'Theme:'
     - rid: 8866445335692574808
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 1982280937248291431
@@ -2264,11 +2315,13 @@ MonoBehaviour:
           m_Identification: FuzzPhyte.Utility.FP_Language, com.fuzzphyte.utility,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445335692574811
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: Can you talk now?
     - rid: 8866445335692574812
-      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 8300000, guid: c85fab0d5bb868c4faddc1beacb08316, type: 3}
     - rid: 8866445335692574813
@@ -2308,7 +2361,8 @@ MonoBehaviour:
           m_PortOrientation: 0
           m_Title: Text to Speak
     - rid: 8866445335692574820
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 8586344343905445534
@@ -2363,11 +2417,13 @@ MonoBehaviour:
           m_Identification: FuzzPhyte.Utility.FP_Language, com.fuzzphyte.utility,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445335692574823
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: "\xBFPuedes hablar ahora?"
     - rid: 8866445335692574824
-      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 8300000, guid: 2af37fe39475da24ea0332d5bc75377a, type: 3}
     - rid: 8866445335692574825
@@ -2407,7 +2463,8 @@ MonoBehaviour:
           m_PortOrientation: 0
           m_Title: Translation
     - rid: 8866445335692574827
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 17742961052516820005
@@ -2431,6 +2488,7 @@ MonoBehaviour:
           - PromptOption_3
           - PromptOption_2
           - PromptNumOptions
+          - UseDialogueWorldLocation
           m_ValueList:
           - rid: 8866445335692575093
           - rid: 8866445378024374413
@@ -2439,6 +2497,7 @@ MonoBehaviour:
           - rid: 567766036717240422
           - rid: 567766036717240423
           - rid: 567766036717240438
+          - rid: 1430541929817309291
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -2491,7 +2550,8 @@ MonoBehaviour:
           m_PortOrientation: 0
           m_Title: Flow In
     - rid: 8866445335692574834
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 8520420234291654847
@@ -2533,12 +2593,14 @@ MonoBehaviour:
         m_Node:
           rid: 8866445335692574839
     - rid: 8866445335692574835
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
     - rid: 8866445335692574836
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
@@ -2570,11 +2632,13 @@ MonoBehaviour:
         m_Modifiers: 1
         m_VariableFlags: 0
     - rid: 8866445335692574842
-      type: {class: 'Constant`1[[FuzzPhyte.Utility.FP_Theme, com.fuzzphyte.utility]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Utility.FP_Theme, com.fuzzphyte.utility]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 11400000, guid: 645a1706970ad42ddb5a53241725d766, type: 2}
     - rid: 8866445335692574843
-      type: {class: VariableNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: VariableNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 17493359092149657167
@@ -2611,7 +2675,8 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: be93ecf77c6255f619b8bcc0694d843c
     - rid: 8866445335692574853
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 11166887055290539017
@@ -2667,7 +2732,8 @@ MonoBehaviour:
         m_Node:
           rid: 8866445335692574862
     - rid: 8866445335692574854
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: Anna
     - rid: 8866445335692574855
@@ -2726,11 +2792,13 @@ MonoBehaviour:
           m_Identification: FuzzPhyte.Utility.FP_Language, com.fuzzphyte.utility,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445335692574860
-      type: {class: 'Constant`1[[System.Int32, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.Int32, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 14
     - rid: 8866445335692574861
-      type: {class: 'Constant`1[[FuzzPhyte.Utility.FP_Theme, com.fuzzphyte.utility]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Utility.FP_Theme, com.fuzzphyte.utility]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 8866445335692574862
@@ -2784,7 +2852,8 @@ MonoBehaviour:
         - rid: 8866445333055668649
         m_Title: Character Themes
     - rid: 8866445335692574881
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 8313360300444060542
@@ -2793,7 +2862,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 7e8bcdad25fd5e73606eb05ede849854
         m_Version: 2
-        m_Position: {x: 382.35938, y: 1095.8239}
+        m_Position: {x: 376.23117, y: 1090.988}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -2839,11 +2908,13 @@ MonoBehaviour:
           m_Identification: FuzzPhyte.Utility.FP_Language, com.fuzzphyte.utility,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445335692574884
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: Yes
     - rid: 8866445335692574885
-      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 8300000, guid: 20c0ab95dc7b946438e7df9ee17f2258, type: 3}
     - rid: 8866445335692574886
@@ -2883,7 +2954,8 @@ MonoBehaviour:
           m_PortOrientation: 0
           m_Title: User Prompt
     - rid: 8866445335692574893
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 5393109132455132715
@@ -2938,11 +3010,13 @@ MonoBehaviour:
           m_Identification: FuzzPhyte.Utility.FP_Language, com.fuzzphyte.utility,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445335692574896
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: Si
     - rid: 8866445335692574897
-      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 8300000, guid: 4eed1af90f745114a87a71681e045fa9, type: 3}
     - rid: 8866445335692574898
@@ -2982,7 +3056,8 @@ MonoBehaviour:
           m_PortOrientation: 0
           m_Title: User Prompt Translation
     - rid: 8866445335692574915
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 9606127239968327087
@@ -3026,7 +3101,8 @@ MonoBehaviour:
         m_Node:
           rid: 8866445335692574926
     - rid: 8866445335692574916
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 2361220457085922483
@@ -3070,7 +3146,8 @@ MonoBehaviour:
         m_Node:
           rid: 8866445335692574931
     - rid: 8866445335692574918
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 4119572702770939571
@@ -3187,11 +3264,13 @@ MonoBehaviour:
           m_Identification: FuzzPhyte.Utility.FP_Language, com.fuzzphyte.utility,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445335692574924
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: ' Seguro'
     - rid: 8866445335692574925
-      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 8300000, guid: 0551fee28d3f97147915039939fe329b, type: 3}
     - rid: 8866445335692574926
@@ -3210,11 +3289,13 @@ MonoBehaviour:
           m_Identification: FuzzPhyte.Utility.FP_Language, com.fuzzphyte.utility,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445335692574929
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: Sure
     - rid: 8866445335692574930
-      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 8300000, guid: 052a8805ac94bb84ea41530a1be6ce6c, type: 3}
     - rid: 8866445335692574931
@@ -3222,12 +3303,14 @@ MonoBehaviour:
       data:
         name: 10_node
     - rid: 8866445335692574932
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
     - rid: 8866445335692574933
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
@@ -3236,7 +3319,8 @@ MonoBehaviour:
       data:
         name: 11_node
     - rid: 8866445335692574955
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 16952070143882441712
@@ -3280,7 +3364,8 @@ MonoBehaviour:
         m_Node:
           rid: 8866445335692574964
     - rid: 8866445335692574956
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 437597037216354849
@@ -3324,7 +3409,8 @@ MonoBehaviour:
         m_Node:
           rid: 8866445335692574969
     - rid: 8866445335692574958
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 10400749346123575419
@@ -3377,11 +3463,13 @@ MonoBehaviour:
           m_Identification: FuzzPhyte.Utility.FP_Language, com.fuzzphyte.utility,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445335692574962
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: No
     - rid: 8866445335692574963
-      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 8300000, guid: 5c14b508a461ac948b6d2b337643d31f, type: 3}
     - rid: 8866445335692574964
@@ -3400,11 +3488,13 @@ MonoBehaviour:
           m_Identification: FuzzPhyte.Utility.FP_Language, com.fuzzphyte.utility,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445335692574967
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: No
     - rid: 8866445335692574968
-      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 8300000, guid: 4eed1af90f745114a87a71681e045fa9, type: 3}
     - rid: 8866445335692574969
@@ -3412,12 +3502,14 @@ MonoBehaviour:
       data:
         name: 13_node
     - rid: 8866445335692574970
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
     - rid: 8866445335692574971
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
@@ -3490,7 +3582,8 @@ MonoBehaviour:
           m_PortOrientation: 0
           m_Title: User Prompt Translation
     - rid: 8866445335692575064
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 8409550430633696636
@@ -3534,7 +3627,8 @@ MonoBehaviour:
         m_Node:
           rid: 8866445335692575074
     - rid: 8866445335692575065
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 10188247711048170975
@@ -3578,7 +3672,8 @@ MonoBehaviour:
         m_Node:
           rid: 8866445335692575079
     - rid: 8866445335692575066
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 17887090516893203614
@@ -3695,11 +3790,13 @@ MonoBehaviour:
           m_Identification: FuzzPhyte.Utility.FP_Language, com.fuzzphyte.utility,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445335692575072
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: No precisamente
     - rid: 8866445335692575073
-      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 8300000, guid: 09f41ae002e5c1f4f8505a0445db5579, type: 3}
     - rid: 8866445335692575074
@@ -3718,11 +3815,13 @@ MonoBehaviour:
           m_Identification: FuzzPhyte.Utility.FP_Language, com.fuzzphyte.utility,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445335692575077
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: Not Really
     - rid: 8866445335692575078
-      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 8300000, guid: 66e27c589de141843bbdca4cd058348c, type: 3}
     - rid: 8866445335692575079
@@ -3730,12 +3829,14 @@ MonoBehaviour:
       data:
         name: 16_node
     - rid: 8866445335692575080
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
     - rid: 8866445335692575081
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
@@ -3744,7 +3845,8 @@ MonoBehaviour:
       data:
         name: 17_node
     - rid: 8866445335692575093
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data: 
     - rid: 8866445335692575134
       type: {class: PlacematModel, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
@@ -3770,7 +3872,8 @@ MonoBehaviour:
           m_Color: {r: 0.20784314, g: 0.22745098, b: 0.2784314, a: 1}
           m_HasUserColor: 0
     - rid: 8866445335692575139
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 15753207657997515935
@@ -3797,6 +3900,7 @@ MonoBehaviour:
           - CharacterPort
           - MainText
           - TranslationText
+          - GameObjectLocation
           m_ValueList:
           - rid: 8866445514534289494
           - rid: 8866445514534289510
@@ -3808,6 +3912,7 @@ MonoBehaviour:
           - rid: 8866445514534289516
           - rid: 8866445514534289517
           - rid: 8866445514534289518
+          - rid: 1430541929817309281
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -3874,7 +3979,8 @@ MonoBehaviour:
           m_Color: {r: 0.20784314, g: 0.22745098, b: 0.2784314, a: 1}
           m_HasUserColor: 0
     - rid: 8866445335692575198
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 5986286603041102818
@@ -3901,6 +4007,7 @@ MonoBehaviour:
           - CharacterPort
           - MainText
           - TranslationText
+          - GameObjectLocation
           m_ValueList:
           - rid: 8866445514534289495
           - rid: 8866445514534289519
@@ -3912,6 +4019,7 @@ MonoBehaviour:
           - rid: 8866445514534289525
           - rid: 8866445514534289526
           - rid: 8866445514534289527
+          - rid: 1430541929817309282
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -3955,7 +4063,8 @@ MonoBehaviour:
           m_Color: {r: 0.20784314, g: 0.22745098, b: 0.2784314, a: 1}
           m_HasUserColor: 0
     - rid: 8866445335692575221
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 3150931825815069084
@@ -4010,11 +4119,13 @@ MonoBehaviour:
           m_Identification: FuzzPhyte.Utility.FP_Language, com.fuzzphyte.utility,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445335692575224
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: Oh Great to Hear!
     - rid: 8866445335692575225
-      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 8300000, guid: 8aaad24ccb16a4440b7bb2801dd007e0, type: 3}
     - rid: 8866445335692575226
@@ -4054,7 +4165,8 @@ MonoBehaviour:
           m_PortOrientation: 0
           m_Title: Text to Speak
     - rid: 8866445335692575233
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 9323559110829935822
@@ -4109,11 +4221,13 @@ MonoBehaviour:
           m_Identification: FuzzPhyte.Utility.FP_Language, com.fuzzphyte.utility,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445335692575236
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: " \xA1Oh, qu\xE9 bueno escucharlo!"
     - rid: 8866445335692575237
-      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 8300000, guid: a37b8b7ee072c3448aaac6300f615383, type: 3}
     - rid: 8866445335692575238
@@ -4153,7 +4267,8 @@ MonoBehaviour:
           m_PortOrientation: 0
           m_Title: Translation
     - rid: 8866445335692575245
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 7309318382329297194
@@ -4208,11 +4323,13 @@ MonoBehaviour:
           m_Identification: FuzzPhyte.Utility.FP_Language, com.fuzzphyte.utility,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445335692575248
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: Oh, too bad
     - rid: 8866445335692575249
-      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 8300000, guid: 711569fa3d1192741a573603fc3b41bf, type: 3}
     - rid: 8866445335692575250
@@ -4252,7 +4369,8 @@ MonoBehaviour:
           m_PortOrientation: 0
           m_Title: Text to Speak
     - rid: 8866445335692575257
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 7318311991404239579
@@ -4307,11 +4425,13 @@ MonoBehaviour:
           m_Identification: FuzzPhyte.Utility.FP_Language, com.fuzzphyte.utility,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445335692575260
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: Oh, que mal
     - rid: 8866445335692575261
-      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 8300000, guid: a54fd4cd43c66494a8cff63ac49fc905, type: 3}
     - rid: 8866445335692575262
@@ -4351,7 +4471,8 @@ MonoBehaviour:
           m_PortOrientation: 0
           m_Title: Translation
     - rid: 8866445335692575292
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 4648201068776214450
@@ -4395,7 +4516,8 @@ MonoBehaviour:
       data:
         name: 24_node
     - rid: 8866445335692575294
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data: 
     - rid: 8866445335692575297
       type: {class: WireModel, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
@@ -4430,7 +4552,8 @@ MonoBehaviour:
           m_PortOrientation: 0
           m_Title: 
     - rid: 8866445335692575300
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 5040184711407666841
@@ -4470,7 +4593,8 @@ MonoBehaviour:
         m_Node:
           rid: 8866445335692575302
     - rid: 8866445335692575301
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data: 
     - rid: 8866445335692575302
       type: {class: ExitNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
@@ -4532,7 +4656,8 @@ MonoBehaviour:
         m_Modifiers: 1
         m_VariableFlags: 0
     - rid: 8866445335692575320
-      type: {class: 'Constant`1[[UnityEngine.Timeline.TimelineAsset, Unity.Timeline]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.Timeline.TimelineAsset, Unity.Timeline]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 11400000, guid: c5b26c3e42f51254988613f08dac38d0, type: 2}
     - rid: 8866445335692575323
@@ -4559,11 +4684,13 @@ MonoBehaviour:
         m_Modifiers: 1
         m_VariableFlags: 0
     - rid: 8866445335692575324
-      type: {class: 'Constant`1[[UnityEngine.Timeline.TimelineAsset, Unity.Timeline]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.Timeline.TimelineAsset, Unity.Timeline]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 11400000, guid: 6aa31fdf508f2c94598cdc90d1a726ff, type: 2}
     - rid: 8866445335692575325
-      type: {class: VariableNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: VariableNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 345850289156095528
@@ -4600,11 +4727,13 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 0341b8246bc355f0ac3cd8e82fb24708
     - rid: 8866445335692575328
-      type: {class: 'Constant`1[[UnityEngine.Timeline.TimelineAsset, Unity.Timeline]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.Timeline.TimelineAsset, Unity.Timeline]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 8866445335692575329
-      type: {class: 'Constant`1[[UnityEngine.Timeline.TimelineAsset, Unity.Timeline]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.Timeline.TimelineAsset, Unity.Timeline]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 8866445335692575330
@@ -4663,11 +4792,13 @@ MonoBehaviour:
         m_Modifiers: 1
         m_VariableFlags: 0
     - rid: 8866445335692575333
-      type: {class: 'Constant`1[[UnityEngine.Timeline.TimelineAsset, Unity.Timeline]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.Timeline.TimelineAsset, Unity.Timeline]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 11400000, guid: 6aa31fdf508f2c94598cdc90d1a726ff, type: 2}
     - rid: 8866445335692575334
-      type: {class: VariableNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: VariableNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 889800663983699668
@@ -4736,59 +4867,73 @@ MonoBehaviour:
           m_PortOrientation: 0
           m_Title: 'To Timeline:'
     - rid: 8866445357963280463
-      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 7400000, guid: 537c2f030586c484ca6449abf50d1d42, type: 2}
     - rid: 8866445357963280464
-      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 8866445357963280465
-      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 8866445357963280466
-      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 8866445357963280467
-      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 8866445357963280468
-      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 8866445357963280469
-      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 8866445357963280470
-      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 8866445357963280471
-      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 8866445357963280472
-      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 8866445357963280473
-      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 8866445357963280474
-      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 8866445357963280475
-      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 8866445357963280476
-      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 8866445357963280477
@@ -4808,7 +4953,8 @@ MonoBehaviour:
         - rid: 8866445335692575332
         m_Title: Timeline Files
     - rid: 8866445378024374351
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 5048535060118464365
@@ -4852,7 +4998,8 @@ MonoBehaviour:
       data:
         name: 26_node
     - rid: 8866445378024374360
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 3214928265079093205
@@ -4896,11 +5043,13 @@ MonoBehaviour:
       data:
         name: 27_node
     - rid: 8866445378024374369
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.FP_Character, com.fuzzphyte.dialogue]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.FP_Character, com.fuzzphyte.dialogue]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 8866445378024374370
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.FP_Character, com.fuzzphyte.dialogue]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.FP_Character, com.fuzzphyte.dialogue]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
     - rid: 8866445378024374371
@@ -4941,7 +5090,8 @@ MonoBehaviour:
         m_Modifiers: 1
         m_VariableFlags: 0
     - rid: 8866445378024374373
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.FP_Character, com.fuzzphyte.dialogue]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.FP_Character, com.fuzzphyte.dialogue]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 11400000, guid: 9f10e062e789a4fbe99e8426635ef0e8, type: 2}
     - rid: 8866445378024374374
@@ -4968,11 +5118,13 @@ MonoBehaviour:
         m_Modifiers: 1
         m_VariableFlags: 0
     - rid: 8866445378024374375
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.FP_Character, com.fuzzphyte.dialogue]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.FP_Character, com.fuzzphyte.dialogue]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 11400000, guid: 7e8fe2f946edf6d42b17a52ef1f7bf31, type: 2}
     - rid: 8866445378024374376
-      type: {class: VariableNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: VariableNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 9291482211609166166
@@ -5041,7 +5193,8 @@ MonoBehaviour:
           m_PortOrientation: 0
           m_Title: 'Character:'
     - rid: 8866445378024374378
-      type: {class: VariableNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: VariableNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 7023512966557882434
@@ -5110,7 +5263,8 @@ MonoBehaviour:
           m_PortOrientation: 0
           m_Title: 'Character:'
     - rid: 8866445378024374380
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 9779620168737909892
@@ -5146,7 +5300,8 @@ MonoBehaviour:
         m_Node:
           rid: 8866445378024374382
     - rid: 8866445378024374381
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data: 
     - rid: 8866445378024374382
       type: {class: FPOnewayNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
@@ -5217,7 +5372,8 @@ MonoBehaviour:
           m_PortOrientation: 0
           m_Title: Flow In
     - rid: 8866445378024374385
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation,
+        asm: Unity.GraphToolkit.Editor}
       data:
         m_Guid:
           m_Value0: 14514364575094705357
@@ -5253,7 +5409,8 @@ MonoBehaviour:
         m_Node:
           rid: 8866445378024374387
     - rid: 8866445378024374386
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data: 
     - rid: 8866445378024374387
       type: {class: FPOnewayNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
@@ -5324,146 +5481,182 @@ MonoBehaviour:
           m_PortOrientation: 0
           m_Title: Flow In
     - rid: 8866445378024374392
-      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 1
     - rid: 8866445378024374393
-      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 1
     - rid: 8866445378024374394
-      type: {class: 'Constant`1[[UnityEngine.Sprite, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.Sprite, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 21300000, guid: bf577a2726a63314aa569a655357ae95, type: 3}
     - rid: 8866445378024374395
-      type: {class: 'Constant`1[[UnityEngine.Sprite, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.Sprite, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 21300000, guid: bf577a2726a63314aa569a655357ae95, type: 3}
     - rid: 8866445378024374396
-      type: {class: 'Constant`1[[UnityEngine.Sprite, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.Sprite, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 21300000, guid: 09a2f03da65b1964b9ee4e286df211fd, type: 3}
     - rid: 8866445378024374397
-      type: {class: 'Constant`1[[UnityEngine.Sprite, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[UnityEngine.Sprite, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 21300000, guid: 09a2f03da65b1964b9ee4e286df211fd, type: 3}
     - rid: 8866445378024374398
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 
     - rid: 8866445378024374399
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 
     - rid: 8866445378024374400
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 
     - rid: 8866445378024374401
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 
     - rid: 8866445378024374402
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 
     - rid: 8866445378024374403
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 
     - rid: 8866445378024374404
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 
     - rid: 8866445378024374405
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 
     - rid: 8866445378024374406
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 
     - rid: 8866445378024374407
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 
     - rid: 8866445378024374408
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 
     - rid: 8866445378024374409
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 
     - rid: 8866445378024374410
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 
     - rid: 8866445378024374411
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 
     - rid: 8866445378024374413
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPCharacterNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPCharacterNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
     - rid: 8866445491199279363
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: JohnTest
     - rid: 8866445491199279364
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: MainPromptLocation
     - rid: 8866445491199279365
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: JohnTest
     - rid: 8866445491199279366
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: SecondaryPromptLocation
     - rid: 8866445491199279367
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: ThirdPromptLocation
     - rid: 8866445491199279368
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: FourthPromptLocation
     - rid: 8866445492524417104
-      type: {class: 'Constant`1[[System.Int32, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.Int32, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 2
     - rid: 8866445492524417105
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data: 
     - rid: 8866445492524417106
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data: 
     - rid: 8866445492524417107
-      type: {class: 'Constant`1[[System.Int32, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.Int32, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 2
     - rid: 8866445492524417108
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data: 
     - rid: 8866445492524417109
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data: 
     - rid: 8866445514534289493
-      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 1
     - rid: 8866445514534289494
-      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: 0
+        m_Value: 1
     - rid: 8866445514534289495
-      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: 0
+        m_Value: 1
     - rid: 8866445514534289501
       type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -5498,28 +5691,34 @@ MonoBehaviour:
           m_Identification: FuzzPhyte.Utility.MotionState, com.fuzzphyte.utility,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445514534289504
-      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 0
     - rid: 8866445514534289505
-      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 0
     - rid: 8866445514534289506
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data: 
     - rid: 8866445514534289507
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPCharacterNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPCharacterNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
     - rid: 8866445514534289508
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
     - rid: 8866445514534289509
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
@@ -5557,28 +5756,34 @@ MonoBehaviour:
           m_Identification: FuzzPhyte.Utility.MotionState, com.fuzzphyte.utility,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445514534289513
-      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 0
     - rid: 8866445514534289514
-      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 0
     - rid: 8866445514534289515
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data: 
     - rid: 8866445514534289516
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPCharacterNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPCharacterNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
     - rid: 8866445514534289517
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
     - rid: 8866445514534289518
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
@@ -5616,28 +5821,34 @@ MonoBehaviour:
           m_Identification: FuzzPhyte.Utility.MotionState, com.fuzzphyte.utility,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - rid: 8866445514534289522
-      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 0
     - rid: 8866445514534289523
-      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor,
+        asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 0
     - rid: 8866445514534289524
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data: 
     - rid: 8866445514534289525
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPCharacterNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPCharacterNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
     - rid: 8866445514534289526
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 
     - rid: 8866445514534289527
-      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.SetFPTalkNode, com.fuzzphyte.dialogue.editor]]',
+        ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value:
           name: 

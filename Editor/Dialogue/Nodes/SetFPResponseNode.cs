@@ -20,6 +20,10 @@ namespace FuzzPhyte.Dialogue.Editor
                 .WithDisplayName("Number of Prompts?")
                 .WithDefaultValue(4)
                 .Delayed();
+            context.AddOption<bool>(FPDialogueGraphValidation.USE_WORLD_LOCATION)
+                .WithDisplayName("Use World Locations?")
+                .WithDefaultValue(false)
+                .Delayed();
         }
         /// <summary>
         /// Defines the output for the node.

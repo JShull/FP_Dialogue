@@ -210,15 +210,17 @@ namespace FuzzPhyte.Dialogue
     {
         [Space]
         [Header("Response Node Details")]
+        public bool UseWorldLocations;
         //this is a node of other nodes
         public List<RTSinglePromptNode> userIncomingPrompts = new List<RTSinglePromptNode>();
         
         //public List<string> userOutcomesConnectors = new List<string>();
         public RTCharacterNode character;
         
-        public RTResponseNode(string index, RTFPNodePort inIndexNode,List<RTSinglePromptNode>incomingPromptNodes, List<RTFPNodePort> outIndexPrompts,RTCharacterNode theCharacter) : base(index)
+        public RTResponseNode(string index, bool useWorldLocations, RTFPNodePort inIndexNode,List<RTSinglePromptNode>incomingPromptNodes, List<RTFPNodePort> outIndexPrompts,RTCharacterNode theCharacter) : base(index)
         {
             NodeType = "RTResponseNode";
+            UseWorldLocations = useWorldLocations;
             if (incomingPromptNodes.Count == outIndexPrompts.Count)
             {
                 userIncomingPrompts.Clear();
@@ -292,10 +294,15 @@ namespace FuzzPhyte.Dialogue
         public bool waitforUser;//drives a UI prompt box for next/previous/repeat
         public string YesGameObjectSceneName;
         public string NoGameObjectSceneName;
+        // world location for general dialogue to spawn
+        public string WorldLocationSceneName;
         public bool usePrefabs;
         public bool useNames;
-        public RTDialogueNode(string index, RTFPNodePort incominIndex, RTFPNodePort outIndex, RTTalkNode dialogue,RTCharacterNode incomingCharacterNode,bool waitForUser = false,RTCharacterNode outgoingCharacterNode = null,RTTalkNode transDialogue=null) : base(index)
+        public bool useWorldLoc;
+        public RTDialogueNode(string index, RTFPNodePort incominIndex, RTFPNodePort outIndex, RTTalkNode dialogue, RTCharacterNode incomingCharacterNode, string worldIndexLocation = "",bool useWorldLocation = false,bool waitForUser = false, RTCharacterNode outgoingCharacterNode = null, RTTalkNode transDialogue = null) : base(index)
         {
+            WorldLocationSceneName = worldIndexLocation;
+            useWorldLoc = useWorldLocation;
             usePrefabs = false;
             useNames = false;
             NodeType = "RTDialogueNode";
@@ -304,14 +311,16 @@ namespace FuzzPhyte.Dialogue
             this.inNodeIndices[0] = incominIndex;
             this.outNodeIndices = new RTFPNodePort[1];
             this.outNodeIndices[0] = outIndex;
-            
+
             this.mainDialogue = dialogue;
             this.translatedDialogue = transDialogue;
             this.incomingCharacter = incomingCharacterNode;
             this.outgoingCharacter = outgoingCharacterNode;
         }
-        public RTDialogueNode(string index, RTFPNodePort incominIndex,RTFPNodePort outIndex, RTTalkNode dialogue,RTCharacterNode incomingCharacterNode, ExposedReference<GameObject> yesPrefab, ExposedReference<GameObject> noPrefab,bool waitForUser = false, RTCharacterNode outgoingCharacterNode = null,RTTalkNode transDialogue = null) : base(index)
+        public RTDialogueNode(string index, RTFPNodePort incominIndex,RTFPNodePort outIndex, RTTalkNode dialogue,RTCharacterNode incomingCharacterNode, ExposedReference<GameObject> yesPrefab, ExposedReference<GameObject> noPrefab,string worldIndexLocation = "",bool useWorldLocation=false,bool waitForUser = false, RTCharacterNode outgoingCharacterNode = null,RTTalkNode transDialogue = null) : base(index)
         {
+            WorldLocationSceneName = worldIndexLocation;
+            useWorldLoc = useWorldLocation;
             usePrefabs = true;
             useNames = false;
             NodeType = "RTDialogueNode";
@@ -328,8 +337,10 @@ namespace FuzzPhyte.Dialogue
             this.YesPrefab = yesPrefab;
             this.NoPrefab = noPrefab;
         }
-        public RTDialogueNode(string index, RTFPNodePort incominIndex, RTFPNodePort outIndex, RTTalkNode dialogue, RTCharacterNode incomingCharacterNode, string yesGameObjectName, string noGameObjectName, bool waitForUser = false, RTCharacterNode outgoingCharacterNode = null, RTTalkNode transDialogue = null) : base(index)
+        public RTDialogueNode(string index, RTFPNodePort incominIndex, RTFPNodePort outIndex, RTTalkNode dialogue, RTCharacterNode incomingCharacterNode, string yesGameObjectName, string noGameObjectName, string worldIndexLocation = "",bool useWorldLocation=false,bool waitForUser = false, RTCharacterNode outgoingCharacterNode = null, RTTalkNode transDialogue = null) : base(index)
         {
+            WorldLocationSceneName = worldIndexLocation;
+            useWorldLoc = useWorldLocation;
             usePrefabs = false;
             useNames = true;
             NodeType = "RTDialogueNode";

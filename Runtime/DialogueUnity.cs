@@ -17,7 +17,8 @@ namespace FuzzPhyte.Dialogue
         [Tooltip("The core data for this dialogue")]
         public DialogueBase MainDialogueData;
         [Tooltip("The other data object this system can manage")]
-        public RTFPDialogueGraph DialogueGraphData;
+        //public RTFPDialogueGraph DialogueGraphData;
+        public RTDialogueDirector DialogueDirectorRef;
         [Space]
         public bool UseGraph = false;
         [Space]
@@ -54,43 +55,45 @@ namespace FuzzPhyte.Dialogue
             base.Awake();
         }
 
-#endregion
+        #endregion
         // Assuming we are starting from the beginning of the conversation data block inside the DialogueBase object
-        public void SetupDialogue(Canvas theCanvasToUse,string userID)
+        public void SetupDialogue(RTDialogueDirector directorRef, Canvas theCanvasToUse, string userID)
+        {
+            DialogueDirectorRef = directorRef;
+            UseGraph = true;
+            SetupDialogue(theCanvasToUse, userID);
+        }
+        public void SetupDialogue(Canvas theCanvasToUse, string userID)
         {
             //setup all spawnable UI items and cache them
-            
+
             canvasRef = theCanvasToUse;
             clientID = userID;
-            
-            DialogueIndex = 0;
-            if (DialogueContainer == null) { DialogueContainer = canvasRef.GetComponent<RectTransform>();}
-            //spawn my initial UI item and populate it with the first batch of data using the DialogueBase object data and then turn it off as we aren't activated yet  
-            var blockUI = Instantiate(UIDialoguePrefab, DialogueContainer);
-            //this blockUI should be the full size of the canvas via rectTransform adjustments
-            //adjust rectTransform to fit the canvas
 
-            blockUI.GetComponent<RectTransform>().localPosition = Vector3.zero;
-            blockUI.GetComponent<RectTransform>().localRotation = Quaternion.identity;
-            blockUI.GetComponent<RectTransform>().localScale = Vector3.one;
-            blockUI.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
-            blockUI.GetComponent<RectTransform>().anchorMin = Vector2.zero;
-            blockUI.GetComponent<RectTransform>().anchorMax = Vector2.one;
-            blockUI.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
-            
-            if (!blockUI.GetComponent<UIDialogueBase>())
+            DialogueIndex = 0;
+            if (DialogueContainer == null) { DialogueContainer = canvasRef.GetComponent<RectTransform>(); }
+            //spawn my initial UI item and populate it with the first batch of data using the DialogueBase object data and then turn it off as we aren't activated yet  
+            if (!UseGraph)
             {
-                Debug.LogError($"We are missing a major component for the UIDialoguePrefab: {UIDialoguePrefab.name}");
-                return;
-            }
-            uiDialogueRef = blockUI.GetComponent<UIDialogueBase>();
-            if (UseGraph)
-            {
-                //Visual Setup Graph
-            }
-            else
-            {
-                //Visual Setup Standard
+                var blockUI = Instantiate(UIDialoguePrefab, DialogueContainer);
+                //this blockUI should be the full size of the canvas via rectTransform adjustments
+                //adjust rectTransform to fit the canvas
+
+                blockUI.GetComponent<RectTransform>().localPosition = Vector3.zero;
+                blockUI.GetComponent<RectTransform>().localRotation = Quaternion.identity;
+                blockUI.GetComponent<RectTransform>().localScale = Vector3.one;
+                blockUI.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+                blockUI.GetComponent<RectTransform>().anchorMin = Vector2.zero;
+                blockUI.GetComponent<RectTransform>().anchorMax = Vector2.one;
+                blockUI.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
+
+                if (!blockUI.GetComponent<UIDialogueBase>())
+                {
+                    Debug.LogError($"We are missing a major component for the UIDialoguePrefab: {UIDialoguePrefab.name}");
+                    return;
+                }
+                uiDialogueRef = blockUI.GetComponent<UIDialogueBase>();
+                 //Visual Setup Standard
                 uiDialogueRef.SetupDialoguePanel(MainDialogueData.Character, MainDialogueData.ConversationData[DialogueIndex], this);
                 OnDialogueSetup?.Invoke(new DialogueEventData()
                 {
@@ -105,10 +108,14 @@ namespace FuzzPhyte.Dialogue
                     canvasRef.enabled = false;
                 }
             }
-                
-            
-
-           
+            else
+            {
+                DialogueContainer.gameObject.SetActive(false);
+                if (canvasRef != null)
+                {
+                    canvasRef.enabled = false;
+                }
+            }
         }
         //return the 0-1 progress bar value as needed for UI updates
         public float ProgressBarWrapper()
@@ -127,43 +134,64 @@ namespace FuzzPhyte.Dialogue
             }
             dialogueActive = true;
             DialogueContainer.gameObject.SetActive(true);
-            OnDialogueStart?.Invoke(new DialogueEventData()
+            if (!UseGraph)
             {
-                UserID = clientID,
-                DialogueDataRef = MainDialogueData,
-                DialogueBlockDataRef = MainDialogueData.ConversationData[DialogueIndex]
-            });
-            uiDialogueRef.PlayDialogueBlock();
+                OnDialogueStart?.Invoke(new DialogueEventData()
+                {
+                    UserID = clientID,
+                    DialogueDataRef = MainDialogueData,
+                    DialogueBlockDataRef = MainDialogueData.ConversationData[DialogueIndex]
+                });
+                uiDialogueRef.PlayDialogueBlock();
+            }
         }
         public void UINextDialogueAction()
         {
-            if (NextDialogueAvailable())
+            if (UseGraph)
             {
-                DialogueIndex++;
-                uiDialogueRef.SetupDialoguePanel(MainDialogueData.Character, MainDialogueData.ConversationData[DialogueIndex], this);
-                OnDialogueNext?.Invoke(new DialogueEventData()
-                {
-                    UserID = clientID,
-                    DialogueDataRef = MainDialogueData,
-                    DialogueBlockDataRef = MainDialogueData.ConversationData[DialogueIndex]
-                });
+                //we are using the graph system
+                DialogueDirectorRef.UserPromptNext();
             }
-            uiDialogueRef.PlayDialogueBlock();
+            else
+            {
+                if (NextDialogueAvailable())
+                {
+                    DialogueIndex++;
+                    uiDialogueRef.SetupDialoguePanel(MainDialogueData.Character, MainDialogueData.ConversationData[DialogueIndex], this);
+                    OnDialogueNext?.Invoke(new DialogueEventData()
+                    {
+                        UserID = clientID,
+                        DialogueDataRef = MainDialogueData,
+                        DialogueBlockDataRef = MainDialogueData.ConversationData[DialogueIndex]
+                    });
+                }
+                uiDialogueRef.PlayDialogueBlock();
+            }
+            
         }
         public void UIPreviousDialogueAction()
         {
-            if (PreviousDialogueAvailable())
+            if (UseGraph)
             {
-                DialogueIndex--;
-                uiDialogueRef.SetupDialoguePanel(MainDialogueData.Character, MainDialogueData.ConversationData[DialogueIndex], this);
-                OnDialoguePrevious?.Invoke(new DialogueEventData()
-                {
-                    UserID = clientID,
-                    DialogueDataRef = MainDialogueData,
-                    DialogueBlockDataRef = MainDialogueData.ConversationData[DialogueIndex]
-                });
+                //we are using the graph system
+                DialogueDirectorRef.UserPromptPrevious();
             }
-            uiDialogueRef.PlayDialogueBlock();
+            else
+            {
+                if (PreviousDialogueAvailable())
+                {
+                    DialogueIndex--;
+                    uiDialogueRef.SetupDialoguePanel(MainDialogueData.Character, MainDialogueData.ConversationData[DialogueIndex], this);
+                    OnDialoguePrevious?.Invoke(new DialogueEventData()
+                    {
+                        UserID = clientID,
+                        DialogueDataRef = MainDialogueData,
+                        DialogueBlockDataRef = MainDialogueData.ConversationData[DialogueIndex]
+                    });
+                }
+                uiDialogueRef.PlayDialogueBlock();
+            }
+            
         }
         public void UIFinishDialogueAction()
         {
@@ -189,22 +217,31 @@ namespace FuzzPhyte.Dialogue
             */
             dialogueActive = false;
         }
-        public void UIUserPromptAction(DialogueResponse userResponse)
+        public void UIUserPromptAction(DialogueResponse userResponse, int responseIndex=-99)
         {
             //this is a user prompt, we need to wait for a user input to continue
             //will have to filter through the data to see where to go next
-            OnDialogueUserPrompt?.Invoke(new DialogueEventData()
+            if (userResponse == null && responseIndex >= 0 && UseGraph)
             {
-                UserID = clientID,
-                DialogueDataRef = MainDialogueData,
-                DialogueBlockDataRef = MainDialogueData.ConversationData[DialogueIndex],
-                PotentialUserResponse = userResponse
-            });
-            Debug.LogWarning($"JOHN: we would assume that our inventory is listening for this event and will update accordingly");
-            if(userResponse.FinishDialogue)
+                //JOHN we are using the graph system and we basically just have an index to pass
+                Debug.Log($"Null getting passed for user response, about to notify the Director - passing index {responseIndex}");
+                DialogueDirectorRef.UserPromptResponse(responseIndex);
+            }
+            else
             {
-                UIFinishDialogueAction();
-            }   
+                OnDialogueUserPrompt?.Invoke(new DialogueEventData()
+                {
+                    UserID = clientID,
+                    DialogueDataRef = MainDialogueData,
+                    DialogueBlockDataRef = MainDialogueData.ConversationData[DialogueIndex],
+                    PotentialUserResponse = userResponse
+                });
+                Debug.LogWarning($"JOHN: we would assume that our inventory is listening for this event and will update accordingly");
+                if (userResponse.FinishDialogue)
+                {
+                    UIFinishDialogueAction();
+                }
+            }
         }        
         #region Stubs for Dialogue Status and Navigation
         public bool PreviousDialogueAvailable()

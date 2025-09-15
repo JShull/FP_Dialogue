@@ -2,9 +2,10 @@ namespace FuzzPhyte.Dialogue
 {
     using UnityEngine.UI;
     using FuzzPhyte.Utility;
+    using UnityEngine;
 
     //class primarily handles button actions for the dialogue system
-    
+
     public class UIDialogueButton : UIDialogueContainer, IDialogueUserResponseButton
     {
         public Button TheButton;
@@ -14,10 +15,11 @@ namespace FuzzPhyte.Dialogue
         private bool userPromptButton = false;
         private DialogueResponse userDataResponse;
         private UIDialogueBase dialogueDataBase;
+
         #region Interface Implementation
         public void SetupUserResponse(DialogueResponse userResponse, UIDialogueBase dialogueBase = null)
         {
-            if(dialogueBase != null)
+            if (dialogueBase != null)
             {
                 userPromptButton = true;
                 userDataResponse = userResponse;
@@ -25,6 +27,21 @@ namespace FuzzPhyte.Dialogue
                 TheButton.onClick.RemoveAllListeners();
                 TheButton.onClick.AddListener(UserResponseAction);
             }
+        }
+        public void SetupUserResponse(int index, RTDialogueDirector directorRef=null,AudioClip clipToPlay=null,AudioSource clipSource=null)
+        {
+            userPromptButton = true;
+            userDataResponse = null;
+            TheButton.onClick.RemoveAllListeners();
+            if (directorRef != null)
+            {
+                TheButton.onClick.AddListener(() => directorRef.UserPromptResponse(index));
+                if(clipToPlay!=null &&clipSource!=null)
+                {
+                    TheButton.onClick.AddListener(() => clipSource.PlayOneShot(clipToPlay));
+                }
+            }
+           
         }
         public void SetupNextButton(UIDialogueBase dialogueBase = null)
         {
@@ -92,19 +109,19 @@ namespace FuzzPhyte.Dialogue
             {
                 if (nextButton)
                 {
-                    TheButton.onClick.RemoveListener(RefNextButton);
+                  TheButton.onClick.RemoveAllListeners();
                 }
                 if (previousButton)
                 {
-                    TheButton.onClick.RemoveListener(RefPreviousButton);
+                    TheButton.onClick.RemoveAllListeners();
                 }
                 if (finishButton)
                 {
-                    TheButton.onClick.RemoveListener(RefFinishButton);
+                    TheButton.onClick.RemoveAllListeners();
                 }
                 if (userPromptButton)
                 {
-                    TheButton.onClick.RemoveListener(UserResponseAction);
+                    TheButton.onClick.RemoveAllListeners();
                 }
             }
         }

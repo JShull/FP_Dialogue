@@ -36,47 +36,160 @@ namespace FuzzPhyte.Dialogue
         public AudioSource DialogueAudioSource;
         #endregion
         private DialogueUnity dialogueLocalManager;
-        
+
+        public void SetupResponsePanel(DialogueUnity fullDialogueData,RTResponseNode responseNode,RTFPNode previousNode = null, RTFPNode nextNode = null)
+        {
+            dialogueLocalManager = fullDialogueData;
+            if (responseNode.character != null)
+            {
+                if (responseNode.character.characterData != null)
+                {
+                    SetupCharacterContainer(responseNode.character.characterData);
+                }
+                else
+                {
+                    Debug.LogError($"Haven't implemented hard coded Character information yet - need to add a way to do this");
+                }
+            }
+            // user prompt setup
+            //if it has a user response
+            if (responseNode.userIncomingPrompts.Count> 0)
+            {
+                ChangeUserResponseFormat();
+                for (int i = 0; i < responseNode.userIncomingPrompts.Count; i++)
+                {
+                    var response = responseNode.userIncomingPrompts[i];
+                    var userPrompt = Instantiate(UserPromptButtonPrefab.gameObject, UserPromptButtonParentContainer);
+                    if (userPrompt.GetComponent<UIDialogueButton>())
+                    {
+                        var setupCode = userPrompt.GetComponent<UIDialogueButton>();
+                        setupCode.SetupUserResponse(i,dialogueLocalManager.DialogueDirectorRef);
+                        setupCode.UpdateReferenceText(responseNode.userIncomingPrompts[i].mainDialogue.dialogueText);
+                        setupCode.UpdateRefIconSprite(responseNode.userIncomingPrompts[i].promptIcon);
+                        //need to create the button onClick event and probably notify DialogueUnity here by creating and passing a DialogueEventData object
+
+                    }
+                }
+            }
+            if (previousNode == null)
+            {
+                PreviousActionAvailability(false);
+            }
+            else
+            {
+                if (previousNode is RTDialogueNode || previousNode is RTResponseNode)
+                {
+                    PreviousActionAvailability(true);
+                }
+                else
+                {
+                    PreviousActionAvailability(false);
+                }
+            }
+            // turn off user forward/backward for now
+            
+            //audio setup
+            //audio clip setup
+            if (DialogueAudioSource.isPlaying)
+            {
+                DialogueAudioSource.Stop();
+            }
+        }
+        public void SetupDialoguePanel(DialogueUnity fullDialogueData, RTDialogueNode nodeData, RTFPNode previousNode = null, RTFPNode nextNode = null)
+        {
+            dialogueLocalManager = fullDialogueData;
+            if (nodeData.incomingCharacter != null)
+            {
+                if (nodeData.incomingCharacter.characterData != null)
+                {
+                    SetupCharacterContainer(nodeData.incomingCharacter.characterData);
+                }
+                else
+                {
+                    Debug.LogError($"Haven't implemented hard coded Character information yet - need to add a way to do this");
+                }
+            }
+            // text setup
+            DialogueTextContainer.UpdateReferenceText(nodeData.mainDialogue.dialogueText);
+            if (nodeData.mainDialogue.headerText != string.Empty)
+            {
+                DialogueTextContainer.UpdateHeaderText(nodeData.mainDialogue.headerText);
+            }
+            // turn off user forward/backward for now
+            ChangeUserResponseFormat();
+            if (previousNode == null)
+            {
+                PreviousActionAvailability(false);
+            }
+            else
+            {
+                if (previousNode is RTDialogueNode || previousNode is RTResponseNode)
+                {
+                    PreviousActionAvailability(true);
+                }
+                else
+                {
+                    PreviousActionAvailability(false);
+                }
+            }
+            if (nextNode == null)
+            {
+                if (nodeData.waitforUser)
+                {
+                    NextActionAvailability(true);
+                }
+                else
+                {
+                    NextActionAvailability(false);
+                }
+            }
+            else
+            {
+                //what if we want to wait for our user?
+                if (nodeData.waitforUser)
+                {
+                    NextActionAvailability(true);
+                }
+                else
+                {
+                    if (nextNode is RTDialogueNode || nextNode is RTResponseNode)
+                    {
+                        NextActionAvailability(true);
+                    }
+                    else
+                    {
+                        NextActionAvailability(false);
+                    }
+                }
+            }
+            //audio setup
+            //audio clip setup
+            if (DialogueAudioSource.isPlaying)
+            {
+                DialogueAudioSource.Stop();
+            }
+            // audio clip will have to be driven by the above chosen language as we have two areas to pick from - original /translation
+
+            DialogueAudioSource.clip = nodeData.mainDialogue.textAudio;
+
+        }
         /// <summary>
         /// Main entry poing for setting up the panel
         /// </summary>
         /// <param name="character">Character data</param>
         /// <param name="conversationBlock">block of conversation data</param>
         /// <param name="fullDialogueData">entire dialogue data ref</param>
-        public void SetupDialoguePanel(FP_Character character, DialogueBlock conversationBlock,DialogueUnity fullDialogueData)
+        public void SetupDialoguePanel(FP_Character character, DialogueBlock conversationBlock, DialogueUnity fullDialogueData)
         {
             dialogueLocalManager = fullDialogueData;
-            // resize if we need to here
-            // use the character theme to set the colors and fonts
-            // header 1 = DialogueTextContainer
-            // query through the font settings to find the right one that matches the header 1
+            SetupCharacterContainer(character);
 
-            var header1Font = character.CharacterTheme.FontSettings.FirstOrDefault(x => x.Label == FontSettingLabel.HeaderOne);
-            var header2Font = character.CharacterTheme.FontSettings.FirstOrDefault(x => x.Label == FontSettingLabel.HeaderTwo);
-            var header3Font = character.CharacterTheme.FontSettings.FirstOrDefault(x => x.Label == FontSettingLabel.HeaderThree);
-            var paragraphFont = character.CharacterTheme.FontSettings.FirstOrDefault(x => x.Label == FontSettingLabel.Paragraph);
-
-            //header & Dialogue Text
-            DialogueTextContainer.UpdateHeaderTextFormat(header1Font);
-            DialogueTextContainer.UpdateReferenceTextFormat(paragraphFont);
-            //will have to modify based on target language either using the original or translation text
-
+            // Text for Dialogue && Header
             DialogueTextContainer.UpdateReferenceText(conversationBlock.OriginalLanguage.Text);
             if (conversationBlock.OriginalLanguage.Header != string.Empty)
             {
                 DialogueTextContainer.UpdateHeaderText(conversationBlock.OriginalLanguage.Header);
             }
-            
-            // main container updates
-            MainContainer.UpdateBackdropColor(character.CharacterTheme.MainColor);
-            // this is the masked area graphics that is usually white - we generally want to match this with our backdrop
-            MainContainer.UpdateRefIconColor(character.CharacterTheme.MainColor);
-            // character
-            CharacterContainer.UpdateReferenceTextFormat(header2Font);
-            CharacterContainer.UpdateReferenceText(character.CharacterName);
-            CharacterContainer.UpdateBackdropColor(character.CharacterTheme.MainColor);
-            CharacterContainer.UpdateRefIconSprite(character.CharacterTheme.Icon);
-
             // progress bar
             ProgressBarContainer.UpdateBackdropColor(character.CharacterTheme.TertiaryColor);
             ProgressBarContainer.UpdateRefIconColor(character.CharacterTheme.SecondaryColor);
@@ -93,14 +206,14 @@ namespace FuzzPhyte.Dialogue
             if (conversationBlock.PossibleUserResponses.Count > 0)
             {
                 ChangeUserResponseFormat();
-                for(int i = 0; i < conversationBlock.PossibleUserResponses.Count; i++)
+                for (int i = 0; i < conversationBlock.PossibleUserResponses.Count; i++)
                 {
                     var response = conversationBlock.PossibleUserResponses[i];
                     var userPrompt = Instantiate(UserPromptButtonPrefab.gameObject, UserPromptButtonParentContainer);
                     if (userPrompt.GetComponent<UIDialogueButton>())
                     {
                         var setupCode = userPrompt.GetComponent<UIDialogueButton>();
-                        setupCode.SetupUserResponse(response,this);
+                        setupCode.SetupUserResponse(response, this);
                         setupCode.UpdateReferenceText(response.ResponseText);
                         setupCode.UpdateRefIconSprite(response.ResponseIcon);
                         //need to create the button onClick event and probably notify DialogueUnity here by creating and passing a DialogueEventData object
@@ -117,11 +230,38 @@ namespace FuzzPhyte.Dialogue
 
             DialogueAudioSource.clip = conversationBlock.OriginalLanguage.AudioText.AudioClip;
         }
+        protected void SetupCharacterContainer(FP_Character character)
+        {
+            var header1Font = character.CharacterTheme.FontSettings.FirstOrDefault(x => x.Label == FontSettingLabel.HeaderOne);
+            var header2Font = character.CharacterTheme.FontSettings.FirstOrDefault(x => x.Label == FontSettingLabel.HeaderTwo);
+            var header3Font = character.CharacterTheme.FontSettings.FirstOrDefault(x => x.Label == FontSettingLabel.HeaderThree);
+            var paragraphFont = character.CharacterTheme.FontSettings.FirstOrDefault(x => x.Label == FontSettingLabel.Paragraph);
+
+            //header & Dialogue Text
+            DialogueTextContainer.UpdateHeaderTextFormat(header1Font);
+            DialogueTextContainer.UpdateReferenceTextFormat(paragraphFont);
+            //will have to modify based on target language either using the original or translation text
+
+
+            // main container updates
+            MainContainer.UpdateBackdropColor(character.CharacterTheme.MainColor);
+            // this is the masked area graphics that is usually white - we generally want to match this with our backdrop
+            MainContainer.UpdateRefIconColor(character.CharacterTheme.MainColor);
+            // character
+            CharacterContainer.UpdateReferenceTextFormat(header2Font);
+            CharacterContainer.UpdateReferenceText(character.CharacterName);
+            CharacterContainer.UpdateBackdropColor(character.CharacterTheme.MainColor);
+            CharacterContainer.UpdateRefIconSprite(character.CharacterTheme.Icon);
+
+            // progress bar
+            ProgressBarContainer.UpdateBackdropColor(character.CharacterTheme.TertiaryColor);
+            ProgressBarContainer.UpdateRefIconColor(character.CharacterTheme.SecondaryColor);
+        }
         private void ClearUserResponses()
         {
-            if(UserPromptButtonParentContainer.childCount > 0)
+            if (UserPromptButtonParentContainer.childCount > 0)
             {
-                foreach(Transform child in UserPromptButtonParentContainer)
+                foreach (Transform child in UserPromptButtonParentContainer)
                 {
                     Destroy(child.gameObject);
                 }
@@ -131,9 +271,11 @@ namespace FuzzPhyte.Dialogue
         public void NextButtonAction()
         {
             ClearUserResponses();
-            if (dialogueLocalManager!=null)
+            if (dialogueLocalManager != null)
             {
+                Debug.Log($"Next Button Pressed");
                 dialogueLocalManager.UINextDialogueAction();
+                
             }
         }
         public void PreviousButtonAction()
@@ -141,6 +283,7 @@ namespace FuzzPhyte.Dialogue
             ClearUserResponses();
             if (dialogueLocalManager != null)
             {
+                Debug.Log($"Previous Button Pressed");
                 dialogueLocalManager.UIPreviousDialogueAction();
             }
         }
@@ -157,6 +300,15 @@ namespace FuzzPhyte.Dialogue
             if (dialogueLocalManager != null)
             {
                 dialogueLocalManager.UIUserPromptAction(userResponse);
+            }
+        }
+        public void UserButtonAction(int responseIndex)
+        {
+            if (dialogueLocalManager != null)
+            {
+                Debug.Log($"Null getting passed for user response - passing index {responseIndex}");
+                dialogueLocalManager.UIUserPromptAction(null, responseIndex);
+                
             }
         }
         public void PlayDialogueBlock()

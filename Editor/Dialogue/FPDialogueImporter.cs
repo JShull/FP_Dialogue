@@ -112,7 +112,7 @@ namespace FuzzPhyte.Dialogue.Editor
                             runtimeGraph.AddExitNode(exitNode);
                         }else if(runtimeNode is RTDialogueNode dialogueNode)
                         {
-                            //Debug.Log($"Logging Dialoge Node...");
+                            //Debug.Log($"Logging Dialogue Node...");
                             runtimeGraph.AddDialogueNode(dialogueNode);
                         }else if(runtimeNode is RTResponseNode responseNode)
                         {
@@ -177,7 +177,7 @@ namespace FuzzPhyte.Dialogue.Editor
             switch (editorNode)
             {
                 case EntryNode entryNode:
-                    //have to evalute information on RTEnetryNode (Input Timeline asset)
+                    //have to evaluate information on RTEntryNode (Input Timeline asset)
                     TimelineAsset tAsset = null;
                     RTTimelineDetails tAssetDetails = null;
                     var testOutPort = entryNode.GetOutputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
@@ -236,7 +236,7 @@ namespace FuzzPhyte.Dialogue.Editor
                 case ExitNode exitNode:
                     TimelineAsset tAssetOut = null;
                     RTTimelineDetails tAssetDetailsOut = null;
-                    //List<string> nodeInIndexs = new();
+                    
                     var incomingPort = exitNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
                     if (incomingPort==null)
                     {
@@ -245,7 +245,6 @@ namespace FuzzPhyte.Dialogue.Editor
                     }
                     else
                     {
-                        //nodeInIndexs = GetConnectedNodeNamesByPort(incomingPort);
                         var otherNodes = ReturnNodePortDetails(incomingPort,FPPortType.INPort);
                         var timelinePort = exitNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_TIMELINE);
                         var timelinePortDetails = exitNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_TIMELINEDETAILS);
@@ -385,6 +384,12 @@ namespace FuzzPhyte.Dialogue.Editor
                     
                     //generate a loop over number of prompts
                     var numPromptCount = responseNode.GetNodeOptionByName(FPDialogueGraphValidation.USER_NUMBER_OPTIONS);
+                    var useWorldLocationOption = responseNode.GetNodeOptionByName(FPDialogueGraphValidation.USE_WORLD_LOCATION);
+                    bool useResponseWorldLocations = false;
+                    if (useWorldLocationOption != null)
+                    {
+                        useWorldLocationOption.TryGetValue<bool>(out useResponseWorldLocations);
+                    }
                     numPromptCount.TryGetValue<int>(out var numPrompts);
                     var responseNodeFlowIN = responseNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
                     RTFPNodePort incomingNodeDetails = new RTFPNodePort();
@@ -398,9 +403,8 @@ namespace FuzzPhyte.Dialogue.Editor
                         incomingNodeDetails = ReturnNodePortDetails(responseNodeFlowIN, FPPortType.INPort);
                     }
 
-                        List<RTSinglePromptNode> incomingItems = new List<RTSinglePromptNode>();
-                    List<RTFPNodePort> outcomingIndex = new();
-                    //List<string> outcomingIndex = new List<string>();
+                    List<RTSinglePromptNode> incomingItems = new List<RTSinglePromptNode>();
+                    List<RTFPNodePort> outgoingIndex = new();
                     for (int i=0; i<numPrompts; i++)
                     {
                         //go through four user prompts
@@ -421,7 +425,7 @@ namespace FuzzPhyte.Dialogue.Editor
                                 var outNodeNames = ReturnNodePortDetails(directedPromptX, FPPortType.INPort);
                                 if (outNodeNames.ConnectedNodes.Length > 0)
                                 {
-                                    outcomingIndex.Add(outNodeNames);
+                                    outgoingIndex.Add(outNodeNames);
                                 }
                                 else
                                 {
@@ -446,7 +450,7 @@ namespace FuzzPhyte.Dialogue.Editor
                             if (aCharacter != null)
                             {
                                 createdNodes.Add(aCharacter);
-                                var RTresponseNode = new RTResponseNode(responseNode.Name, incomingNodeDetails, incomingItems, outcomingIndex, aCharacter);
+                                var RTresponseNode = new RTResponseNode(responseNode.Name, useResponseWorldLocations,incomingNodeDetails, incomingItems, outgoingIndex, aCharacter);
                                 createdNodes.Add(RTresponseNode);
                                 return createdNodes;
                             }
@@ -563,36 +567,54 @@ namespace FuzzPhyte.Dialogue.Editor
                     /// world prefab options for response
                     var worldObjectUseCase = dialogueNode.GetNodeOptionByName(FPDialogueGraphValidation.USE_THREED_OBJECTS);
                     var worldObjectUseCasePrefabs = dialogueNode.GetNodeOptionByName(FPDialogueGraphValidation.USE_PREFABS);
+                    var useWorldLocationDialogue = dialogueNode.GetNodeOptionByName(FPDialogueGraphValidation.GO_WORLD_LOCATION);
+                    
+                    bool useWorldLoc = false;
                     bool useThreeD = false;
                     bool usePrefabs = false;
+                    string worldDialogueSpawnLocation = string.Empty;
                     worldObjectUseCase.TryGetValue<bool>(out useThreeD);
                     worldObjectUseCasePrefabs.TryGetValue<bool>(out usePrefabs);
-                    if(worldObjectUseCase!=null && useThreeD && worldObjectUseCasePrefabs!=null && usePrefabs)
+                    // dialogue world location?
+                    if (useWorldLocationDialogue != null)
+                    {
+                        useWorldLocationDialogue.TryGetValue<bool>(out useWorldLoc);
+                        if (useWorldLoc)
+                        {
+                            var useWorldPortLocation = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.USE_WORLD_LOCATION);
+                            if (useWorldPortLocation != null)
+                            {
+                                useWorldPortLocation.TryGetValue<string>(out worldDialogueSpawnLocation);
+                            }   
+                        }
+                    }
+                    if (worldObjectUseCase != null && useThreeD && worldObjectUseCasePrefabs != null && usePrefabs)
                     {
                         var yesGameObjectRefPort = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.RESPONSE_PREFAB_YES);
                         var noGameObjectRefPort = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.RESPONSE_PREFAB_NO);
                         ExposedReference<GameObject> yesRef;
                         ExposedReference<GameObject> noRef;
-                        if(yesGameObjectRefPort!=null && noGameObjectRefPort != null)
+                        if (yesGameObjectRefPort != null && noGameObjectRefPort != null)
                         {
                             yesGameObjectRefPort.TryGetValue(out yesRef);
                             noGameObjectRefPort.TryGetValue(out noRef);
-                            var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode,rTCharacterNodeIn, yesRef, noRef, autoScroll, rtCharacterNodeOut, talkRTTransNode);
+                            var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, yesRef, noRef,worldDialogueSpawnLocation,useWorldLoc, autoScroll, rtCharacterNodeOut, talkRTTransNode);
                             createdNodes.Add(RTdialogueNode);
                         }
                         else
                         {
                             Debug.LogError($"Something's wrong with the YES/NO Prefab references");
                         }
-                    }else if(worldObjectUseCase!=null && useThreeD)
+                    }
+                    else if (worldObjectUseCase != null && useThreeD)
                     {
                         var yesGameObjectNamePort = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.RESPONSE_WORLD_YES_LOCATION);
                         var noGameObjectNamePort = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.RESPONSE_WORLD_NO_LOCATION);
-                        if(yesGameObjectNamePort!=null && noGameObjectNamePort != null)
+                        if (yesGameObjectNamePort != null && noGameObjectNamePort != null)
                         {
                             yesGameObjectNamePort.TryGetValue<string>(out string yesGOName);
                             noGameObjectNamePort.TryGetValue<string>(out string noGOName);
-                            var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, yesGOName, noGOName, autoScroll, rtCharacterNodeOut, talkRTTransNode);
+                            var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, yesGOName, noGOName, worldDialogueSpawnLocation,useWorldLoc,autoScroll, rtCharacterNodeOut, talkRTTransNode);
                             createdNodes.Add(RTdialogueNode);
                         }
                         else
@@ -601,9 +623,9 @@ namespace FuzzPhyte.Dialogue.Editor
                         }
 
                     }
-                    else 
+                    else
                     {
-                        var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, autoScroll, rtCharacterNodeOut, talkRTTransNode);
+                        var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, worldDialogueSpawnLocation,useWorldLoc,autoScroll, rtCharacterNodeOut, talkRTTransNode);
                         createdNodes.Add(RTdialogueNode);
                     }
                         

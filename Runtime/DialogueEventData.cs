@@ -9,6 +9,7 @@ namespace FuzzPhyte.Dialogue
     public struct DialogueEventData
     {
         public string UserID;
+        public int PotentialUserResponseIndex;
         public DialogueResponse PotentialUserResponse;
         public DialogueBase DialogueDataRef;
         public DialogueBlock DialogueBlockDataRef;

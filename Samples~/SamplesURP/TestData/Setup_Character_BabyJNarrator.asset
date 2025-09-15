@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Setup_Character_BabyJNarrator
   m_EditorClassIdentifier: 
   UniqueID: Test_Character_JNarrator
-  CharacterName: Juan
-  CharacterGender: 1
+  CharacterName: Anna
+  CharacterGender: 2
   CharacterEthnicity: 3
   CharacterLanguages:
     Primary: 2
     Secondary: 1
     Tertiary: 0
   CharacterTheme: {fileID: 11400000, guid: b7fabf0fddff1c24ab5617373d47de39, type: 2}
-  CharacterAge: 41
+  CharacterAge: 15

@@ -64,6 +64,7 @@
         //Graph/User parameters that drive our realtime outcomes
         public const string USE_THREED_OBJECTS = "UseWorldObjects"; //false is traditional 2D
         public const string USE_PREFABS = "UsePrefabs"; //false we point to game object locations in scene
+        public const string USE_WORLD_LOCATION = "UseDialogueWorldLocation";
 
         public const string RESPONSE_PREFAB_YES = "YesGameObjectPrefab";
         public const string RESPONSE_PREFAB_NO = "NoGameObjectPrefab";
