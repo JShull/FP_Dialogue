@@ -42,8 +42,8 @@ namespace FuzzPhyte.Dialogue
     {
         //interface to get some data passed to the component that will be handling the user response
         public void SetupUserResponse(DialogueResponse userResponse, UIDialogueBase dialogueBase = null);
-        public void SetupNextButton(UIDialogueBase dialogueBase = null);
-        public void SetupPreviousButton(UIDialogueBase dialogueBase = null);
+        public void SetupNextButton(UIDialogueBase dialogueBase = null, bool useGraph = false);
+        public void SetupPreviousButton(UIDialogueBase dialogueBase = null, bool useGraph = false);
         public void SetupFinishButton(UIDialogueBase dialogueBase = null);
     }
     public interface IDialogueActions

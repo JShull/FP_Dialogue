@@ -15,8 +15,8 @@ MonoBehaviour:
   UniqueID: Test_Header_One_Juan
   Label: 1
   Font: {fileID: 11400000, guid: 6241df63c5c124139b0ae7f834c1fb72, type: 2}
-  MinSize: 10
-  MaxSize: 72
+  MinSize: 36
+  MaxSize: 120
   UseAutoSizing: 1
   FontStyle: 0
   FontAlignment: 0

@@ -36,10 +36,12 @@ namespace FuzzPhyte.Dialogue
         public AudioSource DialogueAudioSource;
         #endregion
         private DialogueUnity dialogueLocalManager;
+        private bool useGraphFeature = false;
 
         public void SetupResponsePanel(DialogueUnity fullDialogueData,RTResponseNode responseNode,RTFPNode previousNode = null, RTFPNode nextNode = null)
         {
             dialogueLocalManager = fullDialogueData;
+            useGraphFeature = true;
             if (responseNode.character != null)
             {
                 if (responseNode.character.characterData != null)
@@ -98,6 +100,7 @@ namespace FuzzPhyte.Dialogue
         public void SetupDialoguePanel(DialogueUnity fullDialogueData, RTDialogueNode nodeData, RTFPNode previousNode = null, RTFPNode nextNode = null)
         {
             dialogueLocalManager = fullDialogueData;
+            useGraphFeature = true;
             if (nodeData.incomingCharacter != null)
             {
                 if (nodeData.incomingCharacter.characterData != null)
@@ -111,10 +114,8 @@ namespace FuzzPhyte.Dialogue
             }
             // text setup
             DialogueTextContainer.UpdateReferenceText(nodeData.mainDialogue.dialogueText);
-            if (nodeData.mainDialogue.headerText != string.Empty)
-            {
-                DialogueTextContainer.UpdateHeaderText(nodeData.mainDialogue.headerText);
-            }
+            DialogueTextContainer.UpdateHeaderText(nodeData.mainDialogue.headerText);
+           
             // turn off user forward/backward for now
             ChangeUserResponseFormat();
             if (previousNode == null)
@@ -136,11 +137,11 @@ namespace FuzzPhyte.Dialogue
             {
                 if (nodeData.waitforUser)
                 {
-                    NextActionAvailability(true);
+                    NextActionActivateDeactivate(true);
                 }
                 else
                 {
-                    NextActionAvailability(false);
+                    NextActionActivateDeactivate(false);
                 }
             }
             else
@@ -148,10 +149,13 @@ namespace FuzzPhyte.Dialogue
                 //what if we want to wait for our user?
                 if (nodeData.waitforUser)
                 {
-                    NextActionAvailability(true);
+                    NextActionActivateDeactivate(true);
                 }
                 else
                 {
+                   
+                    NextActionActivateDeactivate(false);
+                    /*
                     if (nextNode is RTDialogueNode || nextNode is RTResponseNode)
                     {
                         NextActionAvailability(true);
@@ -160,6 +164,7 @@ namespace FuzzPhyte.Dialogue
                     {
                         NextActionAvailability(false);
                     }
+                    */
                 }
             }
             //audio setup
@@ -240,6 +245,11 @@ namespace FuzzPhyte.Dialogue
             //header & Dialogue Text
             DialogueTextContainer.UpdateHeaderTextFormat(header1Font);
             DialogueTextContainer.UpdateReferenceTextFormat(paragraphFont);
+            if (character.CharacterTheme.SecondaryIcon != null)
+            {
+                DialogueTextContainer.UpdateRefIconSprite(character.CharacterTheme.SecondaryIcon);
+            }
+           
             //will have to modify based on target language either using the original or translation text
 
 
@@ -254,8 +264,18 @@ namespace FuzzPhyte.Dialogue
             CharacterContainer.UpdateRefIconSprite(character.CharacterTheme.Icon);
 
             // progress bar
-            ProgressBarContainer.UpdateBackdropColor(character.CharacterTheme.TertiaryColor);
-            ProgressBarContainer.UpdateRefIconColor(character.CharacterTheme.SecondaryColor);
+            if (!useGraphFeature)
+            {
+                ProgressBarContainer.UpdateBackdropColor(character.CharacterTheme.TertiaryColor);
+                ProgressBarContainer.UpdateRefIconColor(character.CharacterTheme.SecondaryColor);
+            }
+            else
+            {
+                ProgressBarContainer.gameObject.SetActive(false);
+                //graph can't have a progress bar because we really don't have a way to fully manage this with choice
+                //unless we add in a variable value at each node
+            }
+            
         }
         private void ClearUserResponses()
         {
@@ -275,7 +295,6 @@ namespace FuzzPhyte.Dialogue
             {
                 Debug.Log($"Next Button Pressed");
                 dialogueLocalManager.UINextDialogueAction();
-                
             }
         }
         public void PreviousButtonAction()
@@ -333,7 +352,7 @@ namespace FuzzPhyte.Dialogue
         {
             if (status)
             {
-                PreviousButton.SetupPreviousButton(this);
+                PreviousButton.SetupPreviousButton(this,useGraphFeature);
             }
             PreviousButton.gameObject.SetActive(status);
         }
@@ -341,7 +360,7 @@ namespace FuzzPhyte.Dialogue
         {
             if (status)
             {
-                NextButton.SetupNextButton(this);
+                NextButton.SetupNextButton(this, useGraphFeature);
             }
             else
             {
@@ -349,6 +368,15 @@ namespace FuzzPhyte.Dialogue
             }
             NextButton.gameObject.SetActive(status);
             FinishButton.gameObject.SetActive(!status);
+        }
+        private void NextActionActivateDeactivate(bool status)
+        {
+            Debug.LogWarning($"Status of Next Action? {status}");
+            if (status)
+            {
+                NextButton.SetupNextButton(this,useGraphFeature);
+            }
+            NextButton.gameObject.SetActive(status);
         }
     }
 }

@@ -112,6 +112,9 @@ namespace FuzzPhyte.Dialogue
                         {
                             //valid
                             Debug.Log($"Dialogue: {data.DialogueNode.mainDialogue.dialogueText}");
+                            ClearActiveVisual();
+                            DrawDialogueVisual(data.DialogueNode, data.PreviousNode, data.NextNode, 1.5f);
+                            /*
                             if (data.UserDelayPaddedTime > 0)
                             {
                                 StartCoroutine(DelayDialogueVisuals(data));
@@ -121,7 +124,8 @@ namespace FuzzPhyte.Dialogue
                                 ClearActiveVisual();
                                 DrawDialogueVisual(data.DialogueNode, data.PreviousNode, data.NextNode,1.5f);
                             }
-                                
+                            */
+
                         }
                     }
                     //binder needed on dialogue next? (maybe) as this action is between node types (could be user prompt next, could be dialogue, could be coming out of a one way?)
@@ -216,7 +220,9 @@ namespace FuzzPhyte.Dialogue
         }
         IEnumerator DelayDialogueVisuals(GraphEventData someData)
         {
+            Debug.Log($"Delay Starting...");
             yield return new WaitForSecondsRealtime(someData.UserDelayPaddedTime);
+            Debug.Log($"Delay Ending...");
             ClearActiveVisual();
             DrawDialogueVisual(someData.DialogueNode, someData.PreviousNode, someData.NextNode,someData.UserDelayPaddedTime);
         }
@@ -262,8 +268,8 @@ namespace FuzzPhyte.Dialogue
                 {
                     Debug.Log($"We have a UIDialogueBase");
                     activeNodeVisual.GetComponent<UIDialogueBase>().SetupDialoguePanel( dialogueUnity,nodeData,previousNode,nextNode);
-                    StartCoroutine(WaitBeforeDialogueResponse(delayTime));
-                    //activeNodeVisual.GetComponent<UIDialogueBase>().PlayDialogueBlock();
+                    //StartCoroutine(WaitBeforeDialogueResponse(delayTime));
+                    activeNodeVisual.GetComponent<UIDialogueBase>().PlayDialogueBlock();
                 }
                 //setup data based on interface?
             }

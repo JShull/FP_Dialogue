@@ -323,8 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbf6419dbd5ee874884bc638a5d71c33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: com.fuzzphyte.dialogue::FuzzPhyte.Dialogue.RTDialogueDirector
-  RuntimeGraph: {fileID: -3647142238507018538, guid: 052641bdec138b64685736f90b94fb5b,
-    type: 3}
+  RuntimeGraph: {fileID: -3647142238507018538, guid: 052641bdec138b64685736f90b94fb5b, type: 3}
   PaddingTimeBetweenNodes: 1
   CharPaddingTime: 0.15
   eventHandler: {fileID: 158921073}
@@ -405,12 +404,9 @@ MonoBehaviour:
   binder: {fileID: 158921072}
   dialogueUnity: {fileID: 158921075}
   director: {fileID: 158921070}
-  DialogueBaseUIPrefab: {fileID: 3000328645149408231, guid: b50430e2a2ccb2f40a2246a165ddd182,
-    type: 3}
-  UserResponseUIPrefabGroup: {fileID: 3000328645149408231, guid: b50430e2a2ccb2f40a2246a165ddd182,
-    type: 3}
-  UserResponseUIPrefabItem: {fileID: 8141474921291328401, guid: bbd64c69c0c5641fc99abea52f7f1592,
-    type: 3}
+  DialogueBaseUIPrefab: {fileID: 5927138389930800545, guid: 4dd82ed669567214282876595a194a16, type: 3}
+  UserResponseUIPrefabGroup: {fileID: 5927138389930800545, guid: 4dd82ed669567214282876595a194a16, type: 3}
+  UserResponseUIPrefabItem: {fileID: 8141474921291328401, guid: bbd64c69c0c5641fc99abea52f7f1592, type: 3}
   PrefabUserOffset: {x: 0, y: 1.5, z: 0}
   UserPromptAudioSource: {fileID: 727984853}
   userID: 1234Test
@@ -474,28 +470,17 @@ MonoBehaviour:
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
-  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018,
-    type: 3}
-  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018,
-    type: 3}
-  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018,
-    type: 3}
-  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018,
-    type: 3}
-  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018,
-    type: 3}
-  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018,
-    type: 3}
-  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018,
-    type: 3}
-  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018,
-    type: 3}
-  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018,
-    type: 3}
-  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018,
-    type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018,
-    type: 3}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
@@ -882,7 +867,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -896,15 +881,15 @@ RectTransform:
   m_GameObject: {fileID: 591629559}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.005, y: 0.005, z: 0.005}
+  m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 250}
+  m_AnchoredPosition: {x: 0, y: 0.9}
+  m_SizeDelta: {x: 2390, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &591629562
 MonoBehaviour:

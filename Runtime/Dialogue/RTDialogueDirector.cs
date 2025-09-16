@@ -241,6 +241,28 @@ namespace FuzzPhyte.Dialogue
                     previousNode = FirstPrevious(currentNode);
                     var nextNode = FirstNext(currentNode);
                     eventHandler.RaiseDialoguePrevious(previousNode, dialoguePrevious,nextNode,PaddingTimeBetweenNodes);
+                    //check for auto next step
+                    if (!dialoguePrevious.waitforUser)
+                    {
+                        //time delay based on audioclip length with padding
+                        if (dialoguePrevious.mainDialogue.hasAudio)
+                        {
+                            Debug.Log($"Auto Loop: wait for{dialoguePrevious.mainDialogue.textAudio.length + PaddingTimeBetweenNodes} seconds");
+                            Debug.Log($"Game Time: {Time.time}");
+                            StartCoroutine(AutoNextNode(dialoguePrevious.mainDialogue.textAudio.length + PaddingTimeBetweenNodes * 2));
+                        }
+                        else
+                        {
+                            var charDelay = dialoguePrevious.mainDialogue.dialogueText.ToCharArray().Length * CharPaddingTime;
+                            Debug.Log($"Auto Loop: wait for{charDelay + PaddingTimeBetweenNodes} seconds");
+                            Debug.Log($"Game Time: {Time.time}");
+                            StartCoroutine(AutoNextNode(charDelay + PaddingTimeBetweenNodes * 2));
+                        }
+                    }
+                    else
+                    {
+                        //do nothing else as we are waiting for the user to press "next"
+                    }
                     return;
                 }
                 if(previousNode is RTResponseNode responsePrevious)
@@ -374,7 +396,7 @@ namespace FuzzPhyte.Dialogue
         {
             UserPromptResponse(3);
         }
-        public void UserPromptResponse(int promptIndex)
+        public void UserPromptResponse(int promptIndex, bool useDelay=false,float delayOnAudio=0)
         {
             if (currentNode is RTResponseNode responseNode)
             {
@@ -392,7 +414,14 @@ namespace FuzzPhyte.Dialogue
                         currentNode = FindByIndexString(nextNodeIndex);
                         if (currentNode != null)
                         {
-                            AdvanceUntilInteractive();
+                            if (useDelay)
+                            {
+                                StartCoroutine(DelayAdvance(delayOnAudio, AdvanceUntilInteractive));
+                            }
+                            else
+                            {
+                                AdvanceUntilInteractive();
+                            }   
                         }
                         else
                         {
@@ -413,6 +442,11 @@ namespace FuzzPhyte.Dialogue
             {
                 Debug.LogWarning($"Current node is not a ResponseNode; cannot accept user prompt response.");
             }
+        }
+        protected IEnumerator DelayAdvance(float delayAmt,Action function)
+        {
+            yield return new WaitForSecondsRealtime(delayAmt);
+            function?.Invoke();
         }
         [ContextMenu("Dialogue User Input Previous")]
         public void UserPromptPrevious()

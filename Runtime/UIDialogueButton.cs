@@ -36,33 +36,59 @@ namespace FuzzPhyte.Dialogue
             RefText.text = textDisplay;
             if (directorRef != null)
             {
-                TheButton.onClick.AddListener(() => directorRef.UserPromptResponse(index));
+                
                 if(clipToPlay!=null &&clipSource!=null)
                 {
+                    //slight delay plus clip length
+                    TheButton.onClick.AddListener(() => directorRef.UserPromptResponse(index,true,clipToPlay.length+1.25f));
                     TheButton.onClick.AddListener(() => clipSource.PlayOneShot(clipToPlay));
+                }
+                else
+                {
+                    TheButton.onClick.AddListener(() => directorRef.UserPromptResponse(index));
                 }
             }
            
         }
-        public void SetupNextButton(UIDialogueBase dialogueBase = null)
+        public void SetupNextButton(UIDialogueBase dialogueBase = null, bool useGraph = false)
         {
             if (dialogueBase != null)
             {
                 nextButton = true;
                 dialogueDataBase = dialogueBase;
                 TheButton.onClick.RemoveAllListeners();
-                TheButton.onClick.AddListener(RefNextButton);
+                
+                if (useGraph)
+                {
+                    TheButton.interactable = true;
+                    TheButton.onClick.AddListener(() => RefNextButton(true));
+
+                }
+                else
+                {
+                    TheButton.onClick.AddListener(()=>RefNextButton(false));
+                }
             }
         }
 
-        public void SetupPreviousButton(UIDialogueBase dialogueBase = null)
+        public void SetupPreviousButton(UIDialogueBase dialogueBase = null, bool useGraph=false)
         {
             if (dialogueBase != null)
             {
                 previousButton = true;
                 dialogueDataBase = dialogueBase;
                 TheButton.onClick.RemoveAllListeners();
-                TheButton.onClick.AddListener(RefPreviousButton);
+                
+                if (useGraph)
+                {
+                    TheButton.interactable = true;
+                    TheButton.onClick.AddListener(() => RefPreviousButton(true));
+                }
+                else
+                {
+                    TheButton.onClick.AddListener(()=>RefPreviousButton(false));
+                }
+                
             }
         }
         public void SetupFinishButton(UIDialogueBase dialogueBase = null)
@@ -76,18 +102,40 @@ namespace FuzzPhyte.Dialogue
             }
         }
         #endregion
-        private void RefNextButton()
+        private void RefNextButton(bool useGraph=false)
         {
             if(dialogueDataBase != null)
             {
                 dialogueDataBase.NextButtonAction();
+                if (useGraph)
+                {
+                    TheButton.interactable = false;
+                    if (dialogueDataBase != null)
+                    {
+                        if (dialogueDataBase.PreviousButton != null)
+                        {
+                            dialogueDataBase.PreviousButton.TheButton.interactable = false;
+                        }
+                    }
+                }
             }
         }
-        private void RefPreviousButton()
+        private void RefPreviousButton(bool useGraph = false)
         {
             if(dialogueDataBase != null)
             {
                 dialogueDataBase.PreviousButtonAction();
+                if (useGraph)
+                {
+                    TheButton.interactable = false;
+                    if (dialogueDataBase != null)
+                    {
+                        if (dialogueDataBase.NextButton != null)
+                        {
+                            dialogueDataBase.NextButton.TheButton.interactable = false;
+                        }
+                    }
+                }
             }
         }
         private void RefFinishButton()
