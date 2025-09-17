@@ -6,7 +6,8 @@
         "com.fuzzphyte.utility.edu",
         "com.fuzzphyte.utility",
         "Unity.TextMeshPro",
-        "Unity.Timeline"
+        "Unity.Timeline",
+        "com.fuzzphyte.utility.animation"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -139,7 +139,6 @@ namespace FuzzPhyte.Dialogue
                             Debug.Log($"Game Time: {Time.time}");
                             StartCoroutine(AutoNextNode(charDelay + PaddingTimeBetweenNodes*2));
                         }
-                        
                     }
                     else
                     {

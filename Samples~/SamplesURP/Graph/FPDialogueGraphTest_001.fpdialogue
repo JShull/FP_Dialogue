@@ -732,7 +732,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: cf7363ac1cfc56b64991e56f347e62b6
         m_Version: 2
-        m_Position: {x: 1082.2811, y: 338.4604}
+        m_Position: {x: 892.71594, y: 346.46042}
         m_Title: SetFPTalkNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -900,7 +900,7 @@ MonoBehaviour:
     - rid: 567766155871912072
       type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 0}
+        m_Value: {fileID: 7400000, guid: 9b9345a0ceba6864783838b916bca66d, type: 2}
     - rid: 567766155871912073
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -2559,6 +2559,7 @@ MonoBehaviour:
           - FPCharacter
           - GetDataFile
           - GameObjectID
+          - BlendShape
           m_ValueList:
           - rid: 8866445333055668625
           - rid: 8866445333055668626
@@ -2571,6 +2572,7 @@ MonoBehaviour:
           - rid: 8866445378024374369
           - rid: 8866445378024374392
           - rid: 8866445491199279363
+          - rid: 8866445654827728975
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -2579,7 +2581,7 @@ MonoBehaviour:
           expandedPortsById:
             m_KeyList: []
             m_ValueList: 
-        m_Collapsed: 0
+        m_Collapsed: 1
         m_CurrentModeIndex: 0
         m_ElementColor:
           m_Color: {r: 1, g: 0.9535115, b: 0.3726415, a: 1}
@@ -2825,7 +2827,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 677ab685027a821b2c61fc949469ca2b
         m_Version: 2
-        m_Position: {x: 131.24661, y: 303.68185}
+        m_Position: {x: 148.33354, y: 270.68185}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -2924,7 +2926,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 9e26ab39b0d228774ae0763c26484292
         m_Version: 2
-        m_Position: {x: 131.03366, y: 413.02768}
+        m_Position: {x: 157.36407, y: 511.48297}
         m_Title: SetFPTalkNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -3102,7 +3104,7 @@ MonoBehaviour:
           expandedPortsById:
             m_KeyList: []
             m_ValueList: 
-        m_Collapsed: 1
+        m_Collapsed: 0
         m_CurrentModeIndex: 0
         m_ElementColor:
           m_Color: {r: 0, g: 0, b: 0, a: 0}
@@ -3216,6 +3218,7 @@ MonoBehaviour:
           - FPCharacter
           - GetDataFile
           - GameObjectID
+          - BlendShape
           m_ValueList:
           - rid: 8866445335692574854
           - rid: 8866445335692574855
@@ -3228,6 +3231,7 @@ MonoBehaviour:
           - rid: 8866445378024374370
           - rid: 8866445378024374393
           - rid: 8866445491199279365
+          - rid: 8866445654827728976
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -3370,7 +3374,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 7e8bcdad25fd5e73606eb05ede849854
         m_Version: 2
-        m_Position: {x: 376.23117, y: 1090.988}
+        m_Position: {x: 381.23117, y: 1083.0967}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -5319,7 +5323,7 @@ MonoBehaviour:
     - rid: 8866445357963280463
       type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 7400000, guid: 537c2f030586c484ca6449abf50d1d42, type: 2}
+        m_Value: {fileID: 7400000, guid: 440eff79ca4fd3446935e3d639cbf618, type: 2}
     - rid: 8866445357963280464
       type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -5992,7 +5996,7 @@ MonoBehaviour:
     - rid: 8866445491199279363
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: JohnTest
+        m_Value: characterAnnaTest_Graph
     - rid: 8866445491199279364
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -6222,3 +6226,11 @@ MonoBehaviour:
       data:
         m_Value:
           name: 
+    - rid: 8866445654827728975
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: AnnaBlend_head
+    - rid: 8866445654827728976
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 

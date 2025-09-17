@@ -159,6 +159,7 @@ namespace FuzzPhyte.Dialogue
         [Space]
         [Header("Characte Node Details")]
         public string characterName;
+       
         public string outNodeIndex;
         public FP_Character characterData;
         public FP_Gender gender;
@@ -167,11 +168,13 @@ namespace FuzzPhyte.Dialogue
         public FP_Language secondLang;
         public FP_Language thirdLang;
         public int age;
-        public string characterSkinMeshRendererID;
+        public string characterObjectName;
+        [Tooltip("Facial Animation Related")]
+        public string characterBlendShapeName;
         public FP_Theme characterTheme;
       
         
-        public RTCharacterNode(string index, string outNode,FP_Character dataFile, string characterSkin, FP_Theme charTheme, bool replaceLocalData = true):base(index)
+        public RTCharacterNode(string index, string outNode,FP_Character dataFile, string characterObject,  FP_Theme charTheme, string characterBlendObject="",bool replaceLocalData = true):base(index)
         {
             NodeType = "RTCharacterNode";
             if (replaceLocalData)
@@ -184,12 +187,13 @@ namespace FuzzPhyte.Dialogue
                 this.thirdLang = dataFile.CharacterLanguages.Tertiary;
                 this.age = dataFile.CharacterAge;
             }
+            this.characterBlendShapeName = characterBlendObject;
             this.outNodeIndex = outNode;
-            this.characterSkinMeshRendererID = characterSkin;
+            this.characterObjectName = characterObject;
             this.characterTheme = charTheme;
             this.characterData = dataFile;
         }
-        public RTCharacterNode(string index, string outNode,string name, FP_Gender gender, FP_Ethnicity ethnicity, FP_Language firstLang, FP_Language secondLang, FP_Language thirdLang, int age, string characterSkinMeshRenderer, FP_Theme characterTheme):base(index)
+        public RTCharacterNode(string index, string outNode,string name, FP_Gender gender, FP_Ethnicity ethnicity, FP_Language firstLang, FP_Language secondLang, FP_Language thirdLang, int age, string characterObject, FP_Theme characterTheme, string characterBlendObject = "") :base(index)
         {
             NodeType = "RTCharacterNode";
             this.outNodeIndex= outNode;
@@ -200,7 +204,8 @@ namespace FuzzPhyte.Dialogue
             this.secondLang = secondLang;
             this.thirdLang = thirdLang;
             this.age = age;
-            this.characterSkinMeshRendererID = characterSkinMeshRenderer;
+            this.characterObjectName = characterObject;
+            this.characterBlendShapeName = characterBlendObject;
             this.characterTheme = characterTheme;
         }
     }

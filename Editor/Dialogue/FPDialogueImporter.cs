@@ -647,6 +647,7 @@ namespace FuzzPhyte.Dialogue.Editor
             int age = -10;
             GameObject characterMeshR = null;
             string characterMeshIndex = string.Empty;
+            string characterBlendObjectName = string.Empty;
             FP_Theme characterTheme = null;
             string nodeIndex = nodeData.Name;
            
@@ -672,25 +673,17 @@ namespace FuzzPhyte.Dialogue.Editor
                 //Debug.Log($"Node Option Index: [{i}] has a name of: {nodeOptionIndex.name}");
             }
             var nodeOption = nodeData.GetNodeOptionByName(FPDialogueGraphValidation.GAMEOBJECT_ID);
+            var blendOption = nodeData.GetNodeOptionByName(FPDialogueGraphValidation.GAMEOBJECT_BLENDSHAPE);
             //NODE OPTION with binder
             var resolver = FindAnyObjectByType<RTExposedBinder>();
             if (nodeOption != null)
             {
                 nodeOption.TryGetValue<string>(out characterMeshIndex);
-                /*
-                    (characterMeshR, characterMeshIndex) = ResolveObject(nodeOption, resolver);
-                //this still ends up null
-                if (characterMeshR != null)
-                {
-                    //Debug.LogWarning($"IT WORKED!!! {characterMeshR.name}");
-                }
-                else
-                {
-                    Debug.LogError($"Missing gameobject {nodeData.Name}!!!");
-                }
-                */
             }
-            
+            if (blendOption != null)
+            {
+                blendOption.TryGetValue<string>(out characterBlendObjectName);
+            }
 
             var characterThemePort = nodeData.GetInputPortByName(FPDialogueGraphValidation.ACTOR_THEME);//?.TryGetValue(out characterTheme);
             if (characterThemePort != null)
@@ -719,9 +712,10 @@ namespace FuzzPhyte.Dialogue.Editor
             {
                 if (useCharData && charData != null)
                 {
-                    return new RTCharacterNode(nodeIndex, connectingOutNode, charData, characterMeshIndex, characterTheme, useCharData);
+                    return new RTCharacterNode(nodeIndex, connectingOutNode, charData, characterMeshIndex, characterTheme, characterBlendObjectName,useCharData);
                 }
-                return new RTCharacterNode(nodeIndex, connectingOutNode, characterName, gender, eth, firstL, secondL, thirdL, age, characterMeshIndex, characterTheme);
+                return new RTCharacterNode(nodeIndex, connectingOutNode, characterName, gender, eth, firstL, secondL, thirdL, age, characterMeshIndex, characterTheme, characterBlendObjectName);
+
             }
         }
         static RTSinglePromptNode ReturnNewPromptNode(SetFPSinglePromptNode nodeData)

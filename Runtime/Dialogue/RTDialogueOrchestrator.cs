@@ -1,6 +1,7 @@
 namespace FuzzPhyte.Dialogue
 {
     using System;
+    using FuzzPhyte.Utility.Animation;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
@@ -272,6 +273,23 @@ namespace FuzzPhyte.Dialogue
                     activeNodeVisual.GetComponent<UIDialogueBase>().PlayDialogueBlock();
                 }
                 //setup data based on interface?
+            }
+            //if we have a blend shape? and facial animation to go with it?
+            if (nodeData.incomingCharacter.characterBlendShapeName != string.Empty)
+            {
+                //can we find it?
+                GameObject characterFace = null;
+                binder.TryGet<GameObject>(nodeData.incomingCharacter.characterBlendShapeName, out characterFace);
+                Debug.LogWarning($"Face Animation?!");
+                if (characterFace != null&&nodeData.mainDialogue.faceAnimation!=null) 
+                {
+                    Debug.LogWarning($"We found a face, and a clip!");
+                    //blend shape here?
+                    if (characterFace.GetComponent<FPAnimationInjector>())
+                    {
+                        characterFace.GetComponent<FPAnimationInjector>().PlayClip(nodeData.mainDialogue.faceAnimation);
+                    }
+                }
             }
             if (nodeData.useNames)
             {

@@ -54,6 +54,7 @@
         public const string ANIM_MOTION_STATE = "AnimationMotion";
         public const string ANIM_BLEND_FACE = "AnimationFace";
         public const string GAMEOBJECT_ID = "GameObjectID";
+        public const string GAMEOBJECT_BLENDSHAPE = "BlendShape";
         
         //User Choices - Response based (prompts as well)
         public const string USER_PROMPT_PORT = "PromptExecutionOut";

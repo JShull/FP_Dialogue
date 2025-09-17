@@ -20,8 +20,12 @@ namespace FuzzPhyte.Dialogue.Editor
                 .WithTooltip("If you want to override the local data with the file")
                 .WithDefaultValue(true);
             context.AddOption<string>(FPDialogueGraphValidation.GAMEOBJECT_ID)
-                .WithDisplayName("GameObject Binding Id")
+                .WithDisplayName("GameObject Binding Id:")
                 .WithDefaultValue(string.Empty);
+            context.AddOption<string>(FPDialogueGraphValidation.GAMEOBJECT_BLENDSHAPE)
+                .WithDisplayName("Blend Shape Id:")
+                .WithDefaultValue(string.Empty)
+                .Build();
         }
         public bool TryGetHeadBindingId(out string id) => TryGetOptionValue<string>(FPDialogueGraphValidation.GAMEOBJECT_ID, out id);
         /// <summary>
