@@ -1,0 +1,174 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 401e31f48307a40f492549f5960e92f0, type: 3}
+  m_Name: FPFaceMap_NewBlendShape
+  m_EditorClassIdentifier: 
+  UniqueID: FPFaceSample_01
+  BlendShapePrefix: blendShape1.
+  UseMaxValueRange: 1
+  BlendShapes:
+  - BlendFeatureIndex: 0
+    BlendFeatureValue: browDownLeft
+    BlendMaxValueRange: 90
+  - BlendFeatureIndex: 1
+    BlendFeatureValue: browDownRight
+    BlendMaxValueRange: 90
+  - BlendFeatureIndex: 2
+    BlendFeatureValue: browInnerUp
+    BlendMaxValueRange: 90
+  - BlendFeatureIndex: 3
+    BlendFeatureValue: browOuterUpLeft
+    BlendMaxValueRange: 90
+  - BlendFeatureIndex: 4
+    BlendFeatureValue: browOuterUpRight
+    BlendMaxValueRange: 90
+  - BlendFeatureIndex: 5
+    BlendFeatureValue: cheekPuff
+    BlendMaxValueRange: 90
+  - BlendFeatureIndex: 6
+    BlendFeatureValue: cheekSquintLeft
+    BlendMaxValueRange: 90
+  - BlendFeatureIndex: 7
+    BlendFeatureValue: cheekSquintRight
+    BlendMaxValueRange: 90
+  - BlendFeatureIndex: 8
+    BlendFeatureValue: eyeBlinkLeft
+    BlendMaxValueRange: 100
+  - BlendFeatureIndex: 9
+    BlendFeatureValue: eyeBlinkRight
+    BlendMaxValueRange: 100
+  - BlendFeatureIndex: 10
+    BlendFeatureValue: eyeLookDownLeft
+    BlendMaxValueRange: 100
+  - BlendFeatureIndex: 11
+    BlendFeatureValue: eyeLookDownRight
+    BlendMaxValueRange: 100
+  - BlendFeatureIndex: 12
+    BlendFeatureValue: eyeLookInLeft
+    BlendMaxValueRange: 100
+  - BlendFeatureIndex: 13
+    BlendFeatureValue: eyeLookInRight
+    BlendMaxValueRange: 100
+  - BlendFeatureIndex: 14
+    BlendFeatureValue: eyeLookOutLeft
+    BlendMaxValueRange: 100
+  - BlendFeatureIndex: 15
+    BlendFeatureValue: eyeLookOutRight
+    BlendMaxValueRange: 100
+  - BlendFeatureIndex: 16
+    BlendFeatureValue: eyeLookUpLeft
+    BlendMaxValueRange: 100
+  - BlendFeatureIndex: 17
+    BlendFeatureValue: eyeLookUpLeftRight
+    BlendMaxValueRange: 100
+  - BlendFeatureIndex: 18
+    BlendFeatureValue: eyeSquintLeft
+    BlendMaxValueRange: 100
+  - BlendFeatureIndex: 19
+    BlendFeatureValue: eyeSquintRight
+    BlendMaxValueRange: 100
+  - BlendFeatureIndex: 20
+    BlendFeatureValue: eyeWideLeft
+    BlendMaxValueRange: 100
+  - BlendFeatureIndex: 21
+    BlendFeatureValue: eyeWideRight
+    BlendMaxValueRange: 100
+  - BlendFeatureIndex: 22
+    BlendFeatureValue: jawForward
+    BlendMaxValueRange: 60
+  - BlendFeatureIndex: 23
+    BlendFeatureValue: jawLeft
+    BlendMaxValueRange: 60
+  - BlendFeatureIndex: 24
+    BlendFeatureValue: jawOpen
+    BlendMaxValueRange: 60
+  - BlendFeatureIndex: 25
+    BlendFeatureValue: jawRight
+    BlendMaxValueRange: 60
+  - BlendFeatureIndex: 26
+    BlendFeatureValue: mouthClose
+    BlendMaxValueRange: 100
+  - BlendFeatureIndex: 27
+    BlendFeatureValue: mouthDimpleLeft
+    BlendMaxValueRange: 90
+  - BlendFeatureIndex: 28
+    BlendFeatureValue: mouthDimpleRight
+    BlendMaxValueRange: 90
+  - BlendFeatureIndex: 29
+    BlendFeatureValue: mouthFrownLeft
+    BlendMaxValueRange: 80
+  - BlendFeatureIndex: 30
+    BlendFeatureValue: mouthFrownRight
+    BlendMaxValueRange: 80
+  - BlendFeatureIndex: 31
+    BlendFeatureValue: mouthFunnel
+    BlendMaxValueRange: 80
+  - BlendFeatureIndex: 32
+    BlendFeatureValue: mouthLeft
+    BlendMaxValueRange: 80
+  - BlendFeatureIndex: 33
+    BlendFeatureValue: mouthLowerDownLeft
+    BlendMaxValueRange: 15
+  - BlendFeatureIndex: 34
+    BlendFeatureValue: mouthLowerDownRight
+    BlendMaxValueRange: 15
+  - BlendFeatureIndex: 35
+    BlendFeatureValue: mouthPressLeft
+    BlendMaxValueRange: 80
+  - BlendFeatureIndex: 36
+    BlendFeatureValue: mouthPressRight
+    BlendMaxValueRange: 80
+  - BlendFeatureIndex: 37
+    BlendFeatureValue: mouthPucker
+    BlendMaxValueRange: 50
+  - BlendFeatureIndex: 38
+    BlendFeatureValue: mouthRight
+    BlendMaxValueRange: 60
+  - BlendFeatureIndex: 39
+    BlendFeatureValue: mouthRollLower
+    BlendMaxValueRange: 60
+  - BlendFeatureIndex: 40
+    BlendFeatureValue: mouthRollUpper
+    BlendMaxValueRange: 60
+  - BlendFeatureIndex: 41
+    BlendFeatureValue: mouthShrugLower
+    BlendMaxValueRange: 60
+  - BlendFeatureIndex: 42
+    BlendFeatureValue: mouthShrugUpper
+    BlendMaxValueRange: 60
+  - BlendFeatureIndex: 43
+    BlendFeatureValue: mouthSmileLeft
+    BlendMaxValueRange: 50
+  - BlendFeatureIndex: 44
+    BlendFeatureValue: mouthSmileRight
+    BlendMaxValueRange: 50
+  - BlendFeatureIndex: 45
+    BlendFeatureValue: mouthStretchLeft
+    BlendMaxValueRange: 50
+  - BlendFeatureIndex: 46
+    BlendFeatureValue: mouthStretchRight
+    BlendMaxValueRange: 50
+  - BlendFeatureIndex: 47
+    BlendFeatureValue: mouthUpperUpLeft
+    BlendMaxValueRange: 30
+  - BlendFeatureIndex: 48
+    BlendFeatureValue: mouthUpperUpRight
+    BlendMaxValueRange: 30
+  - BlendFeatureIndex: 49
+    BlendFeatureValue: noseSneerLeft
+    BlendMaxValueRange: 70
+  - BlendFeatureIndex: 50
+    BlendFeatureValue: noseSneerRight
+    BlendMaxValueRange: 70
+  - BlendFeatureIndex: 51
+    BlendFeatureValue: tongueOut
+    BlendMaxValueRange: 50

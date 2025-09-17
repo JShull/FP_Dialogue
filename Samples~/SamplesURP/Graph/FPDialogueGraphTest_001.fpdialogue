@@ -5119,7 +5119,7 @@ MonoBehaviour:
     - rid: 8866445335692575320
       type: {class: 'Constant`1[[UnityEngine.Timeline.TimelineAsset, Unity.Timeline]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 11400000, guid: c5b26c3e42f51254988613f08dac38d0, type: 2}
+        m_Value: {fileID: 0}
     - rid: 8866445335692575323
       type: {class: VariableDeclarationModel, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
