@@ -645,7 +645,6 @@ namespace FuzzPhyte.Dialogue.Editor
             bool useCharData = false;
             FP_Character charData = null;
             int age = -10;
-            GameObject characterMeshR = null;
             string characterMeshIndex = string.Empty;
             string characterBlendObjectName = string.Empty;
             FP_Theme characterTheme = null;
