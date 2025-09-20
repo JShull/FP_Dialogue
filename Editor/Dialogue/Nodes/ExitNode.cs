@@ -11,7 +11,13 @@ namespace FuzzPhyte.Dialogue.Editor
         {
             this.name = passedName;
         }
-
+        protected override void OnDefineOptions(IOptionDefinitionContext context)
+        {
+            context.AddOption<string>(FPDialogueGraphValidation.GAMEOBJECT_ID)
+                .WithTooltip("Ref obj should have an Playable Director On it")
+                .WithDisplayName("Playable Director Ref:")
+                .WithDefaultValue(string.Empty);
+        }
         protected override void OnDefinePorts(IPortDefinitionContext ports)
         {
             ports.AddInputPort(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME)

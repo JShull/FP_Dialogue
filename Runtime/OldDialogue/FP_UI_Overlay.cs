@@ -296,7 +296,8 @@ namespace FuzzPhyte.Dialogue.UI
             DialogueProgressBarContainer.style.backgroundColor = _currentDialogue.Character.CharacterTheme.SecondaryColor;
             DialogueProgressBarContainer.style.unityBackgroundImageTintColor = _currentDialogue.Character.CharacterTheme.MainColor;
             DialogueProgressValueContainer.style.backgroundColor = _currentDialogue.Character.CharacterTheme.MainColor;
-            UpdateDialogueProgressBar(_dialogueIndex);
+            UIProgressBar(_dialogueIndex, _currentDialogue.ConversationData.Count);
+            //UpdateDialogueProgressBar(_dialogueIndex);
 
             //setup our nested group messages
             for (int i = 0; i < _currentDialogue.ConversationData.Count; i++)
@@ -469,7 +470,8 @@ namespace FuzzPhyte.Dialogue.UI
                     _dialogueRunningTimer = 0;
                     _dialogueTimer = _currentDialogue.ConversationData[_dialogueIndex].OverlayDuration;
                 }
-                UpdateDialogueProgressBar(_dialogueIndex);
+                //UpdateDialogueProgressBar(_dialogueIndex);
+                UIProgressBar(_dialogueIndex, _currentDialogue.ConversationData.Count);
                 DialogueNextButtonEvent?.Invoke(_currentDialogue.ConversationData[_dialogueIndex]);
             }
             else
@@ -556,7 +558,8 @@ namespace FuzzPhyte.Dialogue.UI
                 AddNewStyleToVisualElement(OverlayDialoguePreviousButton.Q<VisualElement>(), FlexHideClass);
             }
             //progress bar
-            UpdateDialogueProgressBar(_dialogueIndex);
+            UIProgressBar(_dialogueIndex, _currentDialogue.ConversationData.Count);
+            //UpdateDialogueProgressBar(_dialogueIndex);
         }
 
         public void AddNewOverlayData(FP_OverlayNotification overlayDetails)

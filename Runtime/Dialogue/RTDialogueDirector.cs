@@ -93,6 +93,7 @@ namespace FuzzPhyte.Dialogue
                 }
             }
             ProgressionPath.Clear();
+            DebugStack("Clear: ");
             eventHandler.RaiseDialogueSetup();
             if (currentNode != null)
             {
@@ -108,6 +109,7 @@ namespace FuzzPhyte.Dialogue
         
         protected void AdvanceUntilInteractive()
         {
+            DebugStack("111: Advance: ");
             while (currentNode != null)
             {
                 if (!executors.TryGetValue(currentNode.GetType(), out var executor))
@@ -118,6 +120,7 @@ namespace FuzzPhyte.Dialogue
                 // If we hit an interactive node, STOP (do not Execute here).
                 //push current node on the stack
                 ProgressionPath.Push(currentNode.Index);
+                DebugStack("122: Advance, add current : ");
                 if (currentNode is RTDialogueNode dialogueNode )
                 {
                     var previousNode = FirstPrevious(currentNode);
@@ -210,19 +213,22 @@ namespace FuzzPhyte.Dialogue
         /// </summary>
         protected void PreviousUntilInteractive()
         {
+           
             if (currentNode == null)
             {
                 Debug.LogWarning($"Current node is null; cannot go to previous.");
                 return;
             }
-
+            DebugStack("222, previous: ");
             var previousNode = FirstPrevious(currentNode);
             string currentIndex = string.Empty;
+            /*
             if (previousNode != null && ProgressionPath.Count > 0)
             {
                 currentIndex = ProgressionPath.Pop(); //removes current node
+                DebugStack("228, previous after pop: ");
             }
-
+            */
             while (previousNode != null)
             {
                 if (!executors.TryGetValue(previousNode.GetType(), out var executor))
@@ -234,11 +240,15 @@ namespace FuzzPhyte.Dialogue
                 {
                     //removes it
                     ProgressionPath.Pop();
+                    DebugStack("242, previous after while pop: ");
                     //update cache currentNode
                     currentNode = previousNode;
                     //update actual real previous node
                     previousNode = FirstPrevious(currentNode);
                     var nextNode = FirstNext(currentNode);
+
+                    //ProgressionPath.Push(currentIndex); //put current back on the stack
+                    //DebugStack($"249, previous put back on stack. ({currentIndex}): ");
                     eventHandler.RaiseDialoguePrevious(previousNode, dialoguePrevious,nextNode,PaddingTimeBetweenNodes);
                     //check for auto next step
                     if (!dialoguePrevious.waitforUser)
@@ -262,9 +272,10 @@ namespace FuzzPhyte.Dialogue
                     {
                         //do nothing else as we are waiting for the user to press "next"
                     }
+                   
                     return;
                 }
-                if(previousNode is RTResponseNode responsePrevious)
+                if (previousNode is RTResponseNode responsePrevious)
                 {
                     //remove it
                     ProgressionPath.Pop();
@@ -273,31 +284,44 @@ namespace FuzzPhyte.Dialogue
                     //update actual real previous node
                     previousNode = FirstPrevious(currentNode);
                     var nextNode = FirstNext(currentNode);
+                    //ProgressionPath.Push(currentIndex); //put current back on the stack
+                    DebugStack("287, previous put back on stack: ");
                     eventHandler.RaiseResponsePrevious(previousNode, responsePrevious,nextNode,PaddingTimeBetweenNodes);
                     return;
                 }
                 if (previousNode is RTEntryNode)
                 {
                     Debug.LogWarning($"Reached Entry node; cannot go previous.");
-                    ProgressionPath.Push(currentIndex); //put current back on the stack
+                    //ProgressionPath.Push(currentIndex); //put current back on the stack
                     return;
                 }
                 if (previousNode is RTOnewayNode oneWay)
                 {
                     Debug.LogWarning($"Cannot go previous past Oneway # {oneWay.Index} node.");
-                    ProgressionPath.Push(currentIndex); //put current back on the stack
+                    //ProgressionPath.Push(currentIndex); //put current back on the stack
                     return;
                 }
                 if (previousNode is RTCombineNode combineNode)
                 {
                     // we pop this and then continue to pop until we find a dialogue or response node
-                    ProgressionPath.Pop(); //removes combined node
+                    //ProgressionPath.Pop(); //removes combined node
                     if (ProgressionPath.Count > 0)
                     {
-                        previousNode = FindByIndexString(ProgressionPath.Pop());
+                        currentIndex = ProgressionPath.Pop();
+                        previousNode = FindByIndexString(currentIndex);
                     }
                 }
             }
+        }
+        protected void DebugStack(string notes)
+        {
+            string stackSetup = string.Empty;
+            stackSetup += notes;
+            foreach(var stackItem in ProgressionPath)
+            {
+                stackSetup += stackItem.ToString();
+            }
+            //Debug.LogWarning($"Stack: {stackSetup}");
         }
         /// <summary>
         /// Prefer NextNodeIndices. If empty, fall back to first connected out port target by Index string.

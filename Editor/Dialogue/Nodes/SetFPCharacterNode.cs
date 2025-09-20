@@ -20,10 +20,12 @@ namespace FuzzPhyte.Dialogue.Editor
                 .WithTooltip("If you want to override the local data with the file")
                 .WithDefaultValue(true);
             context.AddOption<string>(FPDialogueGraphValidation.GAMEOBJECT_ID)
-                .WithDisplayName("GameObject Binding Id:")
+                .WithTooltip("Ref obj needs an animator component")
+                .WithDisplayName("Body Animator/Binding Id:")
                 .WithDefaultValue(string.Empty);
             context.AddOption<string>(FPDialogueGraphValidation.GAMEOBJECT_BLENDSHAPE)
-                .WithDisplayName("Blend Shape Id:")
+                .WithTooltip("Ref obj needs to be a face/blendshape setup")
+                .WithDisplayName("Body Animator/BlendShape Id:")
                 .WithDefaultValue(string.Empty)
                 .Build();
         }

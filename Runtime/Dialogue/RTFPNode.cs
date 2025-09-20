@@ -95,6 +95,7 @@ namespace FuzzPhyte.Dialogue
         [Header("Exit Node Details")]
         public RTTimelineDetails outgoingTimelineDetails;
         public TimelineAsset timelineAsset;
+        public string PlayableDirectorRef;
 
         public RTExitNode(string index,RTFPNodePort inIndexNode) : base(index)
         {
@@ -299,6 +300,9 @@ namespace FuzzPhyte.Dialogue
         public bool waitforUser;//drives a UI prompt box for next/previous/repeat
         public string YesGameObjectSceneName;
         public string NoGameObjectSceneName;
+        public EmotionalState GeneralEmotionState;
+        public DialogueState GeneralDialogueState;
+        public MotionState GeneralMotionState;
         // world location for general dialogue to spawn
         public string WorldLocationSceneName;
         public bool usePrefabs;
@@ -374,17 +378,19 @@ namespace FuzzPhyte.Dialogue
         public string dialogueText;  
         public AudioClip textAudio;
         public AnimationClip faceAnimation;
+        public AnimationClip bodyAnimation;
         public bool hasAudio;
         public bool hasAnimation;
+        public bool hasBodyAnimation;
         
         public bool HasAudio { get { return hasAudio; } }
         public bool HasAnimation { get { return hasAnimation; } }
 
-        public RTTalkNode(string index, RTFPNodePort outIndex, FP_Language theLanguage, string headText, string convoText, AudioClip textAudio = null, AnimationClip faceAnimation = null):base(index)
+        public RTTalkNode(string index, RTFPNodePort outIndex, FP_Language theLanguage, string headText, string convoText, AudioClip textAudio = null, AnimationClip faceAnimation = null, AnimationClip bodyAnimation = null) : base(index)
         {
             NodeType = "RTTalkNode";
             this.outNodeIndices = new RTFPNodePort[1];
-            this.outNodeIndices[0]= outIndex;
+            this.outNodeIndices[0] = outIndex;
             this.language = theLanguage;
             this.headerText = headText;
             this.dialogueText = convoText;
@@ -397,15 +403,25 @@ namespace FuzzPhyte.Dialogue
                 this.textAudio = textAudio;
                 hasAudio = true;
             }
-            if (faceAnimation==null)
+            if (faceAnimation == null)
             {
                 hasAnimation = false;
             }
             else
             {
-                hasAnimation= true;
+                hasAnimation = true;
                 this.faceAnimation = faceAnimation;
             }
+            if(bodyAnimation == null)
+            {
+                hasBodyAnimation = false;
+            }
+            else
+            {
+                hasBodyAnimation = true;
+                this.bodyAnimation = bodyAnimation;
+            }
+                
         }
     }
     #endregion

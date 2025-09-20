@@ -5,6 +5,7 @@ namespace FuzzPhyte.Dialogue
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.Playables;
 
     /// <summary>
     /// our glue to the dialogue graph dialogue system
@@ -201,6 +202,11 @@ namespace FuzzPhyte.Dialogue
                         if (mediator.EvaluateExitNode(data.ExitNode))
                         {
                             Debug.Log($"Exit Node!");
+                            if (data.ExitNode.PlayableDirectorRef != string.Empty)
+                            {
+                                //try to find it
+                                SetupTimelineExit(data.ExitNode);
+                            }
                             if (activeNodeVisual != null)
                             {
                                 ClearActiveVisual();
@@ -235,6 +241,18 @@ namespace FuzzPhyte.Dialogue
         }
 
         #region Unity Visuals
+        protected void SetupTimelineExit(RTExitNode nodeData)
+        {
+            GameObject timelineOBJ = null;
+            binder.TryGet<GameObject>(nodeData.PlayableDirectorRef, out timelineOBJ);
+            if (timelineOBJ!=null)
+            {
+                if (timelineOBJ.GetComponent<PlayableDirector>())
+                {
+                    timelineOBJ.GetComponent<PlayableDirector>().Play();
+                }
+            }
+        }
         protected void DrawDialogueVisual(RTDialogueNode nodeData, RTFPNode previousNode = null, RTFPNode nextNode = null, float delayTime=1.5f)
         {
             Transform spawnLoc = this.DefaultDialoguePosition;
@@ -275,19 +293,33 @@ namespace FuzzPhyte.Dialogue
                 //setup data based on interface?
             }
             //if we have a blend shape? and facial animation to go with it?
-            if (nodeData.incomingCharacter.characterBlendShapeName != string.Empty)
+            if (nodeData.incomingCharacter.characterBlendShapeName != string.Empty && nodeData.mainDialogue.faceAnimation!=null)
             {
                 //can we find it?
                 GameObject characterFace = null;
                 binder.TryGet<GameObject>(nodeData.incomingCharacter.characterBlendShapeName, out characterFace);
-                Debug.LogWarning($"Face Animation?!");
+                //Debug.LogWarning($"Face Animation?!");
                 if (characterFace != null&&nodeData.mainDialogue.faceAnimation!=null) 
                 {
-                    Debug.LogWarning($"We found a face, and a clip!");
+                    //Debug.LogWarning($"We found a face, and a clip!");
                     //blend shape here?
                     if (characterFace.GetComponent<FPAnimationInjector>())
                     {
                         characterFace.GetComponent<FPAnimationInjector>().PlayClip(nodeData.mainDialogue.faceAnimation);
+                    }
+                }
+            }
+            if (nodeData.incomingCharacter.characterObjectName != string.Empty&&nodeData.mainDialogue.bodyAnimation!=null)
+            {
+                GameObject characterBody = null;
+                binder.TryGet<GameObject>(nodeData.incomingCharacter.characterObjectName, out characterBody);
+                //Debug.LogWarning($"Body Animation?");
+                if (characterBody != null)
+                {
+                    //Debug.LogWarning($"We found a body, and there's a clip");
+                    if (characterBody.GetComponent<FPAnimationInjector>())
+                    {
+                        characterBody.GetComponent<FPAnimationInjector>().PlayClip(nodeData.mainDialogue.bodyAnimation);
                     }
                 }
             }

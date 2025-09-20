@@ -236,7 +236,7 @@ namespace FuzzPhyte.Dialogue.Editor
                 case ExitNode exitNode:
                     TimelineAsset tAssetOut = null;
                     RTTimelineDetails tAssetDetailsOut = null;
-                    
+                    string playableAssetName = string.Empty;
                     var incomingPort = exitNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
                     if (incomingPort==null)
                     {
@@ -248,6 +248,11 @@ namespace FuzzPhyte.Dialogue.Editor
                         var otherNodes = ReturnNodePortDetails(incomingPort,FPPortType.INPort);
                         var timelinePort = exitNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_TIMELINE);
                         var timelinePortDetails = exitNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_TIMELINEDETAILS);
+                        var nodeOptionName = exitNode.GetNodeOptionByName(FPDialogueGraphValidation.GAMEOBJECT_ID);
+                        if (nodeOptionName != null)
+                        {
+                            nodeOptionName.TryGetValue<string>(out playableAssetName);
+                        }
                         if (timelinePort != null)
                         {
                             tAssetOut = GetPortValue<TimelineAsset>(timelinePort);
@@ -261,6 +266,7 @@ namespace FuzzPhyte.Dialogue.Editor
                         {
                             //use details
                             var RTexitNode = new RTExitNode(exitNode.Name, otherNodes);
+                            RTexitNode.PlayableDirectorRef = playableAssetName;
                             RTexitNode.outgoingTimelineDetails = tAssetDetailsOut;
                             createdNodes.Add(RTexitNode);
                         }
@@ -268,6 +274,7 @@ namespace FuzzPhyte.Dialogue.Editor
                         {
                             //use timeline directly
                             var RTexitNode = new RTExitNode(exitNode.Name, otherNodes);
+                            RTexitNode.PlayableDirectorRef = playableAssetName;
                             RTexitNode.timelineAsset = tAssetOut;
                             createdNodes.Add(RTexitNode);
                         }
@@ -275,6 +282,7 @@ namespace FuzzPhyte.Dialogue.Editor
                         {
                             Debug.LogWarning($"No Timeline files found - tAsset is null");
                             var RTexitNode = new RTExitNode(exitNode.Name, otherNodes);
+                            RTexitNode.PlayableDirectorRef = playableAssetName;
                             createdNodes.Add(RTexitNode);
                         }
                         return createdNodes;
@@ -296,7 +304,6 @@ namespace FuzzPhyte.Dialogue.Editor
                     RTFPNodePort nodeOne = new RTFPNodePort();
                     RTFPNodePort nodeTwo = new RTFPNodePort();
                     RTFPNodePort nodeOut = new RTFPNodePort();
-                    //List<string> nodeOut = new();
                     if (outPort != null)
                     {
                         nodeOut = ReturnNodePortDetails(outPort, FPPortType.OUTPort);
@@ -309,11 +316,6 @@ namespace FuzzPhyte.Dialogue.Editor
                         {
                             //
                             nodeOne = ReturnNodePortDetails(portOne, FPPortType.INPort);
-                            //
-                            //nodeOne = GetFirstNodeNameByPort(portOne);
-                            //List<IPort> allIncomePortsOnPortOne = new List<IPort>();
-                            //portOne.GetConnectedPorts(allIncomePortsOnPortOne);
-                            //string portNames = string.Empty;
                             
                         }
                         if (portTwo != null)
@@ -599,6 +601,9 @@ namespace FuzzPhyte.Dialogue.Editor
                             yesGameObjectRefPort.TryGetValue(out yesRef);
                             noGameObjectRefPort.TryGetValue(out noRef);
                             var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, yesRef, noRef,worldDialogueSpawnLocation,useWorldLoc, autoScroll, rtCharacterNodeOut, talkRTTransNode);
+                            RTdialogueNode.GeneralDialogueState = dialogueState;
+                            RTdialogueNode.GeneralMotionState = motionState;
+                            RTdialogueNode.GeneralEmotionState = animState;
                             createdNodes.Add(RTdialogueNode);
                         }
                         else
@@ -615,17 +620,22 @@ namespace FuzzPhyte.Dialogue.Editor
                             yesGameObjectNamePort.TryGetValue<string>(out string yesGOName);
                             noGameObjectNamePort.TryGetValue<string>(out string noGOName);
                             var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, yesGOName, noGOName, worldDialogueSpawnLocation,useWorldLoc,autoScroll, rtCharacterNodeOut, talkRTTransNode);
+                            RTdialogueNode.GeneralDialogueState = dialogueState;
+                            RTdialogueNode.GeneralMotionState = motionState;
+                            RTdialogueNode.GeneralEmotionState = animState;
                             createdNodes.Add(RTdialogueNode);
                         }
                         else
                         {
                             Debug.LogError($"Somethings wrong with the Yes/no string ports");
                         }
-
                     }
                     else
                     {
                         var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, worldDialogueSpawnLocation,useWorldLoc,autoScroll, rtCharacterNodeOut, talkRTTransNode);
+                        RTdialogueNode.GeneralDialogueState = dialogueState;
+                        RTdialogueNode.GeneralMotionState = motionState;
+                        RTdialogueNode.GeneralEmotionState = animState;
                         createdNodes.Add(RTdialogueNode);
                     }
                         
@@ -755,18 +765,6 @@ namespace FuzzPhyte.Dialogue.Editor
             if (nodeOption != null)
             {
                 nodeOption.TryGetValue<string>(out locationObjectIndex);
-                /*
-                (locationObject, locationObjectIndex) = ResolveObject(nodeOption, resolver);
-                //this still ends up null
-                if (locationObject != null)
-                {
-                    //Debug.LogWarning($"IT WORKED!!! {locationObject.name}");
-                }
-                else
-                {
-                    Debug.LogError($"Missing GameObject: {nodeData.Name}!!!");
-                }
-                */
             }
 
             
@@ -793,7 +791,7 @@ namespace FuzzPhyte.Dialogue.Editor
             {
                 Debug.LogError($"Failed New Prompt Node");
             }
-                return aNewReturnNode;
+            return aNewReturnNode;
         }
         static RTTalkNode ReturnNewTalkNode(SetFPTalkNode nodeData)
         {
@@ -802,6 +800,7 @@ namespace FuzzPhyte.Dialogue.Editor
             string text = string.Empty;
             AudioClip textClip = null;
             AnimationClip animClip = null;
+            AnimationClip bodyAnimClip = null;
             RTFPNodePort outputNode = new RTFPNodePort();
             
             nodeData.GetInputPortByName(FPDialogueGraphValidation.LANG_NAME)?.TryGetValue(out nodeLanguage);
@@ -809,6 +808,7 @@ namespace FuzzPhyte.Dialogue.Editor
             nodeData.GetInputPortByName(FPDialogueGraphValidation.DIALOGUE)?.TryGetValue(out text);
             nodeData.GetInputPortByName(FPDialogueGraphValidation.DIALOGUE_AUDIO_NAME)?.TryGetValue(out textClip);
             nodeData.GetInputPortByName(FPDialogueGraphValidation.ANIM_BLEND_FACE)?.TryGetValue(out animClip);
+            nodeData.GetInputPortByName(FPDialogueGraphValidation.ANIM_BLEND_BODY)?.TryGetValue(out bodyAnimClip);
             var talkOutputPort = nodeData.GetOutputPortByName(FPDialogueGraphValidation.MAIN_TEXT);
             if (talkOutputPort != null)
             {
@@ -819,7 +819,7 @@ namespace FuzzPhyte.Dialogue.Editor
                 }
             }
             
-            return new RTTalkNode(nodeData.Name, outputNode, nodeLanguage, header, text, textClip, animClip);
+            return new RTTalkNode(nodeData.Name, outputNode, nodeLanguage, header, text, textClip, animClip,bodyAnimClip);
         }
         /// <summary>
         /// Pass a port, return a value

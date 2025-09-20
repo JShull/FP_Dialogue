@@ -204,7 +204,7 @@ MonoBehaviour:
     - rid: 567765965576077575
       type: {class: 'Constant`1[[FuzzPhyte.Dialogue.RTTimelineDetails, com.fuzzphyte.dialogue]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 0}
+        m_Value: {fileID: 11400000, guid: 09284fc23ff3a1f42a1c5c3ba7853958, type: 2}
     - rid: 567765965576077747
       type: {class: WireModel, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -701,12 +701,14 @@ MonoBehaviour:
           - DialogueAudio
           - AnimationFace
           - HeaderText
+          - AnimationBody
           m_ValueList:
           - rid: 567766155871912063
           - rid: 567766155871912064
           - rid: 567766155871912065
           - rid: 567766155871912066
           - rid: 567766155871912067
+          - rid: 8866445743164227673
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -745,12 +747,14 @@ MonoBehaviour:
           - DialogueAudio
           - AnimationFace
           - HeaderText
+          - AnimationBody
           m_ValueList:
           - rid: 567766155871912069
           - rid: 567766155871912070
           - rid: 567766155871912071
           - rid: 567766155871912072
           - rid: 567766155871912073
+          - rid: 8866445743164227674
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -2581,7 +2585,7 @@ MonoBehaviour:
           expandedPortsById:
             m_KeyList: []
             m_ValueList: 
-        m_Collapsed: 1
+        m_Collapsed: 0
         m_CurrentModeIndex: 0
         m_ElementColor:
           m_Color: {r: 1, g: 0.9535115, b: 0.3726415, a: 1}
@@ -2628,7 +2632,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: e6228951c7d2076851f06a93434b986e
         m_Version: 2
-        m_Position: {x: 451.3531, y: 199.27983}
+        m_Position: {x: 445.6031, y: 199.27983}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -2840,12 +2844,14 @@ MonoBehaviour:
           - DialogueAudio
           - AnimationFace
           - HeaderText
+          - AnimationBody
           m_ValueList:
           - rid: 8866445335692574809
           - rid: 8866445335692574811
           - rid: 8866445335692574812
           - rid: 8866445357963280463
           - rid: 8866445378024374398
+          - rid: 8866445743164227659
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -2939,12 +2945,14 @@ MonoBehaviour:
           - DialogueAudio
           - AnimationFace
           - HeaderText
+          - AnimationBody
           m_ValueList:
           - rid: 8866445335692574821
           - rid: 8866445335692574823
           - rid: 8866445335692574824
           - rid: 8866445357963280464
           - rid: 8866445378024374399
+          - rid: 8866445743164227660
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -3025,7 +3033,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 2524db2e12a93bf6ff8f8a190c324d96
         m_Version: 2
-        m_Position: {x: 1693.3655, y: 812.57465}
+        m_Position: {x: 1693.3655, y: 783.5746}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -3387,12 +3395,14 @@ MonoBehaviour:
           - DialogueAudio
           - AnimationFace
           - HeaderText
+          - AnimationBody
           m_ValueList:
           - rid: 8866445335692574882
           - rid: 8866445335692574884
           - rid: 8866445335692574885
           - rid: 8866445357963280465
           - rid: 8866445378024374400
+          - rid: 8866445743164227661
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -3486,12 +3496,14 @@ MonoBehaviour:
           - DialogueAudio
           - AnimationFace
           - HeaderText
+          - AnimationBody
           m_ValueList:
           - rid: 8866445335692574894
           - rid: 8866445335692574896
           - rid: 8866445335692574897
           - rid: 8866445357963280466
           - rid: 8866445378024374401
+          - rid: 8866445743164227662
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -3585,12 +3597,14 @@ MonoBehaviour:
           - DialogueAudio
           - AnimationFace
           - HeaderText
+          - AnimationBody
           m_ValueList:
           - rid: 8866445335692574922
           - rid: 8866445335692574924
           - rid: 8866445335692574925
           - rid: 8866445357963280467
           - rid: 8866445378024374402
+          - rid: 8866445743164227663
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -3629,12 +3643,14 @@ MonoBehaviour:
           - DialogueAudio
           - AnimationFace
           - HeaderText
+          - AnimationBody
           m_ValueList:
           - rid: 8866445335692574927
           - rid: 8866445335692574929
           - rid: 8866445335692574930
           - rid: 8866445357963280468
           - rid: 8866445378024374403
+          - rid: 8866445743164227664
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -3839,12 +3855,14 @@ MonoBehaviour:
           - DialogueAudio
           - AnimationFace
           - HeaderText
+          - AnimationBody
           m_ValueList:
           - rid: 8866445335692574960
           - rid: 8866445335692574962
           - rid: 8866445335692574963
           - rid: 8866445357963280469
           - rid: 8866445378024374404
+          - rid: 8866445743164227665
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -3883,12 +3901,14 @@ MonoBehaviour:
           - DialogueAudio
           - AnimationFace
           - HeaderText
+          - AnimationBody
           m_ValueList:
           - rid: 8866445335692574965
           - rid: 8866445335692574967
           - rid: 8866445335692574968
           - rid: 8866445357963280470
           - rid: 8866445378024374405
+          - rid: 8866445743164227666
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -4093,12 +4113,14 @@ MonoBehaviour:
           - DialogueAudio
           - AnimationFace
           - HeaderText
+          - AnimationBody
           m_ValueList:
           - rid: 8866445335692575070
           - rid: 8866445335692575072
           - rid: 8866445335692575073
           - rid: 8866445357963280471
           - rid: 8866445378024374406
+          - rid: 8866445743164227667
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -4137,12 +4159,14 @@ MonoBehaviour:
           - DialogueAudio
           - AnimationFace
           - HeaderText
+          - AnimationBody
           m_ValueList:
           - rid: 8866445335692575075
           - rid: 8866445335692575077
           - rid: 8866445335692575078
           - rid: 8866445357963280472
           - rid: 8866445378024374407
+          - rid: 8866445743164227668
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -4399,7 +4423,7 @@ MonoBehaviour:
           expandedPortsById:
             m_KeyList: []
             m_ValueList: 
-        m_Collapsed: 0
+        m_Collapsed: 1
         m_CurrentModeIndex: 0
         m_ElementColor:
           m_Color: {r: 0, g: 0, b: 0, a: 0}
@@ -4562,12 +4586,14 @@ MonoBehaviour:
           - DialogueAudio
           - AnimationFace
           - HeaderText
+          - AnimationBody
           m_ValueList:
           - rid: 8866445335692575222
           - rid: 8866445335692575224
           - rid: 8866445335692575225
           - rid: 8866445357963280473
           - rid: 8866445378024374408
+          - rid: 8866445743164227669
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -4661,12 +4687,14 @@ MonoBehaviour:
           - DialogueAudio
           - AnimationFace
           - HeaderText
+          - AnimationBody
           m_ValueList:
           - rid: 8866445335692575234
           - rid: 8866445335692575236
           - rid: 8866445335692575237
           - rid: 8866445357963280474
           - rid: 8866445378024374409
+          - rid: 8866445743164227670
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -4760,12 +4788,14 @@ MonoBehaviour:
           - DialogueAudio
           - AnimationFace
           - HeaderText
+          - AnimationBody
           m_ValueList:
           - rid: 8866445335692575246
           - rid: 8866445335692575248
           - rid: 8866445335692575249
           - rid: 8866445357963280475
           - rid: 8866445378024374410
+          - rid: 8866445743164227671
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -4859,12 +4889,14 @@ MonoBehaviour:
           - DialogueAudio
           - AnimationFace
           - HeaderText
+          - AnimationBody
           m_ValueList:
           - rid: 8866445335692575258
           - rid: 8866445335692575260
           - rid: 8866445335692575261
           - rid: 8866445357963280476
           - rid: 8866445378024374411
+          - rid: 8866445743164227672
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -4956,10 +4988,12 @@ MonoBehaviour:
           - ExecutionPort
           - TimelinePort
           - TimelineDetails
+          - GameObjectID
           m_ValueList:
           - rid: 8866445335692575294
           - rid: 8866445335692575328
           - rid: 567765965576077574
+          - rid: 8866445743164227675
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -5035,10 +5069,12 @@ MonoBehaviour:
           - ExecutionPort
           - TimelinePort
           - TimelineDetails
+          - GameObjectID
           m_ValueList:
           - rid: 8866445335692575301
           - rid: 8866445335692575329
           - rid: 567765965576077575
+          - rid: 8866445743164227676
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -5047,7 +5083,7 @@ MonoBehaviour:
           expandedPortsById:
             m_KeyList: []
             m_ValueList: 
-        m_Collapsed: 0
+        m_Collapsed: 1
         m_CurrentModeIndex: 0
         m_ElementColor:
           m_Color: {r: 0, g: 0, b: 0, a: 0}
@@ -5327,7 +5363,7 @@ MonoBehaviour:
     - rid: 8866445357963280464
       type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 0}
+        m_Value: {fileID: 7400000, guid: 9b9345a0ceba6864783838b916bca66d, type: 2}
     - rid: 8866445357963280465
       type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -6234,3 +6270,75 @@ MonoBehaviour:
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 
+    - rid: 8866445743164227659
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: -203655887218126122, guid: 7bef786f726019a47a20006d29061083, type: 3}
+    - rid: 8866445743164227660
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: -203655887218126122, guid: 7bef786f726019a47a20006d29061083, type: 3}
+    - rid: 8866445743164227661
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 8866445743164227662
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 8866445743164227663
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 8866445743164227664
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 8866445743164227665
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 8866445743164227666
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 8866445743164227667
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 8866445743164227668
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 8866445743164227669
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 8866445743164227670
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 8866445743164227671
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 8866445743164227672
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 8866445743164227673
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: -203655887218126122, guid: 4d680fc746538484aab975a0b25dda84, type: 3}
+    - rid: 8866445743164227674
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: -203655887218126122, guid: 4d680fc746538484aab975a0b25dda84, type: 3}
+    - rid: 8866445743164227675
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: TimelineTests_END
+    - rid: 8866445743164227676
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: TimelineTests_END

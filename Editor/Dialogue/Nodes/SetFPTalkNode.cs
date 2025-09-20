@@ -30,6 +30,9 @@ namespace FuzzPhyte.Dialogue.Editor
             context.AddInputPort<AnimationClip>(FPDialogueGraphValidation.ANIM_BLEND_FACE)
                 .WithDisplayName("Face Animation:")
                 .Build();
+            context.AddInputPort<AnimationClip>(FPDialogueGraphValidation.ANIM_BLEND_BODY)
+                .WithDisplayName("Body Animation:")
+                .Build();
             context.AddOutputPort<SetFPTalkNode>(FPDialogueGraphValidation.MAIN_TEXT)
                 .WithDisplayName("Dialogue->")
                 .Build();
