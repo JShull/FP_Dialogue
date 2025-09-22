@@ -14,13 +14,22 @@ namespace FuzzPhyte.Dialogue
     /// </summary>
     public class RTDialogueOrchestrator : MonoBehaviour
     {
+        [SerializeField] protected string conversationID;
+        [SerializeField] protected string graphID;
+        [Space]
+        [Header("Required References")]
         [SerializeField] protected RTGraphDialogueEventHandler handler;
         [SerializeField] protected RTDialogueMediator mediator;
         [SerializeField] protected RTExposedBinder binder;
         [SerializeField] protected DialogueUnity dialogueUnity;
         [SerializeField] protected RTDialogueDirector director;
+        protected IDialogueDirectorActions directorActions;
+
         [Space]
+        [Header("Dialogue Generic Prefabs")]
+        [Tooltip("The base UI object for a dialogue- should be utilizing IDialogue")]
         public GameObject DialogueBaseUIPrefab;
+        
         [Tooltip("Basically the same thing as the dialogue base prefab, but for user response options")]
         public GameObject UserResponseUIPrefabGroup;
         [Tooltip("Prefab for each individual user response option - in world")]
@@ -38,26 +47,35 @@ namespace FuzzPhyte.Dialogue
         [Space]
         [Tooltip("World Location Relative the Player to spawn UI")]
         public Transform DefaultDialoguePosition;
-        protected void Awake()
+        #region Unity Methods
+        protected virtual void Awake()
         {
             if (!handler) handler = RTGraphDialogueEventHandler.Instance;
             if (!mediator) mediator = GetComponent<RTDialogueMediator>();
             if (!binder) binder = GetComponent<RTExposedBinder>();
-            if(!dialogueUnity) dialogueUnity = GetComponent<DialogueUnity>();
-            //if(!director) director = GetComponent<RTDialogueDirector>();
+            if (!dialogueUnity) dialogueUnity = GetComponent<DialogueUnity>();
+            if (!director) director = GetComponent<RTDialogueDirector>();
 
             if (handler == null || mediator == null || binder == null||dialogueUnity==null||director==null)
             {
                 Debug.LogError($"Missing a critical reference!");
             }
+            directorActions = director.GetComponent<IDialogueDirectorActions>();
+            if (directorActions == null)
+            {
+                Debug.LogError($"Your director isn't implementing the IDialogueDirectorActions interface");
+            }
+
         }
-        protected void Start()
+        protected virtual void Start()
         {
             if (dialogueUnity != null)
             {
                 if (director != null)
                 {
-                    dialogueUnity.SetupDialogue(director, DialogueWorldCanvas, userID);
+                    conversationID = directorActions.ReturnConversationID();
+                    graphID = directorActions.ReturnGraphID();
+                    dialogueUnity.SetupDialogue(directorActions, DialogueWorldCanvas, userID);
                 }
                 else
                 {
@@ -65,27 +83,32 @@ namespace FuzzPhyte.Dialogue
                 }
             }  
         }
-        protected void OnEnable()
+        protected virtual void OnEnable()
         {
             if (handler != null)
             {
                 handler.OnGraphDialogueEvent += Handle;
             }
-            
         }
-        protected void OnDisable() 
+        protected virtual void OnDisable() 
         {
             if (handler != null)
             {
                 handler.OnGraphDialogueEvent -= Handle;
             }
         }
+        #endregion
         /// <summary>
         /// Repeated events = next events (this system doesn't need to know)
         /// </summary>
         /// <param name="data"></param>
-        protected void Handle(GraphEventData data)
+        protected virtual void Handle(GraphEventData data)
         {
+            Debug.LogWarning($"Handle incoming data!!, GraphID: {data.GraphId}, ConvoID: {data.ConversationId}");
+            if(data.GraphId != graphID && data.ConversationId != conversationID)
+            {
+                return;
+            }
             switch (data.EventType)
             {
                 case GraphDialogueEventType.DialogueSetup:
@@ -115,19 +138,7 @@ namespace FuzzPhyte.Dialogue
                             //valid
                             Debug.Log($"Dialogue: {data.DialogueNode.mainDialogue.dialogueText}");
                             ClearActiveVisual();
-                            DrawDialogueVisual(data.DialogueNode, data.PreviousNode, data.NextNode, 1.5f);
-                            /*
-                            if (data.UserDelayPaddedTime > 0)
-                            {
-                                StartCoroutine(DelayDialogueVisuals(data));
-                            }
-                            else
-                            {
-                                ClearActiveVisual();
-                                DrawDialogueVisual(data.DialogueNode, data.PreviousNode, data.NextNode,1.5f);
-                            }
-                            */
-
+                            DrawDialogueVisual(data.DialogueNode,false, data.PreviousNode, data.NextNode, 1.5f);
                         }
                     }
                     //binder needed on dialogue next? (maybe) as this action is between node types (could be user prompt next, could be dialogue, could be coming out of a one way?)
@@ -172,7 +183,7 @@ namespace FuzzPhyte.Dialogue
                             //valid
                             Debug.Log($"Dialogue User Previous: {data.DialogueNode.mainDialogue.dialogueText}");
                             ClearActiveVisual();
-                            DrawDialogueVisual(data.DialogueNode, data.PreviousNode, data.NextNode);
+                            DrawDialogueVisual(data.DialogueNode,false, data.PreviousNode, data.NextNode);
                         }
                     }
                     break;
@@ -214,6 +225,18 @@ namespace FuzzPhyte.Dialogue
                         }
                     }
                     break;
+                case GraphDialogueEventType.DialogueUserTranslate:
+                    if (data.DialogueNode != null)
+                    {
+                        if (mediator.EvaluateDialogueNode(data.DialogueNode))
+                        {
+                            //valid
+                            Debug.Log($"Dialogue/Translate: {data.DialogueNode.translatedDialogue.dialogueText}");
+                            ClearActiveVisual();
+                            DrawDialogueVisual(data.DialogueNode, true,data.PreviousNode, data.NextNode, 1.5f);
+                        }
+                    }
+                    break;
             }
         }
         
@@ -231,7 +254,7 @@ namespace FuzzPhyte.Dialogue
             yield return new WaitForSecondsRealtime(someData.UserDelayPaddedTime);
             Debug.Log($"Delay Ending...");
             ClearActiveVisual();
-            DrawDialogueVisual(someData.DialogueNode, someData.PreviousNode, someData.NextNode,someData.UserDelayPaddedTime);
+            DrawDialogueVisual(someData.DialogueNode,false, someData.PreviousNode, someData.NextNode,someData.UserDelayPaddedTime);
         }
         IEnumerator DelayResponseVisuals(GraphEventData someData)
         {
@@ -241,7 +264,7 @@ namespace FuzzPhyte.Dialogue
         }
 
         #region Unity Visuals
-        protected void SetupTimelineExit(RTExitNode nodeData)
+        protected virtual void SetupTimelineExit(RTExitNode nodeData)
         {
             GameObject timelineOBJ = null;
             binder.TryGet<GameObject>(nodeData.PlayableDirectorRef, out timelineOBJ);
@@ -253,9 +276,21 @@ namespace FuzzPhyte.Dialogue
                 }
             }
         }
-        protected void DrawDialogueVisual(RTDialogueNode nodeData, RTFPNode previousNode = null, RTFPNode nextNode = null, float delayTime=1.5f)
+        /// <summary>
+        /// method to draw our dialogue visual UI item
+        /// </summary>
+        /// <param name="nodeData"></param>
+        /// <param name="previousNode"></param>
+        /// <param name="nextNode"></param>
+        /// <param name="delayTime"></param>
+        protected virtual void DrawDialogueVisual(RTDialogueNode nodeData, bool useTranslation=false, RTFPNode previousNode = null, RTFPNode nextNode = null, float delayTime=1.5f)
         {
-            Transform spawnLoc = this.DefaultDialoguePosition;
+            Transform spawnLoc = null;
+            if (DefaultDialoguePosition != null)
+            {
+                spawnLoc = this.DefaultDialoguePosition;
+            }
+            
             if (nodeData.useWorldLoc)
             {
                 //look up location in binder
@@ -273,25 +308,27 @@ namespace FuzzPhyte.Dialogue
             }
             else
             {
-                Debug.LogError($"missing canvas or location");
+                Debug.LogError($"Missing Canvas or spawn location");
                 return;
             }
-            // use the dialogue prefab
-            if (DialogueBaseUIPrefab != null)
+            if (nodeData.usePrefabs)
             {
-                activeNodeVisual = Instantiate(DialogueBaseUIPrefab,DialogueWorldCanvas.transform);
-                activeNodeVisual.transform.localPosition = Vector3.zero;
-                activeNodeVisual.transform.localRotation = Quaternion.identity;
-
-                if (activeNodeVisual.GetComponent<UIDialogueBase>())
+                if (nodeData.UIPanelPrefab != null)
                 {
-                    Debug.Log($"We have a UIDialogueBase");
-                    activeNodeVisual.GetComponent<UIDialogueBase>().SetupDialoguePanel( dialogueUnity,nodeData,previousNode,nextNode);
-                    //StartCoroutine(WaitBeforeDialogueResponse(delayTime));
-                    activeNodeVisual.GetComponent<UIDialogueBase>().PlayDialogueBlock();
+                    activeNodeVisual = Instantiate(nodeData.UIPanelPrefab, DialogueWorldCanvas.transform);
+                    NodeVisualSetup(activeNodeVisual, dialogueUnity,nodeData, useTranslation,previousNode, nextNode);
                 }
-                //setup data based on interface?
+            }else if (nodeData.useNames)
+            {
+                binder.TryGet<GameObject>(nodeData.WorldObjectPanelName, out activeNodeVisual);
+                NodeVisualSetup(activeNodeVisual, dialogueUnity,nodeData, useTranslation,previousNode, nextNode);
             }
+            else if (DialogueBaseUIPrefab != null)
+            {
+                activeNodeVisual = Instantiate(DialogueBaseUIPrefab, DialogueWorldCanvas.transform);
+                NodeVisualSetup(activeNodeVisual, dialogueUnity,nodeData, useTranslation,previousNode, nextNode);
+            }
+            
             //if we have a blend shape? and facial animation to go with it?
             if (nodeData.incomingCharacter.characterBlendShapeName != string.Empty && nodeData.mainDialogue.faceAnimation!=null)
             {
@@ -303,9 +340,10 @@ namespace FuzzPhyte.Dialogue
                 {
                     //Debug.LogWarning($"We found a face, and a clip!");
                     //blend shape here?
-                    if (characterFace.GetComponent<FPAnimationInjector>())
+                    IAnimInjection injection = characterFace.GetComponent<IAnimInjection>();
+                    if (injection!=null)
                     {
-                        characterFace.GetComponent<FPAnimationInjector>().PlayClip(nodeData.mainDialogue.faceAnimation);
+                        injection.PlayClip(nodeData.mainDialogue.faceAnimation);
                     }
                 }
             }
@@ -317,29 +355,55 @@ namespace FuzzPhyte.Dialogue
                 if (characterBody != null)
                 {
                     //Debug.LogWarning($"We found a body, and there's a clip");
-                    if (characterBody.GetComponent<FPAnimationInjector>())
+                    IAnimInjection injection = characterBody.GetComponent<IAnimInjection>();
+                    if (injection!=null)
                     {
-                        characterBody.GetComponent<FPAnimationInjector>().PlayClip(nodeData.mainDialogue.bodyAnimation);
+                        injection.PlayClip(nodeData.mainDialogue.bodyAnimation);
                     }
                 }
             }
-            if (nodeData.useNames)
+            
+        }
+        /// <summary>
+        /// Visual internal setup for our UI prefab
+        /// </summary>
+        /// <param name="nodeData"></param>
+        /// <param name="previousNode"></param>
+        /// <param name="nextNode"></param>
+        private void NodeVisualSetup(GameObject theSpawnedPrefab, DialogueUnity dialUnity, RTDialogueNode nodeData, bool useTranslation=false, RTFPNode previousNode = null, RTFPNode nextNode = null)
+        {
+            theSpawnedPrefab.transform.localPosition = Vector3.zero;
+            theSpawnedPrefab.transform.localRotation = Quaternion.identity;
+
+            IDialogueGraphBase graphBase = theSpawnedPrefab.GetComponent<IDialogueGraphBase>();
+            if (graphBase != null)
             {
-                Debug.LogWarning($"This isn't implemented yet, but will need to use the binder to find the location of our items");
-                //world location in binder
+                graphBase.SetupDialoguePanel(dialUnity, nodeData, useTranslation,previousNode, nextNode);
             }
-            if (nodeData.usePrefabs)
+            else
             {
-                //
-                Debug.LogWarning($"This isn't implemented yet, but will use the prefabs for our options");
+                Debug.LogError($"The {theSpawnedPrefab.name} prefab isn't utilizing the IDialogueGraphBase interface!");
+            }
+            IDialogueActions graphAction = theSpawnedPrefab.GetComponent<IDialogueActions>();
+            if (graphAction != null)
+            {
+                graphAction.PlayAudioDialogueBlock();
+            }
+            else
+            {
+                Debug.LogError($"The {theSpawnedPrefab.name} prefab isn't utilizing the IDialogueActions interface!");
             }
         }
         IEnumerator WaitBeforeDialogueResponse(float genericTime)
         {
             yield return new WaitForSeconds(genericTime);
-            activeNodeVisual.GetComponent<UIDialogueBase>().PlayDialogueBlock();
+            IDialogueActions dialogueAction = activeNodeVisual.GetComponent<IDialogueActions>();
+            if (dialogueAction != null)
+            {
+                dialogueAction.PlayAudioDialogueBlock();
+            }
         }
-        protected void DrawResponseVisual(RTResponseNode nodeData, RTFPNode previousNode = null, RTFPNode nextNode = null)
+        protected virtual void DrawResponseVisual(RTResponseNode nodeData, RTFPNode previousNode = null, RTFPNode nextNode = null)
         {
             // draw the response visual - if we aren't using world locations - we can rely on the existing dialogue response system
             if (!nodeData.UseWorldLocations)
@@ -350,14 +414,16 @@ namespace FuzzPhyte.Dialogue
                     activeNodeVisual = Instantiate(UserResponseUIPrefabGroup, DialogueWorldCanvas.transform);
                     activeNodeVisual.transform.localPosition = Vector3.zero + PrefabUserOffset;
                     activeNodeVisual.transform.localRotation = Quaternion.identity;
-
-                    if (activeNodeVisual.GetComponent<UIDialogueBase>())
+                    IDialogueGraphBase baseGraphInterface = activeNodeVisual.GetComponent<IDialogueGraphBase>();
+                    if (baseGraphInterface!=null)
                     {
-                        Debug.Log($"We have a UIDialogueBase");
-                        activeNodeVisual.GetComponent<UIDialogueBase>().SetupResponsePanel(dialogueUnity, nodeData, previousNode, nextNode);
+                        baseGraphInterface.SetupResponsePanel(dialogueUnity, nodeData, previousNode, nextNode);
                         StartCoroutine(WaitBeforeUserResponse(1.5f));
                     }
-                    //setup data based on interface?
+                    else
+                    {
+                        Debug.LogError($"Your {UserResponseUIPrefabGroup.name} prefab isn't utilizing the IDialogueGraphBase interface!");
+                    }
                 }
             }
             else
@@ -366,7 +432,7 @@ namespace FuzzPhyte.Dialogue
                 {
                     for (int i = 0; i < nodeData.userIncomingPrompts.Count; i++)
                     {
-                        Debug.Log($"Response {i}: node index: {nodeData.userIncomingPrompts[i].Index}");
+                        //Debug.Log($"Response {i}: node index: {nodeData.userIncomingPrompts[i].Index}");
                         var locationName = nodeData.userIncomingPrompts[i].spawnLocationID;
                         binder.TryGet<GameObject>(locationName, out GameObject location);
                         if (UserResponseUIPrefabItem != null && location != null)
@@ -374,25 +440,32 @@ namespace FuzzPhyte.Dialogue
                             var aPromptButton = Instantiate(UserResponseUIPrefabItem, location.transform);
                             aPromptButton.transform.localPosition = Vector3.zero + PrefabUserOffset;
                             aPromptButton.transform.localRotation = Quaternion.identity;
-                            if (aPromptButton.GetComponent<UIDialogueButton>())
+                            IDialogueGraphResponseButton graphInterface = aPromptButton.GetComponent<IDialogueGraphResponseButton>();
+                            if (graphInterface!=null)
                             {
-                                aPromptButton.GetComponent<UIDialogueButton>().SetupUserResponse(i, this.director, nodeData.userIncomingPrompts[i].mainDialogue.dialogueText,nodeData.userIncomingPrompts[i].mainDialogue.textAudio, UserPromptAudioSource);
-                                aPromptButton.GetComponent<UIDialogueButton>().UpdateRefIconSprite(nodeData.userIncomingPrompts[i].promptIcon);
+                                graphInterface.SetupUserResponse(i, this.directorActions, nodeData.userIncomingPrompts[i].mainDialogue.dialogueText,nodeData.userIncomingPrompts[i].mainDialogue.textAudio, UserPromptAudioSource);
+                                graphInterface.UpdateMainButtonSprite(nodeData.userIncomingPrompts[i].promptIcon);
                                 activeResponseVisuals.Add(aPromptButton);
                             }
+                            else
+                            {
+                                Debug.LogError($"Your {UserResponseUIPrefabItem.name} prefab isn't utilizing the IDialogueGraphResponseButton interface!");
+                            }
                         }
-                        //we would generate i canvas buttons and place them in the world based on the binder locations
                     }
                 }
             }
-
         }
         IEnumerator WaitBeforeUserResponse(float genericTime)
         {
             yield return new WaitForSeconds(genericTime);
-            activeNodeVisual.GetComponent<UIDialogueBase>().PlayDialogueBlock();
+            IDialogueActions actionsDialogue = activeNodeVisual.GetComponent<IDialogueActions>();
+            if (actionsDialogue!=null)
+            {
+                actionsDialogue.PlayAudioDialogueBlock();
+            }
         }
-        protected void ClearActiveVisual()
+        protected virtual void ClearActiveVisual()
         {
             if (activeNodeVisual != null)
             {

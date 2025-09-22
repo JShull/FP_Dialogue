@@ -101,11 +101,11 @@ namespace FuzzPhyte.Dialogue.Editor
             if (useThreeDOption != null && useThreeD && usePrefabOption != null && usePrefabs)
             {
                 //need yes no context ports for the gameobject prefab asset
-                context.AddInputPort<ExposedReference<GameObject>>(FPDialogueGraphValidation.RESPONSE_PREFAB_YES)
-                    .WithDisplayName("Prefab Option 1:")
+                context.AddInputPort<GameObject>(FPDialogueGraphValidation.DIALOGUE_UI_PANEL)
+                    .WithDisplayName("Panel UI Prefab:")
                     .Build();
-                context.AddInputPort<ExposedReference<GameObject>>(FPDialogueGraphValidation.RESPONSE_PREFAB_NO)
-                    .WithDisplayName("Prefab Option 2:")
+                context.AddInputPort<GameObject>(FPDialogueGraphValidation.DIALGUE_UI_BUTTON)
+                    .WithDisplayName("Button UI Prefab:")
                     .Build();
             }
             else if (useThreeDOption != null && useThreeD)

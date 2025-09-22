@@ -35,25 +35,5 @@ namespace FuzzPhyte.Dialogue
             }
             return NextPotentialDialogues[userSelection];
         }
-
     }
-    #region Interfaces Setup for Dialogue Needs
-    public interface IDialogueUserResponseButton
-    {
-        //interface to get some data passed to the component that will be handling the user response
-        public void SetupUserResponse(DialogueResponse userResponse, UIDialogueBase dialogueBase = null);
-        public void SetupNextButton(UIDialogueBase dialogueBase = null, bool useGraph = false);
-        public void SetupPreviousButton(UIDialogueBase dialogueBase = null, bool useGraph = false);
-        public void SetupFinishButton(UIDialogueBase dialogueBase = null);
-    }
-    public interface IDialogueActions
-    {
-        //interface that accompanies the UIDialogueBase to work with the IDialogueUserResponseButton interface
-        public void NextButtonAction();
-        public void PreviousButtonAction();
-        public void FinishButtonAction();
-        public void UserButtonAction(DialogueResponse userResponse);
-        public void PlayDialogueBlock();
-    }
-    #endregion
 }

@@ -62,26 +62,29 @@ namespace FuzzPhyte.Dialogue
         [Header("Entry Node Details")]
         public RTTimelineDetails incomingTimelineAsset;
         public TimelineAsset timelineAsset;
-        
-        public RTEntryNode(string index, RTFPNodePort outIndexNode) : base(index)
+        public string graphID;
+        public RTEntryNode(string index, string GraphID,RTFPNodePort outIndexNode) : base(index)
         {
             NodeType = "RTEntryNode";
+            this.graphID = GraphID;
             this.outNodeIndices = new RTFPNodePort[1];
             this.outNodeIndices[0] = outIndexNode;
         }
-        public RTEntryNode(string index,List<RTFPNodePort>outIndexNode, RTTimelineDetails inTimelineAsset =null):base(index)
+        public RTEntryNode(string index,string GraphID,List<RTFPNodePort>outIndexNode, RTTimelineDetails inTimelineAsset =null):base(index)
         {
-            this.outNodeIndices = outIndexNode.ToArray();
             NodeType = "RTEntryNode";
-            if(incomingTimelineAsset == null && inTimelineAsset != null)
+            this.graphID = GraphID;
+            this.outNodeIndices = outIndexNode.ToArray();
+            if (incomingTimelineAsset == null && inTimelineAsset != null)
             {
                 incomingTimelineAsset = inTimelineAsset;
                 timelineAsset = incomingTimelineAsset.Timeline;
             }
         }
-        public RTEntryNode(string index, List<RTFPNodePort> outIndexNode, TimelineAsset inTimelineAsset = null) : base(index) 
+        public RTEntryNode(string index, string GraphID,List<RTFPNodePort> outIndexNode, TimelineAsset inTimelineAsset = null) : base(index) 
         {
             NodeType = "RTEntryNode";
+            this.graphID = GraphID;
             this.outNodeIndices = outIndexNode.ToArray();
             timelineAsset = inTimelineAsset;
         }
@@ -295,11 +298,11 @@ namespace FuzzPhyte.Dialogue
         public RTTalkNode translatedDialogue;
         public RTCharacterNode incomingCharacter;
         public RTCharacterNode outgoingCharacter;
-        public ExposedReference<GameObject> YesPrefab;
-        public ExposedReference<GameObject> NoPrefab;
+        public GameObject UIPanelPrefab;
+        public GameObject UIButtonPrefab;
         public bool waitforUser;//drives a UI prompt box for next/previous/repeat
-        public string YesGameObjectSceneName;
-        public string NoGameObjectSceneName;
+        public string WorldObjectPanelName;
+        public string WorldObjectButtonName;
         public EmotionalState GeneralEmotionState;
         public DialogueState GeneralDialogueState;
         public MotionState GeneralMotionState;
@@ -326,7 +329,7 @@ namespace FuzzPhyte.Dialogue
             this.incomingCharacter = incomingCharacterNode;
             this.outgoingCharacter = outgoingCharacterNode;
         }
-        public RTDialogueNode(string index, RTFPNodePort incominIndex,RTFPNodePort outIndex, RTTalkNode dialogue,RTCharacterNode incomingCharacterNode, ExposedReference<GameObject> yesPrefab, ExposedReference<GameObject> noPrefab,string worldIndexLocation = "",bool useWorldLocation=false,bool waitForUser = false, RTCharacterNode outgoingCharacterNode = null,RTTalkNode transDialogue = null) : base(index)
+        public RTDialogueNode(string index, RTFPNodePort incominIndex,RTFPNodePort outIndex, RTTalkNode dialogue,RTCharacterNode incomingCharacterNode, GameObject panelPrefab, GameObject buttonPrefab,string worldIndexLocation = "",bool useWorldLocation=false,bool waitForUser = false, RTCharacterNode outgoingCharacterNode = null,RTTalkNode transDialogue = null) : base(index)
         {
             WorldLocationSceneName = worldIndexLocation;
             useWorldLoc = useWorldLocation;
@@ -343,10 +346,10 @@ namespace FuzzPhyte.Dialogue
             this.translatedDialogue = transDialogue;
             this.incomingCharacter = incomingCharacterNode;
             this.outgoingCharacter = outgoingCharacterNode;
-            this.YesPrefab = yesPrefab;
-            this.NoPrefab = noPrefab;
+            this.UIPanelPrefab = panelPrefab;
+            this.UIButtonPrefab = buttonPrefab;
         }
-        public RTDialogueNode(string index, RTFPNodePort incominIndex, RTFPNodePort outIndex, RTTalkNode dialogue, RTCharacterNode incomingCharacterNode, string yesGameObjectName, string noGameObjectName, string worldIndexLocation = "",bool useWorldLocation=false,bool waitForUser = false, RTCharacterNode outgoingCharacterNode = null, RTTalkNode transDialogue = null) : base(index)
+        public RTDialogueNode(string index, RTFPNodePort incominIndex, RTFPNodePort outIndex, RTTalkNode dialogue, RTCharacterNode incomingCharacterNode, string panelWorldObjectName, string buttonWorldObjectName, string worldIndexLocation = "",bool useWorldLocation=false,bool waitForUser = false, RTCharacterNode outgoingCharacterNode = null, RTTalkNode transDialogue = null) : base(index)
         {
             WorldLocationSceneName = worldIndexLocation;
             useWorldLoc = useWorldLocation;
@@ -363,8 +366,8 @@ namespace FuzzPhyte.Dialogue
             this.translatedDialogue = transDialogue;
             this.incomingCharacter = incomingCharacterNode;
             this.outgoingCharacter = outgoingCharacterNode;
-            this.YesGameObjectSceneName = yesGameObjectName;
-            this.NoGameObjectSceneName = noGameObjectName;
+            this.WorldObjectPanelName = panelWorldObjectName;
+            this.WorldObjectButtonName = buttonWorldObjectName;
         }
     }
     //Editor: SetFPTalkNode class

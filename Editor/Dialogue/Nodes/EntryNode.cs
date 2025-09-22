@@ -12,7 +12,14 @@ namespace FuzzPhyte.Dialogue.Editor
         {
             this.name = passedName;
         }
-        
+        protected override void OnDefineOptions(IOptionDefinitionContext context)
+        {
+            context.AddOption<string>(FPDialogueGraphValidation.GRAPHID)
+                .WithDisplayName("GraphID:")
+                .WithDefaultValue(string.Empty)
+                .WithTooltip("Unique value across all graphs in a scene")
+                .Build();
+        }
         protected override void OnDefinePorts(IPortDefinitionContext context)
         {
             context.AddOutputPort<FPVisualNode>(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME)

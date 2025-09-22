@@ -39,9 +39,11 @@ MonoBehaviour:
           m_KeyList:
           - TimelinePort
           - TimelineDetails
+          - GraphID
           m_ValueList:
           - rid: 567765965576077555
           - rid: 567765965576077559
+          - rid: 8866445767920582733
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -688,7 +690,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 9a77f20ab3188e2aef8949aba65476e3
         m_Version: 2
-        m_Position: {x: 1082.2192, y: 442.2394}
+        m_Position: {x: 901.66925, y: 467.73944}
         m_Title: SetFPTalkNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -800,6 +802,8 @@ MonoBehaviour:
           - TranslationText
           - GameObjectLocation
           - UseDialogueWorldLocation
+          - DialogueUIPanel
+          - DialogueUIButton
           m_ValueList:
           - rid: 567766155871912075
           - rid: 567766155871912076
@@ -813,6 +817,8 @@ MonoBehaviour:
           - rid: 567766155871912084
           - rid: 567766155871912085
           - rid: 567766155871912086
+          - rid: 8866445769315975253
+          - rid: 8866445769315975254
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -953,11 +959,11 @@ MonoBehaviour:
     - rid: 567766155871912079
       type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: 0
+        m_Value: 1
     - rid: 567766155871912080
       type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: 0
+        m_Value: 1
     - rid: 567766155871912081
       type: {class: 'Constant`1[[FuzzPhyte.Dialogue.Editor.FPVisualNode, com.fuzzphyte.dialogue.editor]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data: 
@@ -3483,7 +3489,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 2b3ee79a2e2cd84a526a428a5ecea73f
         m_Version: 2
-        m_Position: {x: 376.09155, y: 1194.4866}
+        m_Position: {x: 188.09155, y: 1271.4866}
         m_Title: SetFPTalkNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -4423,7 +4429,7 @@ MonoBehaviour:
           expandedPortsById:
             m_KeyList: []
             m_ValueList: 
-        m_Collapsed: 1
+        m_Collapsed: 0
         m_CurrentModeIndex: 0
         m_ElementColor:
           m_Color: {r: 0, g: 0, b: 0, a: 0}
@@ -6342,3 +6348,15 @@ MonoBehaviour:
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: TimelineTests_END
+    - rid: 8866445767920582733
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: AnnaGraphSampleTest
+    - rid: 8866445769315975253
+      type: {class: 'Constant`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 5993851696419852459, guid: 08b1202bb5446344dbd4a51ddf066a73, type: 3}
+    - rid: 8866445769315975254
+      type: {class: 'Constant`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}

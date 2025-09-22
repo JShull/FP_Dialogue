@@ -39,8 +39,22 @@ namespace FuzzPhyte.Dialogue.Editor
             ConfirmNodeNames(graph);
             // second loop: create all nodes
             CreateRuntimeNodes(entryNodeModel, runtimeAsset,nodeMap);
+            //set graphID by entry node
+            var nodeGraphIDOption = entryNodeModel.GetNodeOptionByName(FPDialogueGraphValidation.GRAPHID);
+            if (nodeGraphIDOption != null)
+            {
+                nodeGraphIDOption.TryGetValue<string>(out string gID);
+                if (gID != string.Empty)
+                {
+                    runtimeAsset.GraphID = gID;
+                }
+                else
+                {
+                    Debug.LogError($"Missing GraphID! Make sure your EntryNode has a value for GraphID!");
+                }
+            }
             //second loop: establish connections
-            SetupConnections(entryNodeModel, runtimeAsset, nodeMap);
+            SetupConnections(runtimeAsset, nodeMap);
         }
         /// <summary>
         /// Confirms all nodes have their correct name
@@ -147,7 +161,7 @@ namespace FuzzPhyte.Dialogue.Editor
         /// <param name="startNode"></param>
         /// <param name="runtimeGraph"></param>
         /// <param name="nodeMap"></param>
-        void SetupConnections(INode startNode, RTFPDialogueGraph runtimeGraph, Dictionary<INode, int> nodeMap)
+        void SetupConnections(RTFPDialogueGraph runtimeGraph, Dictionary<INode, int> nodeMap)
         {
             foreach (var kvp in nodeMap)
             {
@@ -180,8 +194,9 @@ namespace FuzzPhyte.Dialogue.Editor
                     //have to evaluate information on RTEntryNode (Input Timeline asset)
                     TimelineAsset tAsset = null;
                     RTTimelineDetails tAssetDetails = null;
+                    string mainGraphID = string.Empty;
                     var testOutPort = entryNode.GetOutputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
-                    
+                    var graphOption = entryNode.GetNodeOptionByName(FPDialogueGraphValidation.GRAPHID);
                     if (testOutPort == null)
                     {
                         Debug.LogError($"Missing out port?");
@@ -191,6 +206,7 @@ namespace FuzzPhyte.Dialogue.Editor
                     {
                         //var otherNodes = GetConnectedNodeNamesByPort(testOutPort);
                         var otherNodes = ReturnNodePortDetails(testOutPort,FPPortType.OUTPort);
+                        graphOption.TryGetValue<string>(out mainGraphID);
                         if (otherNodes.ConnectedNodes.Length>0)
                         {
                             //Debug.Log($"Entry Node Connected to: {otherNodes.Name}");
@@ -209,20 +225,20 @@ namespace FuzzPhyte.Dialogue.Editor
                             if(timelinePort !=null && timelinePortDetails != null)
                             {
                                 //use details
-                                var RTentryNode = new RTEntryNode(entryNode.Name, otherNodes);
+                                var RTentryNode = new RTEntryNode(entryNode.Name, mainGraphID,otherNodes);
                                 RTentryNode.incomingTimelineAsset = tAssetDetails;
                                 createdNodes.Add(RTentryNode);
                             }
                             else if(timelinePort!=null && timelinePortDetails ==null)
                             {
                                 //use timeline directly
-                                var RTentryNode = new RTEntryNode(entryNode.Name, otherNodes);
+                                var RTentryNode = new RTEntryNode(entryNode.Name, mainGraphID,otherNodes);
                                 RTentryNode.timelineAsset = tAsset;
                                 createdNodes.Add(RTentryNode);
                             }else if(timelinePort==null && timelinePortDetails == null)
                             {
                                 Debug.LogWarning($"No Timeline files found - tAsset is null");
-                                var RTentryNode = new RTEntryNode(entryNode.Name, otherNodes);
+                                var RTentryNode = new RTEntryNode(entryNode.Name, mainGraphID, otherNodes);
                                 createdNodes.Add(RTentryNode);
                             }
                             return createdNodes;
@@ -476,15 +492,16 @@ namespace FuzzPhyte.Dialogue.Editor
                     DialogueState dialogueState = DialogueState.Normal;
                     MotionState motionState = MotionState.NA;
                     bool autoScroll = false;
+                  
                     RTTalkNode talkRTNode = null;
                     RTTalkNode talkRTTransNode = null;
                     RTCharacterNode rTCharacterNodeIn = null;
                     RTCharacterNode rtCharacterNodeOut = null;
-                    
                     RTFPNodePort inputDNode = new RTFPNodePort();
                     RTFPNodePort outputDNode = new RTFPNodePort();
                     var inputPort = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
                     var outputPort = dialogueNode.GetOutputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
+                   
                     if(inputPort != null)
                     {
                         inputDNode = ReturnNodePortDetails(inputPort,FPPortType.INPort);
@@ -592,15 +609,15 @@ namespace FuzzPhyte.Dialogue.Editor
                     }
                     if (worldObjectUseCase != null && useThreeD && worldObjectUseCasePrefabs != null && usePrefabs)
                     {
-                        var yesGameObjectRefPort = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.RESPONSE_PREFAB_YES);
-                        var noGameObjectRefPort = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.RESPONSE_PREFAB_NO);
-                        ExposedReference<GameObject> yesRef;
-                        ExposedReference<GameObject> noRef;
-                        if (yesGameObjectRefPort != null && noGameObjectRefPort != null)
+                        var uiDialoguePanelPrefab = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.DIALOGUE_UI_PANEL);
+                        var uiDialogueButtonPrefab = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.DIALGUE_UI_BUTTON);
+                        GameObject panelRef;
+                        GameObject buttonRef;
+                        if (uiDialoguePanelPrefab != null && uiDialogueButtonPrefab != null)
                         {
-                            yesGameObjectRefPort.TryGetValue(out yesRef);
-                            noGameObjectRefPort.TryGetValue(out noRef);
-                            var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, yesRef, noRef,worldDialogueSpawnLocation,useWorldLoc, autoScroll, rtCharacterNodeOut, talkRTTransNode);
+                            uiDialoguePanelPrefab.TryGetValue(out panelRef);
+                            uiDialogueButtonPrefab.TryGetValue(out buttonRef);
+                            var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, panelRef, buttonRef,worldDialogueSpawnLocation,useWorldLoc, autoScroll, rtCharacterNodeOut, talkRTTransNode);
                             RTdialogueNode.GeneralDialogueState = dialogueState;
                             RTdialogueNode.GeneralMotionState = motionState;
                             RTdialogueNode.GeneralEmotionState = animState;

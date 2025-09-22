@@ -5,42 +5,57 @@ namespace FuzzPhyte.Dialogue
     
     public class FPDialogueReceiver:MonoBehaviour,INotificationReceiver
     {
-        [Tooltip("Optional explicit target. If null, uses the track binding (RTDialogueDirector).")]
-        public RTDialogueDirector director;
-
+        [Tooltip("Must have a component that is using the IDialogueDirectorActions interface")]
+        public GameObject DirectorObjectRef;
+        [Tooltip("Optional explicit target. If null, uses the track binding (RTDialogueDirector).")] 
+        public IDialogueDirectorActions DialogueDirector;
         protected virtual void Awake()
         {
-            if(director == null)
+            DialogueDirector = DirectorObjectRef.GetComponent<IDialogueDirectorActions>();
+            if (DialogueDirector == null)
             {
-                director=this.GetComponent<RTDialogueDirector>();
+                Debug.LogError($"Missing a reference to a class that is using the IDialogueDirectorActions");
             }
+            //if(director == null)
+            //{
+           //     director=this.GetComponent<RTDialogueDirector>();
+           // }
         }
         public void OnNotify(Playable origin, INotification notification, object context)
         {
             Debug.LogWarning($"Notified!");
             if (notification is not FPDialogueCommandMarker cmd) return;
 
-            if (!director) return;
+            if (DialogueDirector==null) return;
 
             switch (cmd.command)
             {
                 case FPDialogueCommand.StartConversation:
-                    director.StartConversation();               // public API on your RTDialogueDirector
+                    DialogueDirector.StartConversation();
+                    //director.StartConversation();               // public API on your RTDialogueDirector
                     break;
                 case FPDialogueCommand.NextConversation:
-                    director.UserPromptNext();                  // advances through dialogue flow
+                    DialogueDirector.UserPromptNext();
+                    //director.UserPromptNext();                  // advances through dialogue flow
                     break;
                 case FPDialogueCommand.PreviousConversation:
-                    director.UserPromptPrevious();
+                    DialogueDirector.UserPromptPrevious();
+                    //director.UserPromptPrevious();
                     break;
                 case FPDialogueCommand.TranslateConversation:
-                    director.UserPromptTranslate();
+                    DialogueDirector.UserPromptTranslate();
+                    //director.UserPromptTranslate();
                     break;
                 case FPDialogueCommand.RespondIndex:
-                    director.UserPromptResponse(Mathf.Max(0, cmd.responseIndex));
+                    DialogueDirector.UserPromptResponse(Mathf.Max(0, cmd.responseIndex));
+                    //director.UserPromptResponse(Mathf.Max(0, cmd.responseIndex));
                     break;
                 case FPDialogueCommand.SwapRuntimeGraph:
-                    if (cmd.graphRef) director.NewDialogueAdded(cmd.graphRef);
+                    if (cmd.graphRef)
+                    {
+                        DialogueDirector.NewDialogueAdded(cmd.graphRef);
+                    }
+                    //if (cmd.graphRef) director.NewDialogueAdded(cmd.graphRef);
                     break;
             }
         }

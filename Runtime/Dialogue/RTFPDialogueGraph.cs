@@ -8,6 +8,7 @@ namespace FuzzPhyte.Dialogue
     [CreateAssetMenu(fileName = "RunTimeDialogueGraph", menuName = "FuzzPhyte/Dialogue/Graph/Create Runtime SOGraph")]
     public class RTFPDialogueGraph : FP_Data
     {
+        [SerializeReference] public string GraphID;
         [SerializeReference] public RTEntryNode MainEntryNode;
         [SerializeReference]
         public List<RTFPNode> Nodes = new ();

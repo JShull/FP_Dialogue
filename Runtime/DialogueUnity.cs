@@ -10,6 +10,7 @@ namespace FuzzPhyte.Dialogue
     // need to keep track of if this is in the middle of conversation or Not
     // this will make it easier to "lock" during network events when a user is talking to this specific NPC   
     // What is this: Mono class to hold all of our data and various connections for runtime needs of passing that data around via the FP_Dialogue_Manager
+    // 9-21-2025 swapped over to interfaces IDialoguePanel and IDialogueActions for references
     public class DialogueUnity : FP_UI
     {
         [Space]
@@ -18,7 +19,9 @@ namespace FuzzPhyte.Dialogue
         public DialogueBase MainDialogueData;
         [Tooltip("The other data object this system can manage")]
         //public RTFPDialogueGraph DialogueGraphData;
-        public RTDialogueDirector DialogueDirectorRef;
+        //public RTDialogueDirector DialogueDirectorRef;
+        protected IDialogueDirectorActions DialogueDirectorRef;
+        public IDialogueDirectorActions ReturnDialogueDirectorActionsRef;
         [Space]
         public bool UseGraph = false;
         [Space]
@@ -34,7 +37,9 @@ namespace FuzzPhyte.Dialogue
         public string ClientID { get { return clientID; } }
         [Tooltip("The prefab to spawn for the UI dialogue block with content references as needed")]
         public GameObject UIDialoguePrefab;
-        private UIDialogueBase uiDialogueRef;
+        private IDialogueActions uiDialogueRefAction;
+        private IDialoguePanel uiDialogueRefPanel;
+        //private UIDialogueBase uiDialogueRef;
         public bool DialogueActive { get { return dialogueActive; } }
         // if in conversation "panel is up and displaying something"
         private bool dialogueActive = false;
@@ -47,6 +52,7 @@ namespace FuzzPhyte.Dialogue
         public event DialogueEventHandler OnDialoguePrevious;
         public event DialogueEventHandler OnDialogueUserPrompt;
         public event DialogueEventHandler OnDialogueEnd;
+        public event DialogueEventHandler OnDialogueTranslate;
         #endregion
 
         #region Unity Methods - generally for Testing
@@ -57,7 +63,7 @@ namespace FuzzPhyte.Dialogue
 
         #endregion
         // Assuming we are starting from the beginning of the conversation data block inside the DialogueBase object
-        public void SetupDialogue(RTDialogueDirector directorRef, Canvas theCanvasToUse, string userID)
+        public void SetupDialogue(IDialogueDirectorActions directorRef, Canvas theCanvasToUse, string userID)
         {
             DialogueDirectorRef = directorRef;
             UseGraph = true;
@@ -86,15 +92,27 @@ namespace FuzzPhyte.Dialogue
                 blockUI.GetComponent<RectTransform>().anchorMin = Vector2.zero;
                 blockUI.GetComponent<RectTransform>().anchorMax = Vector2.one;
                 blockUI.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
-
-                if (!blockUI.GetComponent<UIDialogueBase>())
+                IDialoguePanel panel = blockUI.GetComponent<IDialoguePanel>();
+                IDialogueActions panelActions = blockUI.GetComponent<IDialogueActions>();
+                if (panel==null || panelActions==null)
                 {
-                    Debug.LogError($"We are missing a major component for the UIDialoguePrefab: {UIDialoguePrefab.name}");
+                    Debug.LogError($"We are not utilizing the interfaces 'IDialogueActions' and/or 'IDialoguePanel' for the current UIDialoguePrefab: {UIDialoguePrefab.name}");
                     return;
                 }
-                uiDialogueRef = blockUI.GetComponent<UIDialogueBase>();
+               
+                if (panel!=null)
+                {
+                    panel.SetupDialoguePanel(MainDialogueData.Character, MainDialogueData.ConversationData[DialogueIndex], this);
+                    uiDialogueRefPanel = panel;
+                }
+                
+                if (panelActions != null)
+                {
+                    uiDialogueRefAction = panelActions;
+                }
+                //uiDialogueRef = blockUI.GetComponent<UIDialogueBase>();
                  //Visual Setup Standard
-                uiDialogueRef.SetupDialoguePanel(MainDialogueData.Character, MainDialogueData.ConversationData[DialogueIndex], this);
+                //uiDialogueRef.SetupDialoguePanel(MainDialogueData.Character, MainDialogueData.ConversationData[DialogueIndex], this);
                 OnDialogueSetup?.Invoke(new DialogueEventData()
                 {
                     UserID = clientID,
@@ -142,7 +160,7 @@ namespace FuzzPhyte.Dialogue
                     DialogueDataRef = MainDialogueData,
                     DialogueBlockDataRef = MainDialogueData.ConversationData[DialogueIndex]
                 });
-                uiDialogueRef.PlayDialogueBlock();
+                uiDialogueRefAction.PlayAudioDialogueBlock();
             }
         }
         public void UINextDialogueAction()
@@ -157,7 +175,7 @@ namespace FuzzPhyte.Dialogue
                 if (NextDialogueAvailable())
                 {
                     DialogueIndex++;
-                    uiDialogueRef.SetupDialoguePanel(MainDialogueData.Character, MainDialogueData.ConversationData[DialogueIndex], this);
+                    uiDialogueRefPanel.SetupDialoguePanel(MainDialogueData.Character, MainDialogueData.ConversationData[DialogueIndex], this);
                     OnDialogueNext?.Invoke(new DialogueEventData()
                     {
                         UserID = clientID,
@@ -165,9 +183,31 @@ namespace FuzzPhyte.Dialogue
                         DialogueBlockDataRef = MainDialogueData.ConversationData[DialogueIndex]
                     });
                 }
-                uiDialogueRef.PlayDialogueBlock();
+                uiDialogueRefAction.PlayAudioDialogueBlock();
             }
             
+        }
+        public void UITranslateDialogueAction()
+        {
+            if (UseGraph)
+            {
+                //we are using the graph system
+                DialogueDirectorRef.UserPromptTranslate();
+            }
+            else
+            {
+                //JOHN There is probably nothing listening for this translate event
+                if (TranslateDialogueAvailable())
+                {
+                    uiDialogueRefPanel.SetupDialoguePanel(MainDialogueData.Character, MainDialogueData.ConversationData[DialogueIndex], this);
+                    OnDialogueTranslate?.Invoke(new DialogueEventData()
+                    {
+                        UserID = clientID,
+                        DialogueDataRef = MainDialogueData,
+                        DialogueBlockDataRef = MainDialogueData.ConversationData[DialogueIndex]
+                    });
+                }
+            }
         }
         public void UIPreviousDialogueAction()
         {
@@ -181,7 +221,7 @@ namespace FuzzPhyte.Dialogue
                 if (PreviousDialogueAvailable())
                 {
                     DialogueIndex--;
-                    uiDialogueRef.SetupDialoguePanel(MainDialogueData.Character, MainDialogueData.ConversationData[DialogueIndex], this);
+                    uiDialogueRefPanel.SetupDialoguePanel(MainDialogueData.Character, MainDialogueData.ConversationData[DialogueIndex], this);
                     OnDialoguePrevious?.Invoke(new DialogueEventData()
                     {
                         UserID = clientID,
@@ -189,7 +229,7 @@ namespace FuzzPhyte.Dialogue
                         DialogueBlockDataRef = MainDialogueData.ConversationData[DialogueIndex]
                     });
                 }
-                uiDialogueRef.PlayDialogueBlock();
+                uiDialogueRefAction.PlayAudioDialogueBlock();
             }
             
         }
@@ -255,6 +295,10 @@ namespace FuzzPhyte.Dialogue
         public bool LastDialogue()
         {
             return DialogueIndex == MainDialogueData.ConversationData.Count - 1;
+        }
+        public bool TranslateDialogueAvailable()
+        {
+            return DialogueDirectorRef.UserTranslateAvailable();
         }
         #endregion
 

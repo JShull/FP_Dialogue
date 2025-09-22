@@ -8,6 +8,7 @@
     public static class FPDialogueGraphValidation
     {
         // graph based
+        public const string GRAPHID = "GraphID";
         public const string MAIN_PORT_DEFAULT_NAME = "ExecutionPort";
         public const string MAIN_PORT_TIMELINE = "TimelinePort";
         public const string MAIN_PORT_TIMELINEDETAILS = "TimelineDetails";
@@ -15,7 +16,7 @@
         public const string PORT_COMBINE_OPTWO = "Option2";
         public const string PORT_NUMBER_OPTIONS = "NumOptions";
         public const string PORT_INDEX_OP = "Option_";//builder string
-      
+        
         //options based
         public const string GETDATAFILE = "GetDataFile";
 
@@ -68,6 +69,8 @@
         public const string USE_PREFABS = "UsePrefabs"; //false we point to game object locations in scene
         public const string USE_WORLD_LOCATION = "UseDialogueWorldLocation";
 
+        public const string DIALOGUE_UI_PANEL = "DialogueUIPanel";
+        public const string DIALGUE_UI_BUTTON = "DialogueUIButton";
         public const string RESPONSE_PREFAB_YES = "YesGameObjectPrefab";
         public const string RESPONSE_PREFAB_NO = "NoGameObjectPrefab";
         public const string RESPONSE_WORLD_YES_LOCATION = "YesWorldLocationName";
@@ -78,44 +81,61 @@
             // 1) Exactly one EntryNode
             var entries = graph.GetNodes().OfType<EntryNode>().ToList();
             if (entries.Count == 0)
-                logger.LogError("No EntryNode in graph.", graph);
-            else if (entries.Count > 1)
-                logger.LogWarning("Multiple EntryNodes found. Only one is recommended.", graph);
-
-            foreach (var n in graph.GetNodes().OfType<SetFPDialogueNode>())
             {
-                var inPort = n.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
-                var outPort = n.GetOutputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
-                if (inPort == null || !inPort.isConnected)
-                {
-                    logger.LogWarning($"'{n.Name}' has no incoming connection.", n);
-                }
-                else
-                {
-                    List<IPort> possibleIncomingPorts = new();
-                    inPort.GetConnectedPorts(possibleIncomingPorts);
-                    if (possibleIncomingPorts.Count > 1)
-                    {
-                        logger.LogWarning($"'{n.Name}' has too many incoming main connections, should only be one dialogue flow in",n);
-                    }
-                }
-                if(outPort == null)
-                {
-
-                }
-                else
-                {
-                    List<IPort> possibleOutgoingPorts = new();
-
-                    outPort.GetConnectedPorts(possibleOutgoingPorts);
-
-                    if (possibleOutgoingPorts.Count > 1)
-                    {
-                        logger.LogWarning($"'{n.Name}' has too many outgoing main connections, should only be one dialogue flow out",n);
-                    }
-                }
-                    
+                logger.LogError("No EntryNode in graph.", graph);
             }
+            else if (entries.Count > 1)
+            {
+                logger.LogWarning("Multiple EntryNodes found. Only one will work.", graph);
+            }else if (entries.Count == 1)
+            {
+                var entryNode = entries[0];
+                var graphIDOption = entryNode.GetNodeOptionByName(FPDialogueGraphValidation.GRAPHID);
+                if (graphIDOption != null)
+                {
+                    graphIDOption.TryGetValue<string>(out string gIDValue);
+                    if(gIDValue == string.Empty)
+                    {
+                        logger.LogWarning($"Need a graphID!", entryNode);
+                    }
+                }
+            }
+
+
+                foreach (var n in graph.GetNodes().OfType<SetFPDialogueNode>())
+                {
+                    var inPort = n.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
+                    var outPort = n.GetOutputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
+                    if (inPort == null || !inPort.isConnected)
+                    {
+                        logger.LogWarning($"'{n.Name}' has no incoming connection.", n);
+                    }
+                    else
+                    {
+                        List<IPort> possibleIncomingPorts = new();
+                        inPort.GetConnectedPorts(possibleIncomingPorts);
+                        if (possibleIncomingPorts.Count > 1)
+                        {
+                            logger.LogWarning($"'{n.Name}' has too many incoming main connections, should only be one dialogue flow in", n);
+                        }
+                    }
+                    if (outPort == null)
+                    {
+
+                    }
+                    else
+                    {
+                        List<IPort> possibleOutgoingPorts = new();
+
+                        outPort.GetConnectedPorts(possibleOutgoingPorts);
+
+                        if (possibleOutgoingPorts.Count > 1)
+                        {
+                            logger.LogWarning($"'{n.Name}' has too many outgoing main connections, should only be one dialogue flow out", n);
+                        }
+                    }
+
+                }
             foreach(var n in graph.GetNodes().OfType<SetFPCharacterNode>())
             {
                 var inPort = n.GetInputPortByName(ACTOR_LANGUAGES_PRIMARY);

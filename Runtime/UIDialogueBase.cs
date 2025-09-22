@@ -7,12 +7,13 @@ namespace FuzzPhyte.Dialogue
     /// <summary>
     /// Mainly a class to connect runtime objects/data and generation of content based on that information
     /// </summary>
-    public class UIDialogueBase :MonoBehaviour, IDialogueActions
+    public class UIDialogueBase :MonoBehaviour, IDialogueActions, IDialogueGraphBase, IDialoguePanel
     {
         public UIDialogueButton NextButton;
         public UIDialogueButton PreviousButton;
         public UIDialogueButton FinishButton;
         public UIDialogueButton HelpButton; //JOHN need to add this and have a way to pass an action to bind it based on 'help' data
+        public UIDialogueButton TranslateButton; //JOHN need to add this and have a way to pass an action to bind it based on the translate prompt
         [Tooltip("Generic GameObject for user prompts")]
         public UIDialogueButton UserPromptButtonPrefab;
         public RectTransform UserPromptButtonParentContainer;
@@ -38,6 +39,7 @@ namespace FuzzPhyte.Dialogue
         private DialogueUnity dialogueLocalManager;
         private bool useGraphFeature = false;
 
+        #region Dialogue Graph Base Interface
         public void SetupResponsePanel(DialogueUnity fullDialogueData,RTResponseNode responseNode,RTFPNode previousNode = null, RTFPNode nextNode = null)
         {
             dialogueLocalManager = fullDialogueData;
@@ -65,7 +67,7 @@ namespace FuzzPhyte.Dialogue
                     if (userPrompt.GetComponent<UIDialogueButton>())
                     {
                         var setupCode = userPrompt.GetComponent<UIDialogueButton>();
-                        setupCode.SetupUserResponse(i,dialogueLocalManager.DialogueDirectorRef);
+                        setupCode.SetupUserResponse(i,dialogueLocalManager.ReturnDialogueDirectorActionsRef);
                         setupCode.UpdateReferenceText(responseNode.userIncomingPrompts[i].mainDialogue.dialogueText);
                         setupCode.UpdateRefIconSprite(responseNode.userIncomingPrompts[i].promptIcon);
                         //need to create the button onClick event and probably notify DialogueUnity here by creating and passing a DialogueEventData object
@@ -89,7 +91,6 @@ namespace FuzzPhyte.Dialogue
                 }
             }
             // turn off user forward/backward for now
-            
             //audio setup
             //audio clip setup
             if (DialogueAudioSource.isPlaying)
@@ -97,7 +98,7 @@ namespace FuzzPhyte.Dialogue
                 DialogueAudioSource.Stop();
             }
         }
-        public void SetupDialoguePanel(DialogueUnity fullDialogueData, RTDialogueNode nodeData, RTFPNode previousNode = null, RTFPNode nextNode = null)
+        public void SetupDialoguePanel(DialogueUnity fullDialogueData, RTDialogueNode nodeData, bool useTranslation = false, RTFPNode previousNode = null, RTFPNode nextNode = null)
         {
             dialogueLocalManager = fullDialogueData;
             useGraphFeature = true;
@@ -113,8 +114,17 @@ namespace FuzzPhyte.Dialogue
                 }
             }
             // text setup
-            DialogueTextContainer.UpdateReferenceText(nodeData.mainDialogue.dialogueText);
-            DialogueTextContainer.UpdateHeaderText(nodeData.mainDialogue.headerText);
+            if (useTranslation)
+            {
+                DialogueTextContainer.UpdateReferenceText(nodeData.translatedDialogue.dialogueText);
+                DialogueTextContainer.UpdateHeaderText(nodeData.translatedDialogue.headerText);
+            }
+            else
+            {
+                DialogueTextContainer.UpdateReferenceText(nodeData.mainDialogue.dialogueText);
+                DialogueTextContainer.UpdateHeaderText(nodeData.mainDialogue.headerText);
+            }
+               
            
             // turn off user forward/backward for now
             ChangeUserResponseFormat();
@@ -153,20 +163,20 @@ namespace FuzzPhyte.Dialogue
                 }
                 else
                 {
-                   
                     NextActionActivateDeactivate(false);
-                    /*
-                    if (nextNode is RTDialogueNode || nextNode is RTResponseNode)
-                    {
-                        NextActionAvailability(true);
-                    }
-                    else
-                    {
-                        NextActionAvailability(false);
-                    }
-                    */
                 }
             }
+            //not using translation and there's one available we want to make it active if possible
+            if (!useTranslation)
+            {
+                TranslateActionAvailability(dialogueLocalManager.TranslateDialogueAvailable());
+            }
+            else
+            {
+                //if we are using translate, we don't want the translate button active (no going back and forth on translation!)
+                TranslateActionAvailability(false);
+            }
+
             //audio setup
             //audio clip setup
             if (DialogueAudioSource.isPlaying)
@@ -174,12 +184,22 @@ namespace FuzzPhyte.Dialogue
                 DialogueAudioSource.Stop();
             }
             // audio clip will have to be driven by the above chosen language as we have two areas to pick from - original /translation
-
-            DialogueAudioSource.clip = nodeData.mainDialogue.textAudio;
-
+            if (useTranslation)
+            {
+                DialogueAudioSource.clip = nodeData.translatedDialogue.textAudio;
+            }
+            else
+            {
+                DialogueAudioSource.clip = nodeData.mainDialogue.textAudio;
+            }
         }
+        public void PlayAudioDialogueBlock()
+        {
+            DialogueAudioSource.Play();
+        }
+        #endregion
         /// <summary>
-        /// Main entry poing for setting up the panel
+        /// Main entry point for setting up the panel
         /// </summary>
         /// <param name="character">Character data</param>
         /// <param name="conversationBlock">block of conversation data</param>
@@ -206,7 +226,7 @@ namespace FuzzPhyte.Dialogue
             PreviousActionAvailability(dialogueLocalManager.PreviousDialogueAvailable());
             // are we the last and/or user response?
             NextActionAvailability(dialogueLocalManager.NextDialogueAvailable());
-
+            TranslateActionAvailability(dialogueLocalManager.TranslateDialogueAvailable());
             //if it has a user response
             if (conversationBlock.PossibleUserResponses.Count > 0)
             {
@@ -329,12 +349,19 @@ namespace FuzzPhyte.Dialogue
                 dialogueLocalManager.UIUserPromptAction(null, responseIndex);
                 
             }
-        }
-        public void PlayDialogueBlock()
+        } 
+        public void ShowHideUIAction(bool status)
         {
-            DialogueAudioSource.Play();
+            Debug.LogError($"Not implemented yet");
         }
-        
+        public void TranslateAction()
+        {
+            if (dialogueLocalManager != null)
+            {
+                Debug.Log($"Translate button Pressed");
+                dialogueLocalManager.UITranslateDialogueAction();
+            }
+        }
         #endregion
         private void ChangeUserResponseFormat()
         {
@@ -377,6 +404,19 @@ namespace FuzzPhyte.Dialogue
                 NextButton.SetupNextButton(this,useGraphFeature);
             }
             NextButton.gameObject.SetActive(status);
+        }
+        private void TranslateActionAvailability(bool status)
+        {
+            if (TranslateButton == null)
+            {
+                Debug.LogWarning($"No translate button here...");
+                return;
+            }
+            if (status)
+            {
+                TranslateButton.SetupTranslateButton(this,useGraphFeature);
+            }
+            TranslateButton.gameObject.SetActive(status);
         }
     }
 }
