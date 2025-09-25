@@ -8,7 +8,7 @@ namespace FuzzPhyte.Dialogue.Editor
         GameObject sceneObject;
         string bindingId;
 
-        [MenuItem("FuzzPhyte/Exposed Binder")]
+        [MenuItem("FuzzPhyte/Dialogue/Binder Window")]
         public static void Open() => GetWindow<FPExposedBinderWindow>("Exposed Binder");
 
         void OnGUI()
