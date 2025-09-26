@@ -362,7 +362,6 @@ namespace FuzzPhyte.Dialogue
                     }
                 }
             }
-            
         }
         /// <summary>
         /// Visual internal setup for our UI prefab
