@@ -496,12 +496,11 @@ namespace FuzzPhyte.Dialogue.Editor
                     RTTalkNode talkRTNode = null;
                     RTTalkNode talkRTTransNode = null;
                     RTCharacterNode rTCharacterNodeIn = null;
-                    RTCharacterNode rtCharacterNodeOut = null;
                     RTFPNodePort inputDNode = new RTFPNodePort();
                     RTFPNodePort outputDNode = new RTFPNodePort();
                     var inputPort = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
                     var outputPort = dialogueNode.GetOutputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
-                   
+                    RTTimelineDetails dialogueTimeline = null;
                     if(inputPort != null)
                     {
                         inputDNode = ReturnNodePortDetails(inputPort,FPPortType.INPort);
@@ -570,19 +569,17 @@ namespace FuzzPhyte.Dialogue.Editor
                             createdNodes.Add(rTCharacterNodeIn);
                         }
                     }
-                    /// Character Out
-                    FPVisualNode charNodeOut = null;
-                    var characterPortOut = dialogueNode.GetOutputPortByName(FPDialogueGraphValidation.PORT_ACTOR);
-                    if (characterPortOut != null)
+
+                    /// timeline out?
+                    
+                    var timelineOption = dialogueNode.GetNodeOptionByName(FPDialogueGraphValidation.DIALOGUE_TIMELINE_OUT);
+                    if (timelineOption != null)
                     {
-                        charNodeOut = ReturnFirstNodeByPort( characterPortOut);
-                        if(charNodeOut != null)
-                        {
-                            rtCharacterNodeOut = ReturnNewCharacterNode(charNodeOut as SetFPCharacterNode);
-                            createdNodes.Add(rtCharacterNodeOut);
-                        }
+                        timelineOption.TryGetValue<RTTimelineDetails>(out dialogueTimeline);
                     }
-                    /// auto scroll added
+                   
+                   
+
                     /// world prefab options for response
                     var worldObjectUseCase = dialogueNode.GetNodeOptionByName(FPDialogueGraphValidation.USE_THREED_OBJECTS);
                     var worldObjectUseCasePrefabs = dialogueNode.GetNodeOptionByName(FPDialogueGraphValidation.USE_PREFABS);
@@ -594,6 +591,7 @@ namespace FuzzPhyte.Dialogue.Editor
                     string worldDialogueSpawnLocation = string.Empty;
                     worldObjectUseCase.TryGetValue<bool>(out useThreeD);
                     worldObjectUseCasePrefabs.TryGetValue<bool>(out usePrefabs);
+
                     // dialogue world location?
                     if (useWorldLocationDialogue != null)
                     {
@@ -610,17 +608,18 @@ namespace FuzzPhyte.Dialogue.Editor
                     if (worldObjectUseCase != null && useThreeD && worldObjectUseCasePrefabs != null && usePrefabs)
                     {
                         var uiDialoguePanelPrefab = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.DIALOGUE_UI_PANEL);
-                        var uiDialogueButtonPrefab = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.DIALGUE_UI_BUTTON);
+                        var uiDialogueButtonPrefab = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.DIALOGUE_UI_BUTTON);
                         GameObject panelRef;
                         GameObject buttonRef;
                         if (uiDialoguePanelPrefab != null && uiDialogueButtonPrefab != null)
                         {
                             uiDialoguePanelPrefab.TryGetValue(out panelRef);
                             uiDialogueButtonPrefab.TryGetValue(out buttonRef);
-                            var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, panelRef, buttonRef,worldDialogueSpawnLocation,useWorldLoc, autoScroll, rtCharacterNodeOut, talkRTTransNode);
+                            var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, panelRef, buttonRef,worldDialogueSpawnLocation,useWorldLoc, autoScroll, talkRTTransNode, dialogueTimeline);
                             RTdialogueNode.GeneralDialogueState = dialogueState;
                             RTdialogueNode.GeneralMotionState = motionState;
                             RTdialogueNode.GeneralEmotionState = animState;
+                            
                             createdNodes.Add(RTdialogueNode);
                         }
                         else
@@ -636,10 +635,11 @@ namespace FuzzPhyte.Dialogue.Editor
                         {
                             yesGameObjectNamePort.TryGetValue<string>(out string yesGOName);
                             noGameObjectNamePort.TryGetValue<string>(out string noGOName);
-                            var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, yesGOName, noGOName, worldDialogueSpawnLocation,useWorldLoc,autoScroll, rtCharacterNodeOut, talkRTTransNode);
+                            var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, yesGOName, noGOName, worldDialogueSpawnLocation,useWorldLoc,autoScroll, talkRTTransNode, dialogueTimeline);
                             RTdialogueNode.GeneralDialogueState = dialogueState;
                             RTdialogueNode.GeneralMotionState = motionState;
                             RTdialogueNode.GeneralEmotionState = animState;
+                            
                             createdNodes.Add(RTdialogueNode);
                         }
                         else
@@ -649,10 +649,11 @@ namespace FuzzPhyte.Dialogue.Editor
                     }
                     else
                     {
-                        var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, worldDialogueSpawnLocation,useWorldLoc,autoScroll, rtCharacterNodeOut, talkRTTransNode);
+                        var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, worldDialogueSpawnLocation,useWorldLoc,autoScroll, talkRTTransNode, dialogueTimeline);
                         RTdialogueNode.GeneralDialogueState = dialogueState;
                         RTdialogueNode.GeneralMotionState = motionState;
                         RTdialogueNode.GeneralEmotionState = animState;
+                        
                         createdNodes.Add(RTdialogueNode);
                     }
                         

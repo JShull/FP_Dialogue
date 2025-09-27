@@ -69,8 +69,9 @@
         public const string USE_PREFABS = "UsePrefabs"; //false we point to game object locations in scene
         public const string USE_WORLD_LOCATION = "UseDialogueWorldLocation";
 
+        public const string DIALOGUE_TIMELINE_OUT = "DialogueTimelineOut";
         public const string DIALOGUE_UI_PANEL = "DialogueUIPanel";
-        public const string DIALGUE_UI_BUTTON = "DialogueUIButton";
+        public const string DIALOGUE_UI_BUTTON = "DialogueUIButton";
         public const string RESPONSE_PREFAB_YES = "YesGameObjectPrefab";
         public const string RESPONSE_PREFAB_NO = "NoGameObjectPrefab";
         public const string RESPONSE_WORLD_YES_LOCATION = "YesWorldLocationName";

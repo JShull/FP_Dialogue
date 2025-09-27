@@ -10,10 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac0bc1b5fecde264387f749e45e25158, type: 3}
-  m_Name: TEST_RTTimelineDetails
+  m_Name: TEST_BlinkSmallObjects
   m_EditorClassIdentifier: com.fuzzphyte.dialogue::FuzzPhyte.Dialogue.RTTimelineDetails
-  UniqueID: 
-  TimlineName: The DefaultTimeline
-  TType: 1
-  Timeline: {fileID: 11400000, guid: 6aa31fdf508f2c94598cdc90d1a726ff, type: 2}
-  TimelineDescription: Test Timeline Asset - right around 5 seconds long
+  UniqueID: TimelineMoveStuffTesting
+  BinderDirectorLookUpName: Timeline_MoveObjects
+  TimelineName: Dialogue_MoveObjects_Middle
+  PlayOnAwake: 0
+  StartTime: 0
+  WrapMode: 2
+  TType: 2
+  Timeline: {fileID: 11400000, guid: d255e9e92e572eb4da97b71bfd1c31fa, type: 2}
+  PlayTimelineOnce: 1
+  TimelineDescription: Activate and blink other objects next to our world items

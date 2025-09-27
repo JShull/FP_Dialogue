@@ -104,13 +104,36 @@ namespace FuzzPhyte.Dialogue
         /// <param name="data"></param>
         protected virtual void Handle(GraphEventData data)
         {
-            Debug.LogWarning($"Handle incoming data!!, GraphID: {data.GraphId}, ConvoID: {data.ConversationId}");
+            Debug.LogWarning($"Handle incoming data!!, GraphID: {data.GraphId}, ConvoID: {data.ConversationId}, with event type {data.EventType.ToString()}");
             if(data.GraphId != graphID && data.ConversationId != conversationID)
             {
                 return;
             }
             switch (data.EventType)
             {
+                case GraphDialogueEventType.DialogueTimeline:
+                    // event that occurs at the end of a dialogue node that contains timeline details
+                    // this is a special event type we're managing
+                    // first want to confirm this is a dialogue node data
+                    if(mediator.EvaluateDialogueNode(data.DialogueNode))
+                    {
+                        RTTimelineDetails timelineData = data.Payload as RTTimelineDetails;
+                        if (mediator.EvaluateTimelineDetails(timelineData))
+                        {
+                            Debug.Log($"Timeline details confirmed! Looking for a binder...{timelineData.BinderDirectorLookUpName}");
+                            RunDialogueTimeline(timelineData);
+                        }
+                        else
+                        {
+                            Debug.LogError($"Timeline Data Details failed evaluation");
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
+                        
+                    break;
                 case GraphDialogueEventType.DialogueSetup:
                     // Populate binder or init transient state if needed
                     // need binder on setup?
@@ -262,7 +285,25 @@ namespace FuzzPhyte.Dialogue
             ClearActiveVisual();
             DrawResponseVisual(someData.ResponseNode, someData.PreviousNode, someData.NextNode);
         }
-
+        /// <summary>
+        /// For timeline asset details that are part of a dialogue node
+        /// </summary>
+        /// <param name="timelineDetails"></param>
+        protected void RunDialogueTimeline(RTTimelineDetails timelineDetails)
+        {
+            GameObject timelineOBJ = null;
+            binder.TryGet<GameObject>(timelineDetails.BinderDirectorLookUpName, out timelineOBJ);
+            if (timelineOBJ != null)
+            {
+                Debug.Log($"Found the binded object");
+                var timelineInterface = timelineOBJ.GetComponent<IDialogueTimeline>();
+                if (timelineInterface!=null)
+                {
+                    timelineInterface.SetupTimeline(timelineDetails);
+                    timelineInterface.PlayTimeline(timelineDetails.PlayTimelineOnce);
+                }
+            }
+        }
         #region Unity Visuals
         protected virtual void SetupTimelineExit(RTExitNode nodeData)
         {

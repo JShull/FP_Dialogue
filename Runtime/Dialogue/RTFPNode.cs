@@ -297,7 +297,6 @@ namespace FuzzPhyte.Dialogue
         public RTTalkNode mainDialogue;
         public RTTalkNode translatedDialogue;
         public RTCharacterNode incomingCharacter;
-        public RTCharacterNode outgoingCharacter;
         public GameObject UIPanelPrefab;
         public GameObject UIButtonPrefab;
         public bool waitforUser;//drives a UI prompt box for next/previous/repeat
@@ -311,7 +310,9 @@ namespace FuzzPhyte.Dialogue
         public bool usePrefabs;
         public bool useNames;
         public bool useWorldLoc;
-        public RTDialogueNode(string index, RTFPNodePort incominIndex, RTFPNodePort outIndex, RTTalkNode dialogue, RTCharacterNode incomingCharacterNode, string worldIndexLocation = "",bool useWorldLocation = false,bool waitForUser = false, RTCharacterNode outgoingCharacterNode = null, RTTalkNode transDialogue = null) : base(index)
+        // timeline
+        public RTTimelineDetails TimelineDetails;
+        public RTDialogueNode(string index, RTFPNodePort incominIndex, RTFPNodePort outIndex, RTTalkNode dialogue, RTCharacterNode incomingCharacterNode, string worldIndexLocation = "",bool useWorldLocation = false,bool waitForUser = false, RTTalkNode transDialogue = null) : base(index)
         {
             WorldLocationSceneName = worldIndexLocation;
             useWorldLoc = useWorldLocation;
@@ -327,9 +328,26 @@ namespace FuzzPhyte.Dialogue
             this.mainDialogue = dialogue;
             this.translatedDialogue = transDialogue;
             this.incomingCharacter = incomingCharacterNode;
-            this.outgoingCharacter = outgoingCharacterNode;
         }
-        public RTDialogueNode(string index, RTFPNodePort incominIndex,RTFPNodePort outIndex, RTTalkNode dialogue,RTCharacterNode incomingCharacterNode, GameObject panelPrefab, GameObject buttonPrefab,string worldIndexLocation = "",bool useWorldLocation=false,bool waitForUser = false, RTCharacterNode outgoingCharacterNode = null,RTTalkNode transDialogue = null) : base(index)
+        public RTDialogueNode(string index, RTFPNodePort incominIndex, RTFPNodePort outIndex, RTTalkNode dialogue, RTCharacterNode incomingCharacterNode, string worldIndexLocation = "", bool useWorldLocation = false, bool waitForUser = false, RTTalkNode transDialogue = null, RTTimelineDetails timelineProcessFile = null) : base(index)
+        {
+            WorldLocationSceneName = worldIndexLocation;
+            useWorldLoc = useWorldLocation;
+            usePrefabs = false;
+            useNames = false;
+            NodeType = "RTDialogueNode";
+            waitforUser = waitForUser;
+            this.inNodeIndices = new RTFPNodePort[1];
+            this.inNodeIndices[0] = incominIndex;
+            this.outNodeIndices = new RTFPNodePort[1];
+            this.outNodeIndices[0] = outIndex;
+           
+            this.mainDialogue = dialogue;
+            this.translatedDialogue = transDialogue;
+            this.incomingCharacter = incomingCharacterNode;
+            this.TimelineDetails = timelineProcessFile;
+        }
+        public RTDialogueNode(string index, RTFPNodePort incominIndex,RTFPNodePort outIndex, RTTalkNode dialogue,RTCharacterNode incomingCharacterNode, GameObject panelPrefab, GameObject buttonPrefab,string worldIndexLocation = "",bool useWorldLocation=false,bool waitForUser = false,RTTalkNode transDialogue = null, RTTimelineDetails timelineProcessFile = null) : base(index)
         {
             WorldLocationSceneName = worldIndexLocation;
             useWorldLoc = useWorldLocation;
@@ -345,11 +363,13 @@ namespace FuzzPhyte.Dialogue
             this.mainDialogue = dialogue;
             this.translatedDialogue = transDialogue;
             this.incomingCharacter = incomingCharacterNode;
-            this.outgoingCharacter = outgoingCharacterNode;
+
             this.UIPanelPrefab = panelPrefab;
             this.UIButtonPrefab = buttonPrefab;
+
+            this.TimelineDetails = timelineProcessFile;
         }
-        public RTDialogueNode(string index, RTFPNodePort incominIndex, RTFPNodePort outIndex, RTTalkNode dialogue, RTCharacterNode incomingCharacterNode, string panelWorldObjectName, string buttonWorldObjectName, string worldIndexLocation = "",bool useWorldLocation=false,bool waitForUser = false, RTCharacterNode outgoingCharacterNode = null, RTTalkNode transDialogue = null) : base(index)
+        public RTDialogueNode(string index, RTFPNodePort incominIndex, RTFPNodePort outIndex, RTTalkNode dialogue, RTCharacterNode incomingCharacterNode, string panelWorldObjectName, string buttonWorldObjectName, string worldIndexLocation = "",bool useWorldLocation=false,bool waitForUser = false, RTTalkNode transDialogue = null, RTTimelineDetails timelineProcessFile = null) : base(index)
         {
             WorldLocationSceneName = worldIndexLocation;
             useWorldLoc = useWorldLocation;
@@ -365,9 +385,11 @@ namespace FuzzPhyte.Dialogue
             this.mainDialogue = dialogue;
             this.translatedDialogue = transDialogue;
             this.incomingCharacter = incomingCharacterNode;
-            this.outgoingCharacter = outgoingCharacterNode;
+
             this.WorldObjectPanelName = panelWorldObjectName;
             this.WorldObjectButtonName = buttonWorldObjectName;
+
+            this.TimelineDetails = timelineProcessFile;
         }
     }
     //Editor: SetFPTalkNode class

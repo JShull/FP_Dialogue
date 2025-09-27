@@ -107,6 +107,13 @@ namespace FuzzPhyte.Dialogue
                 GraphDialogueEventType.DialogueStart, 
                 entry, payload,selectedNext, candidates, entryNode: entry));
 
+        public void RaiseDialogueTimeline(string graphID, string ConvoID,RTFPNode Current, RTDialogueNode dialogue, RTTimelineDetails timelineDetails) => Raise(Build(
+            graphId: graphID,
+            conversationId: ConvoID,
+            GraphDialogueEventType.DialogueTimeline,
+            current:Current,
+            dialogueNode: dialogue,
+            payload: timelineDetails));
         /// <summary>
         /// Raise a dialogue event, could be next or current
         /// </summary>

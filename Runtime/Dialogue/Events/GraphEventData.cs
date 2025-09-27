@@ -18,7 +18,8 @@ namespace FuzzPhyte.Dialogue
         DialogueUserResponseNext,
         DialogueUserResponsePrevious,
         DialogueUserTranslate,
-        DialogueEnd
+        DialogueEnd,
+        DialogueTimeline
     }
     /// <summary>
     /// Listener contract for code-side subscribers.
@@ -75,7 +76,7 @@ namespace FuzzPhyte.Dialogue
         public string UserResponseText;     // raw user text (if your UX allows text answers)
 
         // Arbitrary attachable data (safe for cross-system)
-        public object Payload;              // minimal boxing use; keep POCO/structs
+        public object Payload;              // minimal boxing use; keep POCO/structs // for things like TimelineDetails
 
         // Helpers
         public T As<T>() where T : class => Payload as T;

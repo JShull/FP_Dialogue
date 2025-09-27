@@ -33,6 +33,9 @@ namespace FuzzPhyte.Dialogue.Editor
                 .WithDefaultValue(MotionState.Idle)
                 .WithDisplayName("Motion:")
                 .Build();
+            context.AddOption<RTTimelineDetails>(FPDialogueGraphValidation.DIALOGUE_TIMELINE_OUT)
+                .WithDisplayName("Timeline on finish?:")
+                .Build();
             context.AddOption<bool>(FPDialogueGraphValidation.USE_THREED_OBJECTS)
                  .WithDefaultValue(false)
                  .WithDisplayName("Use World Objects?: ")
@@ -45,12 +48,6 @@ namespace FuzzPhyte.Dialogue.Editor
                 .WithDefaultValue(false)
                 .WithDisplayName("Dialogue World Location?")
                 .Delayed();
-            /*
-           *  [Header("Animation Related Parameters")]
-      public EmotionalState DialogueEmoState;
-      public DialogueState OverallDialogueState;
-      public MotionState DialogueMotionState;
-           * */
         }
         /// <summary>
         /// Defines the output for the node.
@@ -70,10 +67,6 @@ namespace FuzzPhyte.Dialogue.Editor
                 .WithDisplayName("Character In:")
                 .WithConnectorUI(PortConnectorUI.Circle)
                 .Build();
-            context.AddOutputPort<SetFPCharacterNode>(FPDialogueGraphValidation.PORT_ACTOR)
-                .WithDisplayName("Character Out:")
-                .WithConnectorUI(PortConnectorUI.Circle)
-                .Build();
             context.AddInputPort<SetFPTalkNode>(FPDialogueGraphValidation.MAIN_TEXT)
                 .WithDisplayName("Text to Speak")
                 .Build();
@@ -87,6 +80,7 @@ namespace FuzzPhyte.Dialogue.Editor
             bool usePrefabs = false;
             usePrefabOption.TryGetValue<bool>(out usePrefabs);
             var useWorldLocation = GetNodeOptionByName(FPDialogueGraphValidation.GO_WORLD_LOCATION);
+
             bool useWorldLoc = false;
             if (useWorldLocation != null)
             {
@@ -104,7 +98,7 @@ namespace FuzzPhyte.Dialogue.Editor
                 context.AddInputPort<GameObject>(FPDialogueGraphValidation.DIALOGUE_UI_PANEL)
                     .WithDisplayName("Panel UI Prefab:")
                     .Build();
-                context.AddInputPort<GameObject>(FPDialogueGraphValidation.DIALGUE_UI_BUTTON)
+                context.AddInputPort<GameObject>(FPDialogueGraphValidation.DIALOGUE_UI_BUTTON)
                     .WithDisplayName("Button UI Prefab:")
                     .Build();
             }

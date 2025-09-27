@@ -467,7 +467,11 @@ namespace FuzzPhyte.Dialogue
             Debug.Log($"User pushed next button");
             if (currentNode is RTDialogueNode dialogueNode)
             {
-
+                //if we have a timeline asset on our current node before we go to the next one, this is exactly where we would want to fire it off
+                if (dialogueNode.TimelineDetails != null)
+                {
+                    eventHandler.RaiseDialogueTimeline(graphID, conversationID, dialogueNode, dialogueNode, dialogueNode.TimelineDetails);
+                }
                 currentNode = FirstNext(currentNode);
                 AdvanceUntilInteractive();
             }

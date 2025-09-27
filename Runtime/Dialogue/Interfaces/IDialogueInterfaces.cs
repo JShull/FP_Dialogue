@@ -61,5 +61,35 @@ namespace FuzzPhyte.Dialogue
         public string ReturnGraphID();
 
     }
+    
+    /// <summary>
+    /// Interface for various components/scripts that have additional timeline functionality requirements
+    /// this assumes that there's something with a timeline playable director nearby
+    /// almost like a wrapper for the PlayableDirector
+    /// </summary>
+    public interface IDialogueTimeline
+    {
+        /// <summary>
+        /// General Playable director wrap for .Play()
+        /// Play the timeline we've matched with
+        /// </summary>
+        /// <param name="singlePlay"></param>
+        public void PlayTimeline(bool singlePlay=true);
+
+        /// <summary>
+        /// Set the Playable director with our timeline information/details
+        /// </summary>
+        /// <param name="timelineDetails"></param>
+        public void SetupTimeline(RTTimelineDetails timelineDetails);
+
+        /// <summary>
+        /// Generic Playable director wrap for .Stop()
+        /// </summary>
+        public void StopTimeline();
+
+        public void PauseTimeline();
+        public void ResetTimeline(float startTime = 0);
+        public void ResumeTimeline();
+    }
     #endregion
 }

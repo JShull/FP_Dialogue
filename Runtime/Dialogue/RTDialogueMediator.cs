@@ -58,7 +58,15 @@ namespace FuzzPhyte.Dialogue
             }
             return true;
         }
-       
+        
+        public bool EvaluateTimelineDetails(RTTimelineDetails details)
+        {
+            if (details != null)
+            {
+                return true;
+            }
+            return false;
+        }
         public bool EvaluateResponseNode(RTResponseNode node)
         {
             var mainResponseData = node.userIncomingPrompts;
