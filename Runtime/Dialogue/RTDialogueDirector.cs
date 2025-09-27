@@ -162,6 +162,13 @@ namespace FuzzPhyte.Dialogue
                     var exitExec = (IRTFPDialogueNodeExecutor<RTExitNode>)executor;
                     exitExec.Execute(exitNode, this);
                     eventHandler.RaiseDialogueEnd(graphID, conversationID, exitNode);
+                    if (exitNode.outgoingTimelineDetails != null || exitNode.PlayableDirectorRef != string.Empty)
+                    {
+                        if (exitNode.outgoingTimelineDetails != null) 
+                        {
+                            eventHandler.RaiseDialogueExitTimeline(graphID, conversationID, currentNode, exitNode, exitNode.outgoingTimelineDetails);
+                        }
+                    }
                     currentNode = null;
                     return;
                 }

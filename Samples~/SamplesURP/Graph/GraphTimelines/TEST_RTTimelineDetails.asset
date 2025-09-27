@@ -13,7 +13,13 @@ MonoBehaviour:
   m_Name: TEST_RTTimelineDetails
   m_EditorClassIdentifier: com.fuzzphyte.dialogue::FuzzPhyte.Dialogue.RTTimelineDetails
   UniqueID: TestInput
-  TimlineName: The DefaultTimeline
+  BinderDirectorLookUpName: GameObjectName
+  TimelineName: DefaultTimeline
+  PlayOnAwake: 0
+  StartTime: 0
+  WrapMode: 2
   TType: 1
+  TAction: 1
   Timeline: {fileID: 11400000, guid: 6aa31fdf508f2c94598cdc90d1a726ff, type: 2}
+  PlayTimelineOnce: 1
   TimelineDescription: Test Timeline Asset - right around 5 seconds long

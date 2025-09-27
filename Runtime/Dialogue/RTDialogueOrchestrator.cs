@@ -111,17 +111,49 @@ namespace FuzzPhyte.Dialogue
             }
             switch (data.EventType)
             {
+                // event that occurs at the end of a dialogue node that contains timeline details
                 case GraphDialogueEventType.DialogueTimeline:
-                    // event that occurs at the end of a dialogue node that contains timeline details
-                    // this is a special event type we're managing
-                    // first want to confirm this is a dialogue node data
-                    if(mediator.EvaluateDialogueNode(data.DialogueNode))
+                case GraphDialogueEventType.DialogueExitTimeline:
+                
+                    bool proceedWithProcess = false;
+                    if (data.EventType == GraphDialogueEventType.DialogueExitTimeline)
+                    {
+                        proceedWithProcess = mediator.EvaluateExitNode(data.ExitNode);
+                    }
+                    else
+                    {
+                        proceedWithProcess = mediator.EvaluateDialogueNode(data.DialogueNode);
+                    }
+                    if (proceedWithProcess)
                     {
                         RTTimelineDetails timelineData = data.Payload as RTTimelineDetails;
                         if (mediator.EvaluateTimelineDetails(timelineData))
                         {
-                            Debug.Log($"Timeline details confirmed! Looking for a binder...{timelineData.BinderDirectorLookUpName}");
-                            RunDialogueTimeline(timelineData);
+                            Debug.Log($"Timeline details confirmed! Looking for a binder: [{timelineData.BinderDirectorLookUpName}]");
+                            switch (timelineData.TAction)
+                            {
+                                case TimelineAction.Play:
+                                    RunDialogueTimeline(timelineData);
+                                    break;
+                                case TimelineAction.Pause:
+                                    PauseDialogueTimeline(timelineData);
+                                    break;
+                                case TimelineAction.Stop:
+                                    StopDialogueTimeline(timelineData);
+                                    break;
+                                case TimelineAction.Resume:
+                                    ResumeDialogueTimeline(timelineData);
+                                    break;
+                                case TimelineAction.Reset:
+                                    ResetDialogueTimeline(timelineData, (float)timelineData.StartTime);
+                                    break;
+                                case TimelineAction.Setup:
+                                    SetupDialogueTimeline(timelineData);
+                                    break;
+                                case TimelineAction.SetupAndPlay:
+                                    SetupAndRunDialogueTimeline(timelineData);
+                                    break;
+                            }
                         }
                         else
                         {
@@ -130,9 +162,8 @@ namespace FuzzPhyte.Dialogue
                     }
                     else
                     {
-                        return;
+                        Debug.LogError($"Dialogue and Exit information were incorrect!");
                     }
-                        
                     break;
                 case GraphDialogueEventType.DialogueSetup:
                     // Populate binder or init transient state if needed
@@ -236,11 +267,13 @@ namespace FuzzPhyte.Dialogue
                         if (mediator.EvaluateExitNode(data.ExitNode))
                         {
                             Debug.Log($"Exit Node!");
+                            
                             if (data.ExitNode.PlayableDirectorRef != string.Empty)
                             {
                                 //try to find it
                                 SetupTimelineExit(data.ExitNode);
                             }
+                            
                             if (activeNodeVisual != null)
                             {
                                 ClearActiveVisual();
@@ -263,52 +296,105 @@ namespace FuzzPhyte.Dialogue
             }
         }
         
-        protected static bool TryGetStringMember(object obj, string name, out string value)
-        {
-            value = null;
-            var t = obj.GetType();
-            // Field
-           
-            return false;
-        }
-        IEnumerator DelayDialogueVisuals(GraphEventData someData)
-        {
-            Debug.Log($"Delay Starting...");
-            yield return new WaitForSecondsRealtime(someData.UserDelayPaddedTime);
-            Debug.Log($"Delay Ending...");
-            ClearActiveVisual();
-            DrawDialogueVisual(someData.DialogueNode,false, someData.PreviousNode, someData.NextNode,someData.UserDelayPaddedTime);
-        }
         IEnumerator DelayResponseVisuals(GraphEventData someData)
         {
             yield return new WaitForSecondsRealtime(someData.UserDelayPaddedTime);
             ClearActiveVisual();
             DrawResponseVisual(someData.ResponseNode, someData.PreviousNode, someData.NextNode);
         }
+        #region Timelines Related Functions
+        
         /// <summary>
-        /// For timeline asset details that are part of a dialogue node
+        /// Run command for timeline
         /// </summary>
-        /// <param name="timelineDetails"></param>
-        protected void RunDialogueTimeline(RTTimelineDetails timelineDetails)
+        /// <param name="details"></param>
+        protected void RunDialogueTimeline(RTTimelineDetails details)
         {
-            GameObject timelineOBJ = null;
-            binder.TryGet<GameObject>(timelineDetails.BinderDirectorLookUpName, out timelineOBJ);
-            if (timelineOBJ != null)
+            WithTimeline(details, tl =>
             {
-                Debug.Log($"Found the binded object");
-                var timelineInterface = timelineOBJ.GetComponent<IDialogueTimeline>();
-                if (timelineInterface!=null)
-                {
-                    timelineInterface.SetupTimeline(timelineDetails);
-                    timelineInterface.PlayTimeline(timelineDetails.PlayTimelineOnce);
-                }
-            }
+                tl.PlayTimeline(details.PlayTimelineOnce);
+            });
         }
+        /// <summary>
+        /// Stop command for timeline
+        /// </summary>
+        /// <param name="details"></param>
+        protected void StopDialogueTimeline(RTTimelineDetails details)
+        {
+            WithTimeline(details, tl => tl.StopTimeline());
+        }
+        /// <summary>
+        /// Pause command for timeline
+        /// </summary>
+        /// <param name="details"></param>
+        protected void PauseDialogueTimeline(RTTimelineDetails details)
+        {
+            WithTimeline(details, tl => tl.PauseTimeline());
+        }
+        /// <summary>
+        /// Resume command for timeline
+        /// </summary>
+        /// <param name="details"></param>
+        protected void ResumeDialogueTimeline(RTTimelineDetails details)
+        {
+            WithTimeline(details, tl => tl.ResumeTimeline());
+        }
+        /// <summary>
+        /// Reset commmand for timeline
+        /// </summary>
+        /// <param name="details"></param>
+        /// <param name="startTime"></param>
+        protected void ResetDialogueTimeline(RTTimelineDetails details, float startTime = 0f)
+        {
+            WithTimeline(details, tl => tl.ResetTimeline(startTime));
+        }
+        /// <summary>
+        /// Setup command for timeline
+        /// </summary>
+        /// <param name="details"></param>
+        protected void SetupDialogueTimeline(RTTimelineDetails details)
+        {
+            WithTimeline(details, tl =>
+            {
+                tl.SetupTimeline(details);
+            });
+        }
+        /// <summary>
+        /// Setup and run command for timeline
+        /// </summary>
+        /// <param name="details"></param>
+        protected void SetupAndRunDialogueTimeline(RTTimelineDetails details)
+        {
+            WithTimeline(details, tl =>
+            {
+                tl.SetupTimeline(details);
+                tl.PlayTimeline(details.PlayTimelineOnce);
+            });
+        }
+        
+        /// <summary>
+        /// internal call to handle actions associated with details
+        /// </summary>
+        /// <param name="details"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        private bool WithTimeline(RTTimelineDetails details, System.Action<IDialogueTimeline> action)
+        {
+            var go = ReturnBinderObject(details.BinderDirectorLookUpName);
+            if (go != null && go.TryGetComponent<IDialogueTimeline>(out var tl))
+            {
+                action?.Invoke(tl);
+                return true;
+            }
+
+            Debug.LogWarning($"[Timeline] Could not resolve IDialogueTimeline for '{details.BinderDirectorLookUpName}'.");
+            return false;
+        }
+        #endregion
         #region Unity Visuals
         protected virtual void SetupTimelineExit(RTExitNode nodeData)
         {
-            GameObject timelineOBJ = null;
-            binder.TryGet<GameObject>(nodeData.PlayableDirectorRef, out timelineOBJ);
+            GameObject timelineOBJ = ReturnBinderObject(nodeData.PlayableDirectorRef);
             if (timelineOBJ!=null)
             {
                 if (timelineOBJ.GetComponent<PlayableDirector>())
@@ -335,8 +421,8 @@ namespace FuzzPhyte.Dialogue
             if (nodeData.useWorldLoc)
             {
                 //look up location in binder
-                GameObject location = null;
-                if (binder.TryGet<GameObject>(nodeData.WorldLocationSceneName, out location))
+                GameObject location = ReturnBinderObject(nodeData.WorldLocationSceneName);
+                if (location!=null)
                 {
                     spawnLoc= location.transform;
                 }
@@ -361,7 +447,7 @@ namespace FuzzPhyte.Dialogue
                 }
             }else if (nodeData.useNames)
             {
-                binder.TryGet<GameObject>(nodeData.WorldObjectPanelName, out activeNodeVisual);
+                activeNodeVisual = ReturnBinderObject(nodeData.WorldObjectPanelName);
                 NodeVisualSetup(activeNodeVisual, dialogueUnity,nodeData, useTranslation,previousNode, nextNode);
             }
             else if (DialogueBaseUIPrefab != null)
@@ -374,8 +460,8 @@ namespace FuzzPhyte.Dialogue
             if (nodeData.incomingCharacter.characterBlendShapeName != string.Empty && nodeData.mainDialogue.faceAnimation!=null)
             {
                 //can we find it?
-                GameObject characterFace = null;
-                binder.TryGet<GameObject>(nodeData.incomingCharacter.characterBlendShapeName, out characterFace);
+                GameObject characterFace = ReturnBinderObject(nodeData.incomingCharacter.characterBlendShapeName);
+                
                 //Debug.LogWarning($"Face Animation?!");
                 if (characterFace != null&&nodeData.mainDialogue.faceAnimation!=null) 
                 {
@@ -390,9 +476,7 @@ namespace FuzzPhyte.Dialogue
             }
             if (nodeData.incomingCharacter.characterObjectName != string.Empty&&nodeData.mainDialogue.bodyAnimation!=null)
             {
-                GameObject characterBody = null;
-                binder.TryGet<GameObject>(nodeData.incomingCharacter.characterObjectName, out characterBody);
-                //Debug.LogWarning($"Body Animation?");
+                GameObject characterBody = ReturnBinderObject(nodeData.incomingCharacter.characterObjectName);
                 if (characterBody != null)
                 {
                     //Debug.LogWarning($"We found a body, and there's a clip");
@@ -474,7 +558,7 @@ namespace FuzzPhyte.Dialogue
                     {
                         //Debug.Log($"Response {i}: node index: {nodeData.userIncomingPrompts[i].Index}");
                         var locationName = nodeData.userIncomingPrompts[i].spawnLocationID;
-                        binder.TryGet<GameObject>(locationName, out GameObject location);
+                        GameObject location = ReturnBinderObject(locationName);
                         if (UserResponseUIPrefabItem != null && location != null)
                         {
                             var aPromptButton = Instantiate(UserResponseUIPrefabItem, location.transform);
@@ -527,5 +611,16 @@ namespace FuzzPhyte.Dialogue
             }
         }
         #endregion
+        /// <summary>
+        /// Quick return gameobject from the binder based on a name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        private GameObject ReturnBinderObject(string name)
+        {
+            GameObject objBinder = null;
+            binder.TryGet<GameObject>(name, out objBinder);
+            return objBinder;
+        }
     }
 }

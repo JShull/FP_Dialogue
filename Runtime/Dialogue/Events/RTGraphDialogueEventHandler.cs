@@ -106,7 +106,14 @@ namespace FuzzPhyte.Dialogue
                 conversationId:ConvoID, 
                 GraphDialogueEventType.DialogueStart, 
                 entry, payload,selectedNext, candidates, entryNode: entry));
-
+        public void RaiseDialogueExitTimeline(string graphID, string ConvoID, RTFPNode Current, RTExitNode Exit, RTTimelineDetails timelineDetails) => Raise(Build(
+            graphId:graphID,
+            conversationId:ConvoID,
+            GraphDialogueEventType.DialogueExitTimeline,
+            current:Current,
+            exitNode:Exit,
+            payload:timelineDetails));
+        
         public void RaiseDialogueTimeline(string graphID, string ConvoID,RTFPNode Current, RTDialogueNode dialogue, RTTimelineDetails timelineDetails) => Raise(Build(
             graphId: graphID,
             conversationId: ConvoID,

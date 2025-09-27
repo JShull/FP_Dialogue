@@ -19,7 +19,8 @@ namespace FuzzPhyte.Dialogue
         DialogueUserResponsePrevious,
         DialogueUserTranslate,
         DialogueEnd,
-        DialogueTimeline
+        DialogueTimeline,
+        DialogueExitTimeline
     }
     /// <summary>
     /// Listener contract for code-side subscribers.

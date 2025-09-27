@@ -114,6 +114,7 @@ namespace FuzzPhyte.Dialogue
             {
                 outgoingTimelineDetails = outTimelineAsset;
                 timelineAsset = outTimelineAsset.Timeline;
+                PlayableDirectorRef = outTimelineAsset.BinderDirectorLookUpName;
             }
         }
         public RTExitNode(string index, List<RTFPNodePort> incomingNodeExit, TimelineAsset outTimelineAsset = null) : base(index)
@@ -121,7 +122,6 @@ namespace FuzzPhyte.Dialogue
             inNodeIndices = incomingNodeExit.ToArray();
             NodeType = "RTExitNode";
             timelineAsset = outTimelineAsset;
-            
         }
     }
 

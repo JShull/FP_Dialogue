@@ -13,7 +13,13 @@ MonoBehaviour:
   m_Name: WalkEndDetails
   m_EditorClassIdentifier: com.fuzzphyte.dialogue::FuzzPhyte.Dialogue.RTTimelineDetails
   UniqueID: AEDT_End
-  TimlineName: Anna_End_DefaultTimeline
+  BinderDirectorLookUpName: TimelineTests_END
+  TimelineName: DefaultTimeline
+  PlayOnAwake: 0
+  StartTime: 0
+  WrapMode: 2
   TType: 1
+  TAction: 1
   Timeline: {fileID: 11400000, guid: 2135e03595e962b4289e786f84590a33, type: 2}
+  PlayTimelineOnce: 1
   TimelineDescription: 

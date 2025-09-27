@@ -278,15 +278,15 @@ namespace FuzzPhyte.Dialogue.Editor
                             tAssetDetailsOut = GetPortValue<RTTimelineDetails>(timelinePortDetails);
                         }
 
-                        if (timelinePort != null && timelinePortDetails != null)
+                        if (tAssetDetailsOut != null)
                         {
                             //use details
                             var RTexitNode = new RTExitNode(exitNode.Name, otherNodes);
-                            RTexitNode.PlayableDirectorRef = playableAssetName;
+                            RTexitNode.PlayableDirectorRef = tAssetDetailsOut.BinderDirectorLookUpName;
                             RTexitNode.outgoingTimelineDetails = tAssetDetailsOut;
                             createdNodes.Add(RTexitNode);
                         }
-                        else if (timelinePort != null && timelinePortDetails == null)
+                        else if (tAssetOut!=null)
                         {
                             //use timeline directly
                             var RTexitNode = new RTExitNode(exitNode.Name, otherNodes);
@@ -294,9 +294,9 @@ namespace FuzzPhyte.Dialogue.Editor
                             RTexitNode.timelineAsset = tAssetOut;
                             createdNodes.Add(RTexitNode);
                         }
-                        else if (timelinePort == null && timelinePortDetails == null)
+                        else
                         {
-                            Debug.LogWarning($"No Timeline files found - tAsset is null");
+                            Debug.LogWarning($"No Timeline files found");
                             var RTexitNode = new RTExitNode(exitNode.Name, otherNodes);
                             RTexitNode.PlayableDirectorRef = playableAssetName;
                             createdNodes.Add(RTexitNode);

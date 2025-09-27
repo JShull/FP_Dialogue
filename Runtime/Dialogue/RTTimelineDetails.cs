@@ -5,11 +5,24 @@ namespace FuzzPhyte.Dialogue
     using UnityEngine;
     using UnityEngine.Timeline;
     using UnityEngine.Playables;
+    [Serializable]
     public enum TimelineType
     {
         NA=0,
         Input = 1,
         Output = 2
+    }
+    [Serializable]
+    public enum TimelineAction
+    {
+        NA = 0,
+        Play = 1,
+        Pause = 2,
+        Resume = 3,
+        Stop = 4,
+        Reset = 5,
+        Setup = 6,
+        SetupAndPlay = 7,
     }
     [Serializable]
     [CreateAssetMenu(fileName = "RTTimelineDetails", menuName = "FuzzPhyte/Dialogue/Graph/Create Timeline Details")]
@@ -22,6 +35,7 @@ namespace FuzzPhyte.Dialogue
         public double StartTime = 0;
         public DirectorWrapMode WrapMode = DirectorWrapMode.None;
         public TimelineType TType = TimelineType.Input;
+        public TimelineAction TAction = TimelineAction.NA;
         [Tooltip("Timline associated with node")]
         public TimelineAsset Timeline;
         public bool PlayTimelineOnce = true;

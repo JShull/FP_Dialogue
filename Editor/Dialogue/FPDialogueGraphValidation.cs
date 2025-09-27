@@ -103,7 +103,7 @@
             }
 
 
-                foreach (var n in graph.GetNodes().OfType<SetFPDialogueNode>())
+            foreach (var n in graph.GetNodes().OfType<SetFPDialogueNode>())
                 {
                     var inPort = n.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
                     var outPort = n.GetOutputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
@@ -211,6 +211,27 @@
                         logger.LogWarning($"{n.Name} input/output doesn't match for {i + 1} port! ", n);
                     }
                 }
+            }
+            foreach(var n in graph.GetNodes().OfType<ExitNode>())
+            {
+                //check if we have both a TimelineAsset and a Timeline Details
+                var inputBoolTimelineAsset = n.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_TIMELINE).isConnected;
+                var inputTimelineDetailsPort = n.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_TIMELINEDETAILS);
+                var inputBoolTimelineDetails = n.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_TIMELINEDETAILS).isConnected;
+
+                if (inputTimelineDetailsPort != null && inputBoolTimelineAsset)
+                {
+                    RTTimelineDetails details = null;
+                    inputTimelineDetailsPort.TryGetValue<RTTimelineDetails>(out details);
+                    if (details != null)
+                    {
+                        logger.LogWarning($"{n.Name} shouldn't have both timeline asset and timeline details, just use one", n);
+                    }
+                }
+                else if(inputBoolTimelineAsset && inputBoolTimelineDetails)
+                {
+                    logger.LogWarning($"{n.Name} shouldn't have both timeline asset and timeline details, just use one", n);
+                }                
             }
         }
     }

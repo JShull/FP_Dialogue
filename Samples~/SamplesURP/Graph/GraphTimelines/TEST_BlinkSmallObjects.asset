@@ -19,6 +19,7 @@ MonoBehaviour:
   StartTime: 0
   WrapMode: 2
   TType: 2
+  TAction: 7
   Timeline: {fileID: 11400000, guid: d255e9e92e572eb4da97b71bfd1c31fa, type: 2}
   PlayTimelineOnce: 1
   TimelineDescription: Activate and blink other objects next to our world items

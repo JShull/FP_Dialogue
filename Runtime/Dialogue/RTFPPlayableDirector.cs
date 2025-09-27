@@ -20,7 +20,6 @@ namespace FuzzPhyte.Dialogue
                 playedTimeline = true;
             }
         }
-
         public void SetupTimeline(RTTimelineDetails timelineDetails)
         {
             if(TimelineDirector!=null && timelineDetails != null)
@@ -31,7 +30,6 @@ namespace FuzzPhyte.Dialogue
                 TimelineDirector.extrapolationMode = timelineDetails.WrapMode;
             }
         }
-
         public void StopTimeline()
         {
             if (TimelineDirector != null)
