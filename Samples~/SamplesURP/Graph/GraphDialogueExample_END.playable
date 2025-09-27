@@ -93,6 +93,49 @@ MonoBehaviour:
   m_Markers:
     m_Objects:
     - {fileID: -1597133982051900141}
+--- !u!114 &-8538324499323803382
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226ea4ffb276be2468c1f49102d0edb1, type: 3}
+  m_Name: FP Spline Follow Track (1)
+  m_EditorClassIdentifier: com.fuzzphyte.utility.animation::FuzzPhyte.Utility.Animation.FPSplineFollowTrack
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children: []
+  m_Clips: []
+  m_Markers:
+    m_Objects:
+    - {fileID: -7229548960389299190}
+--- !u!114 &-7229548960389299190
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a58336ebfd485748baa5562577d0e59, type: 3}
+  m_Name: FP Spline Command Marker
+  m_EditorClassIdentifier: com.fuzzphyte.utility.animation::FuzzPhyte.Utility.Animation.FPSplineCommandMarker
+  m_Time: 0
+  command: 1
+  value: 1
+  SplineContainerIndex: 0
+  CommandAnimClip: {fileID: 0}
+  ReturnToOriginalClip: 0
+  StopActiveInjection: 1
 --- !u!114 &-6843957686729367384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -152,6 +195,9 @@ MonoBehaviour:
   command: 7
   value: 0
   SplineContainerIndex: 1
+  CommandAnimClip: {fileID: 0}
+  ReturnToOriginalClip: 0
+  StopActiveInjection: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +214,7 @@ MonoBehaviour:
   m_Tracks:
   - {fileID: -8713515266610948485}
   - {fileID: 8543722243281780791}
+  - {fileID: -8538324499323803382}
   m_FixedDuration: 0
   m_EditorSettings:
     m_Framerate: 60

@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Tracks:
   - {fileID: -9098621829496925752}
   - {fileID: 5971977018615906979}
+  - {fileID: 6102926091581403178}
   m_FixedDuration: 0
   m_EditorSettings:
     m_Framerate: 60
@@ -219,6 +220,25 @@ MonoBehaviour:
   m_Loop: 0
   m_Version: 1
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+--- !u!114 &4556705687641828311
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a58336ebfd485748baa5562577d0e59, type: 3}
+  m_Name: FP Spline Command Marker
+  m_EditorClassIdentifier: com.fuzzphyte.utility.animation::FuzzPhyte.Utility.Animation.FPSplineCommandMarker
+  m_Time: 4.816666666666666
+  command: 0
+  value: 1
+  SplineContainerIndex: 0
+  CommandAnimClip: {fileID: -203655887218126122, guid: 52df6ca3244636d4f882ce5573224f52, type: 3}
+  ReturnToOriginalClip: 0
+  StopActiveInjection: 0
 --- !u!114 &5259439587592028665
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -574,6 +594,30 @@ MonoBehaviour:
   m_OpenClipOffsetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
   m_ApplyOffsets: 0
+--- !u!114 &6102926091581403178
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226ea4ffb276be2468c1f49102d0edb1, type: 3}
+  m_Name: FP Spline Follow Track (1)
+  m_EditorClassIdentifier: com.fuzzphyte.utility.animation::FuzzPhyte.Utility.Animation.FPSplineFollowTrack
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children: []
+  m_Clips: []
+  m_Markers:
+    m_Objects:
+    - {fileID: 4556705687641828311}
 --- !u!114 &7133740788961912266
 MonoBehaviour:
   m_ObjectHideFlags: 1
