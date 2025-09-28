@@ -16,7 +16,7 @@
             string safeDateString = dateString.Replace("/", "-").Replace("\\", "-");
             GraphDatabase.PromptInProjectBrowserToCreateNewAsset<FPDialogueGraph>("FPDialogueGraph_"+safeDateString);
         }
-        [MenuItem("FuzzPhyte/Dialogue/Graph/Create Blank Graph")]
+        [MenuItem("FuzzPhyte/Dialogue/Graph/Create Blank Graph", priority = FuzzPhyte.Utility.FP_UtilityData.ORDER_SUBMENU_LVL6)]
         public static void CreateDialogueGraphMenu()
         {
             string dateString = System.DateTime.Now.ToShortDateString();
