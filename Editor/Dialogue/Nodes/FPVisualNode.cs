@@ -11,7 +11,7 @@ namespace FuzzPhyte.Dialogue.Editor
     {
 
         [SerializeField] protected string name;
-        [SerializeField] public string Name { get { return name; } }
+        public string Name { get { return name; } }
         public abstract void SetupIndex(string passedName);
 
         protected bool TryGetOptionValue<T>(string name, out T value)
