@@ -2,7 +2,10 @@ namespace FuzzPhyte.Dialogue
 {
     using UnityEngine;
     using UnityEngine.Playables;
-    
+
+    /// <summary>
+    /// Uses INotificationReceiver to receive timeline notifications via OnNotify by their type
+    /// </summary>
     public class FPDialogueReceiver:MonoBehaviour,INotificationReceiver
     {
         [Tooltip("Must have a component that is using the IDialogueDirectorActions interface")]

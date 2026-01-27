@@ -93,6 +93,52 @@ MonoBehaviour:
   m_Markers:
     m_Objects:
     - {fileID: -661347229824315264}
+--- !u!114 &-9015841703590911445
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f14f246f96f5b1e4282d6001fda288c7, type: 3}
+  m_Name: FP Activation Track
+  m_EditorClassIdentifier: com.fuzzphyte.utility.animation::FuzzPhyte.Utility.Animation.Timeline.FPActivationTrack
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children: []
+  m_Clips: []
+  m_Markers:
+    m_Objects:
+    - {fileID: -3033846070068640294}
+    - {fileID: 2244933326765142550}
+--- !u!114 &-7885811973025907965
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea75fe51f1bbc2f478f143c04903ce56, type: 3}
+  m_Name: FP Activation Marker
+  m_EditorClassIdentifier: com.fuzzphyte.utility.animation::FuzzPhyte.Utility.Animation.Timeline.FPActivationMarker
+  m_Time: 2
+  _id: FPActivationMarker
+  Command: 2
+  UseTrackBindingTarget: 1
+  OverrideTarget:
+    exposedName: aaa4da6f1e296f84d85ab9a04f0fe27c
+    defaultValue: {fileID: 0}
+  Sticky: 1
+  ApplyDuringEvaluate: 1
 --- !u!114 &-6559395014009084224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -137,6 +183,90 @@ MonoBehaviour:
   m_Loop: 0
   m_Version: 1
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+--- !u!114 &-3287482084079698016
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea75fe51f1bbc2f478f143c04903ce56, type: 3}
+  m_Name: FP Activation Marker
+  m_EditorClassIdentifier: com.fuzzphyte.utility.animation::FuzzPhyte.Utility.Animation.Timeline.FPActivationMarker
+  m_Time: 3
+  _id: FPActivationMarker
+  Command: 1
+  UseTrackBindingTarget: 0
+  OverrideTarget:
+    exposedName: df8a54de56cd873408f8db4694ccd36f
+    defaultValue: {fileID: 0}
+  Sticky: 1
+  ApplyDuringEvaluate: 1
+--- !u!114 &-3033846070068640294
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea75fe51f1bbc2f478f143c04903ce56, type: 3}
+  m_Name: FP Activation Marker
+  m_EditorClassIdentifier: com.fuzzphyte.utility.animation::FuzzPhyte.Utility.Animation.Timeline.FPActivationMarker
+  m_Time: 1
+  _id: FPActivationMarker
+  Command: 0
+  UseTrackBindingTarget: 0
+  OverrideTarget:
+    exposedName: 4a281e9f2c59a1e4e978810b7e471983
+    defaultValue: {fileID: 0}
+  Sticky: 1
+  ApplyDuringEvaluate: 1
+--- !u!114 &-2759331542846889120
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea75fe51f1bbc2f478f143c04903ce56, type: 3}
+  m_Name: FP Activation Marker
+  m_EditorClassIdentifier: com.fuzzphyte.utility.animation::FuzzPhyte.Utility.Animation.Timeline.FPActivationMarker
+  m_Time: 2
+  _id: FPActivationMarker
+  Command: 1
+  UseTrackBindingTarget: 1
+  OverrideTarget:
+    exposedName: 56841c250d68861438474ca8f20d8e8b
+    defaultValue: {fileID: 0}
+  Sticky: 1
+  ApplyDuringEvaluate: 1
+--- !u!114 &-1987541300910456740
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea75fe51f1bbc2f478f143c04903ce56, type: 3}
+  m_Name: FP Activation Marker
+  m_EditorClassIdentifier: com.fuzzphyte.utility.animation::FuzzPhyte.Utility.Animation.Timeline.FPActivationMarker
+  m_Time: 2
+  _id: FPActivationMarker
+  Command: 0
+  UseTrackBindingTarget: 0
+  OverrideTarget:
+    exposedName: f155e7fe27f16bc4fb00783173730a6a
+    defaultValue: {fileID: 0}
+  Sticky: 1
+  ApplyDuringEvaluate: 1
 --- !u!114 &-661347229824315264
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -170,12 +300,55 @@ MonoBehaviour:
   - {fileID: -9098621829496925752}
   - {fileID: 5971977018615906979}
   - {fileID: 6102926091581403178}
+  - {fileID: -9015841703590911445}
   m_FixedDuration: 0
   m_EditorSettings:
     m_Framerate: 60
     m_ScenePreview: 1
   m_DurationMode: 0
   m_MarkerTrack: {fileID: 0}
+--- !u!114 &2244933326765142550
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea75fe51f1bbc2f478f143c04903ce56, type: 3}
+  m_Name: FP Activation Marker
+  m_EditorClassIdentifier: com.fuzzphyte.utility.animation::FuzzPhyte.Utility.Animation.Timeline.FPActivationMarker
+  m_Time: 2.85
+  _id: FPActivationMarker
+  Command: 1
+  UseTrackBindingTarget: 0
+  OverrideTarget:
+    exposedName: 76a5084f4b58a3440bd194e9c3634816
+    defaultValue: {fileID: 0}
+  Sticky: 1
+  ApplyDuringEvaluate: 1
+--- !u!114 &2356916983074200860
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea75fe51f1bbc2f478f143c04903ce56, type: 3}
+  m_Name: FP Activation Marker
+  m_EditorClassIdentifier: com.fuzzphyte.utility.animation::FuzzPhyte.Utility.Animation.Timeline.FPActivationMarker
+  m_Time: 2
+  _id: FPActivationMarker
+  Command: 1
+  UseTrackBindingTarget: 1
+  OverrideTarget:
+    exposedName: 
+    defaultValue: {fileID: 0}
+  Sticky: 1
+  ApplyDuringEvaluate: 1
 --- !u!114 &3035905550056279907
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -473,25 +646,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -518,25 +673,7 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
