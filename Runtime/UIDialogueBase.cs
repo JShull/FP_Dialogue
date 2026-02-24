@@ -274,7 +274,11 @@ namespace FuzzPhyte.Dialogue
             {
                 DialogueTextContainer.UpdateRefIconSprite(character.CharacterTheme.SecondaryIcon);
             }
-           
+            if (character.CharacterTheme.UseOverlayColor)
+            {
+                DialogueTextContainer.UpdateBackdropColor(character.CharacterTheme.OverlayColor);
+            }
+            
             //will have to modify based on target language either using the original or translation text
 
 

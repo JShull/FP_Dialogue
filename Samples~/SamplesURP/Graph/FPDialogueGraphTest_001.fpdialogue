@@ -690,7 +690,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: cf7363ac1cfc56b64991e56f347e62b6
         m_Version: 2
-        m_Position: {x: 892.71594, y: 346.46042}
+        m_Position: {x: 777.65845, y: 348.46042}
         m_Title: SetFPTalkNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -1976,7 +1976,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: d6de410ca2414d531087729e39439cff
         m_Version: 2
-        m_Position: {x: 956.6001, y: 528.95013}
+        m_Position: {x: 758.22516, y: 554.95013}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -3713,7 +3713,7 @@ MonoBehaviour:
           expandedPortsById:
             m_KeyList: []
             m_ValueList: 
-        m_Collapsed: 1
+        m_Collapsed: 0
         m_CurrentModeIndex: 0
         m_ElementColor:
           m_Color: {r: 0, g: 0, b: 0, a: 0}
@@ -3983,7 +3983,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 7e8bcdad25fd5e73606eb05ede849854
         m_Version: 2
-        m_Position: {x: 304.23117, y: 1094.0967}
+        m_Position: {x: 304.23123, y: 1094.0967}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
