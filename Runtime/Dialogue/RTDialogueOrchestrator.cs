@@ -38,7 +38,10 @@ namespace FuzzPhyte.Dialogue
         public AudioSource UserPromptAudioSource;
         [Space]
         public string userID = "1234Test";
+        [Tooltip("The main UI Canvas")]
         public Canvas DialogueWorldCanvas;
+        [Tooltip("If we have a parent root other than canvas")]
+        public Transform DialogueWorldRootForCanvas;
         [SerializeField]
         [Tooltip("spawned prefab for nested visual information")]
         protected GameObject activeNodeVisual;
@@ -428,16 +431,25 @@ namespace FuzzPhyte.Dialogue
                 }
             }
             //move my canvas to the location
-            if (DialogueWorldCanvas != null && spawnLoc != null)
+            if (DialogueWorldRootForCanvas != null && spawnLoc != null)
             {
-                DialogueWorldCanvas.transform.position = spawnLoc.position;
-                DialogueWorldCanvas.transform.rotation = spawnLoc.rotation;
+                DialogueWorldRootForCanvas.transform.position = spawnLoc.position;
+                DialogueWorldRootForCanvas.transform.rotation = spawnLoc.rotation;
             }
             else
             {
-                Debug.LogError($"Missing Canvas or spawn location");
-                return;
+                if (DialogueWorldCanvas != null && spawnLoc != null)
+                {
+                    DialogueWorldCanvas.transform.position = spawnLoc.position;
+                    DialogueWorldCanvas.transform.rotation = spawnLoc.rotation;
+                }
+                else
+                {
+                    Debug.LogError($"Missing Canvas or spawn location");
+                    return;
+                }
             }
+            
             //JOHN System needs to confirm that we have a translation data block, if we don't we should never generate a Visual node with a translation button option (even if we are being told to provide it)
             
             if (nodeData.usePrefabs)

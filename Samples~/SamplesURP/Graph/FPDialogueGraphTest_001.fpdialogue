@@ -3634,7 +3634,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 2524db2e12a93bf6ff8f8a190c324d96
         m_Version: 2
-        m_Position: {x: 1887.6627, y: 773.57465}
+        m_Position: {x: 1910.9435, y: 738.57465}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -3688,7 +3688,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: bf30015a0f9d3e76d6f03dc871379a43
         m_Version: 2
-        m_Position: {x: 585.4111, y: 1127.2191}
+        m_Position: {x: 682.3161, y: 1106.2191}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -3983,7 +3983,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 7e8bcdad25fd5e73606eb05ede849854
         m_Version: 2
-        m_Position: {x: 304.23123, y: 1094.0967}
+        m_Position: {x: 98.95587, y: 1080.0753}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -4084,7 +4084,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 2b3ee79a2e2cd84a526a428a5ecea73f
         m_Version: 2
-        m_Position: {x: 304.09152, y: 1214.4866}
+        m_Position: {x: -91.81398, y: 1388.0157}
         m_Title: SetFPTalkNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -5942,7 +5942,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 6d67778ee3ff0f46aa4aee6a46b84116
         m_Version: 2
-        m_Position: {x: 2227.8174, y: 265.694}
+        m_Position: {x: 2315.8174, y: 462.694}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
