@@ -438,6 +438,8 @@ namespace FuzzPhyte.Dialogue
                 Debug.LogError($"Missing Canvas or spawn location");
                 return;
             }
+            //JOHN System needs to confirm that we have a translation data block, if we don't we should never generate a Visual node with a translation button option (even if we are being told to provide it)
+            
             if (nodeData.usePrefabs)
             {
                 if (nodeData.UIPanelPrefab != null)

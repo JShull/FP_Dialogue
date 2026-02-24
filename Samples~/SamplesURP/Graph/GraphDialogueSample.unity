@@ -682,6 +682,7 @@ MonoBehaviour:
   eventHandler: {fileID: 168510894}
   conversationID: AnnaConvo
   graphID: 
+  OverrideTranslation: 1
 --- !u!4 &158921071
 Transform:
   m_ObjectHideFlags: 0
@@ -11745,7 +11746,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38b8ebc82768bd4fb03428015d37edc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: com.fuzzphyte.utility.animation::FuzzPhyte.Utility.Animation.FPIKManager
-  handDist: 0
   IKProvider: 2
   MaintainOffset: 1
   IKScaleWeight: 1
@@ -11777,8 +11777,16 @@ MonoBehaviour:
   HeadIKSpeed: 50
   AnimatorLayer: 1
   ConeHeight: 5
-  measuredWeight: 0
+  legacyMeasuredWeight: 0
   HeadAimConstraint: {fileID: 1580349510}
+  NeckAimConstraint: {fileID: 0}
+  ChestAimConstraint: {fileID: 0}
+  SpineAimConstraint: {fileID: 0}
+  SpineWeightMultiplier: 0.35
+  ChestWeightMultiplier: 0.6
+  NeckWeightMultiplier: 0.8
+  BodyAssistStartAngle: 15
+  BodyAssistFullAngle: 60
   RightArmConstraint: {fileID: 191031563}
   LeftArmConstraint: {fileID: 1336443945}
   ShowHeadIKGizmo: 0
@@ -11792,6 +11800,19 @@ MonoBehaviour:
   LeftHandTargetColor: {r: 0.2028302, g: 0.2028302, b: 1, a: 1}
   HeadTargetColor: {r: 0.9411765, g: 0.9725491, b: 1, a: 1}
   ConeSegments: 16
+  SpineColor: {r: 0.2, g: 0.6, b: 1, a: 0.8}
+  ChestColor: {r: 0.4, g: 1, b: 0.6, a: 0.8}
+  NeckColor: {r: 1, g: 0.8, b: 0.2, a: 0.8}
+  HeadColor: {r: 1, g: 0.2, b: 0.2, a: 0.9}
+  AimRayLength: 0.5
+  RootTurnSpeedDeg: 180
+  RootTurnOnAngle: 75
+  RootTurnOffAngle: 55
+  _bodyAssistSmoothed: 0
+  HeadEngageAngle: 70
+  HeadDisengageAngle: 85
+  HeadMaxYaw: 85
+  RootTurnStartYaw: 65
 --- !u!95 &1988309805
 Animator:
   serializedVersion: 7
@@ -15882,12 +15903,7 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'mixamorig:RightArm'\n\tTransform 'mixamorig:LeftArm'\n\tTransform
-    'mixamorig:RightHand'\n\tTransform 'mixamorig:LeftForeArm'\n\tTransform 'mixamorig:Spine2'\n\tTransform
-    'mixamorig:RightForeArm'\n\tTransform 'mixamorig:Neck'\n\tTransform 'mixamorig:LeftHand'\n\tTransform
-    'mixamorig:RightArm'\n\tTransform 'mixamorig:LeftArm'\n\tand more ..."
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -15904,7 +15920,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38b8ebc82768bd4fb03428015d37edc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: com.fuzzphyte.utility.animation::FuzzPhyte.Utility.Animation.FPIKManager
-  handDist: 0
   IKProvider: 2
   MaintainOffset: 1
   IKScaleWeight: 1
@@ -15936,8 +15951,16 @@ MonoBehaviour:
   HeadIKSpeed: 50
   AnimatorLayer: 1
   ConeHeight: 5
-  measuredWeight: 0
+  legacyMeasuredWeight: 0
   HeadAimConstraint: {fileID: 335736831}
+  NeckAimConstraint: {fileID: 0}
+  ChestAimConstraint: {fileID: 0}
+  SpineAimConstraint: {fileID: 0}
+  SpineWeightMultiplier: 0.35
+  ChestWeightMultiplier: 0.6
+  NeckWeightMultiplier: 0.8
+  BodyAssistStartAngle: 15
+  BodyAssistFullAngle: 60
   RightArmConstraint: {fileID: 1722049785}
   LeftArmConstraint: {fileID: 1228362242}
   ShowHeadIKGizmo: 0
@@ -15951,6 +15974,19 @@ MonoBehaviour:
   LeftHandTargetColor: {r: 0.2028302, g: 0.2028302, b: 1, a: 1}
   HeadTargetColor: {r: 0.9411765, g: 0.9725491, b: 1, a: 1}
   ConeSegments: 16
+  SpineColor: {r: 0.2, g: 0.6, b: 1, a: 0.8}
+  ChestColor: {r: 0.4, g: 1, b: 0.6, a: 0.8}
+  NeckColor: {r: 1, g: 0.8, b: 0.2, a: 0.8}
+  HeadColor: {r: 1, g: 0.2, b: 0.2, a: 0.9}
+  AimRayLength: 0.5
+  RootTurnSpeedDeg: 180
+  RootTurnOnAngle: 75
+  RootTurnOffAngle: 55
+  _bodyAssistSmoothed: 0
+  HeadEngageAngle: 70
+  HeadDisengageAngle: 85
+  HeadMaxYaw: 85
+  RootTurnStartYaw: 65
 --- !u!114 &6464805459729983769
 MonoBehaviour:
   m_ObjectHideFlags: 0

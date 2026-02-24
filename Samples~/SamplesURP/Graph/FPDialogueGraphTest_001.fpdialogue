@@ -680,52 +680,6 @@ MonoBehaviour:
         m_ElementColor:
           m_Color: {r: 0.20784314, g: 0.22745098, b: 0.2784314, a: 1}
           m_HasUserColor: 0
-    - rid: 567766155871912056
-      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
-      data:
-        m_Guid:
-          m_Value0: 3066415553547761562
-          m_Value1: 16390380968676526575
-        m_HashGuid:
-          serializedVersion: 2
-          Hash: 9a77f20ab3188e2aef8949aba65476e3
-        m_Version: 2
-        m_Position: {x: 901.66925, y: 467.73944}
-        m_Title: SetFPTalkNode
-        m_Tooltip: 
-        m_NodePreviewModel:
-          rid: -2
-        m_State: 0
-        m_InputConstantsById:
-          m_KeyList:
-          - Language
-          - Dialogue
-          - DialogueAudio
-          - AnimationFace
-          - HeaderText
-          - AnimationBody
-          m_ValueList:
-          - rid: 567766155871912063
-          - rid: 567766155871912064
-          - rid: 567766155871912065
-          - rid: 567766155871912066
-          - rid: 567766155871912067
-          - rid: 8866445743164227673
-        m_InputPortInfos:
-          expandedPortsById:
-            m_KeyList: []
-            m_ValueList: 
-        m_OutputPortInfos:
-          expandedPortsById:
-            m_KeyList: []
-            m_ValueList: 
-        m_Collapsed: 1
-        m_CurrentModeIndex: 0
-        m_ElementColor:
-          m_Color: {r: 0, g: 0, b: 0, a: 0}
-          m_HasUserColor: 0
-        m_Node:
-          rid: 567766155871912068
     - rid: 567766155871912057
       type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
       data:
@@ -829,7 +783,7 @@ MonoBehaviour:
           expandedPortsById:
             m_KeyList: []
             m_ValueList: 
-        m_Collapsed: 1
+        m_Collapsed: 0
         m_CurrentModeIndex: 0
         m_ElementColor:
           m_Color: {r: 0, g: 0, b: 0, a: 0}
@@ -859,37 +813,6 @@ MonoBehaviour:
         m_ElementColor:
           m_Color: {r: 0.20784314, g: 0.22745098, b: 0.2784314, a: 1}
           m_HasUserColor: 0
-    - rid: 567766155871912063
-      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          m_EnumType:
-            m_Identification: FuzzPhyte.Utility.FP_Language, com.fuzzphyte.utility,
-              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-          m_Value: 1
-        m_EnumType:
-          m_Identification: FuzzPhyte.Utility.FP_Language, com.fuzzphyte.utility,
-            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - rid: 567766155871912064
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value: Can you talk now?
-    - rid: 567766155871912065
-      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value: {fileID: 8300000, guid: c85fab0d5bb868c4faddc1beacb08316, type: 3}
-    - rid: 567766155871912066
-      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value: {fileID: 7400000, guid: 537c2f030586c484ca6449abf50d1d42, type: 2}
-    - rid: 567766155871912067
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value: 
-    - rid: 567766155871912068
-      type: {class: SetFPTalkNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
-      data:
-        name: 31_node
     - rid: 567766155871912069
       type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -920,7 +843,7 @@ MonoBehaviour:
     - rid: 567766155871912074
       type: {class: SetFPTalkNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
       data:
-        name: 32_node
+        name: 31_node
     - rid: 567766155871912075
       type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -995,39 +918,7 @@ MonoBehaviour:
     - rid: 567766155871912087
       type: {class: SetFPDialogueNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
       data:
-        name: 33_node
-    - rid: 567766155871912088
-      type: {class: WireModel, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Guid:
-          m_Value0: 5140208986815342549
-          m_Value1: 5549713017575698944
-        m_HashGuid:
-          serializedVersion: 2
-          Hash: d52766ead6b0554700f2f5f9958a044d
-        m_Version: 2
-        m_FromPortReference:
-          m_NodeModelGuid:
-            m_Value0: 3066415553547761562
-            m_Value1: 16390380968676526575
-          m_NodeModelHashGuid:
-            serializedVersion: 2
-            Hash: 9a77f20ab3188e2aef8949aba65476e3
-          m_UniqueId: MainText
-          m_PortDirection: 2
-          m_PortOrientation: 0
-          m_Title: Dialogue->
-        m_ToPortReference:
-          m_NodeModelGuid:
-            m_Value0: 11226250171500390270
-            m_Value1: 772826385737682897
-          m_NodeModelHashGuid:
-            serializedVersion: 2
-            Hash: 7ee7f23f0da7cb9bd18ff1d280a1b90a
-          m_UniqueId: TranslationText
-          m_PortDirection: 1
-          m_PortOrientation: 0
-          m_Title: Translation
+        name: 32_node
     - rid: 567766155871912089
       type: {class: WireModel, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -1258,7 +1149,7 @@ MonoBehaviour:
     - rid: 567766424456003716
       type: {class: SetFPDialogueNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
       data:
-        name: 34_node
+        name: 33_node
     - rid: 567766424456003718
       type: {class: WireModel, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -1403,7 +1294,7 @@ MonoBehaviour:
     - rid: 567766424456003728
       type: {class: SetFPTalkNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
       data:
-        name: 35_node
+        name: 34_node
     - rid: 567766424456003729
       type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
       data:
@@ -1516,7 +1407,7 @@ MonoBehaviour:
     - rid: 567766424456003737
       type: {class: SetFPTalkNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
       data:
-        name: 36_node
+        name: 35_node
     - rid: 567766424456003744
       type: {class: WireModel, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -1605,7 +1496,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 6d282301a178014e4b31ca30e111bc6f
         m_Version: 2
-        m_Position: {x: 19.999893, y: 204.00002}
+        m_Position: {x: -39.51261, y: 148.00002}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -2075,6 +1966,119 @@ MonoBehaviour:
       type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 1
+    - rid: 2001345915407040592
+      type: {class: UserNodeModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
+      data:
+        m_Guid:
+          m_Value0: 6002526042600890070
+          m_Value1: 18418670490788988688
+        m_HashGuid:
+          serializedVersion: 2
+          Hash: d6de410ca2414d531087729e39439cff
+        m_Version: 2
+        m_Position: {x: 956.6001, y: 528.95013}
+        m_Title: 
+        m_Tooltip: 
+        m_NodePreviewModel:
+          rid: -2
+        m_State: 0
+        m_InputConstantsById:
+          m_KeyList:
+          - Language
+          - HeaderText
+          - Dialogue
+          - DialogueAudio
+          - AnimationFace
+          - AnimationBody
+          m_ValueList:
+          - rid: 2001345915407040593
+          - rid: 2001345915407040594
+          - rid: 2001345915407040595
+          - rid: 2001345915407040596
+          - rid: 2001345915407040597
+          - rid: 2001345915407040598
+        m_InputPortInfos:
+          expandedPortsById:
+            m_KeyList: []
+            m_ValueList: 
+        m_OutputPortInfos:
+          expandedPortsById:
+            m_KeyList: []
+            m_ValueList: 
+        m_Collapsed: 1
+        m_CurrentModeIndex: 0
+        m_ElementColor:
+          m_Color: {r: 0, g: 0, b: 0, a: 0}
+          m_HasUserColor: 0
+        m_Node:
+          rid: 2001345915407040599
+    - rid: 2001345915407040593
+      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value:
+          m_EnumType:
+            m_Identification: FuzzPhyte.Utility.FP_Language, com.fuzzphyte.utility,
+              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          m_Value: 1
+        m_EnumType:
+          m_Identification: FuzzPhyte.Utility.FP_Language, com.fuzzphyte.utility,
+            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - rid: 2001345915407040594
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 
+    - rid: 2001345915407040595
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: Can you talk now?
+    - rid: 2001345915407040596
+      type: {class: 'Constant`1[[UnityEngine.AudioClip, UnityEngine.AudioModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 8300000, guid: c85fab0d5bb868c4faddc1beacb08316, type: 3}
+    - rid: 2001345915407040597
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 7400000, guid: 537c2f030586c484ca6449abf50d1d42, type: 2}
+    - rid: 2001345915407040598
+      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: -203655887218126122, guid: 4d680fc746538484aab975a0b25dda84, type: 3}
+    - rid: 2001345915407040599
+      type: {class: SetFPTalkNode, ns: FuzzPhyte.Dialogue.Editor, asm: com.fuzzphyte.dialogue.editor}
+      data:
+        name: 36_node
+    - rid: 2001345915407040600
+      type: {class: WireModel, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Guid:
+          m_Value0: 6054195249085508305
+          m_Value1: 16379816097606449903
+        m_HashGuid:
+          serializedVersion: 2
+          Hash: d16a99a680d20454efba0ef0f4cb50e3
+        m_Version: 2
+        m_FromPortReference:
+          m_NodeModelGuid:
+            m_Value0: 6002526042600890070
+            m_Value1: 18418670490788988688
+          m_NodeModelHashGuid:
+            serializedVersion: 2
+            Hash: d6de410ca2414d531087729e39439cff
+          m_UniqueId: MainText
+          m_PortDirection: 2
+          m_PortOrientation: 0
+          m_Title: Dialogue->
+        m_ToPortReference:
+          m_NodeModelGuid:
+            m_Value0: 11226250171500390270
+            m_Value1: 772826385737682897
+          m_NodeModelHashGuid:
+            serializedVersion: 2
+            Hash: 7ee7f23f0da7cb9bd18ff1d280a1b90a
+          m_UniqueId: TranslationText
+          m_PortDirection: 1
+          m_PortOrientation: 0
+          m_Title: Translation
     - rid: 8866445333055668612
       type: {class: GraphModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
       data:
@@ -2125,7 +2129,6 @@ MonoBehaviour:
         - rid: 567765965576077543
         - rid: 567765965576077748
         - rid: 567765965576077749
-        - rid: 567766155871912056
         - rid: 567766155871912057
         - rid: 567766155871912058
         - rid: 567766424456003704
@@ -2137,6 +2140,7 @@ MonoBehaviour:
         - rid: 567766424456003752
         - rid: 567766424456003753
         - rid: 567766424456003754
+        - rid: 2001345915407040592
         m_GraphWireModels:
         - rid: 8866445333055668652
         - rid: 8866445335692574814
@@ -2174,7 +2178,6 @@ MonoBehaviour:
         - rid: 567766036717240441
         - rid: 567766036717240442
         - rid: 567766036717240480
-        - rid: 567766155871912088
         - rid: 567766155871912089
         - rid: 567766155871912090
         - rid: 567766155871912091
@@ -2188,6 +2191,7 @@ MonoBehaviour:
         - rid: 567766424456003758
         - rid: 567766424456003759
         - rid: 567766439336869996
+        - rid: 2001345915407040600
         m_GraphStickyNoteModels: []
         m_GraphPlacematModels:
         - rid: 8866445335692575134
@@ -2215,7 +2219,7 @@ MonoBehaviour:
           serializedVersion: 2
           x: -1608
           y: -416
-          width: 6291
+          width: 6520
           height: 2512
         m_GraphElementMetaData:
         - m_Guid:
@@ -2891,21 +2895,13 @@ MonoBehaviour:
           m_Category: 2
           m_Index: 35
         - m_Guid:
-            m_Value0: 3066415553547761562
-            m_Value1: 16390380968676526575
-          m_HashGuid:
-            serializedVersion: 2
-            Hash: 9a77f20ab3188e2aef8949aba65476e3
-          m_Category: 0
-          m_Index: 39
-        - m_Guid:
             m_Value0: 13138966162981483471
             m_Value1: 13142205426301243721
           m_HashGuid:
             serializedVersion: 2
             Hash: cf7363ac1cfc56b64991e56f347e62b6
           m_Category: 0
-          m_Index: 40
+          m_Index: 39
         - m_Guid:
             m_Value0: 11226250171500390270
             m_Value1: 772826385737682897
@@ -2913,15 +2909,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: 7ee7f23f0da7cb9bd18ff1d280a1b90a
           m_Category: 0
-          m_Index: 41
-        - m_Guid:
-            m_Value0: 5140208986815342549
-            m_Value1: 5549713017575698944
-          m_HashGuid:
-            serializedVersion: 2
-            Hash: d52766ead6b0554700f2f5f9958a044d
-          m_Category: 2
-          m_Index: 36
+          m_Index: 40
         - m_Guid:
             m_Value0: 17585749251196750974
             m_Value1: 12821841634103313528
@@ -2929,7 +2917,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: 7e8cac4ac5210df478c40a7f0855f0b1
           m_Category: 2
-          m_Index: 37
+          m_Index: 36
         - m_Guid:
             m_Value0: 12915440727081305698
             m_Value1: 1369658392284436301
@@ -2937,7 +2925,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: 62464b8fe9dc3cb34d17bf0f0d010213
           m_Category: 2
-          m_Index: 38
+          m_Index: 37
         - m_Guid:
             m_Value0: 8102867413975745833
             m_Value1: 9733771334136942021
@@ -2945,7 +2933,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: 29c51c70fb2a7370c5cd1ce8744d1587
           m_Category: 2
-          m_Index: 39
+          m_Index: 38
         - m_Guid:
             m_Value0: 14201135783456618658
             m_Value1: 11734801585512582799
@@ -2953,7 +2941,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: a2380514c19114c58f0e2b4ede63daa2
           m_Category: 0
-          m_Index: 42
+          m_Index: 41
         - m_Guid:
             m_Value0: 5267803808425485204
             m_Value1: 9423455952769848618
@@ -2961,7 +2949,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: 94a3a65ba7ff1a492a1563ed42d7c682
           m_Category: 2
-          m_Index: 40
+          m_Index: 39
         - m_Guid:
             m_Value0: 15787201606224751532
             m_Value1: 2187600368444838349
@@ -2969,7 +2957,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: acab8078376817dbcd11abd7f1ea5b1e
           m_Category: 0
-          m_Index: 43
+          m_Index: 42
         - m_Guid:
             m_Value0: 7838903983760105432
             m_Value1: 2549219800635418628
@@ -2977,7 +2965,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: d85f6a14a461c96c042844ffe6a56023
           m_Category: 2
-          m_Index: 41
+          m_Index: 40
         - m_Guid:
             m_Value0: 1982743855954758384
             m_Value1: 4881974849303677182
@@ -2985,7 +2973,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: f08ac52e081f841bfe0823774242c043
           m_Category: 0
-          m_Index: 44
+          m_Index: 43
         - m_Guid:
             m_Value0: 5260984701398854096
             m_Value1: 12826930807533639718
@@ -2993,7 +2981,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: d0a9a447b6c5024926988e059c6902b2
           m_Category: 2
-          m_Index: 42
+          m_Index: 41
         - m_Guid:
             m_Value0: 14330686784351571028
             m_Value1: 7556705657643535302
@@ -3001,7 +2989,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: 540ca900b4d3e0c6c60b072cc2cfde68
           m_Category: 2
-          m_Index: 43
+          m_Index: 42
         - m_Guid:
             m_Value0: 10373154743417497703
             m_Value1: 9401823192723701288
@@ -3017,7 +3005,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: 86504adb4f4ce813793fbf6a7bc3d106
           m_Category: 0
-          m_Index: 45
+          m_Index: 44
         - m_Guid:
             m_Value0: 5620906442839238765
             m_Value1: 8051329892715475275
@@ -3025,7 +3013,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: 6d282301a178014e4b31ca30e111bc6f
           m_Category: 0
-          m_Index: 46
+          m_Index: 45
         - m_Guid:
             m_Value0: 8584821720964282856
             m_Value1: 6631654645085101166
@@ -3033,7 +3021,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: e83922f2de6923776edc5d81c35e085c
           m_Category: 2
-          m_Index: 44
+          m_Index: 43
         - m_Guid:
             m_Value0: 2693845029083453717
             m_Value1: 12923742507453072672
@@ -3041,7 +3029,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: 15997806c875622520455b6d565b5ab3
           m_Category: 0
-          m_Index: 47
+          m_Index: 46
         - m_Guid:
             m_Value0: 9374768428135912628
             m_Value1: 9667681365098583517
@@ -3049,7 +3037,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: b494963a37de1982dd555de0fa802a86
           m_Category: 2
-          m_Index: 45
+          m_Index: 44
         - m_Guid:
             m_Value0: 5227379335352177089
             m_Value1: 10582701010849798820
@@ -3057,7 +3045,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: c151e245cf618b48a49adef37f4edd92
           m_Category: 0
-          m_Index: 48
+          m_Index: 47
         - m_Guid:
             m_Value0: 12288904291725465180
             m_Value1: 4399682893193999053
@@ -3065,7 +3053,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: 5cd6110b58f58aaacdf230e547d00e3d
           m_Category: 2
-          m_Index: 46
+          m_Index: 45
         - m_Guid:
             m_Value0: 7420714964804577341
             m_Value1: 3649559379135654435
@@ -3073,7 +3061,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: 3d289aa0f1acfb66236a134cebd6a532
           m_Category: 0
-          m_Index: 49
+          m_Index: 48
         - m_Guid:
             m_Value0: 834262193001019054
             m_Value1: 14177859881371049025
@@ -3081,7 +3069,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: ae365d5f0be5930b411c62d071e0c1c4
           m_Category: 2
-          m_Index: 47
+          m_Index: 46
         - m_Guid:
             m_Value0: 1588421082528679590
             m_Value1: 10286351794686364092
@@ -3089,7 +3077,7 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: a606dd098f340b16bc89fb347576c08e
           m_Category: 0
-          m_Index: 50
+          m_Index: 49
         - m_Guid:
             m_Value0: 12148259469049055779
             m_Value1: 5169933070505076833
@@ -3097,13 +3085,29 @@ MonoBehaviour:
             serializedVersion: 2
             Hash: 23caf1739f4997a861e8ff73bc4abf47
           m_Category: 2
-          m_Index: 48
+          m_Index: 47
         - m_Guid:
             m_Value0: 8553930855408502762
             m_Value1: 3491590961128119655
           m_HashGuid:
             serializedVersion: 2
             Hash: ea87e0d5caaab576679d01db7a9f7430
+          m_Category: 2
+          m_Index: 48
+        - m_Guid:
+            m_Value0: 6002526042600890070
+            m_Value1: 18418670490788988688
+          m_HashGuid:
+            serializedVersion: 2
+            Hash: d6de410ca2414d531087729e39439cff
+          m_Category: 0
+          m_Index: 50
+        - m_Guid:
+            m_Value0: 6054195249085508305
+            m_Value1: 16379816097606449903
+          m_HashGuid:
+            serializedVersion: 2
+            Hash: d16a99a680d20454efba0ef0f4cb50e3
           m_Category: 2
           m_Index: 49
         m_EntryPoint:
@@ -3180,7 +3184,7 @@ MonoBehaviour:
           expandedPortsById:
             m_KeyList: []
             m_ValueList: 
-        m_Collapsed: 1
+        m_Collapsed: 0
         m_CurrentModeIndex: 0
         m_ElementColor:
           m_Color: {r: 1, g: 0.9535115, b: 0.3726415, a: 1}
@@ -3227,7 +3231,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: e6228951c7d2076851f06a93434b986e
         m_Version: 2
-        m_Position: {x: 445.6031, y: 199.27983}
+        m_Position: {x: 374.10315, y: 172.2798}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -3270,7 +3274,7 @@ MonoBehaviour:
           expandedPortsById:
             m_KeyList: []
             m_ValueList: 
-        m_Collapsed: 1
+        m_Collapsed: 0
         m_CurrentModeIndex: 0
         m_ElementColor:
           m_Color: {r: 0, g: 0, b: 0, a: 0}
@@ -3428,7 +3432,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 677ab685027a821b2c61fc949469ca2b
         m_Version: 2
-        m_Position: {x: 148.33354, y: 270.68185}
+        m_Position: {x: 61.04854, y: 227.6819}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -3529,7 +3533,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 9e26ab39b0d228774ae0763c26484292
         m_Version: 2
-        m_Position: {x: 157.36407, y: 511.48297}
+        m_Position: {x: 61.364075, y: 424.98297}
         m_Title: SetFPTalkNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -3845,7 +3849,7 @@ MonoBehaviour:
           expandedPortsById:
             m_KeyList: []
             m_ValueList: 
-        m_Collapsed: 1
+        m_Collapsed: 0
         m_CurrentModeIndex: 0
         m_ElementColor:
           m_Color: {r: 1, g: 0.9535115, b: 0.3726415, a: 1}
@@ -4080,7 +4084,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 2b3ee79a2e2cd84a526a428a5ecea73f
         m_Version: 2
-        m_Position: {x: 188.09155, y: 1271.4866}
+        m_Position: {x: 304.09152, y: 1214.4866}
         m_Title: SetFPTalkNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -5174,7 +5178,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 9c212e1dcd5bba2bb834ce8b2d526dcb
         m_Version: 2
-        m_Position: {x: 2655.8342, y: 541.09705}
+        m_Position: {x: 2841.229, y: 580.59705}
         m_Title: SetFPTalkNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -5203,7 +5207,7 @@ MonoBehaviour:
           expandedPortsById:
             m_KeyList: []
             m_ValueList: 
-        m_Collapsed: 0
+        m_Collapsed: 1
         m_CurrentModeIndex: 0
         m_ElementColor:
           m_Color: {r: 0, g: 0, b: 0, a: 0}
@@ -5275,7 +5279,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: ce0c60eb9cef6381b626faa39678bc01
         m_Version: 2
-        m_Position: {x: 2697.9834, y: 810.26904}
+        m_Position: {x: 2840.9832, y: 815.26904}
         m_Title: SetFPTalkNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -5304,7 +5308,7 @@ MonoBehaviour:
           expandedPortsById:
             m_KeyList: []
             m_ValueList: 
-        m_Collapsed: 0
+        m_Collapsed: 1
         m_CurrentModeIndex: 0
         m_ElementColor:
           m_Color: {r: 0, g: 0, b: 0, a: 0}
@@ -5659,7 +5663,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 9906cf7d4a55f245fd3dcdf5c2ad2049
         m_Version: 2
-        m_Position: {x: 4244.973, y: 371.9733}
+        m_Position: {x: 4517.914, y: 406.4056}
         m_Title: ExitNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -6826,10 +6830,6 @@ MonoBehaviour:
       type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: {fileID: 0}
-    - rid: 8866445743164227673
-      type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value: {fileID: -203655887218126122, guid: 4d680fc746538484aab975a0b25dda84, type: 3}
     - rid: 8866445743164227674
       type: {class: 'Constant`1[[UnityEngine.AnimationClip, UnityEngine.AnimationModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:

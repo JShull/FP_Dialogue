@@ -404,13 +404,13 @@ namespace FuzzPhyte.Dialogue
         public AudioClip textAudio;
         public AnimationClip faceAnimation;
         public AnimationClip bodyAnimation;
-        public bool hasAudio;
-        public bool hasAnimation;
-        public bool hasBodyAnimation;
-        
-        public bool HasAudio { get { return hasAudio; } }
-        public bool HasAnimation { get { return hasAnimation; } }
+       
 
+        public bool HasAudio => textAudio != null;
+        public bool HasAnimation => faceAnimation != null;
+        public bool HasBodyAnimation => bodyAnimation != null;
+        public bool HasTextValue => !string.IsNullOrEmpty(dialogueText);
+       
         public RTTalkNode(string index, RTFPNodePort outIndex, FP_Language theLanguage, string headText, string convoText, AudioClip textAudio = null, AnimationClip faceAnimation = null, AnimationClip bodyAnimation = null) : base(index)
         {
             NodeType = "RTTalkNode";
@@ -419,34 +419,9 @@ namespace FuzzPhyte.Dialogue
             this.language = theLanguage;
             this.headerText = headText;
             this.dialogueText = convoText;
-            if (textAudio == null)
-            {
-                hasAudio = false;
-            }
-            else
-            {
-                this.textAudio = textAudio;
-                hasAudio = true;
-            }
-            if (faceAnimation == null)
-            {
-                hasAnimation = false;
-            }
-            else
-            {
-                hasAnimation = true;
-                this.faceAnimation = faceAnimation;
-            }
-            if(bodyAnimation == null)
-            {
-                hasBodyAnimation = false;
-            }
-            else
-            {
-                hasBodyAnimation = true;
-                this.bodyAnimation = bodyAnimation;
-            }
-                
+            this.textAudio = textAudio;
+            this.faceAnimation = faceAnimation;
+            this.bodyAnimation = bodyAnimation;  
         }
     }
     #endregion

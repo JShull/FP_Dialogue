@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-02-24
+
+### 0.5.0 Added
+
+### 0.5.0 Changed
+
+- [@JShull](https://github.com/jshull) The below files were changed to reduce the forced translation requirement node. This is no longer needed. Updated other scripts to allow for an easier way to confirm if we have the content we need since we setup a lot of core data as null on initialization and then fill it out as we go. Sample was updated to reflect those changes.
+  - FPDialogueGraph.cs
+  - FPDialogueImporter.cs
+  - RTDialogueDirector.cs
+  - RTDialogueOrchestra.cs
+  - RTFPNode.cs
+  - UIDialogueBase.cs
+  - Some samples to match
+
 ## [0.4.5] - 2025-09-02
 
 ### 0.4.5 Added

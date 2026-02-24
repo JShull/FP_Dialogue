@@ -20,6 +20,7 @@ namespace FuzzPhyte.Dialogue.Editor
         {
 
             base.OnGraphChanged(logger);
+            Debug.Log($"FP Graph Data Changed");
             //get all FPVisual Nodes - might not need to do this here maybe only on importer
             var nodeList = GetNodes().OfType<FPVisualNode>().ToList() ;
             

@@ -195,7 +195,12 @@ namespace FuzzPhyte.Dialogue
         }
         public void PlayAudioDialogueBlock()
         {
+            if (DialogueAudioSource.clip == null)
+            {
+                Debug.LogError($"{this.gameObject.name} was Asked to play a clip but don't have an audio file/clip yet!?");
+            }
             DialogueAudioSource.Play();
+            
         }
         #endregion
         /// <summary>
@@ -409,9 +414,10 @@ namespace FuzzPhyte.Dialogue
         {
             if (TranslateButton == null)
             {
-                Debug.LogWarning($"No translate button here...");
+                //Debug.LogWarning($"No translate button here...");
                 return;
             }
+            //Debug.Log($"Translation button here, do we want to activate it? {status}");
             if (status)
             {
                 TranslateButton.SetupTranslateButton(this,useGraphFeature);

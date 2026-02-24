@@ -1,4 +1,4 @@
-namespace FuzzPhyte.Dialogue.Editor
+﻿namespace FuzzPhyte.Dialogue.Editor
 {
     using UnityEngine;
     using System.Collections.Generic;
@@ -747,6 +747,96 @@ namespace FuzzPhyte.Dialogue.Editor
         }
         static RTSinglePromptNode ReturnNewPromptNode(SetFPSinglePromptNode nodeData)
         {
+            if (nodeData == null)
+            {
+                Debug.LogError("Prompt node data is null.");
+                return null;
+            }
+
+            SetFPTalkNode talkNodeMain = null;
+            SetFPTalkNode talkNodeTranslation = null;
+            RTTalkNode talkNodeRT = null;
+            RTTalkNode translationNodeRT = null;
+            RTFPNodePort outNode = new RTFPNodePort();
+            Sprite icon = null;
+            GameObject locationObject = null;
+            string locationObjectIndex = string.Empty;
+
+            #region Text and Translation
+            var talkNodePort = nodeData.GetInputPortByName(FPDialogueGraphValidation.MAIN_TEXT);
+
+            if (talkNodePort != null)
+            {
+                talkNodeMain = ReturnFirstNodeByPort(talkNodePort) as SetFPTalkNode;
+            }
+
+            if (talkNodeMain == null)
+            {
+                Debug.LogError($"Prompt node '{nodeData.Name}' is missing MAIN_TEXT.");
+                return null; // Main text should remain required
+            }
+
+            talkNodeRT = ReturnNewTalkNode(talkNodeMain);
+
+           
+            var translationPort = nodeData.GetInputPortByName(FPDialogueGraphValidation.TRANSLATION_TEXT);
+
+            SetFPTalkNode rtTranslationTalk = null;
+
+            // see if we have a port and if we get a translation node
+            // If null, we simply leave it null.
+            if (translationPort != null)
+            {
+                talkNodeTranslation = ReturnFirstNodeByPort(translationPort) as SetFPTalkNode;
+
+                if (talkNodeTranslation != null)
+                {
+                    rtTranslationTalk = talkNodeTranslation;
+                    translationNodeRT = ReturnNewTalkNode(rtTranslationTalk);
+                }
+            }
+            
+            #endregion
+            #region Node Option
+            /// NODE OPTION with binder
+            var nodeOption = nodeData.GetNodeOptionByName(FPDialogueGraphValidation.GAMEOBJECT_ID);
+            var resolver = FindAnyObjectByType<RTExposedBinder>();
+            if (nodeOption != null)
+            {
+                nodeOption.TryGetValue<string>(out locationObjectIndex);
+            }
+            #endregion
+            #region Out/In Port Nodes
+            nodeData.GetInputPortByName(FPDialogueGraphValidation.PORT_ICON)?.TryGetValue(out icon);
+            var outNodePort = nodeData.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPT_PORT);
+            if (outNodePort != null)
+            {
+                outNode = ReturnNodePortDetails(outNodePort, FPPortType.OUTPort);
+                if (outNode.ConnectedNodes.Length == 0)
+                {
+                    Debug.LogError($"Missing Out node?!");
+                }
+            }
+            #endregion
+
+            // -----------------------------
+            // CREATE RUNTIME NODE
+            // -----------------------------
+            var newNode = new RTSinglePromptNode(
+                nodeData.Name,
+                outNode,
+                talkNodeRT,
+                translationNodeRT, // <-- can safely be null
+                icon,
+                locationObjectIndex,
+                locationObject
+            );
+
+            return newNode;
+        }
+        [System.Obsolete]
+        static RTSinglePromptNode ReturnNewPromptNodeOLD(SetFPSinglePromptNode nodeData)
+        {
             RTSinglePromptNode aNewReturnNode = null;
             SetFPTalkNode talkNodeMain = null;
             SetFPTalkNode talkNodeTranslation = null;
@@ -776,7 +866,6 @@ namespace FuzzPhyte.Dialogue.Editor
             }
             //this won't work due to scene-reference vs editor asset reference
             
-            //
             var nodeOption = nodeData.GetNodeOptionByName(FPDialogueGraphValidation.GAMEOBJECT_ID);
             //NODE OPTION with binder
             var resolver = FindAnyObjectByType<RTExposedBinder>();
@@ -797,6 +886,7 @@ namespace FuzzPhyte.Dialogue.Editor
                     Debug.LogError($"Missing Out node?!");
                 }
             }
+            
             if (outNode.ConnectedNodes.Length > 0 && talkNodeMain != null&&talkNodeTranslation!=null)
             {
                 //go get real talk

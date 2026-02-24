@@ -35,6 +35,9 @@ namespace FuzzPhyte.Dialogue
         [Tooltip("DirectorID = ConversationID")]
         [SerializeField] protected string conversationID;
         [SerializeField] protected string graphID;
+        [Header("Global Info")]
+        [Tooltip("If you set this to true, we will override the interface to check if there's a translation and just make it false")]
+        public bool OverrideTranslation = false;
         //public string ReturnConversationID { get { return conversationID; } }
         //public string ReturnGraphID { get { return graphID; } }
         protected void Awake()
@@ -130,7 +133,7 @@ namespace FuzzPhyte.Dialogue
                     if (!dialogueNode.waitforUser)
                     {
                         //time delay based on audioclip length with padding
-                        if (dialogueNode.mainDialogue.hasAudio)
+                        if (dialogueNode.mainDialogue.HasAudio)
                         {
                             Debug.Log($"Auto Loop: wait for{dialogueNode.mainDialogue.textAudio.length + PaddingTimeBetweenNodes} seconds");
                             Debug.Log($"Game Time: {Time.time}");
@@ -262,7 +265,7 @@ namespace FuzzPhyte.Dialogue
                     if (!dialoguePrevious.waitforUser)
                     {
                         //time delay based on audioclip length with padding
-                        if (dialoguePrevious.mainDialogue.hasAudio)
+                        if (dialoguePrevious.mainDialogue.HasAudio)
                         {
                             Debug.Log($"Auto Loop: wait for{dialoguePrevious.mainDialogue.textAudio.length + PaddingTimeBetweenNodes} seconds");
                             Debug.Log($"Game Time: {Time.time}");
@@ -509,17 +512,38 @@ namespace FuzzPhyte.Dialogue
         }
         /// <summary>
         /// Checks underlying data for current node (if its a Dialogue Node)
+        /// Also checks if we have text or audio, if niether = false
         /// </summary>
         /// <returns></returns>
         public bool UserTranslateAvailable()
         {
+            if (OverrideTranslation)
+            {
+                Debug.LogWarning($"Override on Translation service activated");
+                return false;
+            }
             var previousNode = FirstPrevious(currentNode);
             var nextNode = FirstNext(currentNode);
             if (currentNode is RTDialogueNode dialogueNode)
             {
+                Debug.Log($"Current Node is RTDialogueNode");
                 if (dialogueNode.translatedDialogue != null)
                 {
-                    return true;
+                    Debug.Log($"Current node has translated dialogue class");
+                    if (dialogueNode.translatedDialogue.HasTextValue)
+                    {
+                        Debug.Log($"Found some Translation data: {dialogueNode.translatedDialogue.dialogueText}?");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.Log($"Has text was false? - {dialogueNode.translatedDialogue.dialogueText}");
+                    }
+                    if (dialogueNode.translatedDialogue.HasAudio)
+                    {
+                        Debug.Log($"Found some translation audio: {dialogueNode.translatedDialogue.textAudio.name}");
+                        return true;
+                    }
                 }
             }
             return false;
