@@ -690,7 +690,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: cf7363ac1cfc56b64991e56f347e62b6
         m_Version: 2
-        m_Position: {x: 777.65845, y: 348.46042}
+        m_Position: {x: 887.4259, y: 459.5504}
         m_Title: SetFPTalkNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -704,6 +704,8 @@ MonoBehaviour:
           - AnimationFace
           - HeaderText
           - AnimationBody
+          - AnimationSpeed
+          - AnimationBodySpeed
           m_ValueList:
           - rid: 567766155871912069
           - rid: 567766155871912070
@@ -711,6 +713,8 @@ MonoBehaviour:
           - rid: 567766155871912072
           - rid: 567766155871912073
           - rid: 8866445743164227674
+          - rid: 6774829498263928929
+          - rid: 6774829498263928930
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -1192,7 +1196,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: acab8078376817dbcd11abd7f1ea5b1e
         m_Version: 2
-        m_Position: {x: 3601.4675, y: 623.8541}
+        m_Position: {x: 3598.4255, y: 658.8342}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -1206,6 +1210,8 @@ MonoBehaviour:
           - DialogueAudio
           - AnimationFace
           - AnimationBody
+          - AnimationSpeed
+          - AnimationBodySpeed
           m_ValueList:
           - rid: 567766424456003722
           - rid: 567766424456003723
@@ -1213,6 +1219,8 @@ MonoBehaviour:
           - rid: 567766424456003725
           - rid: 567766424456003726
           - rid: 567766424456003727
+          - rid: 6774829498263928931
+          - rid: 6774829498263928932
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -1319,6 +1327,8 @@ MonoBehaviour:
           - DialogueAudio
           - AnimationFace
           - AnimationBody
+          - AnimationSpeed
+          - AnimationBodySpeed
           m_ValueList:
           - rid: 567766424456003731
           - rid: 567766424456003732
@@ -1326,6 +1336,8 @@ MonoBehaviour:
           - rid: 567766424456003734
           - rid: 567766424456003735
           - rid: 567766424456003736
+          - rid: 6774829498263928933
+          - rid: 6774829498263928934
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -1976,7 +1988,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: d6de410ca2414d531087729e39439cff
         m_Version: 2
-        m_Position: {x: 758.22516, y: 554.95013}
+        m_Position: {x: 877.2501, y: 606.5276}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -1990,6 +2002,8 @@ MonoBehaviour:
           - DialogueAudio
           - AnimationFace
           - AnimationBody
+          - AnimationSpeed
+          - AnimationBodySpeed
           m_ValueList:
           - rid: 2001345915407040593
           - rid: 2001345915407040594
@@ -1997,6 +2011,8 @@ MonoBehaviour:
           - rid: 2001345915407040596
           - rid: 2001345915407040597
           - rid: 2001345915407040598
+          - rid: 6774829498263928935
+          - rid: 6774829498263928936
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -2079,6 +2095,150 @@ MonoBehaviour:
           m_PortDirection: 1
           m_PortOrientation: 0
           m_Title: Translation
+    - rid: 6774829498263928901
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 6774829498263928902
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 6774829498263928903
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
+    - rid: 6774829498263928904
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
+    - rid: 6774829498263928905
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 6774829498263928906
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 6774829498263928907
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 6774829498263928908
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 6774829498263928909
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 6774829498263928910
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 6774829498263928911
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 6774829498263928912
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 6774829498263928913
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 6774829498263928914
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 6774829498263928915
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 6774829498263928916
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 6774829498263928917
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 6774829498263928918
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 6774829498263928919
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 6774829498263928920
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 0
+    - rid: 6774829498263928921
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
+    - rid: 6774829498263928922
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
+    - rid: 6774829498263928923
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
+    - rid: 6774829498263928924
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
+    - rid: 6774829498263928925
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
+    - rid: 6774829498263928926
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
+    - rid: 6774829498263928927
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
+    - rid: 6774829498263928928
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
+    - rid: 6774829498263928929
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
+    - rid: 6774829498263928930
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
+    - rid: 6774829498263928931
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
+    - rid: 6774829498263928932
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
+    - rid: 6774829498263928933
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
+    - rid: 6774829498263928934
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
+    - rid: 6774829498263928935
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
+    - rid: 6774829498263928936
+      type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 1
     - rid: 8866445333055668612
       type: {class: GraphModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
       data:
@@ -3446,6 +3606,8 @@ MonoBehaviour:
           - AnimationFace
           - HeaderText
           - AnimationBody
+          - AnimationSpeed
+          - AnimationBodySpeed
           m_ValueList:
           - rid: 8866445335692574809
           - rid: 8866445335692574811
@@ -3453,6 +3615,8 @@ MonoBehaviour:
           - rid: 8866445357963280463
           - rid: 8866445378024374398
           - rid: 8866445743164227659
+          - rid: 6774829498263928901
+          - rid: 6774829498263928902
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -3533,7 +3697,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 9e26ab39b0d228774ae0763c26484292
         m_Version: 2
-        m_Position: {x: 61.364075, y: 424.98297}
+        m_Position: {x: 74.892944, y: 427.87958}
         m_Title: SetFPTalkNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -3547,6 +3711,8 @@ MonoBehaviour:
           - AnimationFace
           - HeaderText
           - AnimationBody
+          - AnimationSpeed
+          - AnimationBodySpeed
           m_ValueList:
           - rid: 8866445335692574821
           - rid: 8866445335692574823
@@ -3554,6 +3720,8 @@ MonoBehaviour:
           - rid: 8866445357963280464
           - rid: 8866445378024374399
           - rid: 8866445743164227660
+          - rid: 6774829498263928903
+          - rid: 6774829498263928904
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -3997,6 +4165,8 @@ MonoBehaviour:
           - AnimationFace
           - HeaderText
           - AnimationBody
+          - AnimationSpeed
+          - AnimationBodySpeed
           m_ValueList:
           - rid: 8866445335692574882
           - rid: 8866445335692574884
@@ -4004,6 +4174,8 @@ MonoBehaviour:
           - rid: 8866445357963280465
           - rid: 8866445378024374400
           - rid: 8866445743164227661
+          - rid: 6774829498263928905
+          - rid: 6774829498263928906
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -4098,6 +4270,8 @@ MonoBehaviour:
           - AnimationFace
           - HeaderText
           - AnimationBody
+          - AnimationSpeed
+          - AnimationBodySpeed
           m_ValueList:
           - rid: 8866445335692574894
           - rid: 8866445335692574896
@@ -4105,6 +4279,8 @@ MonoBehaviour:
           - rid: 8866445357963280466
           - rid: 8866445378024374401
           - rid: 8866445743164227662
+          - rid: 6774829498263928907
+          - rid: 6774829498263928908
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -4199,6 +4375,8 @@ MonoBehaviour:
           - AnimationFace
           - HeaderText
           - AnimationBody
+          - AnimationSpeed
+          - AnimationBodySpeed
           m_ValueList:
           - rid: 8866445335692574922
           - rid: 8866445335692574924
@@ -4206,6 +4384,8 @@ MonoBehaviour:
           - rid: 8866445357963280467
           - rid: 8866445378024374402
           - rid: 8866445743164227663
+          - rid: 6774829498263928909
+          - rid: 6774829498263928910
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -4231,7 +4411,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: b3ecfdd47ebdc420b56856f3508c316c
         m_Version: 2
-        m_Position: {x: 379.3531, y: 1334.3829}
+        m_Position: {x: 184.68106, y: 1325.2577}
         m_Title: SetFPTalkNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -4245,6 +4425,8 @@ MonoBehaviour:
           - AnimationFace
           - HeaderText
           - AnimationBody
+          - AnimationSpeed
+          - AnimationBodySpeed
           m_ValueList:
           - rid: 8866445335692574927
           - rid: 8866445335692574929
@@ -4252,6 +4434,8 @@ MonoBehaviour:
           - rid: 8866445357963280468
           - rid: 8866445378024374403
           - rid: 8866445743164227664
+          - rid: 6774829498263928911
+          - rid: 6774829498263928912
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -4443,7 +4627,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: f0339eddfad941eb1e1f690de0dc316f
         m_Version: 2
-        m_Position: {x: 380.50616, y: 1573.8505}
+        m_Position: {x: 351.28046, y: 1561.6663}
         m_Title: SetFPTalkNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -4457,6 +4641,8 @@ MonoBehaviour:
           - AnimationFace
           - HeaderText
           - AnimationBody
+          - AnimationSpeed
+          - AnimationBodySpeed
           m_ValueList:
           - rid: 8866445335692574960
           - rid: 8866445335692574962
@@ -4464,6 +4650,8 @@ MonoBehaviour:
           - rid: 8866445357963280469
           - rid: 8866445378024374404
           - rid: 8866445743164227665
+          - rid: 6774829498263928913
+          - rid: 6774829498263928914
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -4503,6 +4691,8 @@ MonoBehaviour:
           - AnimationFace
           - HeaderText
           - AnimationBody
+          - AnimationSpeed
+          - AnimationBodySpeed
           m_ValueList:
           - rid: 8866445335692574965
           - rid: 8866445335692574967
@@ -4510,6 +4700,8 @@ MonoBehaviour:
           - rid: 8866445357963280470
           - rid: 8866445378024374405
           - rid: 8866445743164227666
+          - rid: 6774829498263928915
+          - rid: 6774829498263928916
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -4715,6 +4907,8 @@ MonoBehaviour:
           - AnimationFace
           - HeaderText
           - AnimationBody
+          - AnimationSpeed
+          - AnimationBodySpeed
           m_ValueList:
           - rid: 8866445335692575070
           - rid: 8866445335692575072
@@ -4722,6 +4916,8 @@ MonoBehaviour:
           - rid: 8866445357963280471
           - rid: 8866445378024374406
           - rid: 8866445743164227667
+          - rid: 6774829498263928917
+          - rid: 6774829498263928918
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -4761,6 +4957,8 @@ MonoBehaviour:
           - AnimationFace
           - HeaderText
           - AnimationBody
+          - AnimationSpeed
+          - AnimationBodySpeed
           m_ValueList:
           - rid: 8866445335692575075
           - rid: 8866445335692575077
@@ -4768,6 +4966,8 @@ MonoBehaviour:
           - rid: 8866445357963280472
           - rid: 8866445378024374407
           - rid: 8866445743164227668
+          - rid: 6774829498263928919
+          - rid: 6774829498263928920
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -5178,7 +5378,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 9c212e1dcd5bba2bb834ce8b2d526dcb
         m_Version: 2
-        m_Position: {x: 2841.229, y: 580.59705}
+        m_Position: {x: 2830.6492, y: 519.762}
         m_Title: SetFPTalkNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -5192,6 +5392,8 @@ MonoBehaviour:
           - AnimationFace
           - HeaderText
           - AnimationBody
+          - AnimationSpeed
+          - AnimationBodySpeed
           m_ValueList:
           - rid: 8866445335692575222
           - rid: 8866445335692575224
@@ -5199,6 +5401,8 @@ MonoBehaviour:
           - rid: 8866445357963280473
           - rid: 8866445378024374408
           - rid: 8866445743164227669
+          - rid: 6774829498263928921
+          - rid: 6774829498263928922
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -5293,6 +5497,8 @@ MonoBehaviour:
           - AnimationFace
           - HeaderText
           - AnimationBody
+          - AnimationSpeed
+          - AnimationBodySpeed
           m_ValueList:
           - rid: 8866445335692575234
           - rid: 8866445335692575236
@@ -5300,6 +5506,8 @@ MonoBehaviour:
           - rid: 8866445357963280474
           - rid: 8866445378024374409
           - rid: 8866445743164227670
+          - rid: 6774829498263928923
+          - rid: 6774829498263928924
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -5394,6 +5602,8 @@ MonoBehaviour:
           - AnimationFace
           - HeaderText
           - AnimationBody
+          - AnimationSpeed
+          - AnimationBodySpeed
           m_ValueList:
           - rid: 8866445335692575246
           - rid: 8866445335692575248
@@ -5401,6 +5611,8 @@ MonoBehaviour:
           - rid: 8866445357963280475
           - rid: 8866445378024374410
           - rid: 8866445743164227671
+          - rid: 6774829498263928925
+          - rid: 6774829498263928926
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -5495,6 +5707,8 @@ MonoBehaviour:
           - AnimationFace
           - HeaderText
           - AnimationBody
+          - AnimationSpeed
+          - AnimationBodySpeed
           m_ValueList:
           - rid: 8866445335692575258
           - rid: 8866445335692575260
@@ -5502,6 +5716,8 @@ MonoBehaviour:
           - rid: 8866445357963280476
           - rid: 8866445378024374411
           - rid: 8866445743164227672
+          - rid: 6774829498263928927
+          - rid: 6774829498263928928
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []

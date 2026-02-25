@@ -909,6 +909,8 @@
             AudioClip textClip = null;
             AnimationClip animClip = null;
             AnimationClip bodyAnimClip = null;
+            float faceAnimClipSpeed = 1f;
+            float bodyAnimSpeed = 1f;
             RTFPNodePort outputNode = new RTFPNodePort();
             
             nodeData.GetInputPortByName(FPDialogueGraphValidation.LANG_NAME)?.TryGetValue(out nodeLanguage);
@@ -916,7 +918,9 @@
             nodeData.GetInputPortByName(FPDialogueGraphValidation.DIALOGUE)?.TryGetValue(out text);
             nodeData.GetInputPortByName(FPDialogueGraphValidation.DIALOGUE_AUDIO_NAME)?.TryGetValue(out textClip);
             nodeData.GetInputPortByName(FPDialogueGraphValidation.ANIM_BLEND_FACE)?.TryGetValue(out animClip);
+            nodeData.GetInputPortByName(FPDialogueGraphValidation.ANIM_SPEED)?.TryGetValue(out faceAnimClipSpeed);
             nodeData.GetInputPortByName(FPDialogueGraphValidation.ANIM_BLEND_BODY)?.TryGetValue(out bodyAnimClip);
+            nodeData.GetInputPortByName(FPDialogueGraphValidation.ANIM_BODY_SPEED)?.TryGetValue(out bodyAnimSpeed);
             var talkOutputPort = nodeData.GetOutputPortByName(FPDialogueGraphValidation.MAIN_TEXT);
             if (talkOutputPort != null)
             {
@@ -927,7 +931,7 @@
                 }
             }
             
-            return new RTTalkNode(nodeData.Name, outputNode, nodeLanguage, header, text, textClip, animClip,bodyAnimClip);
+            return new RTTalkNode(nodeData.Name, outputNode, nodeLanguage, header, text, textClip, animClip, faceAnimClipSpeed,bodyAnimClip,bodyAnimSpeed);
         }
         /// <summary>
         /// Pass a port, return a value

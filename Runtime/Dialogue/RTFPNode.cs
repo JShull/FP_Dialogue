@@ -403,21 +403,25 @@ namespace FuzzPhyte.Dialogue
         public string dialogueText;  
         public AudioClip textAudio;
         public AnimationClip faceAnimation;
+        public float faceAnimSpeed = 1f;
         public AnimationClip bodyAnimation;
-       
+        public float bodyAnimSpeed = 1f;
 
         public bool HasAudio => textAudio != null;
         public bool HasAnimation => faceAnimation != null;
         public bool HasBodyAnimation => bodyAnimation != null;
         public bool HasTextValue => !string.IsNullOrEmpty(dialogueText);
        
-        public RTTalkNode(string index, RTFPNodePort outIndex, FP_Language theLanguage, string headText, string convoText, AudioClip textAudio = null, AnimationClip faceAnimation = null, AnimationClip bodyAnimation = null) : base(index)
+        public RTTalkNode(string index, RTFPNodePort outIndex, FP_Language theLanguage, string headText, string convoText, AudioClip textAudio = null, AnimationClip faceAnimation = null,float faceAnimationSpeed=1, AnimationClip bodyAnimation = null, float bodyAnimationSpeed = 1) : base(index)
         {
             NodeType = "RTTalkNode";
+            
             this.outNodeIndices = new RTFPNodePort[1];
             this.outNodeIndices[0] = outIndex;
             this.language = theLanguage;
             this.headerText = headText;
+            this.bodyAnimSpeed = bodyAnimationSpeed;
+            this.faceAnimSpeed = faceAnimationSpeed;
             this.dialogueText = convoText;
             this.textAudio = textAudio;
             this.faceAnimation = faceAnimation;

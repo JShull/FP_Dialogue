@@ -484,7 +484,8 @@ namespace FuzzPhyte.Dialogue
                     IAnimInjection injection = characterFace.GetComponent<IAnimInjection>();
                     if (injection!=null)
                     {
-                        injection.PlayClip(nodeData.mainDialogue.faceAnimation);
+                        FPAnimationData animData = ReturnGenericAnimData(nodeData.mainDialogue.faceAnimation, nodeData.mainDialogue.faceAnimSpeed);
+                        injection.PlayClip(animData);
                     }
                 }
             }
@@ -497,10 +498,26 @@ namespace FuzzPhyte.Dialogue
                     IAnimInjection injection = characterBody.GetComponent<IAnimInjection>();
                     if (injection!=null)
                     {
-                        injection.PlayClip(nodeData.mainDialogue.bodyAnimation);
+                        FPAnimationData animBodyData = ReturnGenericAnimData(nodeData.mainDialogue.bodyAnimation, nodeData.mainDialogue.bodyAnimSpeed);
+                        injection.PlayClip(animBodyData);
                     }
                 }
             }
+        }
+        private FPAnimationData ReturnGenericAnimData(AnimationClip clip, float speed)
+        {
+            FPAnimationData animData = new FPAnimationData()
+            {
+                Clip = clip,
+                AnimationSpeed = speed,
+                FadeIn = -1f,
+                FadeOut = -1f,
+                TargetWeight = -1f,
+                Mask = null,
+                Additive = false,
+                BackToOriginal = true
+            };
+            return animData;
         }
         /// <summary>
         /// Visual internal setup for our UI prefab
