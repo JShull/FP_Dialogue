@@ -403,10 +403,16 @@
                     //generate a loop over number of prompts
                     var numPromptCount = responseNode.GetNodeOptionByName(FPDialogueGraphValidation.USER_NUMBER_OPTIONS);
                     var useWorldLocationOption = responseNode.GetNodeOptionByName(FPDialogueGraphValidation.USE_WORLD_LOCATION);
+                    var eventDataResponseOption = responseNode.GetNodeOptionByName(FPDialogueGraphValidation.FP_DATA_TAG);
                     bool useResponseWorldLocations = false;
+                    FP_Data eventDataResponse = null;
                     if (useWorldLocationOption != null)
                     {
                         useWorldLocationOption.TryGetValue<bool>(out useResponseWorldLocations);
+                    }
+                    if (eventDataResponseOption != null)
+                    {
+                        eventDataResponseOption.TryGetValue<FP_Data>(out eventDataResponse);
                     }
                     numPromptCount.TryGetValue<int>(out var numPrompts);
                     var responseNodeFlowIN = responseNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
@@ -468,7 +474,7 @@
                             if (aCharacter != null)
                             {
                                 createdNodes.Add(aCharacter);
-                                var RTresponseNode = new RTResponseNode(responseNode.Name, useResponseWorldLocations,incomingNodeDetails, incomingItems, outgoingIndex, aCharacter);
+                                var RTresponseNode = new RTResponseNode(responseNode.Name, useResponseWorldLocations,incomingNodeDetails, incomingItems, outgoingIndex, aCharacter, eventDataResponse);
                                 createdNodes.Add(RTresponseNode);
                                 return createdNodes;
                             }
@@ -501,6 +507,7 @@
                     var inputPort = dialogueNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
                     var outputPort = dialogueNode.GetOutputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
                     RTTimelineDetails dialogueTimeline = null;
+                    FP_Data eventData = null;
                     if(inputPort != null)
                     {
                         inputDNode = ReturnNodePortDetails(inputPort,FPPortType.INPort);
@@ -578,7 +585,12 @@
                         timelineOption.TryGetValue<RTTimelineDetails>(out dialogueTimeline);
                     }
                    
-                   
+                    /// event Data?
+                    var eventDataOption = dialogueNode.GetNodeOptionByName(FPDialogueGraphValidation.FP_DATA_TAG);
+                    if (eventDataOption != null)
+                    {
+                        eventDataOption.TryGetValue<FP_Data>(out eventData);
+                    }
 
                     /// world prefab options for response
                     var worldObjectUseCase = dialogueNode.GetNodeOptionByName(FPDialogueGraphValidation.USE_THREED_OBJECTS);
@@ -615,7 +627,7 @@
                         {
                             uiDialoguePanelPrefab.TryGetValue(out panelRef);
                             uiDialogueButtonPrefab.TryGetValue(out buttonRef);
-                            var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, panelRef, buttonRef,worldDialogueSpawnLocation,useWorldLoc, autoScroll, talkRTTransNode, dialogueTimeline);
+                            var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, panelRef, buttonRef,eventData,worldDialogueSpawnLocation,useWorldLoc, autoScroll, talkRTTransNode, dialogueTimeline);
                             RTdialogueNode.GeneralDialogueState = dialogueState;
                             RTdialogueNode.GeneralMotionState = motionState;
                             RTdialogueNode.GeneralEmotionState = animState;
@@ -635,7 +647,7 @@
                         {
                             yesGameObjectNamePort.TryGetValue<string>(out string yesGOName);
                             noGameObjectNamePort.TryGetValue<string>(out string noGOName);
-                            var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, yesGOName, noGOName, worldDialogueSpawnLocation,useWorldLoc,autoScroll, talkRTTransNode, dialogueTimeline);
+                            var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, yesGOName, noGOName, eventData,worldDialogueSpawnLocation,useWorldLoc,autoScroll, talkRTTransNode, dialogueTimeline);
                             RTdialogueNode.GeneralDialogueState = dialogueState;
                             RTdialogueNode.GeneralMotionState = motionState;
                             RTdialogueNode.GeneralEmotionState = animState;
@@ -649,7 +661,7 @@
                     }
                     else
                     {
-                        var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, worldDialogueSpawnLocation,useWorldLoc,autoScroll, talkRTTransNode, dialogueTimeline);
+                        var RTdialogueNode = new RTDialogueNode(dialogueNode.Name, inputDNode, outputDNode, talkRTNode, rTCharacterNodeIn, worldDialogueSpawnLocation,useWorldLoc,autoScroll, talkRTTransNode,dialogueTimeline, eventData);
                         RTdialogueNode.GeneralDialogueState = dialogueState;
                         RTdialogueNode.GeneralMotionState = motionState;
                         RTdialogueNode.GeneralEmotionState = animState;

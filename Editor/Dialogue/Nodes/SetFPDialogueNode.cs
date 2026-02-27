@@ -36,6 +36,9 @@ namespace FuzzPhyte.Dialogue.Editor
             context.AddOption<RTTimelineDetails>(FPDialogueGraphValidation.DIALOGUE_TIMELINE_OUT)
                 .WithDisplayName("Timeline on finish?:")
                 .Build();
+            context.AddOption<FP_Data>(FPDialogueGraphValidation.FP_DATA_TAG)
+                .WithDisplayName("Event Tag?:")
+                .Build();
             context.AddOption<bool>(FPDialogueGraphValidation.USE_THREED_OBJECTS)
                  .WithDefaultValue(false)
                  .WithDisplayName("Use World Objects?: ")

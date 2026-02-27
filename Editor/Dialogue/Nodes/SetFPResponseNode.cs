@@ -24,6 +24,10 @@ namespace FuzzPhyte.Dialogue.Editor
                 .WithDisplayName("Use World Locations?")
                 .WithDefaultValue(false)
                 .Delayed();
+            context.AddOption<FP_Data>(FPDialogueGraphValidation.FP_DATA_TAG)
+                .WithDisplayName("Event Tag?:")
+                .WithDefaultValue(null)
+                .Delayed();
         }
         /// <summary>
         /// Defines the output for the node.

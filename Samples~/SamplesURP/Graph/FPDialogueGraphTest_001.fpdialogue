@@ -763,6 +763,7 @@ MonoBehaviour:
           - DialogueUIPanel
           - DialogueUIButton
           - __option_DialogueTimelineOut
+          - __option_FPDataTag
           m_ValueList:
           - rid: 567766155871912075
           - rid: 567766155871912076
@@ -779,6 +780,7 @@ MonoBehaviour:
           - rid: 8866445769315975253
           - rid: 8866445769315975254
           - rid: 567766439336870022
+          - rid: 6774829522576474182
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -1052,6 +1054,7 @@ MonoBehaviour:
           - DialogueUIPanel
           - DialogueUIButton
           - __option_DialogueTimelineOut
+          - __option_FPDataTag
           m_ValueList:
           - rid: 567766424456003705
           - rid: 567766424456003706
@@ -1068,6 +1071,7 @@ MonoBehaviour:
           - rid: 567766424456003765
           - rid: 567766424456003766
           - rid: 567766439336870023
+          - rid: 6774829522576474183
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -2239,6 +2243,30 @@ MonoBehaviour:
       type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
         m_Value: 1
+    - rid: 6774829522576474179
+      type: {class: 'Constant`1[[FuzzPhyte.Utility.FP_Data, com.fuzzphyte.utility]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 6774829522576474180
+      type: {class: 'Constant`1[[FuzzPhyte.Utility.FP_Data, com.fuzzphyte.utility]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 6774829522576474181
+      type: {class: 'Constant`1[[FuzzPhyte.Utility.FP_Data, com.fuzzphyte.utility]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 6774829522576474182
+      type: {class: 'Constant`1[[FuzzPhyte.Utility.FP_Data, com.fuzzphyte.utility]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 6774829522576474183
+      type: {class: 'Constant`1[[FuzzPhyte.Utility.FP_Data, com.fuzzphyte.utility]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 6774829522576474184
+      type: {class: 'Constant`1[[FuzzPhyte.Utility.FP_Data, com.fuzzphyte.utility]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
     - rid: 8866445333055668612
       type: {class: GraphModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: Unity.GraphToolkit.Editor}
       data:
@@ -3412,6 +3440,7 @@ MonoBehaviour:
           - __option_GameObjectLocation
           - UseDialogueWorldLocation
           - __option_DialogueTimelineOut
+          - __option_FPDataTag
           m_ValueList:
           - rid: 8866445514534289493
           - rid: 8866445514534289501
@@ -3426,6 +3455,7 @@ MonoBehaviour:
           - rid: 1430541929817309286
           - rid: 1430541929817309290
           - rid: 567766439336870019
+          - rid: 6774829522576474179
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -3802,7 +3832,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 2524db2e12a93bf6ff8f8a190c324d96
         m_Version: 2
-        m_Position: {x: 1910.9435, y: 738.57465}
+        m_Position: {x: 1908.6434, y: 742.02466}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -3818,6 +3848,7 @@ MonoBehaviour:
           - PromptOption_2
           - __option_PromptNumOptions
           - __option_UseDialogueWorldLocation
+          - __option_FPDataTag
           m_ValueList:
           - rid: 8866445335692575093
           - rid: 8866445378024374413
@@ -3827,6 +3858,7 @@ MonoBehaviour:
           - rid: 567766036717240423
           - rid: 567766036717240438
           - rid: 1430541929817309291
+          - rid: 6774829522576474184
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -3856,7 +3888,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: bf30015a0f9d3e76d6f03dc871379a43
         m_Version: 2
-        m_Position: {x: 682.3161, y: 1106.2191}
+        m_Position: {x: 511.97815, y: 1097.0939}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -4151,7 +4183,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 7e8bcdad25fd5e73606eb05ede849854
         m_Version: 2
-        m_Position: {x: 98.95587, y: 1080.0753}
+        m_Position: {x: 24.432983, y: 1061.8248}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -5205,6 +5237,7 @@ MonoBehaviour:
           - TranslationText
           - __option_GameObjectLocation
           - __option_DialogueTimelineOut
+          - __option_FPDataTag
           m_ValueList:
           - rid: 8866445514534289494
           - rid: 8866445514534289510
@@ -5218,6 +5251,7 @@ MonoBehaviour:
           - rid: 8866445514534289518
           - rid: 1430541929817309281
           - rid: 567766439336870020
+          - rid: 6774829522576474180
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -5313,6 +5347,7 @@ MonoBehaviour:
           - TranslationText
           - __option_GameObjectLocation
           - __option_DialogueTimelineOut
+          - __option_FPDataTag
           m_ValueList:
           - rid: 8866445514534289495
           - rid: 8866445514534289519
@@ -5326,6 +5361,7 @@ MonoBehaviour:
           - rid: 8866445514534289527
           - rid: 1430541929817309282
           - rid: 567766439336870021
+          - rid: 6774829522576474181
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []

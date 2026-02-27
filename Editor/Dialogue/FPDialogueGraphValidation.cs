@@ -66,6 +66,9 @@
         public const string USER_PROMPTX_OP = "PromptOption_";
         public const string USER_WAIT_FOR_USER = "WaitForUserResponse"; //wait for user response or just go to the next dialogue automatically
         
+        //Additional Data
+        public const string FP_DATA_TAG = "FPDataTag";
+        
         //Graph/User parameters that drive our realtime outcomes
         public const string USE_THREED_OBJECTS = "UseWorldObjects"; //false is traditional 2D
         public const string USE_PREFABS = "UsePrefabs"; //false we point to game object locations in scene

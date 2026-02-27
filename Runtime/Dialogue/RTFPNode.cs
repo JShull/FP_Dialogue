@@ -29,6 +29,8 @@ namespace FuzzPhyte.Dialogue
         [Header("Dialoge Indices")]
         public RTFPNodePort[] inNodeIndices;
         public RTFPNodePort[] outNodeIndices;
+        [Tooltip("Optional data for runtime processing to check against later on as needed")]
+        public FP_Data NodeTag;
         public RTFPNode(string index)
         {
             Index = index;
@@ -226,10 +228,11 @@ namespace FuzzPhyte.Dialogue
         //public List<string> userOutcomesConnectors = new List<string>();
         public RTCharacterNode character;
         
-        public RTResponseNode(string index, bool useWorldLocations, RTFPNodePort inIndexNode,List<RTSinglePromptNode>incomingPromptNodes, List<RTFPNodePort> outIndexPrompts,RTCharacterNode theCharacter) : base(index)
+        public RTResponseNode(string index, bool useWorldLocations, RTFPNodePort inIndexNode,List<RTSinglePromptNode>incomingPromptNodes, List<RTFPNodePort> outIndexPrompts,RTCharacterNode theCharacter,FP_Data eventData) : base(index)
         {
             NodeType = "RTResponseNode";
             UseWorldLocations = useWorldLocations;
+            this.NodeTag = eventData;
             if (incomingPromptNodes.Count == outIndexPrompts.Count)
             {
                 userIncomingPrompts.Clear();
@@ -329,7 +332,7 @@ namespace FuzzPhyte.Dialogue
             this.translatedDialogue = transDialogue;
             this.incomingCharacter = incomingCharacterNode;
         }
-        public RTDialogueNode(string index, RTFPNodePort incominIndex, RTFPNodePort outIndex, RTTalkNode dialogue, RTCharacterNode incomingCharacterNode, string worldIndexLocation = "", bool useWorldLocation = false, bool waitForUser = false, RTTalkNode transDialogue = null, RTTimelineDetails timelineProcessFile = null) : base(index)
+        public RTDialogueNode(string index, RTFPNodePort incominIndex, RTFPNodePort outIndex, RTTalkNode dialogue, RTCharacterNode incomingCharacterNode, string worldIndexLocation = "", bool useWorldLocation = false, bool waitForUser = false, RTTalkNode transDialogue = null, RTTimelineDetails timelineProcessFile = null,FP_Data eventData=null) : base(index)
         {
             WorldLocationSceneName = worldIndexLocation;
             useWorldLoc = useWorldLocation;
@@ -341,13 +344,13 @@ namespace FuzzPhyte.Dialogue
             this.inNodeIndices[0] = incominIndex;
             this.outNodeIndices = new RTFPNodePort[1];
             this.outNodeIndices[0] = outIndex;
-           
+            this.NodeTag = eventData;
             this.mainDialogue = dialogue;
             this.translatedDialogue = transDialogue;
             this.incomingCharacter = incomingCharacterNode;
             this.TimelineDetails = timelineProcessFile;
         }
-        public RTDialogueNode(string index, RTFPNodePort incominIndex,RTFPNodePort outIndex, RTTalkNode dialogue,RTCharacterNode incomingCharacterNode, GameObject panelPrefab, GameObject buttonPrefab,string worldIndexLocation = "",bool useWorldLocation=false,bool waitForUser = false,RTTalkNode transDialogue = null, RTTimelineDetails timelineProcessFile = null) : base(index)
+        public RTDialogueNode(string index, RTFPNodePort incominIndex,RTFPNodePort outIndex, RTTalkNode dialogue,RTCharacterNode incomingCharacterNode, GameObject panelPrefab, GameObject buttonPrefab,FP_Data eventData = null,string worldIndexLocation = "",bool useWorldLocation=false,bool waitForUser = false,RTTalkNode transDialogue = null, RTTimelineDetails timelineProcessFile = null) : base(index)
         {
             WorldLocationSceneName = worldIndexLocation;
             useWorldLoc = useWorldLocation;
@@ -359,7 +362,7 @@ namespace FuzzPhyte.Dialogue
             this.inNodeIndices[0] = incominIndex;
             this.outNodeIndices = new RTFPNodePort[1];
             this.outNodeIndices[0] = outIndex;
-
+            this.NodeTag = eventData;
             this.mainDialogue = dialogue;
             this.translatedDialogue = transDialogue;
             this.incomingCharacter = incomingCharacterNode;
@@ -369,7 +372,7 @@ namespace FuzzPhyte.Dialogue
 
             this.TimelineDetails = timelineProcessFile;
         }
-        public RTDialogueNode(string index, RTFPNodePort incominIndex, RTFPNodePort outIndex, RTTalkNode dialogue, RTCharacterNode incomingCharacterNode, string panelWorldObjectName, string buttonWorldObjectName, string worldIndexLocation = "",bool useWorldLocation=false,bool waitForUser = false, RTTalkNode transDialogue = null, RTTimelineDetails timelineProcessFile = null) : base(index)
+        public RTDialogueNode(string index, RTFPNodePort incominIndex, RTFPNodePort outIndex, RTTalkNode dialogue, RTCharacterNode incomingCharacterNode, string panelWorldObjectName, string buttonWorldObjectName, FP_Data eventData=null,string worldIndexLocation = "",bool useWorldLocation=false,bool waitForUser = false, RTTalkNode transDialogue = null, RTTimelineDetails timelineProcessFile = null) : base(index)
         {
             WorldLocationSceneName = worldIndexLocation;
             useWorldLoc = useWorldLocation;
@@ -381,7 +384,7 @@ namespace FuzzPhyte.Dialogue
             this.inNodeIndices[0] = incominIndex;
             this.outNodeIndices = new RTFPNodePort[1];
             this.outNodeIndices[0] = outIndex;
-
+            this.NodeTag = eventData;
             this.mainDialogue = dialogue;
             this.translatedDialogue = transDialogue;
             this.incomingCharacter = incomingCharacterNode;
