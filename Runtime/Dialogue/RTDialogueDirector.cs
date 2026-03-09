@@ -5,6 +5,7 @@ namespace FuzzPhyte.Dialogue
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
+    using FuzzPhyte.Utility;
 
     /// <summary>
     /// Placeholder for managing data across our editor graph input and our runtime needs in Unity
@@ -38,6 +39,9 @@ namespace FuzzPhyte.Dialogue
         [Header("Global Info")]
         [Tooltip("If you set this to true, we will override the interface to check if there's a translation and just make it false")]
         public bool OverrideTranslation = false;
+        [Space]
+        public FP_Data WaitTestDataBlock;
+        public FP_Data WaitTestDataBlockFail;
         //public string ReturnConversationID { get { return conversationID; } }
         //public string ReturnGraphID { get { return graphID; } }
         protected void Awake()
@@ -52,7 +56,8 @@ namespace FuzzPhyte.Dialogue
                 {typeof(RTResponseNode),new ResponseNodeExecutor()},
                 {typeof(RTSinglePromptNode),new SinglePromptNodeExecutor()},
                 {typeof(RTDialogueNode), new DialogueNodeExecutor()},
-                {typeof(RTTalkNode), new TalkNodeExecutor()}
+                {typeof(RTTalkNode), new TalkNodeExecutor()},
+                {typeof(RTWaitNode), new WaitNodeExecutor()},
             };
         }
         protected void Start()
@@ -151,7 +156,7 @@ namespace FuzzPhyte.Dialogue
                     {
                         //do nothing else as we are waiting for the user to press "next"
                     }
-                        return;
+                    return;
                 }else if(currentNode is RTResponseNode responseNode)
                 {
                     var previousNode = FirstPrevious(currentNode);
@@ -212,7 +217,24 @@ namespace FuzzPhyte.Dialogue
                     ex.Execute(talkNode, this);
                     currentNode = FirstNext(talkNode);
                 }
-                else
+                else if (currentNode is RTWaitNode waitNode)
+                {
+                    
+                    var ex = (IRTFPDialogueNodeExecutor<RTWaitNode>)executor;
+                    if(ex.Execute(waitNode, this))
+                    {
+                        Debug.LogWarning($"Execution correct, but we do nothing until the user prompt comes in... waiting...");
+                        var previousNode = FirstPrevious(currentNode);
+                        var nextNode = FirstNext(currentNode);
+
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Execution failed, not sure what the issue is here...");
+                    }
+                    return;
+
+                } else
                 {
                     Debug.LogWarning($"Unrecognized node type {currentNode.GetType().Name}; stopping.");
                     return;
@@ -608,7 +630,59 @@ namespace FuzzPhyte.Dialogue
             //clean up?
             SetupGraph();
         }
-        
+        [ContextMenu("User Wait Test Opportunity")]
+        public void UserWaitingResponseTest()
+        {
+            UserWaitingResponse(WaitTestDataBlock);
+        }
+        [ContextMenu("User Wait Test FAIL")]
+        public void UserWaitingResponeFailTest()
+        {
+            UserWaitingResponse(WaitTestDataBlockFail);
+        }
+        public void UserWaitingResponse(FP_Data userDataTag)
+        {
+            if(userDataTag == null)
+            {
+                //we know what we need to do
+                Debug.LogWarning($"No Data tag passed in, probably can't do much with this? are you missing a tag reference?");
+                return;
+            }
+            //check if we match?
+            if(currentNode is RTWaitNode waitNode)
+            {
+                var previousNode = FirstPrevious(currentNode);
+                var nextNode = FirstNext(currentNode);
+
+                if (waitNode.NodeTag == userDataTag)
+                {
+                    Debug.LogWarning($"We found a tag match!!");
+                    //John probably need a delay here or do we just go directly to the next node?
+                    // move the graph forward
+                    eventHandler.RaiseDialogueWaitCorrect(graphID, conversationID, previousNode, currentNode as RTWaitNode, nextNode, 0.1f, null, null, userDataTag);
+                    //move the graph forward now!
+                    
+                    if (nextNode != null)
+                    {
+                        currentNode = FirstNext(currentNode);
+                        AdvanceUntilInteractive();
+                    }
+                    else
+                    {
+                        Debug.LogError($"User response error, couldn't find the node associated with ");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning($"Got a request to check my wait dialogue, {userDataTag.name} was passed in, looking for: {waitNode.NodeTag.name}...");
+                    eventHandler.RaiseDialogueWaitIncorrect(graphID, conversationID, previousNode, currentNode as RTWaitNode, nextNode, 0.1f, null, null, userDataTag);
+                    // do we play a random Talk event?
+                }
+                    
+            }
+            //fire off the eventhandler to grab a random response and play it
+            //now my current node is a wait node right...
+        }
         public string ReturnConversationID()
         {
             return conversationID;

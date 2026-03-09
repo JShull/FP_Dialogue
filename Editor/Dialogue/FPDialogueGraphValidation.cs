@@ -217,6 +217,20 @@
                     }
                 }
             }
+            foreach(var n in graph.GetNodes().OfType<SetFPWaitingNode>())
+            {
+                var numPromptCount = n.GetNodeOptionByName(FPDialogueGraphValidation.USER_NUMBER_OPTIONS);
+                numPromptCount.TryGetValue<int>(out var numPrompts);
+                for (int i = 0; i < numPrompts; i++)
+                {
+                    //check input is connected
+                    var inputPrompt = n.GetInputPortByName(FPDialogueGraphValidation.USER_PROMPTX_OP + i.ToString()).isConnected;
+                    if(!inputPrompt)
+                    {
+                        logger.LogWarning($"{n.Name} missing input for {i + 1} port! ", n);
+                    }
+                }
+            }
             foreach(var n in graph.GetNodes().OfType<ExitNode>())
             {
                 //check if we have both a TimelineAsset and a Timeline Details

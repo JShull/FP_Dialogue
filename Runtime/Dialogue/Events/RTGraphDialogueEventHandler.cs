@@ -159,7 +159,34 @@ namespace FuzzPhyte.Dialogue
                 next: outNextNode,
                 responseNode:next,
                 previous: prev));
-
+        public void RaiseDialogueWaitCorrect(string graphID, string convoID, RTFPNode prev, RTWaitNode current, RTFPNode outNextNode, float addedDelay = 0, string selectedNext = null,
+            IReadOnlyList<string> candidates = null, object payload = null) =>
+            Raise(Build(
+                graphId: graphID,
+                conversationId: convoID,
+                GraphDialogueEventType.DialogueUserWaitComplete,
+                current,
+                payload,
+                selectedNext,
+                candidates,
+                waitNode: current,
+                next: outNextNode,
+                userDelayTime: addedDelay
+                ));
+        public void RaiseDialogueWaitIncorrect(string graphID, string convoID, RTFPNode prev, RTWaitNode current, RTFPNode outNextNode, float addedDelay = 0, string selectedNext = null,
+            IReadOnlyList<string> candidates = null, object payload = null) =>
+            Raise(Build(
+                graphId: graphID,
+                conversationId: convoID,
+                GraphDialogueEventType.DialogueUserWaitFail,
+                current,
+                payload,
+                selectedNext,
+                candidates,
+                waitNode: current,
+                next: outNextNode,
+                userDelayTime: addedDelay
+                ));
         public void RaiseDialoguePrevious(string graphID, string convoID,RTFPNode prev, RTDialogueNode current, RTFPNode outNextNode,float addedDelay=0,object payload = null)
             => Raise(Build(
                 graphId: graphID,
@@ -225,6 +252,7 @@ namespace FuzzPhyte.Dialogue
                 conversationId: convoID,
                 GraphDialogueEventType.DialogueEnd, exitNode, payload, exitNode: exitNode));
 
+
         private static GraphEventData Build(
             string graphId,
             string conversationId,
@@ -244,6 +272,7 @@ namespace FuzzPhyte.Dialogue
             RTCombineNode combineNode = null,
             RTOnewayNode onewayNode = null,
             RTTalkNode talkNode = null,
+            RTWaitNode waitNode = null,
             float userDelayTime=0,
             int userResponseIndex = -1,
             string userResponseId = null,
@@ -262,6 +291,7 @@ namespace FuzzPhyte.Dialogue
                 combineNode ??= current as RTCombineNode;
                 onewayNode ??= current as RTOnewayNode;
                 talkNode ??= current as RTTalkNode;
+                waitNode ??= current as RTWaitNode;
             }
 
             // Pull candidate next node indices from the current node, if not provided
@@ -301,6 +331,7 @@ namespace FuzzPhyte.Dialogue
                 CombineNode = combineNode,
                 OnewayNode = onewayNode,
                 TalkNode = talkNode,
+                WaitNode = waitNode,
 
                 CandidateNextNodeIndices = nexts,
                 SelectedNextNodeIndex = selectedNext,

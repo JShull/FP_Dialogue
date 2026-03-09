@@ -431,5 +431,34 @@ namespace FuzzPhyte.Dialogue
             this.bodyAnimation = bodyAnimation;  
         }
     }
+
+    [Serializable]
+    public class RTWaitNode : RTFPNode
+    {
+        [Space]
+        [Header("Response Node Details")]
+        public bool UseWorldLocations;
+        public List<RTTalkNode> RandomTalkData = new List<RTTalkNode>();
+        public RTCharacterNode character;
+        public string WorldLocationSceneName;
+        public RTWaitNode(string index, bool useWorldLocations, RTFPNodePort incominIndex, RTFPNodePort outIndex, List<RTTalkNode> randomTalkDataNodes,RTCharacterNode theCharacter,FP_Data eventData, string worldLocation):base(index)
+        {
+            NodeType = "RTWaitNode";
+            this.NodeTag = eventData;
+            UseWorldLocations = useWorldLocations;
+            WorldLocationSceneName = worldLocation;
+            this.inNodeIndices = new RTFPNodePort[1];
+            this.inNodeIndices[0] = incominIndex;
+            this.outNodeIndices = new RTFPNodePort[1];
+            this.outNodeIndices[0] = outIndex;
+            if (randomTalkDataNodes.Count > 0)
+            {
+                RandomTalkData.Clear();
+                RandomTalkData.AddRange(randomTalkDataNodes);
+            }
+            
+            character = theCharacter;
+        }
+    }
     #endregion
 }

@@ -296,6 +296,46 @@ namespace FuzzPhyte.Dialogue
                         }
                     }
                     break;
+                case GraphDialogueEventType.DialogueUserWaitComplete:
+                    if (data.WaitNode != null)
+                    {
+                        if (mediator.EvaluateWaitNode(data.WaitNode))
+                        {
+                            //valid
+                            Debug.Log($"Orchestrator, dialogue wait finished!");
+                        }
+                    }
+                    break;
+                case GraphDialogueEventType.DialogueUserWaitFail:
+                    if (data.WaitNode != null)
+                    {
+                        if (mediator.EvaluateWaitNode(data.WaitNode))
+                        {
+                            //valid but we failed on the user wait
+                            ClearActiveVisual();
+                            //grab a random response?
+                            int randomIndex = UnityEngine.Random.Range(0, data.WaitNode.RandomTalkData.Count);
+                            var talkNodeRandom = data.WaitNode.RandomTalkData[randomIndex];
+                            //generate dialogue node on the fly
+                            if (talkNodeRandom != null)
+                            {
+                                RTDialogueNode OnTheFly = new RTDialogueNode(data.WaitNode.Index, data.WaitNode.inNodeIndices[0], data.WaitNode.outNodeIndices[0], talkNodeRandom, data.WaitNode.character,data.WaitNode.WorldLocationSceneName,data.WaitNode.UseWorldLocations,false,null);
+                                //pull audio time?
+                                float delayTime = 1.25f;
+                                if (OnTheFly.mainDialogue.HasAudio)
+                                {
+                                    delayTime += OnTheFly.mainDialogue.textAudio.length;
+                                }
+                                DrawDialogueVisual(OnTheFly, false, null, null, delayTime);
+                                StartCoroutine(DelayResponseClearVisuals(delayTime));
+                            }
+                            else
+                            {
+                                Debug.LogError($"Didn't pull a talk random node correctly");
+                            }
+                        }
+                    }
+                    break;
             }
         }
         
@@ -304,6 +344,11 @@ namespace FuzzPhyte.Dialogue
             yield return new WaitForSecondsRealtime(someData.UserDelayPaddedTime);
             ClearActiveVisual();
             DrawResponseVisual(someData.ResponseNode, someData.PreviousNode, someData.NextNode);
+        }
+        IEnumerator DelayResponseClearVisuals(float delayTime)
+        {
+            yield return new WaitForSecondsRealtime(delayTime);
+            ClearActiveVisual();
         }
         #region Timelines Related Functions
         

@@ -138,4 +138,19 @@ namespace FuzzPhyte.Dialogue
             return true;
         }
     }
+    public class WaitNodeExecutor: IRTFPDialogueNodeExecutor<RTWaitNode>
+    {
+        public bool Execute(RTWaitNode node, RTDialogueDirector context)
+        {
+            var mediator = context.GetComponent<RTDialogueMediator>();
+            if (mediator==null)
+            {
+                Debug.LogError($"No mediator found on our director!");
+                return false;
+            }
+            Debug.Log($"Wait Node Information Execution!");
+            bool condition = mediator.EvaluateWaitNode(node);
+            return condition;
+        }
+    }
 }

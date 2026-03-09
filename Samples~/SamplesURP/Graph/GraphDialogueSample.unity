@@ -683,6 +683,8 @@ MonoBehaviour:
   conversationID: AnnaConvo
   graphID: 
   OverrideTranslation: 1
+  WaitTestDataBlock: {fileID: 11400000, guid: 2030caade4e255e46a74f3087e27ea39, type: 2}
+  WaitTestDataBlockFail: {fileID: 11400000, guid: dda326acfc3e80c40abf028500f73f3c, type: 2}
 --- !u!4 &158921071
 Transform:
   m_ObjectHideFlags: 0

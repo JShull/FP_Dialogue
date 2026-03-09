@@ -20,7 +20,9 @@ namespace FuzzPhyte.Dialogue
         DialogueUserTranslate,
         DialogueEnd,
         DialogueTimeline,
-        DialogueExitTimeline
+        DialogueExitTimeline,
+        DialogueUserWaitComplete,
+        DialogueUserWaitFail,
     }
     /// <summary>
     /// Listener contract for code-side subscribers.
@@ -64,6 +66,7 @@ namespace FuzzPhyte.Dialogue
         public RTCombineNode CombineNode;
         public RTOnewayNode OnewayNode;
         public RTTalkNode TalkNode;
+        public RTWaitNode WaitNode;
 
         public float UserDelayPaddedTime;
         // Flow hints (optional)

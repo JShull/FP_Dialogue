@@ -83,6 +83,22 @@ namespace FuzzPhyte.Dialogue
             }
             return true;
         }
+        public bool EvaluateWaitNode(RTWaitNode node)
+        {
+            var waitData = node.RandomTalkData;
+            if (waitData.Count > 0)
+            {
+                for (int i = 0; i < waitData.Count; i++)
+                {
+                    Debug.Log($"Response Index{i}: {waitData[i].dialogueText} in the language of {waitData[i].language.ToString()}");
+                }
+            }
+            else
+            {
+                return false;
+            }
+            return true;
+        }
         public bool EvaluateCombination(RTCombineNode node)
         {
             var incomingNodes = node.inNodeIndices;

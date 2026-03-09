@@ -669,7 +669,104 @@
                         createdNodes.Add(RTdialogueNode);
                     }
                         
-                    return createdNodes;       
+                    return createdNodes;
+                case SetFPWaitingNode waitingNode:
+                    RTCharacterNode rTCharacterWaitNodeIn = null;
+                    var numPromptWaitCount = waitingNode.GetNodeOptionByName(FPDialogueGraphValidation.USER_NUMBER_OPTIONS);
+                    var useWorldLocationWaitOption = waitingNode.GetNodeOptionByName(FPDialogueGraphValidation.GO_WORLD_LOCATION);
+                    var eventDataWaitOption = waitingNode.GetNodeOptionByName(FPDialogueGraphValidation.FP_DATA_TAG);
+                    bool useWaitWorldLocations = false;
+                    FP_Data eventDataWait = null;
+                    string worldWaitDialogueSpawnLocation = string.Empty;
+                    RTFPNodePort inputWNode = new RTFPNodePort();
+                    RTFPNodePort outputWNode = new RTFPNodePort();
+                    var inputWaitPort = waitingNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
+                    var outputWaitPort = waitingNode.GetOutputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
+                    if (inputWaitPort != null)
+                    {
+                        inputWNode = ReturnNodePortDetails(inputWaitPort, FPPortType.INPort);
+                    }
+                    else
+                    {
+                        Debug.LogError($"Missing an input connection on a dialogue!");
+                        return null;
+                    }
+                    if (outputWaitPort != null)
+                    {
+                        outputWNode = ReturnNodePortDetails(outputWaitPort, FPPortType.OUTPort);
+                    }
+                    else
+                    {
+                        Debug.LogError($"Missing an output connection on a dialogue");
+                        return null;
+                    }
+
+                    if (useWorldLocationWaitOption != null)
+                    {
+                        useWorldLocationWaitOption.TryGetValue<bool>(out useWaitWorldLocations);
+                        if (useWaitWorldLocations)
+                        {
+                            var useWaitWorldPortLocation = waitingNode.GetInputPortByName(FPDialogueGraphValidation.USE_WORLD_LOCATION);
+                            if (useWaitWorldPortLocation != null)
+                            {
+                                useWaitWorldPortLocation.TryGetValue<string>(out worldWaitDialogueSpawnLocation);
+                            }
+                        }
+                    }
+                    if (eventDataWaitOption != null)
+                    {
+                        eventDataWaitOption.TryGetValue<FP_Data>(out eventDataWait);
+                    }
+                    
+                    numPromptWaitCount.TryGetValue<int>(out var numWaitPrompts);
+                    var waitNodeFlowIN = waitingNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
+                    RTFPNodePort incomingWaitNodeDetails = new RTFPNodePort();
+                    if (waitNodeFlowIN == null)
+                    {
+                        Debug.LogError($"Missing in port on response!?");
+                        return null;
+                    }
+                    else
+                    {
+                        incomingWaitNodeDetails = ReturnNodePortDetails(waitNodeFlowIN, FPPortType.INPort);
+                    }
+
+                    List<RTTalkNode> incomingWaitItems = new List<RTTalkNode>();
+                    for (int i = 0; i < numWaitPrompts; i++)
+                    {
+                        //go through user prompts
+                       
+                        SetFPTalkNode nodePrompt = null;
+                        //ports for each
+                        var promptX = waitingNode.GetInputPortByName(FPDialogueGraphValidation.USER_PROMPTX_OP + i.ToString());
+                        //var directedPromptX = waitingNode.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPTX_OP + i.ToString());
+                        if (promptX != null )
+                        {
+                            nodePrompt = ReturnFirstNodeByPort(promptX) as SetFPTalkNode;
+                            
+
+                            if (nodePrompt != null )
+                            {
+                                incomingWaitItems.Add(ReturnNewTalkNode(nodePrompt));   
+                            }
+                        }
+                    }
+                    //character 
+                    FPVisualNode charWaitNode = null;
+                    var characterWaitPortIn = waitingNode.GetInputPortByName(FPDialogueGraphValidation.PORT_ACTOR);
+                    if (characterWaitPortIn != null)
+                    {
+                        charWaitNode = ReturnFirstNodeByPort(characterWaitPortIn);
+                        if (charWaitNode != null)
+                        {
+                            rTCharacterWaitNodeIn = ReturnNewCharacterNode(charWaitNode as SetFPCharacterNode);
+                            createdNodes.Add(rTCharacterWaitNodeIn);
+                        }
+                    }
+                    //now I have my RTTalkNode data and i need to add this to my WaitNode and return it
+                    var RTwaitNode = new RTWaitNode(waitingNode.Name, useWaitWorldLocations, inputWNode, outputWNode, incomingWaitItems, rTCharacterWaitNodeIn, eventDataWait, worldWaitDialogueSpawnLocation);
+                    createdNodes.Add(RTwaitNode);
+                    return createdNodes;
                 default:
                     return null;
             }
@@ -757,6 +854,7 @@
 
             }
         }
+       
         static RTSinglePromptNode ReturnNewPromptNode(SetFPSinglePromptNode nodeData)
         {
             if (nodeData == null)
