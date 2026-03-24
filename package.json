@@ -4,9 +4,9 @@
     "displayName": "FP Dialogue",
     "description": "FP Dialogue is a dialogue graph and runtime package for Unity 6.4 and newer. Requires FP_UI, FP_Utility, and FP_Utility_EDU.",
     "unity": "6000.4",
-    "documentationUrl": "https://github.com/jshull/FP_Dialogue/README.md",
-    "changelogUrl": "https://github.com/jshull/FP_Dialogue/CHANGELOG.md",
-    "licensesUrl": "https://github.com/jshull/FP_Dialogue/LICENSE.md",
+    "documentationUrl": "https://github.com/JShull/FP_Dialogue/blob/main/README.md",
+    "changelogUrl": "https://github.com/JShull/FP_Dialogue/blob/main/CHANGELOG.md",
+    "licensesUrl": "https://github.com/JShull/FP_Dialogue/blob/main/LICENSE.md",
     "repository": {
       "type": "git",
       "url": "https://github.com/jshull/FP_Dialogue.git"
