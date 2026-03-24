@@ -143,14 +143,14 @@
                 }
                 //Debug.Log($"{debugNotes}: Current Node: In Ports| {currentNode.inputPortCount}|| Out Ports|{currentNode.outputPortCount}");
                 //queue up all connected nodes
-                for (int i = 0; i < currentNode.outputPortCount; i++)
+                for (int i = 0; i < currentNode.OutputPortCount; i++)
                 {
                     //Debug.Log($"....output port index: {i}");
                     var outPort = currentNode.GetOutputPort(i);
-                    if (outPort.isConnected)
+                    if (outPort.IsConnected)
                     {
                         //Debug.Log($"   .... {outPort.firstConnectedPort.dataType.ToString()}");
-                        nodesToProcess.Enqueue(outPort.firstConnectedPort.GetNode());
+                        nodesToProcess.Enqueue(outPort.FirstConnectedPort.GetNode());
                     }
                 }
             }
@@ -169,10 +169,10 @@
                 var runtimeIndex = kvp.Value;
                 var runtimeNode = runtimeGraph.Nodes[runtimeIndex];
 
-                for (int i = 0; i < editorNode.outputPortCount; i++)
+                for (int i = 0; i < editorNode.OutputPortCount; i++)
                 {
                     var outPort = editorNode.GetOutputPort(i);
-                    if(outPort.isConnected &&nodeMap.TryGetValue(outPort.firstConnectedPort.GetNode(),out int nextIndex))
+                    if(outPort.IsConnected &&nodeMap.TryGetValue(outPort.FirstConnectedPort.GetNode(),out int nextIndex))
                     {
                         runtimeNode.NextNodeIndices.Add(nextIndex);
                     }
@@ -803,7 +803,7 @@
             nodeData.GetInputPortByName(FPDialogueGraphValidation.ACTOR_AGE)?.TryGetValue(out age);
 
             //Debug.Log($"Node Data Option Size? {nodeData.nodeOptionCount}");
-            for (int i = 0; i < nodeData.nodeOptionCount; i++)
+            for (int i = 0; i < nodeData.NodeOptionCount; i++)
             {
                 var nodeOptionIndex = nodeData.GetNodeOption(i);
                 //Debug.Log($"Node Option Index: [{i}] has a name of: {nodeOptionIndex.name}");
@@ -1052,12 +1052,12 @@
         static T GetInputPortValue<T>(IPort port)
         {
             T value = default;
-            if (port.isConnected)
+            if (port.IsConnected)
             {
-                switch (port.firstConnectedPort.GetNode())
+                switch (port.FirstConnectedPort.GetNode())
                 {
                     case IVariableNode variableNode:
-                        variableNode.variable.TryGetDefaultValue<T>(out value);
+                        variableNode.Variable.TryGetDefaultValue<T>(out value);
                         return value;
                     case IConstantNode constantNode:
                         constantNode.TryGetValue<T>(out value);
@@ -1076,13 +1076,13 @@
         static T GetPortValue<T>(IPort port)
         {
             if (port == null) return default;
-            if (port.isConnected)
+            if (port.IsConnected)
             {
-                if(port.firstConnectedPort.GetNode() is IVariableNode variableNode)
+                if(port.FirstConnectedPort.GetNode() is IVariableNode variableNode)
                 {
-                    variableNode.variable.TryGetDefaultValue(out T value);
+                    variableNode.Variable.TryGetDefaultValue(out T value);
                     return value;
-                }else if(port.firstConnectedPort.GetNode() is IConstantNode constantNode)
+                }else if(port.FirstConnectedPort.GetNode() is IConstantNode constantNode)
                 {
                     constantNode.TryGetValue<T>(out T value);
                     return value;
@@ -1150,13 +1150,13 @@
                 {
                     PortType = portDirection,
                     NodeIndex = curNode.Name,
-                    PortIndex = aPort.name
+                    PortIndex = aPort.Name
                 };
                 connectedNodeList.Add(details);
             }
             return new RTFPNodePort
             {
-                MyPort = port.name,
+                MyPort = port.Name,
                 ConnectedNodes = connectedNodeList.ToArray()
             };
         }

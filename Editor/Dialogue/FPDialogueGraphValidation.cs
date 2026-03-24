@@ -112,7 +112,7 @@
                 {
                     var inPort = n.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
                     var outPort = n.GetOutputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
-                    if (inPort == null || !inPort.isConnected)
+                    if (inPort == null || !inPort.IsConnected)
                     {
                         logger.LogWarning($"'{n.Name}' has no incoming connection.", n);
                     }
@@ -157,20 +157,20 @@
             {
                 var inPort = n.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
                 var outPort = n.GetOutputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
-                if(inPort==null || !inPort.isConnected)
+                if(inPort==null || !inPort.IsConnected)
                 {
                     logger.LogWarning($"'{n.Name}' has no incoming connection",n);
                 }
                 
-                if(outPort==null || !outPort.isConnected)
+                if(outPort==null || !outPort.IsConnected)
                 {
                     logger.LogWarning($"'{n.Name}' has no output connection",n);
                 }
-                if (n.outputPortCount>1)
+                if (n.OutputPortCount>1)
                 {
                     logger.LogWarning($"'{n.Name}'has too many output connections, should only be 1",n);
                 }
-                if (n.inputPortCount > 1)
+                if (n.InputPortCount > 1)
                 {
                     logger.LogWarning($"'{n.Name}'has too input connections, should only be 1",n);
                 }
@@ -196,7 +196,7 @@
                 var mainTextOut = n.GetOutputPortByName(FPDialogueGraphValidation.MAIN_TEXT);
                 if (mainTextOut != null)
                 {
-                    if (mainTextOut.firstConnectedPort == null)
+                    if (mainTextOut.FirstConnectedPort == null)
                     {
                         logger.LogWarning($" {n.Name} missing an outward connection!",n);
                     }
@@ -209,8 +209,8 @@
                 for (int i = 0; i < numPrompts; i++)
                 {
                     //check input and output are both connected
-                    var inputPrompt = n.GetInputPortByName(FPDialogueGraphValidation.USER_PROMPTX_OP + i.ToString()).isConnected;
-                    var outPutResponse = n.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPTX_OP + i.ToString()).isConnected;
+                    var inputPrompt = n.GetInputPortByName(FPDialogueGraphValidation.USER_PROMPTX_OP + i.ToString()).IsConnected;
+                    var outPutResponse = n.GetOutputPortByName(FPDialogueGraphValidation.USER_PROMPTX_OP + i.ToString()).IsConnected;
                     if (inputPrompt != outPutResponse)
                     {
                         logger.LogWarning($"{n.Name} input/output doesn't match for {i + 1} port! ", n);
@@ -224,7 +224,7 @@
                 for (int i = 0; i < numPrompts; i++)
                 {
                     //check input is connected
-                    var inputPrompt = n.GetInputPortByName(FPDialogueGraphValidation.USER_PROMPTX_OP + i.ToString()).isConnected;
+                    var inputPrompt = n.GetInputPortByName(FPDialogueGraphValidation.USER_PROMPTX_OP + i.ToString()).IsConnected;
                     if(!inputPrompt)
                     {
                         logger.LogWarning($"{n.Name} missing input for {i + 1} port! ", n);
@@ -234,9 +234,9 @@
             foreach(var n in graph.GetNodes().OfType<ExitNode>())
             {
                 //check if we have both a TimelineAsset and a Timeline Details
-                var inputBoolTimelineAsset = n.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_TIMELINE).isConnected;
+                var inputBoolTimelineAsset = n.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_TIMELINE).IsConnected;
                 var inputTimelineDetailsPort = n.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_TIMELINEDETAILS);
-                var inputBoolTimelineDetails = n.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_TIMELINEDETAILS).isConnected;
+                var inputBoolTimelineDetails = n.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_TIMELINEDETAILS).IsConnected;
 
                 if (inputTimelineDetailsPort != null && inputBoolTimelineAsset)
                 {

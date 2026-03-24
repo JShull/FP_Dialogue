@@ -1,10 +1,9 @@
 {
     "name": "com.fuzzphyte.dialogue",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "displayName": "FP Dialogue",
-    "description": "FP Dialogue is a base set of two scriptable object classes. Requires FP_UI, FP_Utility, and FP_Utility_EDU. Bring in FP_Installer to help support",
-    "unity": "6000.3",
-    "unityRelease": "9f1",
+    "description": "FP Dialogue is a dialogue graph and runtime package for Unity 6.4 and newer. Requires FP_UI, FP_Utility, and FP_Utility_EDU.",
+    "unity": "6000.4",
     "documentationUrl": "https://github.com/jshull/FP_Dialogue/README.md",
     "changelogUrl": "https://github.com/jshull/FP_Dialogue/CHANGELOG.md",
     "licensesUrl": "https://github.com/jshull/FP_Dialogue/LICENSE.md",
@@ -14,13 +13,12 @@
     },
     "dependencies": {
       "com.unity.textmeshpro": "3.0.9",
-      "com.unity.graphtoolkit":"0.4.0-exp.2",
       "com.unity.timeline":"1.8.9"
     },
     "samples":[
       {
-        "displayName": "Font Samples",
-        "description": "Includes some examples of the different ScriptableObjects and open source fonts and other misc. scripts for how you can utilize some of these base classes.",
+        "displayName": "Dialogue Samples",
+        "description": "Includes dialogue package samples, open source fonts, and the GraphDialogueSample scene under the Graph folder for testing the graph-based dialogue workflow.",
         "path": "Samples~/SamplesURP"
       }
     ],

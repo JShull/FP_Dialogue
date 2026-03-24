@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-03-24
+
+### 0.6.0 Added
+
+- [@JShull](https://github.com/jshull)
+  - Added a Unity editor migration tool for legacy `.fpdialogue` assets created before Unity 6.4 so they can be rewritten and reimported under the built-in GraphToolkit system.
+
+### 0.6.0 Changed
+
+- [@JShull](https://github.com/jshull)
+  - Updated the package to require Unity `6.4+`.
+  - Removed the preview `com.unity.graphtoolkit` package dependency because GraphToolkit is now part of the Unity editor in 6.4 and newer.
+  - Updated the editor graph/import pipeline to work with the Unity 6.4 GraphToolkit API and serialization changes.
+
 ## [0.5.0] - 2026-02-24
 
 ### 0.5.0 Added
