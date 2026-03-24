@@ -1,7 +1,6 @@
 namespace FuzzPhyte.Dialogue
 {
     using System.Collections.Generic;
-    using UnityEngine.Events;
     using UnityEngine;
     using System;
     using FuzzPhyte.Utility;
@@ -35,7 +34,7 @@ namespace FuzzPhyte.Dialogue
             {
                 if (_instance == null)
                 {
-                    _instance = FindFirstObjectByType<RTGraphDialogueEventHandler>();
+                    _instance = FindAnyObjectByType<RTGraphDialogueEventHandler>();
                     if (_instance == null)
                     {
                         var go = new GameObject(nameof(RTGraphDialogueEventHandler));
