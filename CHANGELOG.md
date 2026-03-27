@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- [@JShull](https://github.com/jshull)
+  - Cleaned up `RTGraphDialogueEventHandler` lifecycle behavior so scene-scoped handlers release event state when destroyed and do not recreate themselves during application shutdown.
+  - Updated `RTGraphDialogueEventHandler` documentation/comments to reflect that its runtime code event is instance-based, not static.
+
 ## [0.6.0] - 2026-03-24
 
 ### 0.6.0 Added

@@ -7,8 +7,8 @@ namespace FuzzPhyte.Dialogue
 
     /// <summary>
     /// Central runtime event hub. 
-    /// Static C# event for global code subscriptions.
-    /// Instance UnityEvent for scene-level hooks.
+    /// Instance C# event for runtime code subscriptions.
+    /// Instance UnityEvent for inspector-based scene hooks.
     /// Transports information between the graph dialogue system controls "who cares to listen?"
     /// </summary>
     public sealed class RTGraphDialogueEventHandler : MonoBehaviour, IFPDontDestroy
@@ -18,7 +18,7 @@ namespace FuzzPhyte.Dialogue
         [SerializeField] private bool dontDestroy;
 
         /// <summary>
-        /// Static event: subscribe/unsubscribe from code.
+        /// Instance event: subscribe/unsubscribe from runtime code.
         /// </summary>
         public event Action<GraphEventData> OnGraphDialogueEvent;
 
@@ -28,10 +28,25 @@ namespace FuzzPhyte.Dialogue
 
         [Header("Optional Defaults (auto-filled if empty)")]
         private static RTGraphDialogueEventHandler _instance;
+        private static bool _applicationIsQuitting;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetStaticState()
+        {
+            _instance = null;
+            _applicationIsQuitting = false;
+            _scratchNexts.Clear();
+        }
+
         public static RTGraphDialogueEventHandler Instance
         {
             get
             {
+                if (_applicationIsQuitting)
+                {
+                    return null;
+                }
+
                 if (_instance == null)
                 {
                     _instance = FindAnyObjectByType<RTGraphDialogueEventHandler>();
@@ -65,6 +80,29 @@ namespace FuzzPhyte.Dialogue
             }
         }
 
+        private void OnDestroy()
+        {
+            if (_instance != this)
+            {
+                return;
+            }
+
+            CleanupRuntimeState();
+            _instance = null;
+        }
+
+        private void OnApplicationQuit()
+        {
+            _applicationIsQuitting = true;
+        }
+
+        private void CleanupRuntimeState()
+        {
+            OnGraphDialogueEvent = null;
+            OnGraphEventUnity?.RemoveAllListeners();
+            _scratchNexts.Clear();
+        }
+
         /// <summary>
         /// Core Event Raise Function - use helper APIs to access it
         /// </summary>
@@ -87,7 +125,7 @@ namespace FuzzPhyte.Dialogue
             // Instance UnityEvent (designer hooks)
             OnGraphEventUnity?.Invoke(data);
 
-            // Static event (code hooks)
+            // Instance event (code hooks)
             OnGraphDialogueEvent?.Invoke(data);            
         }
 
