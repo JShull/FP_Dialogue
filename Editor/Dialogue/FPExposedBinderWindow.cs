@@ -1,3 +1,12 @@
+// Copyright (c) 2026 John B. Shull
+// FuzzPhyte LLC is a company associated with John B. Shull
+// This file is part of FP_Dialogue Package.
+//
+// Public license: GNU GPLv3-or-later.
+// Commercial/proprietary use requires a separate license from John B. Shull.
+//
+// See LICENSE.md COMMERCIAL-LICENSE.md, and NOTICE.md.
+
 namespace FuzzPhyte.Dialogue.Editor
 {
     using UnityEditor;
@@ -31,7 +40,7 @@ namespace FuzzPhyte.Dialogue.Editor
             }
 
             EditorGUILayout.HelpBox(
-                "Paste the same Binding Id into your node’s ExposedReference.exposedName, " +
+                "Paste the same Binding Id into your nodeï¿½s ExposedReference.exposedName, " +
                 "or store it as a node option and construct the ExposedReference at resolve time.",
                 MessageType.Info);
         }

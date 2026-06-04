@@ -7,11 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
+## [0.6.1] - 2026-06-04
 
 - [@JShull](https://github.com/jshull)
-  - Cleaned up `RTGraphDialogueEventHandler` lifecycle behavior so scene-scoped handlers release event state when destroyed and do not recreate themselves during application shutdown.
-  - Updated `RTGraphDialogueEventHandler` documentation/comments to reflect that its runtime code event is instance-based, not static.
+  - License Updates
 
 ## [0.6.0] - 2026-03-24
 
@@ -26,6 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Updated the package to require Unity `6.4+`.
   - Removed the preview `com.unity.graphtoolkit` package dependency because GraphToolkit is now part of the Unity editor in 6.4 and newer.
   - Updated the editor graph/import pipeline to work with the Unity 6.4 GraphToolkit API and serialization changes.
+  - Cleaned up `RTGraphDialogueEventHandler` lifecycle behavior so scene-scoped handlers release event state when destroyed and do not recreate themselves during application shutdown.
+  - Updated `RTGraphDialogueEventHandler` documentation/comments to reflect that its runtime code event is instance-based, not static.
 
 ## [0.5.0] - 2026-02-24
 

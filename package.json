@@ -1,6 +1,6 @@
 {
     "name": "com.fuzzphyte.dialogue",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "displayName": "FP Dialogue",
     "description": "FP Dialogue is a dialogue graph and runtime package for Unity 6.4 and newer. Requires FP_UI, FP_Utility, and FP_Utility_EDU.",
     "unity": "6000.4",
