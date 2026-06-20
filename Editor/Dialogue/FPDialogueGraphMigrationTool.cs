@@ -30,20 +30,20 @@ namespace FuzzPhyte.Dialogue.Editor
         private const string CurrentAssemblyQualifiedToolkit = ", UnityEditor.GraphToolkitModule,";
         private const string BackupSuffix = ".legacy-backup";
 
-        [MenuItem("FuzzPhyte/Dialogue/Migrate Selected FPDialogue Graphs")]
+        [MenuItem("FuzzPhyte/Dialogue/Migrate Selected FPDialogue Graphs", priority = FuzzPhyte.Utility.FP_UtilityData.MENU_UTILITY_DIALOGUE + 20)]
         private static void MigrateSelectedGraphs()
         {
             var assetPaths = CollectSelectedGraphAssetPaths();
             RunMigration(assetPaths, "selected");
         }
 
-        [MenuItem("FuzzPhyte/Dialogue/Migrate Selected FPDialogue Graphs", true)]
+        [MenuItem("FuzzPhyte/Dialogue/Migrate Selected FPDialogue Graphs", true, FuzzPhyte.Utility.FP_UtilityData.MENU_UTILITY_DIALOGUE + 20)]
         private static bool ValidateMigrateSelectedGraphs()
         {
             return CollectSelectedGraphAssetPaths().Count > 0;
         }
 
-        [MenuItem("FuzzPhyte/Dialogue/Migrate All FPDialogue Graphs In Project")]
+        [MenuItem("FuzzPhyte/Dialogue/Migrate All FPDialogue Graphs In Project", priority = FuzzPhyte.Utility.FP_UtilityData.MENU_UTILITY_DIALOGUE + 21)]
         private static void MigrateAllGraphs()
         {
             var assetPaths = CollectAllGraphAssetPaths();
