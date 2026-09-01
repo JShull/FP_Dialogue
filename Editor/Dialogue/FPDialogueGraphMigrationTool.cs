@@ -28,22 +28,22 @@ namespace FuzzPhyte.Dialogue.Editor
         private const string LegacyAssemblyQualifiedEditor = ", Unity.GraphToolkit.Editor,";
         private const string LegacyAssemblyQualifiedInternal = ", Unity.GraphToolkit.Internal.Editor,";
         private const string CurrentAssemblyQualifiedToolkit = ", UnityEditor.GraphToolkitModule,";
-        private const string BackupSuffix = ".legacy-backup";
+        private const string BackupSuffix = ".pre-6000.6-backup";
 
-        [MenuItem("FuzzPhyte/Dialogue/Migrate Selected FPDialogue Graphs", priority = FuzzPhyte.Utility.FP_UtilityData.MENU_UTILITY_DIALOGUE + 20)]
+        [MenuItem("FuzzPhyte/Dialogue/Upgrade Selected FPDialogue Graphs to Unity 6000.6", priority = FuzzPhyte.Utility.FP_UtilityData.MENU_UTILITY_DIALOGUE + 20)]
         private static void MigrateSelectedGraphs()
         {
             var assetPaths = CollectSelectedGraphAssetPaths();
             RunMigration(assetPaths, "selected");
         }
 
-        [MenuItem("FuzzPhyte/Dialogue/Migrate Selected FPDialogue Graphs", true, FuzzPhyte.Utility.FP_UtilityData.MENU_UTILITY_DIALOGUE + 20)]
+        [MenuItem("FuzzPhyte/Dialogue/Upgrade Selected FPDialogue Graphs to Unity 6000.6", true, FuzzPhyte.Utility.FP_UtilityData.MENU_UTILITY_DIALOGUE + 20)]
         private static bool ValidateMigrateSelectedGraphs()
         {
             return CollectSelectedGraphAssetPaths().Count > 0;
         }
 
-        [MenuItem("FuzzPhyte/Dialogue/Migrate All FPDialogue Graphs In Project", priority = FuzzPhyte.Utility.FP_UtilityData.MENU_UTILITY_DIALOGUE + 21)]
+        [MenuItem("FuzzPhyte/Dialogue/Upgrade All FPDialogue Graphs to Unity 6000.6", priority = FuzzPhyte.Utility.FP_UtilityData.MENU_UTILITY_DIALOGUE + 21)]
         private static void MigrateAllGraphs()
         {
             var assetPaths = CollectAllGraphAssetPaths();
@@ -55,22 +55,22 @@ namespace FuzzPhyte.Dialogue.Editor
             if (assetPaths.Count == 0)
             {
                 EditorUtility.DisplayDialog(
-                    "FP Dialogue Migration",
+                    "FP Dialogue Upgrade",
                     $"No {GraphExtension} assets were found in the {scopeLabel} scope.",
                     "OK");
                 return;
             }
 
             if (!EditorUtility.DisplayDialog(
-                    "FP Dialogue Migration",
-                    $"This will create a {BackupSuffix} backup next to each selected legacy graph, rewrite known Unity GraphToolkit identifiers, and reimport the asset.\n\nAssets found: {assetPaths.Count}",
-                    "Migrate",
+                    "FP Dialogue Upgrade",
+                    $"This will create a {BackupSuffix} backup next to each graph, rewrite known legacy GraphToolkit identifiers, and reimport the asset for Unity 6000.6.\n\nAssets found: {assetPaths.Count}",
+                    "Upgrade",
                     "Cancel"))
             {
                 return;
             }
 
-            var migratedCount = 0;
+            var upgradedCount = 0;
             var skippedCount = 0;
             var failedAssets = new List<string>();
 
@@ -82,8 +82,8 @@ namespace FuzzPhyte.Dialogue.Editor
                 {
                     var assetPath = assetPaths[i];
                     EditorUtility.DisplayProgressBar(
-                        "FP Dialogue Migration",
-                        $"Migrating {assetPath}",
+                        "FP Dialogue Upgrade",
+                        $"Upgrading {assetPath}",
                         (float)i / assetPaths.Count);
 
                     try
@@ -92,7 +92,7 @@ namespace FuzzPhyte.Dialogue.Editor
                         switch (result)
                         {
                             case MigrationResult.Migrated:
-                                migratedCount++;
+                                upgradedCount++;
                                 break;
                             case MigrationResult.Skipped:
                                 skippedCount++;
@@ -113,14 +113,14 @@ namespace FuzzPhyte.Dialogue.Editor
                 AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
             }
 
-            var message = $"Migrated: {migratedCount}\nSkipped: {skippedCount}\nFailed: {failedAssets.Count}";
+            var message = $"Upgraded: {upgradedCount}\nSkipped: {skippedCount}\nFailed: {failedAssets.Count}";
             if (failedAssets.Count > 0)
             {
                 message += "\n\nSee Console for exception details.";
-                Debug.LogError($"FP Dialogue migration failures:\n{string.Join("\n\n", failedAssets)}");
+                Debug.LogError($"FP Dialogue upgrade failures:\n{string.Join("\n\n", failedAssets)}");
             }
 
-            EditorUtility.DisplayDialog("FP Dialogue Migration", message, "OK");
+            EditorUtility.DisplayDialog("FP Dialogue Upgrade", message, "OK");
         }
 
         private static MigrationResult MigrateGraphAsset(string assetPath)
@@ -142,37 +142,21 @@ namespace FuzzPhyte.Dialogue.Editor
                 return MigrationResult.Skipped;
             }
 
-            if (!LooksLikeLegacyGraphToolkitAsset(originalText))
-            {
-                return MigrationResult.Skipped;
-            }
-
             var migratedText = RewriteLegacyGraphToolkitIdentifiers(originalText);
-            if (string.Equals(originalText, migratedText, StringComparison.Ordinal))
-            {
-                return MigrationResult.Skipped;
-            }
-
             var backupPath = fullPath + BackupSuffix;
             if (!File.Exists(backupPath))
             {
                 File.WriteAllText(backupPath, originalText);
             }
 
-            File.WriteAllText(fullPath, migratedText);
-            AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
-            Debug.Log($"Migrated FP Dialogue graph: {assetPath}");
-            return MigrationResult.Migrated;
-        }
+            if (!string.Equals(originalText, migratedText, StringComparison.Ordinal))
+            {
+                File.WriteAllText(fullPath, migratedText);
+            }
 
-        private static bool LooksLikeLegacyGraphToolkitAsset(string text)
-        {
-            return text.Contains(LegacyGraphObjectScriptLine, StringComparison.Ordinal) ||
-                   text.Contains(LegacyEditorClassIdentifier, StringComparison.Ordinal) ||
-                   text.Contains(LegacyInternalAssembly, StringComparison.Ordinal) ||
-                   text.Contains(LegacyEditorAssembly, StringComparison.Ordinal) ||
-                   text.Contains(LegacyAssemblyQualifiedEditor, StringComparison.Ordinal) ||
-                   text.Contains(LegacyAssemblyQualifiedInternal, StringComparison.Ordinal);
+            AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
+            Debug.Log($"Upgraded FP Dialogue graph for Unity 6000.6: {assetPath}");
+            return MigrationResult.Migrated;
         }
 
         private static string RewriteLegacyGraphToolkitIdentifiers(string text)

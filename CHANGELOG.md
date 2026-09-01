@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-09-01
+
+### 0.7.0 Changed
+
+- [@JShull](https://github.com/jshull)
+  - Updated the minimum supported Unity version to `6000.6`.
+  - Changed runtime node dictionaries to nonserialized lookup caches rebuilt from the serialized polymorphic node list, resolving Unity 6000.6 dictionary serialization analyzer errors without duplicating graph node data.
+  - Expanded the FP Dialogue graph migration commands into a Unity 6000.6 upgrade process that backs up and force-reimports existing graphs, while retaining legacy GraphToolkit YAML identifier conversion.
+
 ## [0.6.1] - 2026-06-04
 
 - [@JShull](https://github.com/jshull)
