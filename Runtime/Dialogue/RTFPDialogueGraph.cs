@@ -21,70 +21,12 @@ namespace FuzzPhyte.Dialogue
         [SerializeReference] public RTEntryNode MainEntryNode;
         [SerializeReference]
         public List<RTFPNode> Nodes = new ();
-        [System.NonSerialized] public Dictionary<string, RTFPNode> AllNodesByIndex = new();
-        [System.NonSerialized] public Dictionary<string, RTEntryNode> AllEntryNodes = new();
-        [System.NonSerialized] public Dictionary<string, RTExitNode> AllExitNodes = new();
-        [System.NonSerialized] public Dictionary<string, RTDialogueNode> AllDialogueNodes = new();
-        [System.NonSerialized] public Dictionary<string, RTResponseNode> AllResponseNodes = new();
-        [System.NonSerialized] public Dictionary<string, RTCharacterNode> AllCharacterNodes = new();
-
-        private void OnEnable()
-        {
-            RebuildNodeLookups();
-        }
-
-        /// <summary>
-        /// Rebuilds runtime lookup caches from the serialized polymorphic node list.
-        /// </summary>
-        public void RebuildNodeLookups()
-        {
-            AllNodesByIndex ??= new Dictionary<string, RTFPNode>();
-            AllEntryNodes ??= new Dictionary<string, RTEntryNode>();
-            AllExitNodes ??= new Dictionary<string, RTExitNode>();
-            AllDialogueNodes ??= new Dictionary<string, RTDialogueNode>();
-            AllResponseNodes ??= new Dictionary<string, RTResponseNode>();
-            AllCharacterNodes ??= new Dictionary<string, RTCharacterNode>();
-
-            AllNodesByIndex.Clear();
-            AllEntryNodes.Clear();
-            AllExitNodes.Clear();
-            AllDialogueNodes.Clear();
-            AllResponseNodes.Clear();
-            AllCharacterNodes.Clear();
-
-            if (Nodes == null)
-            {
-                return;
-            }
-
-            foreach (var node in Nodes)
-            {
-                if (node == null || string.IsNullOrEmpty(node.Index))
-                {
-                    continue;
-                }
-
-                AllNodesByIndex[node.Index] = node;
-                switch (node)
-                {
-                    case RTEntryNode entryNode:
-                        AllEntryNodes[node.Index] = entryNode;
-                        break;
-                    case RTExitNode exitNode:
-                        AllExitNodes[node.Index] = exitNode;
-                        break;
-                    case RTDialogueNode dialogueNode:
-                        AllDialogueNodes[node.Index] = dialogueNode;
-                        break;
-                    case RTResponseNode responseNode:
-                        AllResponseNodes[node.Index] = responseNode;
-                        break;
-                    case RTCharacterNode characterNode:
-                        AllCharacterNodes[node.Index] = characterNode;
-                        break;
-                }
-            }
-        }
+        [SerializeReference]public Dictionary<string, RTFPNode> AllNodesByIndex = new Dictionary<string,RTFPNode> ();
+        [SerializeReference] public Dictionary<string, RTEntryNode> AllEntryNodes = new Dictionary<string, RTEntryNode>();
+        [SerializeReference] public Dictionary<string, RTExitNode> AllExitNodes = new Dictionary<string,RTExitNode>();
+        [SerializeReference] public Dictionary<string, RTDialogueNode>AllDialogueNodes = new Dictionary<string,RTDialogueNode>();
+        [SerializeReference] public Dictionary<string, RTResponseNode>AllResponseNodes = new Dictionary<string,RTResponseNode> ();
+        [SerializeReference] public Dictionary<string, RTCharacterNode>AllCharacterNodes = new Dictionary<string,RTCharacterNode> ();
         
         /// <summary>
         /// Initial entry point for main "in" node, but also can be used for other things
@@ -103,11 +45,6 @@ namespace FuzzPhyte.Dialogue
         }
         public void AddRTNodeToList(RTFPNode Node)
         {
-            if (Node == null || string.IsNullOrEmpty(Node.Index))
-            {
-                return;
-            }
-
             if (!Nodes.Contains(Node))
             {
                 bool match = Nodes.Any(n => n.Index == Node.Index);
@@ -116,8 +53,6 @@ namespace FuzzPhyte.Dialogue
                     Nodes.Add(Node);
                 }
             }
-
-            AllNodesByIndex[Node.Index] = Node;
         }
         public void AddEntryNode(RTEntryNode entryNode)
         {
