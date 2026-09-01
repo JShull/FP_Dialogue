@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- [@JShull](https://github.com/jshull)
+  - Marked transient dialogue event payloads, candidate paths, and runtime progression history as nonserialized to resolve Unity 6000.6 serialization analyzer warnings.
+
 ## [0.7.0] - 2026-09-01
 
 ### 0.7.0 Changed

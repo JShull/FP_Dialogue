@@ -79,6 +79,7 @@ namespace FuzzPhyte.Dialogue
 
         public float UserDelayPaddedTime;
         // Flow hints (optional)
+        [NonSerialized]
         public IReadOnlyList<string> CandidateNextNodeIndices; // for UI / logic preview
         public string SelectedNextNodeIndex;                   // which path we chose (if applicable)
 
@@ -89,6 +90,7 @@ namespace FuzzPhyte.Dialogue
         public string UserResponseText;     // raw user text (if your UX allows text answers)
 
         // Arbitrary attachable data (safe for cross-system)
+        [NonSerialized]
         public object Payload;              // minimal boxing use; keep POCO/structs // for things like TimelineDetails
 
         // Helpers

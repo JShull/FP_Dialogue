@@ -29,7 +29,7 @@ namespace FuzzPhyte.Dialogue
         public float PaddingTimeBetweenNodes = 1f;
         [Range(0.01f,0.3f)]
         public float CharPaddingTime = 0.15f;
-        [SerializeField]
+        [NonSerialized]
         public Stack<string> ProgressionPath = new();
         /// <summary>
         /// Active Node our Director is "on"
