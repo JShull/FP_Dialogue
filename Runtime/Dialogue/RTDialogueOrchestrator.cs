@@ -437,15 +437,47 @@ namespace FuzzPhyte.Dialogue
         /// <returns></returns>
         private bool WithTimeline(RTTimelineDetails details, System.Action<IDialogueTimeline> action)
         {
-            var go = ReturnBinderObject(details.BinderDirectorLookUpName);
-            if (go != null && go.TryGetComponent<IDialogueTimeline>(out var tl))
+            if (details == null)
             {
-                action?.Invoke(tl);
-                return true;
+                Debug.LogWarning($"[Timeline] Orchestrator '{name}' received null RTTimelineDetails.", this);
+                return false;
             }
 
-            Debug.LogWarning($"[Timeline] Could not resolve IDialogueTimeline for '{details.BinderDirectorLookUpName}'.");
-            return false;
+            var lookupName = details.BinderDirectorLookUpName;
+            if (binder == null)
+            {
+                Debug.LogWarning($"[Timeline] Orchestrator '{name}' has no RTExposedBinder assigned. Details: '{details.name}', lookup: '{lookupName}'.", this);
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(lookupName))
+            {
+                Debug.LogWarning($"[Timeline] Details '{details.name}' has an empty BinderDirectorLookUpName. Orchestrator: '{name}', binder: '{binder.name}'.", this);
+                return false;
+            }
+
+            var propertyName = new PropertyName(lookupName);
+            var binding = binder.GetReferenceValue(propertyName, out var idValid);
+            if (!idValid || binding == null)
+            {
+                Debug.LogWarning($"[Timeline] Binder '{binder.name}' returned no object for lookup '{lookupName}' (PropertyName: '{propertyName}', idValid: {idValid}). Orchestrator: '{name}', details: '{details.name}'. Check the binding ID and its object reference.", this);
+                return false;
+            }
+
+            if (binding is not GameObject go)
+            {
+                Debug.LogWarning($"[Timeline] Binder '{binder.name}' resolved '{lookupName}' to '{binding.name}' ({binding.GetType().FullName}), but a GameObject is required. Assign the GameObject containing RTFPPlayableDirector. Orchestrator: '{name}', details: '{details.name}'.", this);
+                return false;
+            }
+
+            if (!go.TryGetComponent<IDialogueTimeline>(out var tl))
+            {
+                Debug.LogWarning($"[Timeline] Binder '{binder.name}' resolved '{lookupName}' to GameObject '{go.name}' in scene '{go.scene.path}', but it has no IDialogueTimeline component. Add RTFPPlayableDirector to this exact GameObject. Orchestrator: '{name}', details: '{details.name}'.", go);
+                return false;
+            }
+
+            action?.Invoke(tl);
+            return true;
         }
         #endregion
         #region Unity Visuals

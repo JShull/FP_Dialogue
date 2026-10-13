@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [@JShull](https://github.com/jshull)
   - Marked transient dialogue event payloads, candidate paths, and runtime progression history as nonserialized to resolve Unity 6000.6 serialization analyzer warnings.
 
+### Changed
+
+- Timeline action resolution now reports missing details, missing binders, empty lookup names, unresolved bindings, incorrect binding object types, and missing `IDialogueTimeline` components separately. Warnings include object context and the binder, orchestrator, and details asset involved.
+
 ## [0.7.0] - 2026-09-01
 
 ### 0.7.0 Changed
