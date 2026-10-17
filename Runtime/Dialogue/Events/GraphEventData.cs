@@ -32,6 +32,7 @@ namespace FuzzPhyte.Dialogue
         DialogueExitTimeline,
         DialogueUserWaitComplete,
         DialogueUserWaitFail,
+        DialogueAction,
     }
     /// <summary>
     /// Listener contract for code-side subscribers.

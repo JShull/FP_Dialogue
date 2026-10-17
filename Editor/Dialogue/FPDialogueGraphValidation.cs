@@ -17,6 +17,7 @@ namespace FuzzPhyte.Dialogue.Editor
     public static class FPDialogueGraphValidation
     {
         // graph based
+        public const string ACTION_BINDING_ID = "ActionBindingId";
         public const string GRAPHID = "GraphID";
         public const string MAIN_PORT_DEFAULT_NAME = "ExecutionPort";
         public const string MAIN_PORT_TIMELINE = "TimelinePort";
@@ -93,6 +94,14 @@ namespace FuzzPhyte.Dialogue.Editor
 
         public static void Run(FPDialogueGraph graph, GraphLogger logger)
         {
+            foreach (var action in graph.GetNodes().OfType<SetFPActionNode>())
+            {
+                var option = action.GetNodeOptionByName(ACTION_BINDING_ID);
+                string lookup = null;
+                if (option != null) option.TryGetValue<string>(out lookup);
+                if (string.IsNullOrWhiteSpace(lookup))
+                    logger.LogWarning("Action node needs a Binder Lookup; it will be skipped at runtime.", action);
+            }
             // 1) Exactly one EntryNode
             var entries = graph.GetNodes().OfType<EntryNode>().ToList();
             if (entries.Count == 0)

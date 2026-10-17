@@ -199,6 +199,21 @@ namespace FuzzPhyte.Dialogue.Editor
             List<RTFPNode>createdNodes = new List<RTFPNode>();
             switch (editorNode)
             {
+                case SetFPActionNode actionNode:
+                    var actionInput = actionNode.GetInputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
+                    var actionOutput = actionNode.GetOutputPortByName(FPDialogueGraphValidation.MAIN_PORT_DEFAULT_NAME);
+                    if (actionInput == null || actionOutput == null)
+                    {
+                        Debug.LogError($"Action node '{actionNode.Name}' is missing a flow port.");
+                        return null;
+                    }
+                    string actionLookup = string.Empty;
+                    var actionOption = actionNode.GetNodeOptionByName(FPDialogueGraphValidation.ACTION_BINDING_ID);
+                    if (actionOption != null) actionOption.TryGetValue<string>(out actionLookup);
+                    createdNodes.Add(new RTActionNode(actionNode.Name, actionLookup,
+                        ReturnNodePortDetails(actionInput, FPPortType.INPort),
+                        ReturnNodePortDetails(actionOutput, FPPortType.OUTPort)));
+                    return createdNodes;
                 case EntryNode entryNode:
                     //have to evaluate information on RTEntryNode (Input Timeline asset)
                     TimelineAsset tAsset = null;

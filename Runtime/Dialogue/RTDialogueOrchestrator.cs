@@ -123,6 +123,11 @@ namespace FuzzPhyte.Dialogue
             }
             switch (data.EventType)
             {
+                case GraphDialogueEventType.DialogueAction:
+                    // Both IDs must match: the event hub can serve multiple conversations.
+                    if (data.GraphId == graphID && data.ConversationId == conversationID)
+                        ExecuteBoundAction(data);
+                    break;
                 // event that occurs at the end of a dialogue node that contains timeline details
                 case GraphDialogueEventType.DialogueTimeline:
                 case GraphDialogueEventType.DialogueExitTimeline:
@@ -429,6 +434,37 @@ namespace FuzzPhyte.Dialogue
             });
         }
         
+        protected virtual void ExecuteBoundAction(GraphEventData data)
+        {
+            if (data.CurrentNode is not RTActionNode actionNode) return;
+            var lookup = actionNode.BinderLookup;
+            if (binder == null || string.IsNullOrWhiteSpace(lookup))
+            {
+                Debug.LogWarning($"[Dialogue Action] Node '{actionNode.Index}' needs a binder and a non-empty Binder Lookup.", this);
+                return;
+            }
+            var binding = binder.GetReferenceValue(new PropertyName(lookup), out var valid);
+            if (!valid || binding is not GameObject go)
+            {
+                Debug.LogWarning($"[Dialogue Action] Binding '{lookup}' on '{binder.name}' must reference a GameObject. Node: '{actionNode.Index}'.", this);
+                return;
+            }
+            if (!go.TryGetComponent<IFPDialogueAction>(out var action))
+            {
+                Debug.LogWarning($"[Dialogue Action] GameObject '{go.name}' needs an IFPDialogueAction component for binding '{lookup}'.", go);
+                return;
+            }
+            try
+            {
+                action.ExecuteDialogueAction(data);
+            }
+            catch (System.Exception exception)
+            {
+                // A project action failure must not stop dialogue traversal.
+                Debug.LogException(exception, go);
+            }
+        }
+
         /// <summary>
         /// internal call to handle actions associated with details
         /// </summary>

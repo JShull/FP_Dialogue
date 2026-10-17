@@ -65,6 +65,21 @@ namespace FuzzPhyte.Dialogue
         public string PortIndex;
     }
     #region Runtime Nodes Associated with Dialogue System
+    /// <summary>Fires a bound action during forward traversal, then immediately continues.</summary>
+    [Serializable]
+    public class RTActionNode : RTFPNode
+    {
+        public string BinderLookup;
+
+        public RTActionNode(string index, string binderLookup, RTFPNodePort input, RTFPNodePort output) : base(index)
+        {
+            NodeType = nameof(RTActionNode);
+            BinderLookup = binderLookup;
+            inNodeIndices = new[] { input };
+            outNodeIndices = new[] { output };
+        }
+    }
+
     //Editor: EntryNode class
     [Serializable]
     public class RTEntryNode : RTFPNode

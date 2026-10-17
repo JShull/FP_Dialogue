@@ -130,6 +130,14 @@ namespace FuzzPhyte.Dialogue
             DebugStack("111: Advance: ");
             while (currentNode != null)
             {
+                if (currentNode is RTActionNode actionNode)
+                {
+                    ProgressionPath.Push(actionNode.Index);
+                    var next = FirstNext(actionNode);
+                    eventHandler.RaiseDialogueAction(graphID, conversationID, actionNode, FirstPrevious(actionNode), next);
+                    currentNode = next;
+                    continue;
+                }
                 if (!executors.TryGetValue(currentNode.GetType(), out var executor))
                 {
                     Debug.LogError($"No Executor found for node type: {currentNode.GetType().Name}");
@@ -273,6 +281,13 @@ namespace FuzzPhyte.Dialogue
             */
             while (previousNode != null)
             {
+                // Backtracking crosses actions without repeating their side effects.
+                if (previousNode is RTActionNode)
+                {
+                    if (ProgressionPath.Count > 0) ProgressionPath.Pop();
+                    previousNode = FirstPrevious(previousNode);
+                    continue;
+                }
                 if (!executors.TryGetValue(previousNode.GetType(), out var executor))
                 {
                     Debug.LogError($"No Executor found for node type: {previousNode.GetType().Name}");

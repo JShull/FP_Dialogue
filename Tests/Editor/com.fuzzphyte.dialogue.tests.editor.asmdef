@@ -1,0 +1,7 @@
+{
+    "name": "com.fuzzphyte.dialogue.tests.editor",
+    "rootNamespace": "FuzzPhyte.Dialogue.Tests",
+    "references": ["com.fuzzphyte.dialogue", "com.fuzzphyte.utility"],
+    "includePlatforms": ["Editor"],
+    "optionalUnityReferences": ["TestAssemblies"]
+}

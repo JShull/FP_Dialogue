@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Immediate action nodes with a binder lookup, `IFPDialogueAction` component dispatch, and `DialogueAction` events. Backtracking skips actions; forward revisits fire again. Missing targets and action exceptions do not block continuation.
+
 ### Fixed
 
 - [@JShull](https://github.com/jshull)

@@ -222,6 +222,62 @@ Ports:
 
 Runtime mapping: `RTOnewayNode`
 
+### 10) `SetFPActionNode`
+
+Purpose: perform a bound scene action immediately, then continue through Flow Out.
+
+Options:
+
+- `ActionBindingId` (string, displayed as **Binder Lookup**; binding id for the target GameObject)
+
+Ports:
+
+- Input `ExecutionPort` (Flow In)
+- Output `ExecutionPort` (Flow Out)
+
+Runtime mapping: `RTActionNode`
+
+Bind the target GameObject in the orchestrator's `RTExposedBinder`. That exact GameObject must have one component implementing `IFPDialogueAction`:
+
+```csharp
+using FuzzPhyte.Dialogue;
+using UnityEngine;
+
+public class OpenGateDialogueAction : MonoBehaviour, IFPDialogueAction
+{
+    public void ExecuteDialogueAction(GraphEventData data)
+    {
+        // Start your project's action here.
+    }
+}
+```
+
+On forward entry, the director raises `DialogueAction` with the runtime node in `GraphEventData.CurrentNode`. The orchestrator resolves the binding and calls `ExecuteDialogueAction(data)` synchronously, then flow continues immediately. Return promptly; asynchronous work is not awaited. Use a waiting node when completion matters.
+
+Backward navigation skips the action; forward revisits execute it again. Lookup does not search children or find objects by name. Missing/invalid bindings or interfaces log warnings and continue; action exceptions are logged and flow continues. Event Tag is independent of this lookup.
+
+### 11) `SetFPWaitingNode`
+
+Purpose: pause flow until an external action supplies the matching `FP_Data` tag.
+
+Options:
+
+- `PromptNumOptions` (int, delayed, default `2`; number of random response inputs)
+- `GameObjectLocation` (bool, default `false`, displayed as **Use World Locations?**)
+- `FPDataTag` (`FP_Data`, displayed as **Matching Event Requirement**; asset reference required to release the wait)
+
+Ports:
+
+- Input `ExecutionPort` (Flow In)
+- Output `ExecutionPort` (Flow Out)
+- Input `CharacterPort` (`SetFPCharacterNode`)
+- Dynamic inputs `PromptOption_i` (`SetFPTalkNode`; random response candidates)
+- Optional Input `UseDialogueWorldLocation` (string location name, enabled by `GameObjectLocation`)
+
+Runtime mapping: `RTWaitNode`
+
+From the external component, call `director.UserWaitingResponse(tagAsset)` while this node is current. Passing the same asset reference as `FPDataTag` raises `DialogueUserWaitComplete` and continues through Flow Out. A different tag raises `DialogueUserWaitFail`, keeps flow waiting, and lets the orchestrator display a random response from the connected talk nodes. A null tag is ignored with a warning.
+
 ## Validation Rules (Editor-Time)
 
 `FPDialogueGraphValidation` runs on graph change and reports warnings/errors in Graph Toolkit logger.

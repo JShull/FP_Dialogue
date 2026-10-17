@@ -299,6 +299,11 @@ namespace FuzzPhyte.Dialogue
                 GraphDialogueEventType.DialogueEnd, exitNode, payload, exitNode: exitNode));
 
 
+        public void RaiseDialogueAction(string graphID, string convoID, RTActionNode node,
+            RTFPNode previous, RTFPNode next)
+            => Raise(Build(graphID, convoID, GraphDialogueEventType.DialogueAction,
+                node, null, previous: previous, next: next));
+
         private static GraphEventData Build(
             string graphId,
             string conversationId,
