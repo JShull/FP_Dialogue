@@ -66,6 +66,9 @@ namespace FuzzPhyte.Dialogue.Editor
         public const string ANIM_BLEND_FACE = "AnimationFace";
         public const string ANIM_BODY_SPEED = "AnimationBodySpeed";
         public const string ANIM_BLEND_BODY = "AnimationBody";
+        public const string ANIM_BODY_OVERRIDE = "AnimationBodyOverride";
+        public const string ANIM_BODY_OVERRIDE_LENGTH = "AnimationBodyOverrideLength";
+
         public const string GAMEOBJECT_ID = "GameObjectID";
         public const string GAMEOBJECT_BLENDSHAPE = "BlendShape";
         public const string ANIM_SPEED = "AnimationSpeed";

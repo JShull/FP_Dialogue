@@ -48,6 +48,12 @@ namespace FuzzPhyte.Dialogue.Editor
             context.AddInputPort<float>(FPDialogueGraphValidation.ANIM_BODY_SPEED)
                 .WithDisplayName("Body Speed:")
                 .Build();
+            context.AddInputPort<bool>(FPDialogueGraphValidation.ANIM_BODY_OVERRIDE)
+                .WithDisplayName("Override Anim:?")
+                .Build();
+            context.AddInputPort<float>(FPDialogueGraphValidation.ANIM_BODY_OVERRIDE_LENGTH)
+                .WithDisplayName("Override Anim Time:")
+                .Build();
             context.AddOutputPort<SetFPTalkNode>(FPDialogueGraphValidation.MAIN_TEXT)
                 .WithDisplayName("Dialogue->")
                 .Build();

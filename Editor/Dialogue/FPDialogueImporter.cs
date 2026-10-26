@@ -1045,6 +1045,8 @@ namespace FuzzPhyte.Dialogue.Editor
             AnimationClip bodyAnimClip = null;
             float faceAnimClipSpeed = 1f;
             float bodyAnimSpeed = 1f;
+            bool overrideClip = false;
+            float overrideClipLength=1f;
             RTFPNodePort outputNode = new RTFPNodePort();
             
             nodeData.GetInputPortByName(FPDialogueGraphValidation.LANG_NAME)?.TryGetValue(out nodeLanguage);
@@ -1055,6 +1057,8 @@ namespace FuzzPhyte.Dialogue.Editor
             nodeData.GetInputPortByName(FPDialogueGraphValidation.ANIM_SPEED)?.TryGetValue(out faceAnimClipSpeed);
             nodeData.GetInputPortByName(FPDialogueGraphValidation.ANIM_BLEND_BODY)?.TryGetValue(out bodyAnimClip);
             nodeData.GetInputPortByName(FPDialogueGraphValidation.ANIM_BODY_SPEED)?.TryGetValue(out bodyAnimSpeed);
+            nodeData.GetInputPortByName(FPDialogueGraphValidation.ANIM_BODY_OVERRIDE)?.TryGetValue(out overrideClip);
+            nodeData.GetInputPortByName(FPDialogueGraphValidation.ANIM_BODY_OVERRIDE_LENGTH)?.TryGetValue(out overrideClipLength);
             var talkOutputPort = nodeData.GetOutputPortByName(FPDialogueGraphValidation.MAIN_TEXT);
             if (talkOutputPort != null)
             {
@@ -1065,7 +1069,7 @@ namespace FuzzPhyte.Dialogue.Editor
                 }
             }
             
-            return new RTTalkNode(nodeData.Name, outputNode, nodeLanguage, header, text, textClip, animClip, faceAnimClipSpeed,bodyAnimClip,bodyAnimSpeed);
+            return new RTTalkNode(nodeData.Name, outputNode, nodeLanguage, header, text, textClip, animClip, faceAnimClipSpeed,bodyAnimClip,bodyAnimSpeed,overrideClip,overrideClipLength);
         }
         /// <summary>
         /// Pass a port, return a value

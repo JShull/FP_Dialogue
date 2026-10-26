@@ -620,8 +620,17 @@ namespace FuzzPhyte.Dialogue
                     IAnimInjection injection = characterBody.GetComponent<IAnimInjection>();
                     if (injection!=null)
                     {
-                        FPAnimationData animBodyData = ReturnGenericAnimData(nodeData.mainDialogue.bodyAnimation, nodeData.mainDialogue.bodyAnimSpeed);
-                        injection.PlayClip(animBodyData);
+                        if (nodeData.mainDialogue.OverrideClip)
+                        {
+                            FPAnimationData animBodyData = ReturnOverrideAnimData(nodeData.mainDialogue.bodyAnimation, nodeData.mainDialogue.bodyAnimSpeed,nodeData.mainDialogue.OverrideClipLength);
+                            injection.PlayClip(animBodyData);
+                        }
+                        else
+                        {
+                            FPAnimationData animBodyData = ReturnGenericAnimData(nodeData.mainDialogue.bodyAnimation, nodeData.mainDialogue.bodyAnimSpeed);
+                            injection.PlayClip(animBodyData);
+                        }
+                        
                     }
                 }
             }
@@ -638,6 +647,23 @@ namespace FuzzPhyte.Dialogue
                 Mask = null,
                 Additive = false,
                 BackToOriginal = true
+            };
+            return animData;
+        }
+        private FPAnimationData ReturnOverrideAnimData(AnimationClip clip, float speed,float clipLength)
+        {
+            FPAnimationData animData = new FPAnimationData()
+            {
+                Clip = clip,
+                AnimationSpeed = speed,
+                FadeIn = -1f,
+                FadeOut = -1f,
+                TargetWeight = -1f,
+                Mask = null,
+                Additive = false,
+                BackToOriginal = true,
+                OverrideClip = true,
+                OverrideClipLength = clipLength
             };
             return animData;
         }

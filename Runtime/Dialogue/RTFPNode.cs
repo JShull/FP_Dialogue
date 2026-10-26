@@ -433,13 +433,14 @@ namespace FuzzPhyte.Dialogue
         public float faceAnimSpeed = 1f;
         public AnimationClip bodyAnimation;
         public float bodyAnimSpeed = 1f;
-
+        public bool OverrideClip = false;
+        public float OverrideClipLength = 1f;
         public bool HasAudio => textAudio != null;
         public bool HasAnimation => faceAnimation != null;
         public bool HasBodyAnimation => bodyAnimation != null;
         public bool HasTextValue => !string.IsNullOrEmpty(dialogueText);
-       
-        public RTTalkNode(string index, RTFPNodePort outIndex, FP_Language theLanguage, string headText, string convoText, AudioClip textAudio = null, AnimationClip faceAnimation = null,float faceAnimationSpeed=1, AnimationClip bodyAnimation = null, float bodyAnimationSpeed = 1) : base(index)
+
+        public RTTalkNode(string index, RTFPNodePort outIndex, FP_Language theLanguage, string headText, string convoText, AudioClip textAudio = null, AnimationClip faceAnimation = null, float faceAnimationSpeed = 1, AnimationClip bodyAnimation = null, float bodyAnimationSpeed = 1, bool bodyOverride = false, float bodyOverrideLength = 1f) : base(index)
         {
             NodeType = "RTTalkNode";
             
@@ -452,7 +453,9 @@ namespace FuzzPhyte.Dialogue
             this.dialogueText = convoText;
             this.textAudio = textAudio;
             this.faceAnimation = faceAnimation;
-            this.bodyAnimation = bodyAnimation;  
+            this.bodyAnimation = bodyAnimation;
+            this.OverrideClip = bodyOverride;
+            this.OverrideClipLength = bodyOverrideLength;
         }
     }
 
