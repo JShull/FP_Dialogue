@@ -31,6 +31,10 @@ namespace FuzzPhyte.Dialogue.Editor
                 Debug.LogError($"Failed to load the FPDialogue Graph asset: {ctx.assetPath}");
                 return;
             }
+            else
+            {
+                Debug.LogWarning($"*********Loading FPDialogue Graph Asset:{ctx.assetPath}");
+            }
             // get start/entry node
             var entryNodeModel = graph.GetNodes().OfType<EntryNode>().FirstOrDefault();
             if (entryNodeModel==null)
