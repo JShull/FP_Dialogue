@@ -738,6 +738,11 @@ namespace FuzzPhyte.Dialogue
                         //Debug.Log($"Response {i}: node index: {nodeData.userIncomingPrompts[i].Index}");
                         var locationName = nodeData.userIncomingPrompts[i].spawnLocationID;
                         GameObject location = ReturnBinderObject(locationName);
+                        if (location == null || UserResponseUIPrefabItem == null)
+                        {
+                            Debug.LogError($"Cannot spawn dialogue response {i} at node {nodeData.Index}: lookup '{locationName}', location={(location ? location.name : "NULL")}, prefab={(UserResponseUIPrefabItem ? UserResponseUIPrefabItem.name : "NULL")}. Check the response prefab and exposed binder.", this);
+                            continue;
+                        }
                         if (UserResponseUIPrefabItem != null && location != null)
                         {
                             var aPromptButton = Instantiate(UserResponseUIPrefabItem, location.transform);

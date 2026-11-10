@@ -11,7 +11,7 @@ namespace FuzzPhyte.Dialogue
 {
     using UnityEngine;
     using System.Collections.Generic;
-    using System.Reflection;
+    using System.Globalization;
 
     /// <summary>
     /// Binder that holds and connects keys to runtime game objects for the graph dialogue
@@ -29,22 +29,48 @@ namespace FuzzPhyte.Dialogue
         {
             map[id] = value;
             var s = id.ToString();
-            var i = bindings.FindIndex(b => b.id == s);
+            var i = bindings.FindIndex(b => Matches(b.id, id));
             if (i < 0) bindings.Add(new FPBinding { id = s, obj = value });
             else { var b = bindings[i]; b.obj = value; bindings[i] = b; }
         }
         public Object GetReferenceValue(PropertyName id, out bool idValid)
         {
-            idValid = map.TryGetValue(id, out var v) ||
-                  (map[id] = bindings.Find(b => b.id == id.ToString()).obj) != null;
-            return map.TryGetValue(id, out var r) ? r : null;
+            if (map.TryGetValue(id, out var value))
+            {
+                idValid = value != null;
+                return value;
+            }
+            foreach (var binding in bindings)
+            {
+                if (!Matches(binding.id, id)) continue;
+                map[id] = binding.obj;
+                idValid = binding.obj != null;
+                return binding.obj;
+            }
+            // Do not cache a miss as a valid dictionary entry on the next lookup.
+            idValid = false;
+            return null;
         }
         public void ClearReferenceValue(PropertyName id)
         {
             map.Remove(id);
-            var s = id.ToString();
-            var i = bindings.FindIndex(b => b.id == s);
+            var i = bindings.FindIndex(b => Matches(b.id, id));
             if (i >= 0) bindings.RemoveAt(i);
+        }
+
+        private static bool Matches(string stored, PropertyName id)
+        {
+            if (string.IsNullOrEmpty(stored)) return false;
+            // Older scenes store PropertyName.ToString(): "Name:numericId".
+            // Players may return "Unknown:numericId" without the Editor reverse-name table.
+            // Compare the actual identity, keeping those existing serialized bindings intact.
+            var separator = stored.LastIndexOf(':');
+            if (separator >= 0 && int.TryParse(stored.Substring(separator + 1),
+                NumberStyles.Integer, CultureInfo.InvariantCulture, out var numericId))
+            {
+                return new PropertyName(numericId) == id;
+            }
+            return new PropertyName(stored) == id;
         }
         /// <summary>
         /// Ergonomic lookup with string and object

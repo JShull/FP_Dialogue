@@ -343,6 +343,12 @@ Use the editor utility window:
 
 This helps generate ids and bind scene objects so runtime systems can resolve references by id.
 
+Bindings resolve by `PropertyName` identity in both the Editor and Players. Older scenes that store
+`Name:numericId` remain supported even when a Player reports that identity as `Unknown:numericId`.
+Existing binder assignments do not need to be recreated. Plain string ids are also accepted.
+Missing world-response anchors or response prefabs log an error with the node and lookup name;
+they no longer silently omit the response UI.
+
 ## Recommended Authoring Pattern
 
 - Start with one `EntryNode` and one `GraphID`.

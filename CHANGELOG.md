@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Exposed bindings now compare `PropertyName` identities instead of the Editor-only diagnostic name. Existing `Name:numericId` scene bindings resolve in Players that report `Unknown:numericId`; no rebinding is required. Updating/clearing bindings uses the same comparison, and repeated missing lookups remain invalid. Missing world-response anchors or prefabs now log an actionable error instead of silently skipping UI.
+
 - [@JShull](https://github.com/jshull)
   - Marked transient dialogue event payloads, candidate paths, and runtime progression history as nonserialized to resolve Unity 6000.6 serialization analyzer warnings.
 
